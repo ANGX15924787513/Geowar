@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://c3a8nancvaijd"]
+
+[ext_resource type="PackedScene" uid="uid://b4cxtj8en4gsm" path="res://scenes/main/line.tscn" id="1_qq1rl"]
+[ext_resource type="Script" uid="uid://b8e8hdjkvm4w" path="res://forTest/static_body_2d.gd" id="2_0ia6y"]
+
+[node name="Node2D" type="Node2D" unique_id=1018341818]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=32559951]
+position = Vector2(746, 320)
+
+[node name="line" parent="RigidBody2D" unique_id=1323521407 instance=ExtResource("1_qq1rl")]
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="." unique_id=371380083]
+position = Vector2(828, 320)
+
+[node name="line" parent="RigidBody2D2" unique_id=1941095540 instance=ExtResource("1_qq1rl")]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=1806992326]
+position = Vector2(785, 320)
+node_a = NodePath("../RigidBody2D")
+node_b = NodePath("../RigidBody2D2")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=819883394]
+position = Vector2(659, 320)
+script = ExtResource("2_0ia6y")
+
+[node name="line" parent="StaticBody2D" unique_id=619513122 instance=ExtResource("1_qq1rl")]
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="." unique_id=1927304256]
+position = Vector2(702, 320)
+node_a = NodePath("../StaticBody2D")
+node_b = NodePath("../RigidBody2D")
