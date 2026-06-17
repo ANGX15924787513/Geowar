@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://hduyib3i4cgg"]
+
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="1_kilr5"]
+
+[resource]
+default_font = ExtResource("1_kilr5")
+default_font_size = 57

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://7di037xpitcs"
+path="res://.godot/imported/the weirdest year of your life - C418.wav-45b44b1413db47b14e13beed9aa1f8e2.sample"
+
+[deps]
+
+source_file="res://sounds/the weirdest year of your life - C418.wav"
+dest_files=["res://.godot/imported/the weirdest year of your life - C418.wav-45b44b1413db47b14e13beed9aa1f8e2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

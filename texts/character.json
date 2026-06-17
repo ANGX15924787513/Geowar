@@ -1,0 +1,16 @@
+{
+	"characters":[
+		{
+			"name":"点",
+			"description":"真就是点"
+		},
+		{
+			"name":"线",
+			"description":"一根筋"
+		},
+		{
+			"name":"多边形",
+			"description":"我靠"
+		}
+	]
+}

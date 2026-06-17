@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://tdhcyqaxbnl3"]
+
+[ext_resource type="Texture2D" uid="uid://dec7ilndm5gvd" path="res://texture/circle.svg" id="1_7nrif"]
+[ext_resource type="Script" uid="uid://c7ib1fh606kh1" path="res://scripts/mainGame/PointBullet.cs" id="1_dtifv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvhbo"]
+radius = 9.0
+
+[node name="point" type="CharacterBody2D" unique_id=1093187275]
+script = ExtResource("1_dtifv")
+speed = 1500.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1865378037]
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("1_7nrif")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=90984365]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1759221241]
+shape = SubResource("CircleShape2D_wvhbo")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

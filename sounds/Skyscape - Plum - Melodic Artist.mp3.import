@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b25eimdkrod48"
+path="res://.godot/imported/Skyscape - Plum - Melodic Artist.mp3-84c9a8c9daf43e24b4a7278e99e7ba30.mp3str"
+
+[deps]
+
+source_file="res://sounds/Skyscape - Plum - Melodic Artist.mp3"
+dest_files=["res://.godot/imported/Skyscape - Plum - Melodic Artist.mp3-84c9a8c9daf43e24b4a7278e99e7ba30.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

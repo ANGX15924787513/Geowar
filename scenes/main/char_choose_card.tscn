@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://lrp2pvwn6ve2"]
+
+[ext_resource type="Script" uid="uid://bbhvjew7dsjix" path="res://scripts/mainGame/CharChooseCard.cs" id="1_aeyky"]
+[ext_resource type="Script" uid="uid://c3imo0k7wu7rm" path="res://gdscripts/char_choose_card.gd" id="1_ysn4h"]
+[ext_resource type="PackedScene" uid="uid://c2nmfxmt2lov2" path="res://scenes/main/polygon.tscn" id="2_q30u0"]
+[ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="2_ysn4h"]
+[ext_resource type="PackedScene" uid="uid://bisulhj413ysb" path="res://scenes/main/player.tscn" id="4_tbrm8"]
+
+[sub_resource type="Gradient" id="Gradient_aeyky"]
+offsets = PackedFloat32Array(0, 0.7507003, 1)
+colors = PackedColorArray(0, 0, 0, 0.5058824, 1, 1, 1, 1, 0, 0, 0, 0.87058824)
+
+[node name="Control" type="Control" unique_id=1991212832]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ysn4h")
+showIcon = ExtResource("2_q30u0")
+
+[node name="charChooseCard" type="Line2D" parent="." unique_id=1561039027]
+points = PackedVector2Array(190, 14, 22, 14, 0, 31, 0, 438, 170, 438, 190, 412)
+closed = true
+gradient = SubResource("Gradient_aeyky")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 11
+antialiased = true
+script = ExtResource("1_aeyky")
+playerScene = ExtResource("4_tbrm8")
+
+[node name="nameLabel" type="Label" parent="charChooseCard" unique_id=1348620468]
+offset_left = 19.0
+offset_top = 23.0
+offset_right = 167.0
+offset_bottom = 78.0
+theme = ExtResource("2_ysn4h")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.30980393)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 50
+text = "name"
+horizontal_alignment = 1
+
+[node name="descriptionLabel" type="Label" parent="charChooseCard" unique_id=338403598]
+custom_maximum_size = Vector2(170.355, -1)
+offset_left = 9.0
+offset_top = 79.0
+offset_right = 179.355
+offset_bottom = 226.0
+theme = ExtResource("2_ysn4h")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.30980393)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 19
+text = "description"
+autowrap_mode = 1
+
+[node name="Button" type="Button" parent="charChooseCard" unique_id=78528634]
+offset_left = 15.0
+offset_top = 345.0
+offset_right = 177.0
+offset_bottom = 425.0
+theme = ExtResource("2_ysn4h")
+theme_override_colors/font_color = Color(0.7411765, 1, 1, 1)
+text = "选择"
+flat = true
+
+[node name="Icon" type="Control" parent="charChooseCard" unique_id=502904421]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = 251.0
+offset_right = 142.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="charChooseCard/Button" to="charChooseCard" method="_on_button_pressed"]

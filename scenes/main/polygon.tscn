@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://c2nmfxmt2lov2"]
+
+[ext_resource type="Script" uid="uid://dygac78e354lb" path="res://scripts/mainGame/PolygonSync.cs" id="1_0o177"]
+[ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_dtqjw"]
+
+[sub_resource type="Animation" id="Animation_0o177"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:polygon")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-26, -45, -58, 15, 48, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_dtqjw"]
+resource_name = "in_card_show"
+length = 4.0666666
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:polygon")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.6, 0.9, 1.2666667, 1.6, 2.0666666, 2.54, 2.9, 3.3333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-26, -45, -58, 47, 67, 3), PackedVector2Array(-26, -45, -58, 15, 48, 27), PackedVector2Array(17, -25, -58, 15, 20, 34), PackedVector2Array(17, -25, -19, 32, -50, -16), PackedVector2Array(27, 36, -26, 25, -31, -17), PackedVector2Array(-1, 34, 25, -13, -31, -17), PackedVector2Array(-26, -45, -58, 47, 67, 3), PackedVector2Array(-25, -37, -56, 29, 36, 21, 47, -31), PackedVector2Array(-26, -45, -58, 47, 67, 3, 67, 3), PackedVector2Array(17, 31, -54, 19, -34, -20, 65, -17)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ikmi0"]
+_data = {
+&"RESET": SubResource("Animation_0o177"),
+&"in_card_show": SubResource("Animation_dtqjw")
+}
+
+[node name="polygon" type="CollisionPolygon2D" unique_id=360988554]
+polygon = PackedVector2Array(-26, -45, -58, 15, 48, 27)
+script = ExtResource("1_0o177")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1137318781]
+polygons = [null]
+script = ExtResource("2_dtqjw")
+corner_radius = 5
+metadata/_custom_type_script = "uid://gdsdtd32sye5"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=426619924]
+libraries/ = SubResource("AnimationLibrary_ikmi0")

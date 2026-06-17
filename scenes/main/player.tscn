@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bisulhj413ysb"]
+
+[ext_resource type="Script" uid="uid://bmxbsvr3fti1v" path="res://scripts/mainGame/Player.cs" id="1_2gs60"]
+[ext_resource type="PackedScene" uid="uid://bs6v1ykgc51iw" path="res://scenes/main/point.tscn" id="2_wqvcu"]
+[ext_resource type="PackedScene" uid="uid://b4cxtj8en4gsm" path="res://scenes/main/line.tscn" id="3_2hlsy"]
+[ext_resource type="PackedScene" uid="uid://c2nmfxmt2lov2" path="res://scenes/main/polygon.tscn" id="4_wqvcu"]
+[ext_resource type="PackedScene" uid="uid://tdhcyqaxbnl3" path="res://scenes/main/point_bullet.tscn" id="5_2hlsy"]
+
+[node name="player" type="CharacterBody2D" unique_id=1291262023]
+script = ExtResource("1_2gs60")
+typeOfPlayer = Array[PackedScene]([ExtResource("2_wqvcu"), ExtResource("3_2hlsy"), ExtResource("4_wqvcu")])
+moveSpeed = 700.0
+pointScene = ExtResource("5_2hlsy")
+metadata/_custom_type_script = "uid://c5qpdmvd63ugb"
+
+[node name="bulletSummonPoint" type="Node2D" parent="." unique_id=1727717690]
+position = Vector2(100, 0)

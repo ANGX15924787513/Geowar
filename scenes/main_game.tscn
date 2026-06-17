@@ -1,0 +1,288 @@
+[gd_scene format=3 uid="uid://c8gl7y4f8qd2g"]
+
+[ext_resource type="Script" uid="uid://dyvmom5coralf" path="res://gdscripts/choose_char.gd" id="1_0rdsr"]
+[ext_resource type="PackedScene" uid="uid://lrp2pvwn6ve2" path="res://scenes/main/char_choose_card.tscn" id="1_s3esy"]
+[ext_resource type="PackedScene" uid="uid://bs6v1ykgc51iw" path="res://scenes/main/point.tscn" id="2_0rdsr"]
+[ext_resource type="PackedScene" uid="uid://031uwwwvntmg" path="res://scenes/main/camera.tscn" id="2_ipu61"]
+[ext_resource type="PackedScene" uid="uid://b4cxtj8en4gsm" path="res://scenes/main/line.tscn" id="3_ipu61"]
+[ext_resource type="AudioStream" uid="uid://7di037xpitcs" path="res://sounds/the weirdest year of your life - C418.wav" id="6_ygxny"]
+
+[sub_resource type="Animation" id="Animation_s3esy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HFlowContainer:theme_override_constants/h_separation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [483]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../charChoosingBGMusic:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../TextureRect:texture:gradient:colors")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedColorArray(0, 0, 0, 1, 0.8776157, 0.8776158, 0.8776157, 1, 0, 0, 0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../TextureRect:texture:gradient:offsets")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.268, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_d2op2"]
+resource_name = "card_out"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HFlowContainer:theme_override_constants/h_separation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [361, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25999996, 0.41, 0.66999996),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -550)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6333333, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"summon_camera"
+}, {
+"args": [],
+"method": &"destroy"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../charChoosingBGMusic:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.45033243, 0.64),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../TextureRect:texture:gradient:offsets")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.52, 0.9, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.596, 1), PackedFloat32Array(0, 0.212, 0.268, 0.32, 1), PackedFloat32Array(0, 0.88, 0.908, 0.952, 1), PackedFloat32Array(0.316, 0.788)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../TextureRect:texture:gradient:colors")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.41, 0.52, 0.9, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedColorArray(0, 0, 0, 1, 0.19554508, 0.1955452, 0.1955449, 1, 0, 0, 0, 1), PackedColorArray(0, 0, 0, 1, 0.19554508, 0.1955452, 0.1955449, 1, 0, 0, 0, 1), PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1), PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1), PackedColorArray(0.32667935, 0.32667953, 0.32667947, 1, 0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_72e8q"]
+resource_name = "card_start"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HFlowContainer:theme_override_constants/h_separation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.71487325, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [579, 219, 361]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TextureRect:texture:gradient:colors")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.83),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [PackedColorArray(0, 0, 0, 1, 0.8776157, 0.8776158, 0.8776157, 1, 0, 0, 0, 1), PackedColorArray(0, 0, 0, 1, 0.19554508, 0.19554517, 0.1955449, 1, 0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d2op2"]
+_data = {
+&"RESET": SubResource("Animation_s3esy"),
+&"card_out": SubResource("Animation_d2op2"),
+&"card_start": SubResource("Animation_72e8q")
+}
+
+[sub_resource type="Gradient" id="Gradient_wi4c7"]
+offsets = PackedFloat32Array(0, 0.268, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.8776157, 0.8776158, 0.8776157, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wvhbo"]
+gradient = SubResource("Gradient_wi4c7")
+fill_to = Vector2(0.83815026, 0.69942194)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvhbo"]
+size = Vector2(40, 40)
+
+[sub_resource type="Gradient" id="Gradient_ygxny"]
+offsets = PackedFloat32Array(0, 0.13934426, 0.25409836, 0.3852459, 0.53688526, 0.7909836, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0.13319641, 0.13319641, 0.13319638, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+
+[node name="mainGame" type="Node2D" unique_id=1560239308]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=310720466]
+root_node = NodePath("../chooseChar")
+libraries/ = SubResource("AnimationLibrary_d2op2")
+autoplay = &"card_start"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=65408965]
+offset_left = -4134.0
+offset_top = -2973.0
+offset_right = 5145.0
+offset_bottom = 3118.0
+texture = SubResource("GradientTexture2D_wvhbo")
+
+[node name="chooseChar" type="Node2D" parent="." unique_id=1814095939]
+script = ExtResource("1_0rdsr")
+camera = ExtResource("2_ipu61")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="chooseChar" unique_id=1887849861]
+offset_left = -461.0
+offset_top = 13.0
+offset_right = 1404.0
+offset_bottom = 457.0
+theme_override_constants/h_separation = 483
+alignment = 1
+last_wrap_alignment = 2
+
+[node name="charChooseCard" parent="chooseChar/HFlowContainer" unique_id=1139591120 instance=ExtResource("1_s3esy")]
+layout_mode = 2
+showIcon = ExtResource("2_0rdsr")
+
+[node name="charChooseCard2" parent="chooseChar/HFlowContainer" unique_id=1561039027 instance=ExtResource("1_s3esy")]
+layout_mode = 2
+showIcon = ExtResource("3_ipu61")
+
+[node name="charChooseCard3" parent="chooseChar/HFlowContainer" unique_id=82524728 instance=ExtResource("1_s3esy")]
+layout_mode = 2
+
+[node name="Wall" type="Node2D" parent="." unique_id=1240664757]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall" unique_id=1599317647]
+position = Vector2(-1724, -1049)
+scale = Vector2(1, 54.600014)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D" unique_id=99645391]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_wvhbo")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Wall" unique_id=15227499]
+position = Vector2(-1724, -1049)
+scale = Vector2(109.56, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D3" unique_id=1136812128]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_wvhbo")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Wall" unique_id=327873256]
+position = Vector2(-1724, 1095)
+scale = Vector2(109.56, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D4" unique_id=952673298]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_wvhbo")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Wall" unique_id=1554547865]
+position = Vector2(2630, -1049)
+scale = Vector2(1, 54.600014)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D2" unique_id=719680492]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_wvhbo")
+
+[node name="Line2D" type="Line2D" parent="Wall" unique_id=1441219329]
+points = PackedVector2Array(-1719, -1052, -1724, 1136, 2671, 1136, 2670, -1048)
+closed = true
+width = 60.88
+default_color = Color(0, 0, 0, 1)
+gradient = SubResource("Gradient_ygxny")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 32
+
+[node name="charChoosingBGMusic" type="AudioStreamPlayer" parent="." unique_id=1353736164]
+stream = ExtResource("6_ygxny")
+autoplay = true
