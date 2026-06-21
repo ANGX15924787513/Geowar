@@ -2,7 +2,6 @@ using Godot;
 
 public partial class CharChooseCard : Line2D
 {
-	[Export] PackedScene playerScene;
 	private Label nameLabel;
 	private Label descriptionLabel;
 	private Button Button;
@@ -43,6 +42,6 @@ public partial class CharChooseCard : Line2D
 		gameManager.playerType =  (GameManager.PlayerType)indexInContainer;
 		animationPlayer.Play("card_out");
 		gameManager.charChose = true;
-		gameManager.SummonPlayer(playerScene,GetTree());
+		gameManager.SummonPlayer(GetTree());
 	}
 }

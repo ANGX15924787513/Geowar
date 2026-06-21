@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dyvmom5coralf" path="res://gdscripts/choose_char.gd" id="1_0rdsr"]
 [ext_resource type="PackedScene" uid="uid://lrp2pvwn6ve2" path="res://scenes/main/char_choose_card.tscn" id="1_s3esy"]
-[ext_resource type="PackedScene" uid="uid://bs6v1ykgc51iw" path="res://scenes/main/point.tscn" id="2_0rdsr"]
-[ext_resource type="PackedScene" uid="uid://031uwwwvntmg" path="res://scenes/main/camera.tscn" id="2_ipu61"]
 [ext_resource type="PackedScene" uid="uid://b4cxtj8en4gsm" path="res://scenes/main/line.tscn" id="3_ipu61"]
+[ext_resource type="PackedScene" uid="uid://bdrf0bxwdb48d" path="res://scenes/main/point/pointPlayer.tscn" id="4_ygxny"]
 [ext_resource type="AudioStream" uid="uid://7di037xpitcs" path="res://sounds/the weirdest year of your life - C418.wav" id="6_ygxny"]
 
 [sub_resource type="Animation" id="Animation_s3esy"]
@@ -104,12 +103,9 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.6333333, 0.6666667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.6666667),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"summon_camera"
-}, {
 "args": [],
 "method": &"destroy"
 }]
@@ -214,11 +210,13 @@ offset_right = 5145.0
 offset_bottom = 3118.0
 texture = SubResource("GradientTexture2D_wvhbo")
 
-[node name="chooseChar" type="Node2D" parent="." unique_id=1814095939]
+[node name="chooseChar" type="Control" parent="." unique_id=1742858920]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_0rdsr")
-camera = ExtResource("2_ipu61")
 
 [node name="HFlowContainer" type="HFlowContainer" parent="chooseChar" unique_id=1887849861]
+layout_mode = 0
 offset_left = -461.0
 offset_top = 13.0
 offset_right = 1404.0
@@ -229,7 +227,7 @@ last_wrap_alignment = 2
 
 [node name="charChooseCard" parent="chooseChar/HFlowContainer" unique_id=1139591120 instance=ExtResource("1_s3esy")]
 layout_mode = 2
-showIcon = ExtResource("2_0rdsr")
+showIcon = ExtResource("4_ygxny")
 
 [node name="charChooseCard2" parent="chooseChar/HFlowContainer" unique_id=1561039027 instance=ExtResource("1_s3esy")]
 layout_mode = 2

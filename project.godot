@@ -40,6 +40,10 @@ project/assembly_name="Geowar"
 
 enabled=PackedStringArray("res://addons/RoundedPolygon2D/plugin.cfg", "res://addons/easytransition/plugin.cfg", "res://addons/rider-plugin/plugin.cfg")
 
+[global_group]
+
+player="玩家碰撞体"
+
 [input]
 
 player_up={

@@ -7,5 +7,6 @@ func _ready() -> void:
 		return
 	var icon: Node = showIcon.instantiate()
 	var iconAni:AnimationPlayer = icon.get_node("AnimationPlayer")
-	iconAni.play("in_card_show")
+	if iconAni != null:
+		iconAni.play("in_card_show")
 	$charChooseCard/Icon.add_child(icon)

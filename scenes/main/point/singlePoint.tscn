@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://crdufn10ly8us"]
+
+[ext_resource type="Script" uid="uid://qr2gvpaeiioj" path="res://scripts/mainGame/PointSync.cs" id="1_i68q0"]
+[ext_resource type="Texture2D" uid="uid://dec7ilndm5gvd" path="res://texture/circle.svg" id="2_iy5o8"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_iy5o8"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_cfamt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.28571433), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xeava"]
+curve = SubResource("Curve_cfamt")
+
+[sub_resource type="Curve" id="Curve_iy5o8"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 111.27818), 0.0, 0.0, 0, 0, Vector2(1, 200), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_iy5o8"]
+curve = SubResource("Curve_iy5o8")
+
+[sub_resource type="Gradient" id="Gradient_iy5o8"]
+offsets = PackedFloat32Array(0, 0.3559322)
+colors = PackedColorArray(1, 1, 1, 1, 0.3254902, 0.6392157, 0.85490197, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2gt7a"]
+gradient = SubResource("Gradient_iy5o8")
+
+[sub_resource type="Curve" id="Curve_qixb7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6276277, 0.7177033), -0.8892841, -0.8892841, 0, 0, Vector2(0.9099099, 0.37320566), -1.6287085, -1.6287085, 0, 0, Vector2(1, 0.16541362), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_cfamt"]
+curve = SubResource("Curve_qixb7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wvhbo"]
+lifetime_randomness = 0.25
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.81
+velocity_pivot = Vector3(1, 0, 0)
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 61.379997
+gravity = Vector3(-98, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+scale_min = 0.089999996
+scale_max = 0.089999996
+scale_curve = SubResource("CurveTexture_cfamt")
+color_ramp = SubResource("GradientTexture1D_2gt7a")
+alpha_curve = SubResource("CurveTexture_xeava")
+anim_speed_curve = SubResource("CurveTexture_iy5o8")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iy5o8"]
+radius = 20.25
+
+[node name="SinglePoint" type="RigidBody2D" unique_id=726211025 groups=["player"]]
+gravity_scale = 0.0
+script = ExtResource("1_i68q0")
+"缩放关系" = 225.0
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=484678735]
+material = SubResource("CanvasItemMaterial_iy5o8")
+amount = 200
+texture = ExtResource("2_iy5o8")
+lifetime = 0.3
+randomness = 0.14
+process_material = SubResource("ParticleProcessMaterial_wvhbo")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2117185343]
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("2_iy5o8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=599396763]
+shape = SubResource("CircleShape2D_iy5o8")

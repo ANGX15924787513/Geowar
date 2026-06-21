@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bdrf0bxwdb48d"]
+
+[ext_resource type="Script" uid="uid://cbqf2iphpknmu" path="res://scripts/mainGame/PointPlayer.cs" id="1_puuut"]
+[ext_resource type="PackedScene" uid="uid://crdufn10ly8us" path="res://scenes/main/point/singlePoint.tscn" id="2_2gt7a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvhbo"]
+radius = 1.0
+
+[node name="PointPlayer" type="RigidBody2D" unique_id=1990390882]
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_puuut")
+pointCount = 3
+circleRadius = 50.0
+singlePointScene = ExtResource("2_2gt7a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1571198516]
+shape = SubResource("CircleShape2D_wvhbo")
