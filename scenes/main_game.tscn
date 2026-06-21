@@ -103,9 +103,12 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.6666667),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.6333333, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"emit_card_out"
+}, {
 "args": [],
 "method": &"destroy"
 }]
@@ -189,8 +192,20 @@ colors = PackedColorArray(0, 0, 0, 1, 0.8776157, 0.8776158, 0.8776157, 1, 0, 0, 
 gradient = SubResource("Gradient_wi4c7")
 fill_to = Vector2(0.83815026, 0.69942194)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvhbo"]
-size = Vector2(40, 40)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ygxny"]
+normal = Vector2(1, 0)
+distance = 11.56
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ipu61"]
+normal = Vector2(0, 1)
+distance = 8.05
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wi4c7"]
+distance = 9.45
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_70vka"]
+normal = Vector2(-1, 0)
+distance = 9.15
 
 [sub_resource type="Gradient" id="Gradient_ygxny"]
 offsets = PackedFloat32Array(0, 0.13934426, 0.25409836, 0.3852459, 0.53688526, 0.7909836, 1)
@@ -238,37 +253,37 @@ layout_mode = 2
 
 [node name="Wall" type="Node2D" parent="." unique_id=1240664757]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Wall" unique_id=1599317647]
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall" unique_id=1599317647 groups=["wall"]]
 position = Vector2(-1724, -1049)
 scale = Vector2(1, 54.600014)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D" unique_id=99645391]
 position = Vector2(20, 20)
-shape = SubResource("RectangleShape2D_wvhbo")
+shape = SubResource("WorldBoundaryShape2D_ygxny")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="Wall" unique_id=15227499]
+[node name="StaticBody2D3" type="StaticBody2D" parent="Wall" unique_id=15227499 groups=["wall"]]
 position = Vector2(-1724, -1049)
 scale = Vector2(109.56, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D3" unique_id=1136812128]
 position = Vector2(20, 20)
-shape = SubResource("RectangleShape2D_wvhbo")
+shape = SubResource("WorldBoundaryShape2D_ipu61")
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="Wall" unique_id=327873256]
+[node name="StaticBody2D4" type="StaticBody2D" parent="Wall" unique_id=327873256 groups=["wall"]]
 position = Vector2(-1724, 1095)
 scale = Vector2(109.56, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D4" unique_id=952673298]
 position = Vector2(20, 20)
-shape = SubResource("RectangleShape2D_wvhbo")
+shape = SubResource("WorldBoundaryShape2D_wi4c7")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="Wall" unique_id=1554547865]
+[node name="StaticBody2D2" type="StaticBody2D" parent="Wall" unique_id=1554547865 groups=["wall"]]
 position = Vector2(2630, -1049)
 scale = Vector2(1, 54.600014)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D2" unique_id=719680492]
 position = Vector2(20, 20)
-shape = SubResource("RectangleShape2D_wvhbo")
+shape = SubResource("WorldBoundaryShape2D_70vka")
 
 [node name="Line2D" type="Line2D" parent="Wall" unique_id=1441219329]
 points = PackedVector2Array(-1719, -1052, -1724, 1136, 2671, 1136, 2670, -1048)

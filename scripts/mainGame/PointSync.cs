@@ -5,8 +5,19 @@ public partial class PointSync : RigidBody2D
 	Sprite2D sprite;
 	CollisionShape2D collisionShape2D;
 	GpuParticles2D gpuParticles2D;
-	[Export] private float 缩放关系;
-	[Export] private float size = 0.09f;
+	[Export] private float 缩放关系 = 225f;
+	[Export] private float size = 0.09f; 
+	[Export] private float bulletSpeed = 4f;
+	[Export] private int attackHP = 1;
+	bool bulletInitalized;
+
+	public enum PointType
+	{
+		CIRCLE,
+		BULLET
+	}
+	public PointType pointType;
+	
 	public override void _Ready()
 	{
 		sprite = GetNode<Sprite2D>("Sprite2D");
@@ -18,6 +29,36 @@ public partial class PointSync : RigidBody2D
 	public override void _Process(double delta)
 	{
 		SyncScale();
+		UpdatePointType();
+		if (pointType == PointType.BULLET)
+		{
+			if (!bulletInitalized)
+			{
+				InitalizeBullet();
+				bulletInitalized = true;
+			}
+		}
+	}
+
+	private void InitalizeBullet()
+	{
+		Area2D area = new Area2D();
+		area.AddChild(collisionShape2D.Duplicate());
+		area.BodyEntered += OnBodyEntered;
+		AddChild(area);
+		LinearVelocity = bulletSpeed * LinearVelocity;
+	}
+
+	private void OnBodyEntered(Node2D body)
+	{
+		GD.Print($"子弹创到:{body.Name}");
+		if (body.IsInGroup("wall"))
+		{
+			QueueFree();
+		}else if (body.IsInGroup("enemy"))
+		{
+			((Enemy)body).hp -= attackHP;
+		}
 	}
 
 	private void SyncScale()
@@ -26,5 +67,10 @@ public partial class PointSync : RigidBody2D
 		sprite.Scale = vector2Scale;
 		((ParticleProcessMaterial)gpuParticles2D.ProcessMaterial).Scale = vector2Scale;
 		((CircleShape2D)collisionShape2D.Shape).Radius = 缩放关系 * sprite.Scale.X;
+	}
+
+	private void UpdatePointType()
+	{
+		pointType = GetParent().IsInGroup("pointController") ? PointType.CIRCLE : PointType.BULLET;
 	}
 }

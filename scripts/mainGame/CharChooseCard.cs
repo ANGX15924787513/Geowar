@@ -42,6 +42,6 @@ public partial class CharChooseCard : Line2D
 		gameManager.playerType =  (GameManager.PlayerType)indexInContainer;
 		animationPlayer.Play("card_out");
 		gameManager.charChose = true;
-		gameManager.SummonPlayer(GetTree());
+		gameManager.SummonPlayer(GetNode<Control>("Icon").GlobalPosition,GetTree());
 	}
 }

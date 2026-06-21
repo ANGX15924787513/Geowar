@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ruwqfk8wsxbk"]
 
 [ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="1_ekxnf"]
+[ext_resource type="Script" uid="uid://mkpii2byl06m" path="res://scripts/mainMenu/MainMenuRoot.cs" id="1_jk1qb"]
 [ext_resource type="Script" uid="uid://b470cy4afgd0n" path="res://gdscripts/mainMenu/line_destroy.gd" id="1_l6cm7"]
 [ext_resource type="Script" uid="uid://b757ugdocq7vv" path="res://scripts/mainMenu/Title.cs" id="2_tbmy8"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="3_bqqt6"]
@@ -416,6 +417,7 @@ _data = {
 }
 
 [node name="mainMenu" type="Node2D" unique_id=1560239308]
+script = ExtResource("1_jk1qb")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1157166762]
 offset_left = -1812.0

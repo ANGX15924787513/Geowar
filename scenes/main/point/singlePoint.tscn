@@ -63,11 +63,10 @@ radius = 20.25
 [node name="SinglePoint" type="RigidBody2D" unique_id=726211025 groups=["player"]]
 gravity_scale = 0.0
 script = ExtResource("1_i68q0")
-"缩放关系" = 225.0
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=484678735]
 material = SubResource("CanvasItemMaterial_iy5o8")
-amount = 200
+amount = 30
 texture = ExtResource("2_iy5o8")
 lifetime = 0.3
 randomness = 0.14

@@ -12,10 +12,11 @@ public partial class GameManager : Node
         GAME_OVER,
         GAME_PAUSED
     }
-    public GameState gameState;
+    [Export] public GameState gameState;
     public bool charChose { get; set; } = false;
     public float playerSpeed = 500f;
     public float playerRotateSpeed = 1f;
+    public float playerRebornTime = 0.2f;
     
     public enum PlayerType
     {
@@ -27,6 +28,8 @@ public partial class GameManager : Node
     public int playerTypeCount = 3;
     
     public List<PackedScene> playerScene;
+    
+    public SignalManager signalManager;
 
     public override void _Ready()
     {
@@ -36,18 +39,21 @@ public partial class GameManager : Node
             GD.Load<PackedScene>("res://scenes/main/line/linePlayer.tscn"), //Line
             GD.Load<PackedScene>("res://scenes/main/polygon/polygonPlayer.tscn") //Polygon
         ];
+        signalManager = GetNode<SignalManager>("/root/SignalManager");
     }
 
-    public void SummonPlayer(SceneTree tree)
+    public void SummonPlayer(Vector2 position,SceneTree tree)
     {
         if (playerScene.Count == 0)
         {
             _Ready();
         }
         var player = (Node2D)playerScene[(int)playerType].Instantiate();
-        Camera2D camera = new Camera2D();
-        camera.PositionSmoothingEnabled = true;
-        player.AddChild(camera);
+        player.GlobalPosition = position;
         tree.CurrentScene.AddChild(player);
+        // Camera2D camera = new Camera2D();
+        // camera.PositionSmoothingEnabled = true;
+        // player.AddChild(camera);
+        gameState = GameState.GAMING;
     }
 }

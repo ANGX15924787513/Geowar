@@ -6,3 +6,9 @@ func destroy():
 func _ready() -> void:
 	if GameManager.charChose == true:
 		destroy()
+		return
+	GameManager.gameState = 1
+	
+func emit_card_out():
+	SignalManager.OnCardOut.emit()
+	print("emit card out")
