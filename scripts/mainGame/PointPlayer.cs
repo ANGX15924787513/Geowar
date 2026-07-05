@@ -8,22 +8,29 @@ public partial class PointPlayer : RigidBody2D
 	[Export] private float circleRadius;
 	[Export] private PackedScene singlePointScene;
 	[Export] private float pullStrenth = 2f;
-	[Export] private Vector2 worldBoundaryX = new(-1688f, 2640f);
-	[Export] private Vector2 worldBoundaryY = new(-1022f, 1104f);
 	[Export] private float fireRotateSpeed = 3f;
+	[Export] private int HP = 78;
 
-	private int _currentPointCount;  // 运行时实时点数（发射 -1，重生 +1）
+	private int _currentPointCount;  // 运行时实时点数（发射 -1）
 	private float _fireRotationTimer;
-	private float _rebornTimer;
+	private int _hp;
 	GameManager gameManager;
 	SignalManager signalManager;
 	public override void _Ready()
 	{
+		_hp = HP;
 		SummonPoints();
 		gameManager = GetNode<GameManager>("/root/GameManager");
 		signalManager = GetNode<SignalManager>("/root/SignalManager");
 		signalManager.OnCardOut += AddCamera;
+		signalManager.OnBulletDestroyed += SpawnPoint;
 	}
+
+		public override void _ExitTree()
+		{
+			signalManager.OnCardOut -= AddCamera;
+			signalManager.OnBulletDestroyed -= SpawnPoint;
+		}
 
 	public override void _Process(double delta)
 	{
@@ -32,36 +39,9 @@ public partial class PointPlayer : RigidBody2D
 		{
 			_fireRotationTimer -= (float)delta;
 		}
-		if (_currentPointCount < pointCount) // 只有在点数不足时才处理重生
-		{
-			if (_rebornTimer > 0f)
-			{
-				_rebornTimer -= (float)delta; // 倒计时
-			}
-			else
-			{
-				// 生成新点
-				var newPoint = singlePointScene.Instantiate();
-				AddChild(newPoint);
-				_currentPointCount++;
-				// 如果还没满，重新设置计时器
-				if (_currentPointCount < pointCount)
-				{
-					_rebornTimer = gameManager.playerRebornTime;
-				}
-				else
-				{
-					_rebornTimer = 0f; // 已满，不再计时
-				}
-			}
-		}
 		if (CanMove())
 		{
 			Move(delta);
-		}
-		else
-		{
-			ReturnToSafeArea();
 		}
 
 		if (canLaunchBullet())
@@ -90,7 +70,6 @@ public partial class PointPlayer : RigidBody2D
 		bullet.GlobalPosition = bulletGlobalPos;
 		bullet.LinearVelocity = GetGlobalMousePosition() - bullet.GlobalPosition;
 		_fireRotationTimer = 0.5f;
-		_rebornTimer = gameManager.playerRebornTime;
 	}
 
 	private RigidBody2D GetClosestPoint(Array<RigidBody2D> points, Vector2 tangentPoint)
@@ -186,6 +165,17 @@ public partial class PointPlayer : RigidBody2D
 		}
 	}
 
+	/// <summary>
+	/// 生成一个点补充到圆圈末尾。外部调用（如吃道具、击杀奖励等）。
+	/// </summary>
+	private void SpawnPoint()
+	{
+		RigidBody2D newPoint = (RigidBody2D)singlePointScene.Instantiate();
+		newPoint.Position = GetPositionInCircle(_currentPointCount);
+		_currentPointCount++;
+		CallDeferred(Node.MethodName.AddChild, newPoint);
+	}
+
 	private void Move(double delta)
 	{
 		Vector2 velocity = gameManager.playerSpeed * Input.GetVector(
@@ -213,46 +203,8 @@ public partial class PointPlayer : RigidBody2D
 	private bool CanMove()
 	{
 		if (
-			gameManager.gameState == GameManager.GameState.GAMING &&
-		    IsInSafeArea()
+			gameManager.gameState == GameManager.GameState.GAMING
 		    )
-		{
-			return true;
-		}
-		return false;
-	}
-
-	private void ReturnToSafeArea()
-	{
-		// Vector2 linearVelocity = new Vector2();
-		if (Position.X < worldBoundaryX.X)
-		{
-			Position = Position with { X = worldBoundaryX.X };
-			// linearVelocity = new Vector2(worldBoundaryX.X - Position.X, 0);
-		}else if (Position.X > worldBoundaryX.Y)
-		{
-			Position = Position with { X = worldBoundaryX.Y };
-			// linearVelocity = new Vector2(worldBoundaryX.Y - Position.X, 0);
-		}else if (Position.Y < worldBoundaryY.X)
-		{
-			Position = Position with { Y = worldBoundaryY.X };
-			// linearVelocity = new Vector2(0, worldBoundaryY.X - Position.Y);
-		}else if (Position.Y > worldBoundaryY.Y)
-		{
-			Position = Position with { Y = worldBoundaryY.Y };
-			// linearVelocity = new Vector2(0, worldBoundaryY.Y - Position.Y);
-		}
-		// LinearVelocity = pullStrenth * linearVelocity;
-	}
-
-	private bool IsInSafeArea()
-	{
-		if (
-			Position.X >= worldBoundaryX.X &&
-			Position.X <= worldBoundaryX.Y &&
-			Position.Y >= worldBoundaryY.X &&
-			Position.Y <= worldBoundaryY.Y
-		)
 		{
 			return true;
 		}
@@ -264,5 +216,21 @@ public partial class PointPlayer : RigidBody2D
 		Camera2D camera = new Camera2D();
 		camera.PositionSmoothingEnabled = true;
 		AddChild(camera);
+	}
+
+	public void gotHurt(int damage)
+	{
+		if (damage <= 0)
+		{
+			return;
+		}
+		if (damage > _hp)
+		{
+			_hp = 0;
+		}
+		else
+		{
+			_hp -= damage;
+		}
 	}
 }

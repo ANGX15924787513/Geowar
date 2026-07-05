@@ -9,7 +9,11 @@ public partial class PointSync : RigidBody2D
 	[Export] private float size = 0.09f; 
 	[Export] private float bulletSpeed = 4f;
 	[Export] private int attackHP = 1;
+	[Export] private Color bulletColor;
 	bool bulletInitalized;
+	private bool _isDestroyed;  // 防止重复触发 Destroy
+	private Vector2 flySpeed;
+	private SignalManager signalManager;
 
 	public enum PointType
 	{
@@ -20,6 +24,7 @@ public partial class PointSync : RigidBody2D
 	
 	public override void _Ready()
 	{
+		signalManager = GetNode<SignalManager>("/root/SignalManager");
 		sprite = GetNode<Sprite2D>("Sprite2D");
 		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
@@ -37,6 +42,10 @@ public partial class PointSync : RigidBody2D
 				InitalizeBullet();
 				bulletInitalized = true;
 			}
+			else
+			{
+				LinearVelocity = flySpeed;
+			}
 		}
 	}
 
@@ -47,6 +56,8 @@ public partial class PointSync : RigidBody2D
 		area.BodyEntered += OnBodyEntered;
 		AddChild(area);
 		LinearVelocity = bulletSpeed * LinearVelocity;
+		flySpeed = LinearVelocity;
+		((PointParticle)GetNode<GpuParticles2D>("GPUParticles2D")).color = bulletColor;
 	}
 
 	private void OnBodyEntered(Node2D body)
@@ -54,10 +65,18 @@ public partial class PointSync : RigidBody2D
 		GD.Print($"子弹创到:{body.Name}");
 		if (body.IsInGroup("wall"))
 		{
-			QueueFree();
+			Destroy();
 		}else if (body.IsInGroup("enemy"))
 		{
-			((Enemy)body).hp -= attackHP;
+			((Enemy)body).Health -= attackHP;
+			Destroy();
+		}
+		void Destroy()
+		{
+			if (_isDestroyed) return;
+			_isDestroyed = true;
+			signalManager.EmitSignal("OnBulletDestroyed");
+			QueueFree();
 		}
 	}
 

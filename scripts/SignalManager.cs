@@ -3,6 +3,6 @@ using System;
 
 public partial class SignalManager : Node
 {
-    [Signal] 
-    public delegate void OnCardOutEventHandler();
+    [Signal] public delegate void OnCardOutEventHandler();
+    [Signal] public delegate void OnBulletDestroyedEventHandler();
 }
