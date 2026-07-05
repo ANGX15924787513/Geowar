@@ -1,60 +1,79 @@
 using Godot;
-using System;
 
-public partial class Player : CharacterBody2D//这个节点没用
+public partial class Player : RigidBody2D
 {
-	[Export]
-	private PackedScene[] typeOfPlayer; //1.点 2.线 3.多边形
-	private AnimationPlayer animationPlayer;
-	[Export]
-	private float moveSpeed = 200f;
-	[Export] private PackedScene pointScene;
-	[Export] float fireRate = 0.1f;
-	GameManager gameManager;
-	
-	float _fireRate = 0f;
+	[Export] public int HP = 78;
+
+	public GameManager gameManager;
+	public SignalManager signalManager;
+
+	protected int _hp;
+	protected float _fireRotationTimer;
+	private bool _isDead;
 
 	public override void _Ready()
 	{
+		_hp = HP;
 		gameManager = GetNode<GameManager>("/root/GameManager");
-		AddChild(typeOfPlayer[(int)gameManager.playerType].Instantiate());
+		signalManager = GetNode<SignalManager>("/root/SignalManager");
+		signalManager.OnCardOut += AddCamera;
+		signalManager.OnPlayerDied += OnDie;
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public override void _ExitTree()
 	{
-		Vector2 vec = Input.GetVector("player_left","player_right","player_up","player_down");
-		Velocity = vec * moveSpeed * (float)delta * 60;
-		MoveAndSlide();
+		signalManager.OnCardOut -= AddCamera;
+		signalManager.OnPlayerDied -= OnDie;
 	}
 
 	public override void _Process(double delta)
 	{
-		Vector2 mousePos = GetGlobalMousePosition();
-		LookAt(mousePos);
-		_fireRate += (float)delta;
-		if (_fireRate < fireRate)
+		if (_fireRotationTimer > 0f)
+			_fireRotationTimer -= (float)delta;
+		if (!_isDead && _hp <= 0 && gameManager.gameState == GameManager.GameState.GAMING)
 		{
-			return;
-		}
-		_fireRate = 0f;
-		if (Input.IsMouseButtonPressed(MouseButton.Left))
-		{
-			NormalAttack(Input.IsActionPressed("shift"));
-		}else if (Input.IsMouseButtonPressed(MouseButton.Right))
-		{
-			SuperAttack(Input.IsActionPressed("shift"));
+			_isDead = true;
+			signalManager.EmitSignal(SignalManager.SignalName.OnPlayerDied);
 		}
 	}
 
-	private void NormalAttack(bool isShift)
+	/// <summary> 通用移动：线速度 + 角速度，旋转冷却中不覆盖角速度 </summary>
+	protected void ApplyMovement(float speed, float rotateSpeed)
 	{
-		Node2D bullet = (Node2D)pointScene.Instantiate();
-		bullet.Rotation = Rotation + (float)Math.PI/2;
-		bullet.GlobalPosition = GetNode<Node2D>("bulletSummonPoint").GlobalPosition;
-		GetTree().CurrentScene.AddChild(bullet);
+		Vector2 velocity = speed * Input.GetVector(
+			"player_left", "player_right", "player_up", "player_down");
+		LinearVelocity = velocity * (float)Engine.TimeScale;
+
+		if (_fireRotationTimer > 0f)
+			return;
+
+		if (velocity.X != 0 && velocity.Y == 0)
+			AngularVelocity = (float)(velocity.X / speed * rotateSpeed * Engine.TimeScale);
+		else if (velocity.X == 0 && velocity.Y != 0)
+			AngularVelocity = (float)(velocity.Y / speed * rotateSpeed * Engine.TimeScale);
 	}
-	private void SuperAttack(bool isShift)
+
+	protected bool CanMove() => gameManager.gameState == GameManager.GameState.GAMING;
+
+	public void GotHurt(int damage)
 	{
-		
+		GD.Print($"GotHurt:{damage}");
+		if (damage <= 0) return;
+		_hp = Mathf.Max(0, _hp - damage);
+	}
+
+	public int CurrentHP => _hp;
+
+	private void AddCamera()
+	{
+		Camera2D camera = new Camera2D();
+		camera.PositionSmoothingEnabled = true;
+		AddChild(camera);
+	}
+
+	public void OnDie()
+	{
+		GD.Print("Game Over");
+		gameManager.gameState = GameManager.GameState.GAME_OVER;
 	}
 }

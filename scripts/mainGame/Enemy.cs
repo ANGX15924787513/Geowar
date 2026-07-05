@@ -28,6 +28,10 @@ public partial class Enemy : RigidBody2D
 		{
 			MoveToPlayer();
 		}
+		else
+		{
+			LinearVelocity = Vector2.Zero;
+		}
 	}
 
 	/// <summary>
@@ -60,6 +64,12 @@ public partial class Enemy : RigidBody2D
 			return;
 		}
 
-		LinearVelocity = toTarget.Normalized() * Speed;
+		LinearVelocity = toTarget.Normalized() * Speed * (float)Engine.TimeScale;
+	}
+
+	public void GotHurt(int damage)
+	{
+		if (damage <= 0) return;
+		Health = Mathf.Max(0, Health - damage);
 	}
 }

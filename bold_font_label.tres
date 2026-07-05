@@ -1,0 +1,11 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://47u115f6nrm2"]
+
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="1_mge8p"]
+
+[resource]
+font = ExtResource("1_mge8p")
+font_size = 262
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.41568628, 0.75686276, 1, 1)
+shadow_offset = Vector2(9.75, -4.785)

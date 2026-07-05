@@ -8,8 +8,9 @@
 radius = 18.3
 
 [node name="PointEnemy" type="RigidBody2D" unique_id=1698197225]
-collision_layer = 5
-collision_mask = 5
+collision_layer = 12
+collision_mask = 12
+gravity_scale = 0.0
 script = ExtResource("1_4rhja")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=265536160]
@@ -21,3 +22,10 @@ shape = SubResource("CircleShape2D_wvhbo")
 
 [node name="GPUParticles2D" parent="." unique_id=1966863469 instance=ExtResource("3_wbkv8")]
 color = Color(1, 0.30079398, 0.57648116, 1)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=635009078]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1238184052]
+shape = SubResource("CircleShape2D_wvhbo")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

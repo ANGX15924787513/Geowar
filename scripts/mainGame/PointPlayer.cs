@@ -2,235 +2,151 @@ using Godot;
 using System;
 using Godot.Collections;
 
-public partial class PointPlayer : RigidBody2D
+public partial class PointPlayer : Player
 {
 	[Export] private int pointCount;
 	[Export] private float circleRadius;
 	[Export] private PackedScene singlePointScene;
 	[Export] private float pullStrenth = 2f;
 	[Export] private float fireRotateSpeed = 3f;
-	[Export] private int HP = 78;
 
-	private int _currentPointCount;  // 运行时实时点数（发射 -1）
-	private float _fireRotationTimer;
-	private int _hp;
-	GameManager gameManager;
-	SignalManager signalManager;
+	private int _currentPointCount;
+	private AnimationPlayer animationPlayer;
+
 	public override void _Ready()
 	{
-		_hp = HP;
+		base._Ready();
 		SummonPoints();
-		gameManager = GetNode<GameManager>("/root/GameManager");
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
-		signalManager.OnCardOut += AddCamera;
+		signalManager.OnPlayerDied += OnPointDie;
+		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		signalManager.OnBulletDestroyed += SpawnPoint;
 	}
 
-		public override void _ExitTree()
-		{
-			signalManager.OnCardOut -= AddCamera;
-			signalManager.OnBulletDestroyed -= SpawnPoint;
-		}
+	private void OnPointDie()
+	{
+		if (!IsInstanceValid(animationPlayer)) return;
+		animationPlayer.GetAnimation("on_die").TrackSetKeyValue(0, 1, circleRadius);
+		animationPlayer.Play("on_die");
+		GD.Print("point die anim played");
+	}
+
+	public override void _ExitTree()
+	{
+		signalManager.OnPlayerDied -= OnPointDie;
+		signalManager.OnBulletDestroyed -= SpawnPoint;
+		base._ExitTree();
+	}
 
 	public override void _Process(double delta)
 	{
+		base._Process(delta);
 		GiveVelocityAll();
-		if (_fireRotationTimer > 0f)
-		{
-			_fireRotationTimer -= (float)delta;
-		}
-		if (CanMove())
-		{
-			Move(delta);
-		}
 
-		if (canLaunchBullet())
-		{
+		if (CanMove())
+			ApplyMovement(gameManager.playerSpeed, gameManager.playerRotateSpeed);
+
+		if (CanLaunchBullet())
 			LaunchBullet();
-		}
 	}
 
-	private bool canLaunchBullet()
+	// ==================== 发射 ====================
+
+	private bool CanLaunchBullet()
 	{
 		return
 			gameManager.gameState == GameManager.GameState.GAMING &&
 			Input.IsActionJustPressed("player_launch_bullet") &&
-			_currentPointCount > 1
-			;
+			_currentPointCount > 1;
 	}
 
 	private void LaunchBullet()
 	{
 		AngularVelocity = fireRotateSpeed;
+		_fireRotationTimer = 0.5f;
+
 		var bullet = GetClosestPoint(GetPoints(), GetTangentPoint());
-		Vector2 bulletGlobalPos = bullet.GlobalPosition;
+		Vector2 globalPos = bullet.GlobalPosition;
 		bullet.GetParent().RemoveChild(bullet);
 		_currentPointCount--;
 		GetTree().CurrentScene.AddChild(bullet);
-		bullet.GlobalPosition = bulletGlobalPos;
+		bullet.GlobalPosition = globalPos;
 		bullet.LinearVelocity = GetGlobalMousePosition() - bullet.GlobalPosition;
-		_fireRotationTimer = 0.5f;
 	}
 
-	private RigidBody2D GetClosestPoint(Array<RigidBody2D> points, Vector2 tangentPoint)
+	private RigidBody2D GetClosestPoint(Array<RigidBody2D> points, Vector2 target)
 	{
 		RigidBody2D closest = null;
-		float minDistSq = float.MaxValue;
-
-		foreach (RigidBody2D point in points)
+		float min = float.MaxValue;
+		foreach (var p in points)
 		{
-			float distSq = point.GlobalPosition.DistanceSquaredTo(tangentPoint);
-			if (distSq < minDistSq)
-			{
-				minDistSq = distSq;
-				closest = point;
-			}
+			float d = p.GlobalPosition.DistanceSquaredTo(target);
+			if (d < min) { min = d; closest = p; }
 		}
-
 		return closest;
 	}
 
 	private Array<RigidBody2D> GetPoints()
 	{
-		Array<RigidBody2D> rst = new Array<RigidBody2D>();
-		foreach (Node node in GetChildren())
-		{
-			if (node is RigidBody2D)
-			{
-				rst.Add((RigidBody2D)node);
-			}
-		}
-
+		var rst = new Array<RigidBody2D>();
+		foreach (var node in GetChildren())
+			if (node is RigidBody2D rb)
+				rst.Add(rb);
 		return rst;
 	}
 
-	/// <summary>
-	/// 从鼠标位置计算到圆圈的一个切点（顺时针方向）。
-	/// 几何：圆心C、鼠标P、半径r，圆心角偏移 α = acos(r/d)。
-	/// </summary>
+	/// <summary> 鼠标 → 圆心 的顺时针切点 </summary>
 	private Vector2 GetTangentPoint()
 	{
-		Vector2 mousePosition = GetGlobalMousePosition();
-		Vector2 center = GlobalPosition;
-		float distance = mousePosition.DistanceTo(center);
+		Vector2 mouse = GetGlobalMousePosition();
+		Vector2 dir = (mouse - GlobalPosition).Normalized();
+		float dist = mouse.DistanceTo(GlobalPosition);
 
-		// 圆心 → 鼠标 的单位方向
-		Vector2 dirToMouse = (mousePosition - center).Normalized();
+		if (dist <= circleRadius)
+			return GlobalPosition + dir * circleRadius;
 
-		// 鼠标在圆内/圆上没有真实切线，返回鼠标方向上的圆周点
-		if (distance <= circleRadius)
-			return center + dirToMouse * circleRadius;
-
-		// 圆心角偏移 α = acos(r/d)
-		float alpha = Mathf.Acos(circleRadius / distance);
-
-		// 顺时针旋转得到切点（逆时针另一个切点用 +alpha）
-		Vector2 tangentDir = dirToMouse.Rotated(-alpha);
-
-		return center + tangentDir * circleRadius;
+		float alpha = Mathf.Acos(circleRadius / dist);
+		return GlobalPosition + dir.Rotated(-alpha) * circleRadius;
 	}
 
-	private Vector2 GetPositionInCircle(int index)
-	{
-		float angle = 2 * Single.Pi * index / _currentPointCount;
-		Vector2 offset = new Vector2(
-			circleRadius * MathF.Sin(angle),
-			circleRadius * MathF.Cos(angle)
-		);
-		return offset.Rotated(Rotation);
-	}
-
-	private void GiveVelocityAll()
-	{
-		int count = 0;
-		var children = GetChildren();
-		if(children == null) return;
-		foreach (var node in children)
-		{
-			if (node is not RigidBody2D child) continue;
-			Vector2 targetGlobal = ToGlobal(GetPositionInCircle(count));
-			child.LinearVelocity = pullStrenth * (targetGlobal - child.GlobalPosition);
-			count += 1;
-		}
-	}
+	// ==================== 点圈管理 ====================
 
 	private void SummonPoints()
 	{
 		_currentPointCount = pointCount;
 		for (int i = 0; i < _currentPointCount; i++)
 		{
-			RigidBody2D point = (RigidBody2D)singlePointScene.Instantiate();
-			point.Position = GetPositionInCircle(i);
-			AddChild(point);
+			var p = (RigidBody2D)singlePointScene.Instantiate();
+			p.Position = GetPositionInCircle(i);
+			AddChild(p);
 		}
 	}
 
-	/// <summary>
-	/// 生成一个点补充到圆圈末尾。外部调用（如吃道具、击杀奖励等）。
-	/// </summary>
 	private void SpawnPoint()
 	{
-		RigidBody2D newPoint = (RigidBody2D)singlePointScene.Instantiate();
-		newPoint.Position = GetPositionInCircle(_currentPointCount);
 		_currentPointCount++;
-		CallDeferred(Node.MethodName.AddChild, newPoint);
+		var p = (RigidBody2D)singlePointScene.Instantiate();
+		p.Position = GetPositionInCircle(_currentPointCount - 1);
+		CallDeferred(Node.MethodName.AddChild, p);
 	}
 
-	private void Move(double delta)
+	private Vector2 GetPositionInCircle(int index)
 	{
-		Vector2 velocity = gameManager.playerSpeed * Input.GetVector(
-			"player_left",
-			"player_right",
-			"player_up",
-			"player_down"
-			);
-		LinearVelocity = velocity;
-
-		// 发射旋转冷却中，不覆盖 AngularVelocity
-		if (_fireRotationTimer > 0f)
-			return;
-
-		if (velocity.X != 0 && velocity.Y == 0)
-		{
-			AngularVelocity = velocity.X / gameManager.playerSpeed * gameManager.playerRotateSpeed;
-		}
-		else if (velocity.X == 0 && velocity.Y != 0)
-		{
-			AngularVelocity = velocity.Y / gameManager.playerSpeed * gameManager.playerRotateSpeed;
-		}
+		float angle = 2 * MathF.PI * index / _currentPointCount;
+		return new Vector2(
+			circleRadius * MathF.Sin(angle),
+			circleRadius * MathF.Cos(angle)
+		).Rotated(Rotation);
 	}
 
-	private bool CanMove()
+	private void GiveVelocityAll()
 	{
-		if (
-			gameManager.gameState == GameManager.GameState.GAMING
-		    )
+		int count = 0;
+		foreach (var node in GetChildren())
 		{
-			return true;
-		}
-		return false;
-	}
-
-	private void AddCamera()
-	{
-		Camera2D camera = new Camera2D();
-		camera.PositionSmoothingEnabled = true;
-		AddChild(camera);
-	}
-
-	public void gotHurt(int damage)
-	{
-		if (damage <= 0)
-		{
-			return;
-		}
-		if (damage > _hp)
-		{
-			_hp = 0;
-		}
-		else
-		{
-			_hp -= damage;
+			if (node is not RigidBody2D child) continue;
+			Vector2 target = ToGlobal(GetPositionInCircle(count));
+			child.LinearVelocity = pullStrenth * (target - child.GlobalPosition);
+			count++;
 		}
 	}
 }

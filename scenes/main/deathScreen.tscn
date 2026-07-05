@@ -1,0 +1,371 @@
+[gd_scene format=3 uid="uid://tajp4pm82d5q"]
+
+[ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="1_gp1bb"]
+[ext_resource type="Script" uid="uid://c4jp5gy0e2p50" path="res://gdscripts/mainGame/deathScrButtontoMainMenu.gd" id="2_30exn"]
+[ext_resource type="LabelSettings" uid="uid://47u115f6nrm2" path="res://bold_font_label.tres" id="2_u6ea1"]
+[ext_resource type="Script" uid="uid://depq5rouxrc75" path="res://gdscripts/mainGame/deathScrButtontoRestart.gd" id="3_30exn"]
+
+[sub_resource type="Gradient" id="Gradient_30exn"]
+offsets = PackedFloat32Array(0, 0.16343491, 0.32686982, 0.48476455, 0.6371191, 0.79501384, 0.95567864)
+colors = PackedColorArray(0.999896, 0.130983, 0.26420623, 0.48235294, 0.9999997, 0.30200738, 0.01282646, 0.56265277, 0.9182766, 0.4943493, 0, 0.63004726, 0.6784394, 0.7220848, 0.24336788, 0.7040378, 0.58165896, 0.83410895, 0.3446779, 0.7666452, 0.48718065, 0.89695895, 0.8824587, 0.8349441, 0.7176471, 0.41568628, 0.90588236, 0.8352941)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wvhbo"]
+gradient = SubResource("Gradient_30exn")
+width = 176
+
+[sub_resource type="Animation" id="Animation_tump7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1182, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Label:label_settings:shadow_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9.75, -4.785)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/Label:label_settings:font_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [262]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TextureRect:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-44.48, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TextureRect:texture:gradient:offsets")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.16343491, 0.32686982, 0.48476455, 0.6371191, 0.79501384, 0.95567864)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TextureRect:texture:gradient:colors")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedColorArray(0.999896, 0.130983, 0.26420623, 0.48235294, 0.9999997, 0.30200738, 0.01282646, 0.56265277, 0.9182766, 0.4943493, 0, 0.63004726, 0.6784394, 0.7220848, 0.24336788, 0.7040378, 0.58165896, 0.83410895, 0.3446779, 0.7666452, 0.48718065, 0.89695895, 0.8824587, 0.8349441, 0.7176471, 0.41568628, 0.90588236, 0.8352941)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TextureRect/Button:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-339, -82)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TextureRect/Button2:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1159, -78)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TextureRect/Button:theme_override_font_sizes/font_size")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [57]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("TextureRect/Button2:theme_override_font_sizes/font_size")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [57]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("TextureRect/Button:theme_override_colors/font_color")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.875, 0.875, 0.875, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("TextureRect/Button2:theme_override_colors/font_color")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.875, 0.875, 0.875, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_msnq2"]
+resource_name = "on_initialized"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.40319055, 0.66, 1.04),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1182, 0), Vector2(-117.875, 0), Vector2(0, 0), Vector2(0, 45.195)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Label:label_settings:shadow_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.40319055, 0.66, 1.07),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(9.75, -4.785), Vector2(-13.405, -4.785), Vector2(4.27, 3.32), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/Label:label_settings:font_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.7, 1.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [262, 64]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TextureRect:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.07, 1.24, 1.62, 1.85),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -52.335), Vector2(0, 0), Vector2(0, 0), Vector2(0, 607)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TextureRect:texture:gradient:offsets")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.25, 1.37, 1.47, 1.59),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.16343491, 0.32686982, 0.48476455, 0.6371191, 0.79501384, 0.95567864), PackedFloat32Array(0, 0.11634349, 0.23545706, 0.5069252, 0.70914125, 0.8476454, 1), PackedFloat32Array(0, 0.041551247, 0.08864266, 0.57894737, 0.90581715, 0.9501385, 1), PackedFloat32Array(0, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TextureRect:texture:gradient:colors")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.25, 1.37, 1.47, 1.59),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [PackedColorArray(0.999896, 0.130983, 0.26420623, 0.48235294, 0.9999997, 0.30200738, 0.01282646, 0.56265277, 0.9182766, 0.4943493, 0, 0.63004726, 0.6784394, 0.7220848, 0.24336788, 0.7040378, 0.58165896, 0.83410895, 0.3446779, 0.7666452, 0.48718065, 0.89695895, 0.8824587, 0.8349441, 0.7176471, 0.41568628, 0.90588236, 0.8352941), PackedColorArray(0.999896, 0.130983, 0.26420623, 0.48235294, 0.9999997, 0.30200738, 0.01282646, 0.56265277, 0.9182766, 0.4943493, 0, 0.63004726, 0.6784394, 0.7220848, 0.24336788, 0.7040378, 0.58165896, 0.83410895, 0.3446779, 0.7666452, 0.48718065, 0.89695895, 0.8824587, 0.8349441, 0.7176471, 0.41568628, 0.90588236, 0.8352941), PackedColorArray(0.999896, 0.130983, 0.26420623, 0.48235294, 0.9999997, 0.30200738, 0.01282646, 0.56265277, 0.9182766, 0.4943493, 0, 0.63004726, 0.6784394, 0.7220848, 0.24336788, 0.7040378, 0.58165896, 0.83410895, 0.3446779, 0.7666452, 0.48718065, 0.89695895, 0.8824587, 0.8349441, 0.7176471, 0.41568628, 0.90588236, 0.8352941), PackedColorArray(0.831761, 0.83176106, 0.831761, 1, 0.13561687, 0.13561687, 0.13561687, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TextureRect/Button:position")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.85, 2.27, 2.54, 2.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-339, -82), Vector2(219, -82), Vector2(6, -82), Vector2(-43, -67)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TextureRect/Button2:position")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1.85, 2.27, 2.54, 2.76),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1159, -78), Vector2(560, -78), Vector2(701, -78), Vector2(700, -66)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TextureRect/Button:theme_override_font_sizes/font_size")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(2.54, 2.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [57, 38]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("TextureRect/Button2:theme_override_font_sizes/font_size")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(2.56, 2.76),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [57, 38]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("TextureRect/Button:theme_override_colors/font_color")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(2.79, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.875, 0.875, 0.875, 1), Color(0.35686275, 0.8745098, 0.8745098, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("TextureRect/Button2:theme_override_colors/font_color")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(2.79, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.875, 0.875, 0.875, 1), Color(0.71965927, 0.3954016, 0.3180007, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qiop6"]
+_data = {
+&"RESET": SubResource("Animation_tump7"),
+&"on_initialized": SubResource("Animation_msnq2")
+}
+
+[node name="DeathScreen" type="CanvasLayer" unique_id=1178256706]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2001760008]
+offset_left = -44.48
+offset_right = 1108.52
+offset_bottom = 39.999878
+texture = SubResource("GradientTexture1D_wvhbo")
+
+[node name="Button" type="Button" parent="TextureRect" unique_id=683769866]
+layout_mode = 0
+offset_left = -339.0
+offset_top = -82.0
+offset_right = -17.0
+offset_bottom = -10.0
+theme = ExtResource("1_gp1bb")
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.57254905)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 57
+text = "返回主菜单"
+script = ExtResource("2_30exn")
+
+[node name="Button2" type="Button" parent="TextureRect" unique_id=737655578]
+layout_mode = 0
+offset_left = 1159.0
+offset_top = -78.0
+offset_right = 1606.0009
+offset_bottom = -6.0
+theme = ExtResource("1_gp1bb")
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.5764706)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 57
+text = "再次乘坐直升机"
+alignment = 2
+script = ExtResource("3_30exn")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=153993602]
+position = Vector2(1182, 0)
+
+[node name="Label" type="Label" parent="Node2D" unique_id=1892350554]
+offset_right = 1153.0
+offset_bottom = 289.0
+text = "你坠机了"
+label_settings = ExtResource("2_u6ea1")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1751258724]
+libraries/ = SubResource("AnimationLibrary_qiop6")
+autoplay = &"on_initialized"
+
+[connection signal="pressed" from="TextureRect/Button" to="TextureRect/Button" method="switch_to_main_menu"]
+[connection signal="pressed" from="TextureRect/Button2" to="TextureRect/Button2" method="restart"]

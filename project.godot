@@ -100,6 +100,7 @@ player_launch_bullet={
 
 2d_physics/layer_2="core"
 2d_physics/layer_3="enemy & player core"
+2d_physics/layer_4="wall"
 
 [physics]
 
