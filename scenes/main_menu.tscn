@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="3_bqqt6"]
 [ext_resource type="Script" uid="uid://drpn5efi25mqb" path="res://scripts/mainMenu/MyButton.cs" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://c8gl7y4f8qd2g" path="res://scenes/main_game.tscn" id="5_rtw2f"]
-[ext_resource type="AudioStream" uid="uid://bi3o12813fg6l" path="res://sounds/button_clicked.mp3" id="5_tbmy8"]
+[ext_resource type="AudioStream" uid="uid://dywhvmpdmwi8d" path="res://sounds/UIAudioPack/bong_001.ogg" id="6_jk1qb"]
 [ext_resource type="AudioStream" uid="uid://b25eimdkrod48" path="res://sounds/Skyscape - Plum - Melodic Artist.mp3" id="7_oa1go"]
 
 [sub_resource type="Animation" id="Animation_vue75"]
@@ -474,7 +474,7 @@ autoplay = &"start_show"
 
 [node name="button" type="Node2D" parent="." unique_id=582423641 node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("3_wu84c")
-switchSound = ExtResource("5_tbmy8")
+switchSound = ExtResource("6_jk1qb")
 switch_scene = ExtResource("5_rtw2f")
 animationPlayer = NodePath("../AnimationPlayer")
 

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://sd77pd0hbw7p"]
+
+[ext_resource type="Script" uid="uid://dq0qsoxw1jfo4" path="res://scripts/mainGame/PointEnemy.cs" id="1_4rhja"]
+[ext_resource type="Texture2D" uid="uid://dec7ilndm5gvd" path="res://texture/circle.svg" id="1_hsjov"]
+[ext_resource type="PackedScene" uid="uid://b76ghxiqaoxsn" path="res://scenes/main/point/point_particle.tscn" id="3_wbkv8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvhbo"]
+radius = 18.3
+
+[node name="PointEnemy" type="RigidBody2D" unique_id=1698197225]
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("1_4rhja")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=265536160]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("1_hsjov")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2131312782]
+shape = SubResource("CircleShape2D_wvhbo")
+
+[node name="GPUParticles2D" parent="." unique_id=1966863469 instance=ExtResource("3_wbkv8")]
+color = Color(1, 0.30079398, 0.57648116, 1)

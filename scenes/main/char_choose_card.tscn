@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bbhvjew7dsjix" path="res://scripts/mainGame/CharChooseCard.cs" id="1_aeyky"]
 [ext_resource type="Script" uid="uid://c3imo0k7wu7rm" path="res://gdscripts/char_choose_card.gd" id="1_ysn4h"]
-[ext_resource type="PackedScene" uid="uid://c2nmfxmt2lov2" path="res://scenes/main/polygon.tscn" id="2_q30u0"]
+[ext_resource type="PackedScene" uid="uid://c2nmfxmt2lov2" path="res://scenes/main/polygon/polygon.tscn" id="2_q30u0"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="2_ysn4h"]
 
 [sub_resource type="Gradient" id="Gradient_aeyky"]

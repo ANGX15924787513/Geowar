@@ -96,6 +96,11 @@ player_launch_bullet={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_2="core"
+2d_physics/layer_3="enemy & player core"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

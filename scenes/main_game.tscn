@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dyvmom5coralf" path="res://gdscripts/choose_char.gd" id="1_0rdsr"]
 [ext_resource type="PackedScene" uid="uid://lrp2pvwn6ve2" path="res://scenes/main/char_choose_card.tscn" id="1_s3esy"]
-[ext_resource type="PackedScene" uid="uid://b4cxtj8en4gsm" path="res://scenes/main/line.tscn" id="3_ipu61"]
+[ext_resource type="PackedScene" uid="uid://b4cxtj8en4gsm" path="res://scenes/main/line/line.tscn" id="3_ipu61"]
 [ext_resource type="PackedScene" uid="uid://bdrf0bxwdb48d" path="res://scenes/main/point/pointPlayer.tscn" id="4_ygxny"]
+[ext_resource type="Script" uid="uid://ct86a66buuv87" path="res://scripts/mainGame/EnemySummoner.cs" id="6_wi4c7"]
 [ext_resource type="AudioStream" uid="uid://7di037xpitcs" path="res://sounds/the weirdest year of your life - C418.wav" id="6_ygxny"]
+[ext_resource type="PackedScene" uid="uid://sd77pd0hbw7p" path="res://scenes/main/enemy/pointEnemy.tscn" id="7_wi4c7"]
 
 [sub_resource type="Animation" id="Animation_s3esy"]
 length = 0.001
@@ -256,6 +258,8 @@ layout_mode = 2
 [node name="StaticBody2D" type="StaticBody2D" parent="Wall" unique_id=1599317647 groups=["wall"]]
 position = Vector2(-1724, -1049)
 scale = Vector2(1, 54.600014)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D" unique_id=99645391]
 position = Vector2(20, 20)
@@ -264,6 +268,8 @@ shape = SubResource("WorldBoundaryShape2D_ygxny")
 [node name="StaticBody2D3" type="StaticBody2D" parent="Wall" unique_id=15227499 groups=["wall"]]
 position = Vector2(-1724, -1049)
 scale = Vector2(109.56, 1)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D3" unique_id=1136812128]
 position = Vector2(20, 20)
@@ -272,6 +278,8 @@ shape = SubResource("WorldBoundaryShape2D_ipu61")
 [node name="StaticBody2D4" type="StaticBody2D" parent="Wall" unique_id=327873256 groups=["wall"]]
 position = Vector2(-1724, 1095)
 scale = Vector2(109.56, 1)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D4" unique_id=952673298]
 position = Vector2(20, 20)
@@ -280,6 +288,8 @@ shape = SubResource("WorldBoundaryShape2D_wi4c7")
 [node name="StaticBody2D2" type="StaticBody2D" parent="Wall" unique_id=1554547865 groups=["wall"]]
 position = Vector2(2630, -1049)
 scale = Vector2(1, 54.600014)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D2" unique_id=719680492]
 position = Vector2(20, 20)
@@ -299,3 +309,11 @@ round_precision = 32
 [node name="charChoosingBGMusic" type="AudioStreamPlayer" parent="." unique_id=1353736164]
 stream = ExtResource("6_ygxny")
 autoplay = true
+
+[node name="bulletRoot" type="Node2D" parent="." unique_id=1219904485]
+
+[node name="enemyRoot" type="Node2D" parent="." unique_id=1270765480]
+script = ExtResource("6_wi4c7")
+pointEnemy = ExtResource("7_wi4c7")
+
+[node name="fallItemRoot" type="Node2D" parent="." unique_id=1557526582]

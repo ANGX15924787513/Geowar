@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Player : CharacterBody2D//玩家根节点
+public partial class Player : CharacterBody2D//这个节点没用
 {
 	[Export]
 	private PackedScene[] typeOfPlayer; //1.点 2.线 3.多边形
