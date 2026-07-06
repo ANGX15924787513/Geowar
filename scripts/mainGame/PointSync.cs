@@ -7,27 +7,29 @@ public partial class PointSync : RigidBody2D
 	GpuParticles2D gpuParticles2D;
 	[Export] private float 缩放关系 = 225f;
 	[Export] private float size = 0.09f; 
-	[Export] private float bulletSpeed = 4f;
+	[Export] private float bulletSpeed = 1000f;
 	[Export] private int attackHP = 1;
 	[Export] private Color bulletColor;
 	bool bulletInitalized;
 	private bool _isDestroyed;  // 防止重复触发 Destroy
 	private Vector2 flySpeed;
 	private SignalManager signalManager;
+	private GameManager gameManager;
 
 	public enum PointType
 	{
 		CIRCLE,
 		BULLET
 	}
-	public PointType pointType;
+	[Export] public PointType pointType;
 	
 	public override void _Ready()
 	{
+		gameManager =  GetNode<GameManager>("/root/GameManager");
 		signalManager = GetNode<SignalManager>("/root/SignalManager");
 		sprite = GetNode<Sprite2D>("Sprite2D");
 		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
-		gpuParticles2D = GetNode<GpuParticles2D>("GPUParticles2D");
+		gpuParticles2D = GetNode<GpuParticles2D>("Sprite2D/GPUParticles2D");
 		SyncScale();
 	}
 
@@ -39,7 +41,7 @@ public partial class PointSync : RigidBody2D
 		{
 			if (!bulletInitalized)
 			{
-				InitalizeBullet();
+				InitializeBullet();
 				bulletInitalized = true;
 			}
 			else
@@ -49,27 +51,32 @@ public partial class PointSync : RigidBody2D
 		}
 	}
 
-	private void InitalizeBullet()
+	private void InitializeBullet()
 	{
-		Area2D area = new Area2D();
-		area.AddChild(collisionShape2D.Duplicate());
-		area.BodyEntered += OnBodyEntered;
-		AddChild(area);
-		LinearVelocity = bulletSpeed * LinearVelocity;
+		// Area2D area = new Area2D();
+		// area.AddChild(collisionShape2D.Duplicate());
+		// area.BodyEntered += OnBodyEntered;
+		// AddChild(area);
+		LinearVelocity = bulletSpeed * LinearVelocity.Normalized();
 		flySpeed = LinearVelocity;
-		((PointParticle)GetNode<GpuParticles2D>("GPUParticles2D")).color = bulletColor;
+		GetNode<PointParticle>("Sprite2D/GPUParticles2D").color = bulletColor;
+		GD.Print("子弹初始化");
 	}
 
 	private void OnBodyEntered(Node2D body)
 	{
+		if (gameManager.gameState != GameManager.GameState.GAMING) return;
 		GD.Print($"子弹创到:{body.Name}");
 		if (body.IsInGroup("wall"))
 		{
 			Destroy();
 		}else if (body.IsInGroup("enemy"))
 		{
-			((Enemy)body).Health -= attackHP;
-			Destroy();
+			((Enemy)body).GotHurt(attackHP);
+			if (pointType == PointType.BULLET)
+			{
+				Destroy();
+			}
 		}
 		void Destroy()
 		{

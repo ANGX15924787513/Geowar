@@ -15,6 +15,13 @@ public partial class MainGame : Node2D
 		animationPlayer.AnimationFinished += OnAnimationFinished;
 	}
 
+	public override void _ExitTree()
+	{
+		signalManager.OnPlayerDied -= OnPlayerDied;
+		signalManager.ShowDeathScreen -= ShowDeathScreen;
+		animationPlayer.AnimationFinished -= OnAnimationFinished;
+	}
+
 	private void OnPlayerDied()
 	{
 		animationPlayer.Play("game_over");

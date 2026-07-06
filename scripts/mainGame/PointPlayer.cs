@@ -11,29 +11,34 @@ public partial class PointPlayer : Player
 	[Export] private float fireRotateSpeed = 3f;
 
 	private int _currentPointCount;
-	private AnimationPlayer animationPlayer;
+	private int _launchedBullet;
+	private Node2D bulletRoot;
 
 	public override void _Ready()
 	{
+		bulletRoot = GetTree().CurrentScene.GetNode<Node2D>("bulletRoot");
 		base._Ready();
 		SummonPoints();
 		signalManager.OnPlayerDied += OnPointDie;
-		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		signalManager.OnBulletDestroyed += SpawnPoint;
+		signalManager.OnBulletDestroyed += DownLaunchedBullet;
 	}
 
 	private void OnPointDie()
 	{
-		if (!IsInstanceValid(animationPlayer)) return;
-		animationPlayer.GetAnimation("on_die").TrackSetKeyValue(0, 1, circleRadius);
-		animationPlayer.Play("on_die");
-		GD.Print("point die anim played");
+		circleRadius = 0f;
+	}
+
+	private void DownLaunchedBullet()
+	{
+		_launchedBullet--;
 	}
 
 	public override void _ExitTree()
 	{
 		signalManager.OnPlayerDied -= OnPointDie;
 		signalManager.OnBulletDestroyed -= SpawnPoint;
+		signalManager.OnBulletDestroyed -= DownLaunchedBullet;
 		base._ExitTree();
 	}
 
@@ -47,6 +52,14 @@ public partial class PointPlayer : Player
 
 		if (CanLaunchBullet())
 			LaunchBullet();
+
+		if (_launchedBullet == 0 & _currentPointCount != pointCount)
+		{
+			for (int i = 0; i < pointCount - _currentPointCount; i++)
+			{
+				SpawnPoint();
+			}
+		}
 	}
 
 	// ==================== 发射 ====================
@@ -61,6 +74,7 @@ public partial class PointPlayer : Player
 
 	private void LaunchBullet()
 	{
+		_launchedBullet++;
 		AngularVelocity = fireRotateSpeed;
 		_fireRotationTimer = 0.5f;
 
@@ -68,7 +82,7 @@ public partial class PointPlayer : Player
 		Vector2 globalPos = bullet.GlobalPosition;
 		bullet.GetParent().RemoveChild(bullet);
 		_currentPointCount--;
-		GetTree().CurrentScene.AddChild(bullet);
+		bulletRoot.AddChild(bullet);
 		bullet.GlobalPosition = globalPos;
 		bullet.LinearVelocity = GetGlobalMousePosition() - bullet.GlobalPosition;
 	}
@@ -125,7 +139,7 @@ public partial class PointPlayer : Player
 	{
 		_currentPointCount++;
 		var p = (RigidBody2D)singlePointScene.Instantiate();
-		p.Position = GetPositionInCircle(_currentPointCount - 1);
+		p.Position = GetPositionInCircle(_currentPointCount);
 		CallDeferred(Node.MethodName.AddChild, p);
 	}
 

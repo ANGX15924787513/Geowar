@@ -42,18 +42,23 @@ public partial class GameManager : Node
         signalManager = GetNode<SignalManager>("/root/SignalManager");
     }
 
-    public void SummonPlayer(Vector2 position,SceneTree tree)
+    public void SummonPlayer(SceneTree tree)
     {
         if (playerScene.Count == 0)
-        {
             _Ready();
-        }
+
         var player = (Node2D)playerScene[(int)playerType].Instantiate();
-        player.GlobalPosition = position;
+        player.GlobalPosition = GetScreenCenter();
         tree.CurrentScene.AddChild(player);
-        // Camera2D camera = new Camera2D();
-        // camera.PositionSmoothingEnabled = true;
-        // player.AddChild(camera);
         gameState = GameState.GAMING;
+        charChose = false;
+        signalManager.EmitSignal(SignalManager.SignalName.OnCardOut);
+    }
+    
+    // 获取屏幕中央坐标（相对于当前视口）
+    public Vector2 GetScreenCenter()
+    {
+        Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
+        return viewportSize / 2;
     }
 }

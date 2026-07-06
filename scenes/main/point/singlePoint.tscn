@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://qr2gvpaeiioj" path="res://scripts/mainGame/PointSync.cs" id="1_i68q0"]
 [ext_resource type="Texture2D" uid="uid://dec7ilndm5gvd" path="res://texture/circle.svg" id="2_iy5o8"]
 [ext_resource type="PackedScene" uid="uid://b76ghxiqaoxsn" path="res://scenes/main/point/point_particle.tscn" id="2_xeava"]
+[ext_resource type="Animation" uid="uid://21x7k188yrow" path="res://animation/pointSpawn.anim" id="4_cfamt"]
 
 [sub_resource type="Curve" id="Curve_cfamt"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.28571433), 0.0, 0.0, 0, 0]
@@ -55,17 +56,39 @@ anim_speed_curve = SubResource("CurveTexture_xeava")
 [sub_resource type="CircleShape2D" id="CircleShape2D_iy5o8"]
 radius = 20.25
 
-[node name="SinglePoint" type="RigidBody2D" unique_id=726211025 groups=["player"]]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qixb7"]
+_data = {
+&"pointSpawn": ExtResource("4_cfamt")
+}
+
+[node name="SinglePoint" type="RigidBody2D" unique_id=726211025]
+collision_layer = 8
+collision_mask = 12
 gravity_scale = 0.0
 script = ExtResource("1_i68q0")
 bulletColor = Color(0.8782463, 0.46484894, 0.25551963, 1)
 
-[node name="GPUParticles2D" parent="." unique_id=1966863469 instance=ExtResource("2_xeava")]
-process_material = SubResource("ParticleProcessMaterial_xeava")
-
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2117185343]
+modulate = Color(1, 1, 1, 0)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("2_iy5o8")
 
+[node name="GPUParticles2D" parent="Sprite2D" unique_id=1966863469 instance=ExtResource("2_xeava")]
+scale = Vector2(11.111112, 11.111112)
+process_material = SubResource("ParticleProcessMaterial_xeava")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=599396763]
 shape = SubResource("CircleShape2D_iy5o8")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=299568704]
+collision_layer = 8
+collision_mask = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=636940619]
+shape = SubResource("CircleShape2D_iy5o8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=479275025]
+libraries/ = SubResource("AnimationLibrary_qixb7")
+autoplay = &"pointSpawn"
+
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

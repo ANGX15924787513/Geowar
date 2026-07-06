@@ -7,8 +7,8 @@ public partial class Enemy : RigidBody2D
 	[Export] public float Speed { get; set; } = 100;
 	[Export] public int Damage { get; set; } = 6;
     
-	public int Health { get; set; }
-	public bool IsDead => Health <= 0;
+	public int health { get; set; }
+	public bool IsDead => health <= 0;
 	protected Node2D _targetPlayer;
 	GameManager gameManager;
 	
@@ -17,6 +17,7 @@ public partial class Enemy : RigidBody2D
 	private bool _delayedTargetReady;
 	public override void _Ready()
 	{
+		health = MaxHealth;
 		gameManager = GetNode<GameManager>("/root/GameManager");
 		_targetPlayer = GetTree().GetFirstNodeInGroup("player") as Node2D;
 	}
@@ -31,6 +32,11 @@ public partial class Enemy : RigidBody2D
 		else
 		{
 			LinearVelocity = Vector2.Zero;
+		}
+
+		if (health <= 0)
+		{
+			DiedHandler();
 		}
 	}
 
@@ -69,7 +75,24 @@ public partial class Enemy : RigidBody2D
 
 	public void GotHurt(int damage)
 	{
+		GD.Print($"EnemyGotHurt:{damage},hp:{health}");
 		if (damage <= 0) return;
-		Health = Mathf.Max(0, Health - damage);
+		health = Mathf.Max(0, health - damage);
+	}
+	
+	private void OnBodyEntered(Node2D body)
+	{
+		if (body is Player)
+		{
+			((Player)body).GotHurt(Damage);
+		}
+	}
+
+	private void DiedHandler()
+	{
+		if (gameManager.gameState == GameManager.GameState.GAMING)
+		{
+			QueueFree();
+		}
 	}
 }

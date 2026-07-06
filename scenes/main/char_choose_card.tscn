@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://lrp2pvwn6ve2"]
 
 [ext_resource type="Script" uid="uid://bbhvjew7dsjix" path="res://scripts/mainGame/CharChooseCard.cs" id="1_aeyky"]
-[ext_resource type="Script" uid="uid://c3imo0k7wu7rm" path="res://gdscripts/char_choose_card.gd" id="1_ysn4h"]
-[ext_resource type="PackedScene" uid="uid://c2nmfxmt2lov2" path="res://scenes/main/polygon/polygon.tscn" id="2_q30u0"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="2_ysn4h"]
 
 [sub_resource type="Gradient" id="Gradient_aeyky"]
@@ -14,8 +12,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_ysn4h")
-showIcon = ExtResource("2_q30u0")
 
 [node name="charChooseCard" type="Line2D" parent="." unique_id=1561039027]
 points = PackedVector2Array(190, 14, 22, 14, 0, 31, 0, 438, 170, 438, 190, 412)
@@ -65,19 +61,5 @@ theme = ExtResource("2_ysn4h")
 theme_override_colors/font_color = Color(0.7411765, 1, 1, 1)
 text = "选择"
 flat = true
-
-[node name="Icon" type="Control" parent="charChooseCard" unique_id=502904421]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 96.0
-offset_top = 271.0
-offset_right = 142.0
-offset_bottom = 296.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [connection signal="pressed" from="charChooseCard/Button" to="charChooseCard" method="_on_button_pressed"]

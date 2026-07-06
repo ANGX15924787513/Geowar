@@ -21,6 +21,7 @@ config/version="0.0.0"
 run/main_scene="uid://ruwqfk8wsxbk"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 run/max_fps=120
+config/icon="uid://b65n5ixu3tnmo"
 
 [autoload]
 
@@ -31,7 +32,6 @@ SignalManager="*uid://dewtr5cmfkdks"
 [display]
 
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 
 [dotnet]
 
@@ -41,7 +41,7 @@ project/assembly_name="Geowar"
 
 movie_writer/video_quality=1.0
 movie_writer/ogv/audio_quality=1.0
-movie_writer/ogv/encoding_speed=1
+movie_writer/ogv/encoding_speed=3
 movie_writer/movie_file="C:/Users/Administrator/Videos/gdMovieMaker.avi"
 
 [editor_plugins]
@@ -98,9 +98,10 @@ player_launch_bullet={
 
 [layer_names]
 
-2d_physics/layer_2="core"
-2d_physics/layer_3="enemy & player core"
-2d_physics/layer_4="wall"
+2d_physics/layer_1="墻"
+2d_physics/layer_2="player core"
+2d_physics/layer_3="enemy"
+2d_physics/layer_4="player bullet & edge"
 
 [physics]
 

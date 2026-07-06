@@ -57,7 +57,7 @@ public partial class Player : RigidBody2D
 
 	public void GotHurt(int damage)
 	{
-		GD.Print($"GotHurt:{damage}");
+		GD.Print($"PlayerGotHurt:{damage}");
 		if (damage <= 0) return;
 		_hp = Mathf.Max(0, _hp - damage);
 	}
