@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://b25eimdkrod48" path="res://sounds/Skyscape - Plum - Melodic Artist.mp3" id="7_oa1go"]
 [ext_resource type="Script" uid="uid://bpplu0nb8yhb1" path="res://gdscripts/mainMenu/lignt_with_cursor.gd" id="11_flqon"]
 [ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="11_lgwnu"]
+[ext_resource type="PackedScene" uid="uid://cf7ell5xwbmn7" path="res://scenes/main_menu_shop.tscn" id="12_flqon"]
 
 [sub_resource type="Animation" id="Animation_vue75"]
 length = 0.001
@@ -193,6 +194,18 @@ tracks/14/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(430, 9)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("shop:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1290.77, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_tbmy8"]
@@ -410,6 +423,18 @@ tracks/15/keys = {
 "update": 0,
 "values": [-10.962999999999994, -5.0]
 }
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("shop:position")
+tracks/16/interp = 2
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(2.3506002, 2.5969691),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1290.77, 0), Vector2(1152.245, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ekxnf"]
 _data = {
@@ -491,7 +516,7 @@ animationPlayer = NodePath("../AnimationPlayer")
 [node name="startButton" type="Button" parent="button" unique_id=785436282]
 offset_left = 1169.0
 offset_top = 545.0
-offset_right = 1382.0005
+offset_right = 1382.0007
 offset_bottom = 617.0
 theme = ExtResource("3_bqqt6")
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
@@ -530,6 +555,8 @@ pull_strenth = 8.0
 scale = Vector2(0.24200007, 0.24200007)
 energy = 0.34
 texture = ExtResource("11_lgwnu")
+
+[node name="shop" parent="." unique_id=1299253480 instance=ExtResource("12_flqon")]
 
 [connection signal="pressed" from="button/startButton" to="button" method="_on_start_button_pressed"]
 [connection signal="pressed" from="button/exitButton" to="button" method="_on_exit_button_pressed"]

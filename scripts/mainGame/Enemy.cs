@@ -9,9 +9,10 @@ public partial class Enemy : RigidBody2D
 
     public int health { get; set; }
     public bool IsDead => health <= 0;
+    protected bool _isDying;
     protected Node2D _targetPlayer;
-    GameManager gameManager;
-    SignalManager signalManager;
+    public GameManager gameManager;
+    public SignalManager signalManager;
     GlobalAudioPlayer globalAudioPlayer;
 
     [Export] private float _reactionTime = 0.8f;   // 反应间隔基准值
@@ -61,9 +62,9 @@ public partial class Enemy : RigidBody2D
             LinearVelocity = Vector2.Zero;
         }
 
-        if (health <= 0)
+        if (health <= 0 && !_isDying)
         {
-            DiedHandler();
+            _isDying = true; DiedHandler();
         }
     }
 
@@ -119,7 +120,7 @@ public partial class Enemy : RigidBody2D
         }
     }
 
-    private void DiedHandler()
+    protected virtual void DiedHandler()
     {
         if (gameManager.gameState == GameManager.GameState.GAMING)
         {

@@ -67,7 +67,7 @@ public partial class PointSync : RigidBody2D
 	private void OnBodyEntered(Node2D body)
 	{
 		if (gameManager.gameState != GameManager.GameState.GAMING) return;
-		if (body.IsInGroup("wall"))
+		if (body.IsInGroup("wall") && pointType == PointType.BULLET)
 		{
 			GD.Print($"子弹创到:{body.Name}");
 			Destroy();

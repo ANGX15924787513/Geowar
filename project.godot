@@ -20,7 +20,7 @@ Feel the beauty of geometry."
 config/version="0.0.0"
 run/main_scene="uid://ruwqfk8wsxbk"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
-run/max_fps=120
+run/max_fps=144
 config/icon="uid://b65n5ixu3tnmo"
 
 [autoload]
@@ -29,10 +29,12 @@ EasyTransition="*uid://cq0t7o8xelk4k"
 GameManager="*uid://dmqbaxdejw562"
 SignalManager="*uid://dewtr5cmfkdks"
 GlobalAudioPlayer="*uid://55nkb5jg7jy0"
+DataManager="*uid://c4qk3afa54td1"
 
 [display]
 
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="uid://dqpexf05seg0q"
 
 [dotnet]
 
@@ -40,9 +42,6 @@ project/assembly_name="Geowar"
 
 [editor]
 
-movie_writer/video_quality=1.0
-movie_writer/ogv/audio_quality=1.0
-movie_writer/ogv/encoding_speed=3
 movie_writer/movie_file="C:/Users/Administrator/Videos/gdMovieMaker.avi"
 
 [editor_plugins]

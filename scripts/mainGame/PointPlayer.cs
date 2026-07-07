@@ -70,6 +70,8 @@ public partial class PointPlayer : Player
 
 		if (CanMove())
 			ApplyMovement(gameManager.playerSpeed, gameManager.playerRotateSpeed);
+		else
+			Decelerate(delta);
 
 		if (CanLaunchBullet())
 			LaunchBullet();

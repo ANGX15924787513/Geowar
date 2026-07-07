@@ -2,7 +2,7 @@ extends CanvasLayer
 var health_label:Label
 
 func _ready() -> void:
-	health_label = $Label2
+	health_label = $Node2D/Label2
 	SignalManager.OnPlayerHealthChanged.connect(on_player_health_changed)
 
 func _process(_delta: float) -> void:

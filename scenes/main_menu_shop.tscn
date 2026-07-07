@@ -1,0 +1,257 @@
+[gd_scene format=3 uid="uid://cf7ell5xwbmn7"]
+
+[ext_resource type="Script" uid="uid://bmy6r4qv42k6c" path="res://scripts/mainMenu/MainMenuShop.cs" id="1_6fqg3"]
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="2_u1dkw"]
+[ext_resource type="PackedScene" uid="uid://brc5y50lu52eb" path="res://scenes/single_sell_item.tscn" id="3_u1dkw"]
+[ext_resource type="Texture2D" uid="uid://8s5k3tmh8e7p" path="res://texture/1718237293545.jpg" id="4_on5q8"]
+[ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="5_2dxno"]
+[ext_resource type="Texture2D" uid="uid://chhxvq6rm8nbe" path="res://texture/MCTexture/diamond.png" id="6_2otb7"]
+[ext_resource type="Texture2D" uid="uid://oebgc03q7dk0" path="res://texture/MCTexture/gold_ingot.png" id="6_bfgv4"]
+[ext_resource type="Texture2D" uid="uid://cdc5uwcq1a2yd" path="res://texture/MCTexture/emerald.png" id="7_e4jrh"]
+
+[sub_resource type="Gradient" id="Gradient_on5q8"]
+offsets = PackedFloat32Array(0, 0.2603878, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.2132964, 0.2132964, 0.2132964, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wvhbo"]
+gradient = SubResource("Gradient_on5q8")
+fill_to = Vector2(0.988604, 0.54131055)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uxkbo"]
+font = ExtResource("2_u1dkw")
+font_size = 46
+outline_size = 8
+outline_color = Color(0.69803923, 0.39215687, 0.06666667, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7u6xv"]
+font = ExtResource("2_u1dkw")
+font_size = 46
+outline_size = 8
+outline_color = Color(0.06666667, 0.44705883, 0.47843137, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y75bg"]
+font = ExtResource("2_u1dkw")
+font_size = 46
+outline_size = 8
+outline_color = Color(0, 0.3254902, 0, 1)
+
+[sub_resource type="Animation" id="Animation_2dxno"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1152, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bfgv4"]
+resource_name = "enter_shop"
+length = 0.3675337
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35541722),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1152, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2otb7"]
+resource_name = "exit_shop"
+length = 0.5129317
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.012116492, 0.49677634),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1152, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e4jrh"]
+_data = {
+&"RESET": SubResource("Animation_2dxno"),
+&"enter_shop": SubResource("Animation_bfgv4"),
+&"exit_shop": SubResource("Animation_2otb7")
+}
+
+[node name="shop" type="Node2D" unique_id=1299253480]
+position = Vector2(-1152, 0)
+script = ExtResource("1_6fqg3")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=746908856]
+offset_right = 1344.0
+offset_bottom = 648.0
+texture = SubResource("GradientTexture2D_wvhbo")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1023490479]
+position = Vector2(289, 328)
+rotation = 0.12217305
+points = PackedVector2Array(0, -500, 0, 500)
+width = 20.0
+default_color = Color(1, 1, 1, 0.627451)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=250407464]
+offset_top = 188.0
+offset_right = 239.0
+offset_bottom = 647.0
+theme_override_constants/separation = 102
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=503891487]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.86604893, 0.6211004, 0.16631919, 1)
+theme_override_constants/outline_size = 13
+theme_override_fonts/font = ExtResource("2_u1dkw")
+theme_override_font_sizes/font_size = 70
+text = "金锭"
+flat = true
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=465305977]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.16741917, 0.81286377, 0.866674, 1)
+theme_override_constants/outline_size = 13
+theme_override_fonts/font = ExtResource("2_u1dkw")
+theme_override_font_sizes/font_size = 70
+text = "钻石"
+flat = true
+
+[node name="Button3" type="Button" parent="VBoxContainer" unique_id=1442047843]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.13563475, 0.80304635, 0.3255062, 1)
+theme_override_constants/outline_size = 13
+theme_override_fonts/font = ExtResource("2_u1dkw")
+theme_override_font_sizes/font_size = 70
+text = "绿宝石"
+flat = true
+
+[node name="HFlowContainer" type="HFlowContainer" parent="." unique_id=1511081731]
+offset_left = 359.0
+offset_top = 129.0
+offset_right = 1151.0
+offset_bottom = 622.0
+theme_override_constants/h_separation = 153
+theme_override_constants/v_separation = 158
+
+[node name="singleSellItem" parent="HFlowContainer" unique_id=656635618 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+icon = ExtResource("4_on5q8")
+name = "这里没有东西"
+icon = ExtResource("4_on5q8")
+
+[node name="singleSellItem2" parent="HFlowContainer" unique_id=963007120 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem3" parent="HFlowContainer" unique_id=1599707270 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem4" parent="HFlowContainer" unique_id=1734302683 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem5" parent="HFlowContainer" unique_id=409769789 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem6" parent="HFlowContainer" unique_id=742277850 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem7" parent="HFlowContainer" unique_id=229344094 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem8" parent="HFlowContainer" unique_id=1365941774 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem9" parent="HFlowContainer" unique_id=1566927038 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem10" parent="HFlowContainer" unique_id=539968345 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem11" parent="HFlowContainer" unique_id=949306778 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem12" parent="HFlowContainer" unique_id=2004713033 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem13" parent="HFlowContainer" unique_id=1832929266 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem14" parent="HFlowContainer" unique_id=1705292992 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=402683938]
+texture_filter = 1
+offset_left = 379.0
+offset_top = 23.0
+offset_right = 1226.0
+offset_bottom = 102.0
+theme_override_constants/separation = 63
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=53249181]
+layout_mode = 2
+texture = ExtResource("6_bfgv4")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1360436195]
+layout_mode = 2
+text = "91"
+label_settings = SubResource("LabelSettings_uxkbo")
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer" unique_id=231069096]
+layout_mode = 2
+texture = ExtResource("6_2otb7")
+expand_mode = 2
+
+[node name="Label2" type="Label" parent="HBoxContainer" unique_id=1150803087]
+layout_mode = 2
+text = "91"
+label_settings = SubResource("LabelSettings_7u6xv")
+
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer" unique_id=1103707912]
+layout_mode = 2
+texture = ExtResource("7_e4jrh")
+expand_mode = 2
+
+[node name="Label3" type="Label" parent="HBoxContainer" unique_id=264310344]
+layout_mode = 2
+text = "91"
+label_settings = SubResource("LabelSettings_y75bg")
+
+[node name="Button" type="Button" parent="." unique_id=350984924]
+texture_filter = 1
+offset_left = -111.0
+offset_top = 29.0
+offset_right = 289.0
+offset_bottom = 136.0
+theme_override_colors/font_outline_color = Color(0.7519841, 0.7183986, 0.022548294, 1)
+theme_override_constants/outline_size = 17
+theme_override_fonts/font = ExtResource("5_2dxno")
+theme_override_font_sizes/font_size = 90
+text = "商店"
+icon = ExtResource("6_bfgv4")
+flat = true
+expand_icon = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=206801253]
+libraries/ = SubResource("AnimationLibrary_e4jrh")
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="OnGoldButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="OnDiamondButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="OnEmeraldButtonPressed"]
+[connection signal="pressed" from="Button" to="." method="OnChangeButtonPressed"]

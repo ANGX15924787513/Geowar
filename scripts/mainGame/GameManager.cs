@@ -42,6 +42,14 @@ public partial class GameManager : Node
         signalManager = GetNode<SignalManager>("/root/SignalManager");
     }
 
+    public override void _Process(double delta)
+    {
+        if (Input.IsKeyPressed(Key.F11))
+        {
+            DisplayServer.WindowSetMode(DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen?DisplayServer.WindowMode.Windowed:DisplayServer.WindowMode.Fullscreen);
+        }
+    }
+
     public void SummonPlayer(SceneTree tree)
     {
         if (playerScene.Count == 0)

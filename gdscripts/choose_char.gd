@@ -11,4 +11,3 @@ func _ready() -> void:
 	
 func emit_card_out():
 	SignalManager.OnCardOut.emit()
-	print("emit card out")

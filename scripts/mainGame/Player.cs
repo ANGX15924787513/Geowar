@@ -57,6 +57,13 @@ public partial class Player : RigidBody2D
 
 	protected bool CanMove() => gameManager.gameState == GameManager.GameState.GAMING;
 
+	/// <summary> 游戏结束或不可移动时平滑减速直到停止 </summary>
+	protected void Decelerate(double delta)
+	{
+		LinearVelocity = LinearVelocity.Lerp(Vector2.Zero, 2f * (float)delta);
+		AngularVelocity = Mathf.Lerp(AngularVelocity, 0f, 2f * (float)delta);
+	}
+
 	public void GotHurt(int damage)
 	{
 		if (damage <= 0 || gameManager.gameState != GameManager.GameState.GAMING) return;

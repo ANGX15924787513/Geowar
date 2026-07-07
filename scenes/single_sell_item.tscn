@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://brc5y50lu52eb"]
+
+[ext_resource type="Script" uid="uid://ddagcl3nmuqn" path="res://scripts/mainMenu/SingleSellItem.cs" id="1_w22e7"]
+[ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_5b7qm"]
+[ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="3_slhm6"]
+[ext_resource type="Texture2D" uid="uid://8s5k3tmh8e7p" path="res://texture/1718237293545.jpg" id="4_hu4ol"]
+
+[node name="singleSellItem" type="Button" unique_id=656635618]
+offset_right = 143.0
+offset_bottom = 153.0
+flat = true
+script = ExtResource("1_w22e7")
+
+[node name="RoundedPolygon2D" type="Polygon2D" parent="." unique_id=435354782]
+color = Color(1, 1, 1, 0.3372549)
+polygon = PackedVector2Array(0, 1, 143, 1, 143, 152, 0, 152)
+polygons = [null]
+script = ExtResource("2_5b7qm")
+corner_radius = 20
+metadata/_custom_type_script = "uid://gdsdtd32sye5"
+
+[node name="Label" type="Label" parent="." unique_id=1065482104]
+custom_maximum_size = Vector2(120.985, 42.355)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 128.0
+offset_bottom = 40.0
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("3_slhm6")
+theme_override_font_sizes/font_size = 23
+text = "点"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1187325353]
+modulate = Color(1, 1, 1, 0.7882353)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 58.0
+offset_right = 131.0
+offset_bottom = 144.0
+texture = ExtResource("4_hu4ol")
+expand_mode = 2
+stretch_mode = 5
+
+[connection signal="pressed" from="." to="." method="OnPressed"]
