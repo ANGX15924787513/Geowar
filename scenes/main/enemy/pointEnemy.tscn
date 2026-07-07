@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dq0qsoxw1jfo4" path="res://scripts/mainGame/PointEnemy.cs" id="1_4rhja"]
 [ext_resource type="Texture2D" uid="uid://dec7ilndm5gvd" path="res://texture/circle.svg" id="1_hsjov"]
+[ext_resource type="AudioStream" uid="uid://3br2pk5nnep6" path="res://sounds/MCSound/anvil_land.ogg" id="2_jrr11"]
 [ext_resource type="PackedScene" uid="uid://b76ghxiqaoxsn" path="res://scenes/main/point/point_particle.tscn" id="3_wbkv8"]
 [ext_resource type="Animation" uid="uid://21x7k188yrow" path="res://animation/pointSpawn.anim" id="4_wbkv8"]
 
@@ -18,6 +19,8 @@ collision_layer = 4
 collision_mask = 15
 gravity_scale = 0.0
 script = ExtResource("1_4rhja")
+Speed = 480.0
+hurtSound = ExtResource("2_jrr11")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=265536160]
 modulate = Color(1, 1, 1, 0)

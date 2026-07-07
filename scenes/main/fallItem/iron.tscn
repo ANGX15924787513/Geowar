@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://c1c1mydomi2c"]
+
+[ext_resource type="Script" uid="uid://der03ecsekbwo" path="res://scripts/mainGame/fallItem/Iron.cs" id="1_utmij"]
+[ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="2_26qy2"]
+[ext_resource type="Script" uid="uid://dg0h2ax07sxy8" path="res://gdscripts/mainGame/fallItemAni.gd" id="2_hyr7o"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vbc3w"]
+load_path = "res://.godot/imported/iron_ingot.png-8eb34201c69522f31e413191f2cd52d7.ctex"
+
+[node name="Iron" type="Node2D" unique_id=2023539307]
+script = ExtResource("1_utmij")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345318038]
+texture_filter = 1
+scale = Vector2(2.5, 2.5)
+texture = SubResource("CompressedTexture2D_vbc3w")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=1314580455]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D" unique_id=116063062]
+scale = Vector2(1.5, 1.5)
+polygon = PackedVector2Array(2, -6, 2, -5, -1, -5, -1, -4, -4, -4, -4, -3, -7, -3, -7, -2, -8, -2, -8, 3, -7, 3, -7, 4, -6, 4, -6, 5, -5, 5, -5, 6, -1, 6, -1, 5, 2, 5, 2, 4, 5, 4, 5, 3, 7, 3, 7, 2, 8, 2, 8, -2, 7, -2, 7, -3, 6, -3, 6, -4, 5, -4, 5, -5, 4, -5, 4, -6)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2141447750]
+libraries/fallItemAni = ExtResource("2_26qy2")
+autoplay = &"fallItemAni/ease_in"
+script = ExtResource("2_hyr7o")
+
+[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="OnBodyEntered"]

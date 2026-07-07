@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://d1ewvy50hhwal"]
+
+[ext_resource type="Script" uid="uid://40ud3qp13lmr" path="res://scripts/mainGame/fallItem/Emerald.cs" id="1_jcbps"]
+[ext_resource type="Texture2D" uid="uid://cdc5uwcq1a2yd" path="res://texture/MCTexture/emerald.png" id="2_srg2t"]
+[ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="3_a2je4"]
+[ext_resource type="Script" uid="uid://dg0h2ax07sxy8" path="res://gdscripts/mainGame/fallItemAni.gd" id="3_srg2t"]
+
+[node name="Emerald" type="Node2D" unique_id=2023539307]
+script = ExtResource("1_jcbps")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345318038]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+position = Vector2(0, 7)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("2_srg2t")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=1314580455]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D" unique_id=762100368]
+scale = Vector2(1.5, 1.5)
+polygon = PackedVector2Array(-2, -6, -2, -5, -3, -5, -3, -4, -4, -4, -4, -3, -5, -3, -5, 3, -4, 3, -4, 4, -3, 4, -3, 5, -2, 5, -2, 6, 2, 6, 2, 5, 3, 5, 3, 4, 4, 4, 4, 3, 5, 3, 5, -3, 4, -3, 4, -4, 3, -4, 3, -5, 2, -5, 2, -6)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2141447750]
+libraries/fallItemAni = ExtResource("3_a2je4")
+autoplay = &"fallItemAni/ease_in"
+script = ExtResource("3_srg2t")
+
+[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="OnBodyEntered"]

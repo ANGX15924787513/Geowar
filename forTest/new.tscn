@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cthq7dhcwokvl"]
+
+[ext_resource type="PackedScene" uid="uid://c8gl7y4f8qd2g" path="res://scenes/main_game.tscn" id="1_plwxc"]
+
+[sub_resource type="Environment" id="Environment_fh8xc"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 8.0
+glow_strength = 0.73
+glow_bloom = 1.0
+
+[node name="New" type="Node2D" unique_id=269178817]
+
+[node name="mainGame" parent="." unique_id=1560239308 instance=ExtResource("1_plwxc")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1832933211]
+environment = SubResource("Environment_fh8xc")

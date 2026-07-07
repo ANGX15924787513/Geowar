@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://i1rj58f1l8rq"
+path="res://.godot/imported/Start Menu - Toby Fox.mp3-93cfd501bbd1ea7d194f5d22ff091478.mp3str"
+
+[deps]
+
+source_file="res://sounds/UTSoundtrack/Start Menu - Toby Fox.mp3"
+dest_files=["res://.godot/imported/Start Menu - Toby Fox.mp3-93cfd501bbd1ea7d194f5d22ff091478.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

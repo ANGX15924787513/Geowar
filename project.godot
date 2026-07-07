@@ -28,6 +28,7 @@ config/icon="uid://b65n5ixu3tnmo"
 EasyTransition="*uid://cq0t7o8xelk4k"
 GameManager="*uid://dmqbaxdejw562"
 SignalManager="*uid://dewtr5cmfkdks"
+GlobalAudioPlayer="*uid://55nkb5jg7jy0"
 
 [display]
 
@@ -52,6 +53,12 @@ enabled=PackedStringArray("res://addons/RoundedPolygon2D/plugin.cfg", "res://add
 
 player="玩家碰撞体"
 pointController="点形子弹控制器"
+
+[importer_defaults]
+
+animation_library={
+&"animation/fps": 10.0
+}
 
 [input]
 

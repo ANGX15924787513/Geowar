@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://l1pk7e07umx8"]
+
+[ext_resource type="Script" uid="uid://csuocfvljca20" path="res://gdscripts/mainGame/hp_bar.gd" id="1_nrtxx"]
+[ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_2ie04"]
+[ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="3_2ie04"]
+[ext_resource type="Script" uid="uid://wha8b5cytcje" path="res://gdscripts/mainGame/point_health_bar.gd" id="3_oouw2"]
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="4_62shl"]
+[ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="6_oouw2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pcoha"]
+font = ExtResource("4_62shl")
+font_size = 37
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0.41568628, 0.75686276, 1, 1)
+shadow_offset = Vector2(3.685, 2.88)
+
+[node name="HpBar" type="CanvasLayer" unique_id=409945784]
+layer = 0
+script = ExtResource("1_nrtxx")
+
+[node name="RoundedPolygon2D" type="Polygon2D" parent="." unique_id=1614173520]
+position = Vector2(15, 18.428572)
+scale = Vector2(1, 0.71428573)
+color = Color(0.5803922, 0.8039216, 1, 0.20392157)
+polygon = PackedVector2Array(3, 3, 3, 118, 450, 118, 450, 3)
+polygons = [null]
+script = ExtResource("2_2ie04")
+corner_radius = 31
+metadata/_custom_type_script = "uid://gdsdtd32sye5"
+
+[node name="RoundedPolygon2D2" type="Polygon2D" parent="." unique_id=687936974]
+position = Vector2(15, 18.428572)
+scale = Vector2(1, 0.71428573)
+color = Color(0.5803922, 0.8039216, 1, 0.20392157)
+polygon = PackedVector2Array(315, 13.400002, 315, 104.399994, 445, 105.79999, 440, 12)
+polygons = [null]
+script = ExtResource("2_2ie04")
+corner_radius = 31
+metadata/_custom_type_script = "uid://gdsdtd32sye5"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=337019943]
+offset_left = 23.0
+offset_top = 23.0
+offset_right = 523.00006
+offset_bottom = 523.0
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_2ie04")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1430265721]
+position = Vector2(60, 60)
+points = PackedVector2Array(30, 0, 0, 30, -30, 0, 0, -30)
+closed = true
+default_color = Color(0, 0.8352941, 0.22352941, 0.6862745)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 2.315
+round_precision = 16
+script = ExtResource("3_oouw2")
+radius = 30.0
+shake_duration = 0.3
+
+[node name="Label" type="Label" parent="." unique_id=1118882277]
+offset_left = 337.0
+offset_top = 41.0
+offset_right = 458.0
+offset_bottom = 85.0
+text = "POINT"
+label_settings = SubResource("LabelSettings_pcoha")
+
+[node name="Label2" type="Label" parent="." unique_id=1450708595]
+offset_left = 102.0
+offset_top = 39.0
+offset_right = 313.0
+offset_bottom = 87.0
+theme = ExtResource("6_oouw2")
+theme_override_colors/font_color = Color(0.7490923, 0.78301233, 0.8172445, 1)
+theme_override_colors/font_shadow_color = Color(0.40392157, 0.48235294, 0.5568628, 1)
+theme_override_colors/font_outline_color = Color(0.51850265, 0.51850265, 0.51850265, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 43
+text = "718/910"
+horizontal_alignment = 1
+vertical_alignment = 1

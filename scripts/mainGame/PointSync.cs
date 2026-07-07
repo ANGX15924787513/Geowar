@@ -8,7 +8,8 @@ public partial class PointSync : RigidBody2D
 	[Export] private float 缩放关系 = 225f;
 	[Export] private float size = 0.09f; 
 	[Export] private float bulletSpeed = 1000f;
-	[Export] private int attackHP = 1;
+	[Export] private int circleAttackHP = 1;
+	[Export] private int bulletAttackHP = 5;
 	[Export] private Color bulletColor;
 	bool bulletInitalized;
 	private bool _isDestroyed;  // 防止重复触发 Destroy
@@ -66,16 +67,20 @@ public partial class PointSync : RigidBody2D
 	private void OnBodyEntered(Node2D body)
 	{
 		if (gameManager.gameState != GameManager.GameState.GAMING) return;
-		GD.Print($"子弹创到:{body.Name}");
 		if (body.IsInGroup("wall"))
 		{
+			GD.Print($"子弹创到:{body.Name}");
 			Destroy();
 		}else if (body.IsInGroup("enemy"))
 		{
-			((Enemy)body).GotHurt(attackHP);
+			GD.Print($"子弹创到:{body.Name}");
 			if (pointType == PointType.BULLET)
 			{
+				((Enemy)body).GotHurt(bulletAttackHP);
 				Destroy();
+			}else if (pointType == PointType.CIRCLE)
+			{
+				((Enemy)body).GotHurt(circleAttackHP);
 			}
 		}
 		void Destroy()

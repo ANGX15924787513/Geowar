@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bmniwg7bi2veq"
+path="res://.godot/imported/Ruder Buster - Toby Fox.mp3-88b2cc441231ba086362e28f65c62cde.mp3str"
+
+[deps]
+
+source_file="res://sounds/DTSoundtrack/Ruder Buster - Toby Fox.mp3"
+dest_files=["res://.godot/imported/Ruder Buster - Toby Fox.mp3-88b2cc441231ba086362e28f65c62cde.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

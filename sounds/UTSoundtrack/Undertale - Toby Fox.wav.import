@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c0rc0is1d7n7r"
+path="res://.godot/imported/Undertale - Toby Fox.wav-41d91949558bea98481beb701babd4be.sample"
+
+[deps]
+
+source_file="res://sounds/UTSoundtrack/Undertale - Toby Fox.wav"
+dest_files=["res://.godot/imported/Undertale - Toby Fox.wav-41d91949558bea98481beb701babd4be.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

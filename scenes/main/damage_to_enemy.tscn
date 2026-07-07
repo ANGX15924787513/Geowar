@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://b345jokkxog21"]
+
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="1_x6wu7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ifow5"]
+font = ExtResource("1_x6wu7")
+font_size = 30
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+stacked_outline_count = 1
+stacked_outline_0/size = 5
+stacked_outline_0/color = Color(0.35656494, 0.3565649, 0.3565649, 1)
+
+[sub_resource type="Animation" id="Animation_x6wu7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2, 1.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageLabel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-49, -35)]
+}
+
+[sub_resource type="Animation" id="Animation_5ks6r"]
+resource_name = "show"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.105239905, 0.15840232, 0.40143058, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageLabel:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.16057223, 0.3, 0.40143058),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-49, -11), Vector2(-49, -35), Vector2(-49, -47)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oqtfo"]
+_data = {
+&"RESET": SubResource("Animation_x6wu7"),
+&"show": SubResource("Animation_5ks6r")
+}
+
+[node name="DamageToEnemy" type="Node2D" unique_id=769785188]
+scale = Vector2(1.2, 1.2)
+
+[node name="DamageLabel" type="Label" parent="." unique_id=1994091271]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -35.0
+offset_right = 98.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "9111111"
+label_settings = SubResource("LabelSettings_ifow5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2133943247]
+libraries/ = SubResource("AnimationLibrary_oqtfo")
+autoplay = &"show"

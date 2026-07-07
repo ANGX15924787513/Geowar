@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://c8gl7y4f8qd2g" path="res://scenes/main_game.tscn" id="5_rtw2f"]
 [ext_resource type="AudioStream" uid="uid://dywhvmpdmwi8d" path="res://sounds/UIAudioPack/bong_001.ogg" id="6_jk1qb"]
 [ext_resource type="AudioStream" uid="uid://b25eimdkrod48" path="res://sounds/Skyscape - Plum - Melodic Artist.mp3" id="7_oa1go"]
+[ext_resource type="Script" uid="uid://bpplu0nb8yhb1" path="res://gdscripts/mainMenu/lignt_with_cursor.gd" id="11_flqon"]
+[ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="11_lgwnu"]
 
 [sub_resource type="Animation" id="Animation_vue75"]
 length = 0.001
@@ -416,6 +418,14 @@ _data = {
 &"start_show": SubResource("Animation_l6cm7")
 }
 
+[sub_resource type="Environment" id="Environment_wvhbo"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 2.63
+glow_strength = 0.59
+glow_bloom = 1.0
+
 [node name="mainMenu" type="Node2D" unique_id=1560239308]
 script = ExtResource("1_jk1qb")
 
@@ -481,10 +491,11 @@ animationPlayer = NodePath("../AnimationPlayer")
 [node name="startButton" type="Button" parent="button" unique_id=785436282]
 offset_left = 1169.0
 offset_top = 545.0
-offset_right = 1382.0002
+offset_right = 1382.0005
 offset_bottom = 617.0
 theme = ExtResource("3_bqqt6")
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
+theme_override_colors/font_hover_color = Color(0.84578055, 0.8395044, 0.73087615, 1)
 text = "START"
 flat = true
 
@@ -495,6 +506,7 @@ offset_right = -8.0
 offset_bottom = 617.0
 theme = ExtResource("3_bqqt6")
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
+theme_override_colors/font_hover_color = Color(0.8745098, 0.81960785, 0.8745098, 1)
 text = "GO AWAY"
 flat = true
 
@@ -504,6 +516,20 @@ volume_db = -27.586
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1715624103]
 anchor_mode = 0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=773188924]
+environment = SubResource("Environment_wvhbo")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=2111749659]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=507903970]
+script = ExtResource("11_flqon")
+pull_strenth = 8.0
+
+[node name="PointLight2D" type="PointLight2D" parent="RigidBody2D" unique_id=832827706]
+scale = Vector2(0.24200007, 0.24200007)
+energy = 0.34
+texture = ExtResource("11_lgwnu")
 
 [connection signal="pressed" from="button/startButton" to="button" method="_on_start_button_pressed"]
 [connection signal="pressed" from="button/exitButton" to="button" method="_on_exit_button_pressed"]

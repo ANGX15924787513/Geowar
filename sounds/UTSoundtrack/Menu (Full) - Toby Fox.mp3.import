@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://twp7fj1spkhj"
+path="res://.godot/imported/Menu (Full) - Toby Fox.mp3-a0bf591446b074180f74d9ec607e09c6.mp3str"
+
+[deps]
+
+source_file="res://sounds/UTSoundtrack/Menu (Full) - Toby Fox.mp3"
+dest_files=["res://.godot/imported/Menu (Full) - Toby Fox.mp3-a0bf591446b074180f74d9ec607e09c6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

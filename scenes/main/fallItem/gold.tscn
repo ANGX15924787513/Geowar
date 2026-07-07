@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cp83onrujwcek"]
+
+[ext_resource type="Script" uid="uid://csjq6kbiyex3" path="res://scripts/mainGame/fallItem/Gold.cs" id="1_q8eyh"]
+[ext_resource type="Texture2D" uid="uid://oebgc03q7dk0" path="res://texture/MCTexture/gold_ingot.png" id="2_q8eyh"]
+[ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="3_3eafw"]
+[ext_resource type="Script" uid="uid://dg0h2ax07sxy8" path="res://gdscripts/mainGame/fallItemAni.gd" id="3_yt4de"]
+
+[node name="Gold" type="Node2D" unique_id=2023539307]
+script = ExtResource("1_q8eyh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345318038]
+texture_filter = 1
+position = Vector2(0, 7)
+scale = Vector2(2, 2)
+texture = ExtResource("2_q8eyh")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=1314580455]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D" unique_id=116063062]
+scale = Vector2(1.5, 1.5)
+polygon = PackedVector2Array(2, -6, 2, -5, -1, -5, -1, -4, -4, -4, -4, -3, -7, -3, -7, -2, -8, -2, -8, 3, -7, 3, -7, 4, -6, 4, -6, 5, -5, 5, -5, 6, -1, 6, -1, 5, 2, 5, 2, 4, 5, 4, 5, 3, 7, 3, 7, 2, 8, 2, 8, -2, 7, -2, 7, -3, 6, -3, 6, -4, 5, -4, 5, -5, 4, -5, 4, -6)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2141447750]
+libraries/fallItemAni = ExtResource("3_3eafw")
+autoplay = &"fallItemAni/ease_in"
+script = ExtResource("3_yt4de")
+
+[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="OnBodyEntered"]

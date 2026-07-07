@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class MainGame : Node2D
+public partial class MainGame : Control
 {
 	SignalManager signalManager;
 	AnimationPlayer animationPlayer;

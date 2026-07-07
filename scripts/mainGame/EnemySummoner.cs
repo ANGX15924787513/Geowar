@@ -7,8 +7,8 @@ public partial class EnemySummoner : Node2D
 	
 	//Timer
 	private float _pointSummonTimer;
-	[Export] private float pointSummonWaitTime = 2f;
-	private float pointSummonWaitTimeOffset = 1f;
+	[Export] private float pointSummonWaitTime = 1.3f;
+	private float pointSummonWaitTimeOffset = 0.3f;
 	
 	
 	GameManager gameManager;

@@ -6,6 +6,7 @@ public partial class Player : RigidBody2D
 
 	public GameManager gameManager;
 	public SignalManager signalManager;
+	public GlobalAudioPlayer globalAudioPlayer;
 
 	protected int _hp;
 	protected float _fireRotationTimer;
@@ -16,8 +17,10 @@ public partial class Player : RigidBody2D
 		_hp = HP;
 		gameManager = GetNode<GameManager>("/root/GameManager");
 		signalManager = GetNode<SignalManager>("/root/SignalManager");
+		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
 		signalManager.OnCardOut += AddCamera;
 		signalManager.OnPlayerDied += OnDie;
+		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged,0,CurrentHP,HP);
 	}
 
 	public override void _ExitTree()
@@ -36,8 +39,7 @@ public partial class Player : RigidBody2D
 			signalManager.EmitSignal(SignalManager.SignalName.OnPlayerDied);
 		}
 	}
-
-	/// <summary> 通用移动：线速度 + 角速度，旋转冷却中不覆盖角速度 </summary>
+	
 	protected void ApplyMovement(float speed, float rotateSpeed)
 	{
 		Vector2 velocity = speed * Input.GetVector(
@@ -57,15 +59,20 @@ public partial class Player : RigidBody2D
 
 	public void GotHurt(int damage)
 	{
+		if (damage <= 0 || gameManager.gameState != GameManager.GameState.GAMING) return;
 		GD.Print($"PlayerGotHurt:{damage}");
-		if (damage <= 0) return;
 		_hp = Mathf.Max(0, _hp - damage);
+		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, damage, _hp, HP);
 	}
 
 	public int CurrentHP => _hp;
 
 	private void AddCamera()
 	{
+		foreach (var child in GetChildren())
+			if (child is Camera2D)
+				return;
+
 		Camera2D camera = new Camera2D();
 		camera.PositionSmoothingEnabled = true;
 		AddChild(camera);

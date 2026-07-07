@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://c6emv2lm5otyl"]
+
+[ext_resource type="Script" uid="uid://bu7cckgfhldae" path="res://scripts/mainGame/fallItem/Diamond.cs" id="1_hdbro"]
+[ext_resource type="Texture2D" uid="uid://chhxvq6rm8nbe" path="res://texture/MCTexture/diamond.png" id="2_1j5ib"]
+[ext_resource type="Script" uid="uid://dg0h2ax07sxy8" path="res://gdscripts/mainGame/fallItemAni.gd" id="3_1j5ib"]
+[ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="3_2yjhb"]
+
+[node name="Diamond" type="Node2D" unique_id=2023539307]
+script = ExtResource("1_hdbro")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345318038]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+position = Vector2(0, 7)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("2_1j5ib")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=1314580455]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D" unique_id=149045115]
+scale = Vector2(1.5, 1.5)
+polygon = PackedVector2Array(-2, -6, -2, -5, -3, -5, -3, -4, -4, -4, -4, -3, -5, -3, -5, -1, -6, -1, -6, 3, -5, 3, -5, 5, -4, 5, -4, 6, -3, 6, -3, 7, 3, 7, 3, 6, 4, 6, 4, 5, 5, 5, 5, 3, 6, 3, 6, -1, 5, -1, 5, -3, 4, -3, 4, -4, 3, -4, 3, -5, 2, -5, 2, -6)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2141447750]
+libraries/fallItemAni = ExtResource("3_2yjhb")
+autoplay = &"fallItemAni/ease_in"
+script = ExtResource("3_1j5ib")
+
+[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="OnBodyEntered"]

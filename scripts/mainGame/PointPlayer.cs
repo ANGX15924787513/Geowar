@@ -5,10 +5,16 @@ using Godot.Collections;
 public partial class PointPlayer : Player
 {
 	[Export] private int pointCount;
+	[Export] private int maxPointCount = 15;
 	[Export] private float circleRadius;
 	[Export] private PackedScene singlePointScene;
 	[Export] private float pullStrenth = 2f;
 	[Export] private float fireRotateSpeed = 3f;
+	[Export] private int fireRate = 10;
+	private float _fireTimer;
+	[Export] private PackedScene hpBarScene;
+	[Export] public AudioStream attackSound;
+	[Export] public AudioStream hurtSound;
 
 	private int _currentPointCount;
 	private int _launchedBullet;
@@ -16,12 +22,26 @@ public partial class PointPlayer : Player
 
 	public override void _Ready()
 	{
+		SummonHpBar();
 		bulletRoot = GetTree().CurrentScene.GetNode<Node2D>("bulletRoot");
 		base._Ready();
 		SummonPoints();
 		signalManager.OnPlayerDied += OnPointDie;
+		signalManager.OnPlayerHealthChanged += OnGotHurt;
 		signalManager.OnBulletDestroyed += SpawnPoint;
 		signalManager.OnBulletDestroyed += DownLaunchedBullet;
+	}
+
+	private void OnGotHurt(int damage, int health, int maxHealth)
+	{
+		if (damage <= 0) return;
+		globalAudioPlayer.PlayAudio(hurtSound);
+	}
+
+	private void SummonHpBar()
+	{
+		var scene = hpBarScene.Instantiate();
+		GetTree().CurrentScene.AddChild(scene);
 	}
 
 	private void OnPointDie()
@@ -37,6 +57,7 @@ public partial class PointPlayer : Player
 	public override void _ExitTree()
 	{
 		signalManager.OnPlayerDied -= OnPointDie;
+		signalManager.OnPlayerHealthChanged -= OnGotHurt;
 		signalManager.OnBulletDestroyed -= SpawnPoint;
 		signalManager.OnBulletDestroyed -= DownLaunchedBullet;
 		base._ExitTree();
@@ -53,23 +74,36 @@ public partial class PointPlayer : Player
 		if (CanLaunchBullet())
 			LaunchBullet();
 
-		if (_launchedBullet == 0 & _currentPointCount != pointCount)
+		if (_launchedBullet == 0 && _currentPointCount != pointCount)
 		{
 			for (int i = 0; i < pointCount - _currentPointCount; i++)
 			{
 				SpawnPoint();
 			}
 		}
-	}
 
-	// ==================== 发射 ====================
+		if (pointCount > maxPointCount)
+		{
+			pointCount = maxPointCount;
+		}
+		if (_currentPointCount > pointCount)
+		{
+			_currentPointCount = pointCount;
+		}
+	}
 
 	private bool CanLaunchBullet()
 	{
-		return
-			gameManager.gameState == GameManager.GameState.GAMING &&
-			Input.IsActionJustPressed("player_launch_bullet") &&
-			_currentPointCount > 1;
+		if (gameManager.gameState != GameManager.GameState.GAMING) return false;
+		if (_currentPointCount <= 1) return false;
+		if (!Input.IsActionPressed("player_launch_bullet")) return false;
+
+		_fireTimer += (float)GetProcessDeltaTime();
+		float interval = 1f / fireRate;
+		if (_fireTimer < interval) return false;
+
+		_fireTimer -= interval;
+		return true;
 	}
 
 	private void LaunchBullet()
@@ -85,6 +119,8 @@ public partial class PointPlayer : Player
 		bulletRoot.AddChild(bullet);
 		bullet.GlobalPosition = globalPos;
 		bullet.LinearVelocity = GetGlobalMousePosition() - bullet.GlobalPosition;
+		
+		globalAudioPlayer.PlayAudio(attackSound);
 	}
 
 	private RigidBody2D GetClosestPoint(Array<RigidBody2D> points, Vector2 target)
@@ -107,8 +143,7 @@ public partial class PointPlayer : Player
 				rst.Add(rb);
 		return rst;
 	}
-
-	/// <summary> 鼠标 → 圆心 的顺时针切点 </summary>
+	
 	private Vector2 GetTangentPoint()
 	{
 		Vector2 mouse = GetGlobalMousePosition();
@@ -121,8 +156,6 @@ public partial class PointPlayer : Player
 		float alpha = Mathf.Acos(circleRadius / dist);
 		return GlobalPosition + dir.Rotated(-alpha) * circleRadius;
 	}
-
-	// ==================== 点圈管理 ====================
 
 	private void SummonPoints()
 	{

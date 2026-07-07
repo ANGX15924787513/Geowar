@@ -2,15 +2,18 @@
 	"characters":[
 		{
 			"name":"点",
-			"description":"真就是点"
+			"description":"几亿年前大爆炸的时候还没出现,现在自己要爆炸了;
+			\n左键发射子弹
+			\n子弹有忠诚,根本丢不了
+			\n铐人如压铁"
 		},
 		{
 			"name":"线",
-			"description":"一根筋"
+			"description":"开发中......"
 		},
 		{
 			"name":"多边形",
-			"description":"我靠"
+			"description":"开发中......"
 		}
 	]
 }
