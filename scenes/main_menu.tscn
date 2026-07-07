@@ -11,6 +11,8 @@
 [ext_resource type="AudioStream" uid="uid://b25eimdkrod48" path="res://sounds/Skyscape - Plum - Melodic Artist.mp3" id="7_oa1go"]
 [ext_resource type="Script" uid="uid://bpplu0nb8yhb1" path="res://gdscripts/mainMenu/lignt_with_cursor.gd" id="11_flqon"]
 [ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="11_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://8s5k3tmh8e7p" path="res://texture/1718237293545.jpg" id="12_rcqid"]
+[ext_resource type="Script" uid="uid://b8nv6v3iv5spw" path="res://gdscripts/mainMenu/sprite_2d.gd" id="13_1ajci"]
 
 [sub_resource type="Animation" id="Animation_vue75"]
 length = 0.001
@@ -430,10 +432,10 @@ glow_bloom = 1.0
 script = ExtResource("1_jk1qb")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1157166762]
-offset_left = -1812.0
-offset_top = -1262.0
-offset_right = 3777.0
-offset_bottom = 2100.0
+offset_left = -1482.0
+offset_top = -1592.0
+offset_right = 4107.0
+offset_bottom = 1770.0
 color = Color(0, 0, 0, 1)
 
 [node name="title" type="Node2D" parent="." unique_id=771875376]
@@ -530,6 +532,13 @@ pull_strenth = 8.0
 scale = Vector2(0.24200007, 0.24200007)
 energy = 0.34
 texture = ExtResource("11_lgwnu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2071193264]
+position = Vector2(-100.15, 0)
+rotation = 0.4660029
+scale = Vector2(5, 5)
+texture = ExtResource("12_rcqid")
+script = ExtResource("13_1ajci")
 
 [connection signal="pressed" from="button/startButton" to="button" method="_on_start_button_pressed"]
 [connection signal="pressed" from="button/exitButton" to="button" method="_on_exit_button_pressed"]
