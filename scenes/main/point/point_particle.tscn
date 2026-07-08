@@ -10,8 +10,8 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [sub_resource type="Curve" id="Curve_cfamt"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.28571433), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.6696697, 0.952153), 0.0, 0.0, 0, 0, Vector2(1, 0.28571433), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_iy5o8"]
 curve = SubResource("Curve_cfamt")
@@ -72,6 +72,7 @@ point_count = 2
 curve = SubResource("Curve_efu8s")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ifow5"]
+lifetime_randomness = 0.19
 particle_flag_disable_z = true
 emission_shape = 2
 emission_sphere_radius = 15.69

@@ -16,12 +16,10 @@ public partial class SingleGameData : CanvasLayer
 	
 	private SignalManager signalManager;
 	private GameManager gameManager;
-	private DataManager dataManager;
 	public override void _Ready()
 	{
 		signalManager = GetNode<SignalManager>("/root/SignalManager");
 		gameManager = GetNode<GameManager>("/root/GameManager");
-		dataManager = GetNode<DataManager>("/root/DataManager");
 		ironLabel = GetNode<Label>("ironLabel");
 		goldLabel = GetNode<Label>("goldLabel");
 		diamondLabel = GetNode<Label>("diamondLabel");
@@ -32,13 +30,11 @@ public partial class SingleGameData : CanvasLayer
 		diamondLabel.Text = diamondCount.ToString();
 
 		signalManager.OnCollectedItem += UpdateInfo;
-		signalManager.OnPlayerDied += SaveToDataManager;
 	}
 
 	public override void _ExitTree()
 	{
 		signalManager.OnCollectedItem -= UpdateInfo;
-		signalManager.OnPlayerDied -= SaveToDataManager;
 	}
 
 	public override void _Process(double delta)
@@ -51,13 +47,6 @@ public partial class SingleGameData : CanvasLayer
 		{
 			Visible = true;
 		}
-	}
-
-	private void SaveToDataManager()
-	{
-		dataManager.Add(FallItemType.IRON,    ironCount);
-		dataManager.Add(FallItemType.GOLD,    goldCount);
-		dataManager.Add(FallItemType.DIAMOND, diamondCount);
 	}
 
 	private void UpdateInfo(FallItemType fallItemType)

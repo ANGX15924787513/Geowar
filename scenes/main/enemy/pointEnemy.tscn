@@ -14,7 +14,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D/GPUParticles2D:color")
+tracks/0/path = NodePath("GPUParticles2D:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -42,7 +42,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/GPUParticles2D:color")
+tracks/1/path = NodePath("GPUParticles2D:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -67,13 +67,12 @@ script = ExtResource("1_4rhja")
 Speed = 480.0
 hurtSound = ExtResource("2_jrr11")
 
+[node name="GPUParticles2D" parent="." unique_id=1966863469 instance=ExtResource("3_wbkv8")]
+color = Color(1, 0.3019608, 0.5764706, 1)
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=265536160]
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("1_hsjov")
-
-[node name="GPUParticles2D" parent="Sprite2D" unique_id=1966863469 instance=ExtResource("3_wbkv8")]
-scale = Vector2(12.5, 12.5)
-color = Color(1, 0.3019608, 0.5764706, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2131312782]
 shape = SubResource("CircleShape2D_wvhbo")

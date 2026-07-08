@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://cnkst3k2a5ebt"]
+
+[ext_resource type="Script" uid="uid://bh6ibypkyccqd" path="res://scripts/mainGame/SingleGameData.cs" id="1_o3jni"]
+[ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_k6jpd"]
+[ext_resource type="Texture2D" uid="uid://b5mdscac6swe1" path="res://texture/MCTexture/iron_ingot.png" id="3_sg5kw"]
+[ext_resource type="Texture2D" uid="uid://oebgc03q7dk0" path="res://texture/MCTexture/gold_ingot.png" id="4_s20qc"]
+[ext_resource type="Texture2D" uid="uid://chhxvq6rm8nbe" path="res://texture/MCTexture/diamond.png" id="5_pi31b"]
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="6_e8q0l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wvhbo"]
+font = ExtResource("6_e8q0l")
+font_size = 35
+outline_size = 8
+outline_color = Color(0.36862746, 0.36862746, 0.36862746, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dcudo"]
+font = ExtResource("6_e8q0l")
+font_size = 35
+outline_size = 8
+outline_color = Color(0.69803923, 0.39215687, 0.06666667, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_307no"]
+font = ExtResource("6_e8q0l")
+font_size = 35
+outline_size = 8
+outline_color = Color(0.06666667, 0.44705883, 0.47843137, 1)
+
+[sub_resource type="Animation" id="Animation_6de02"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_cybgu"]
+resource_name = "diamond_jump"
+length = 0.09561982
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("diamondIcon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.041157044, 0.09089533),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(6, 6), Vector2(4, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_wdxbp"]
+resource_name = "gold_jump"
+length = 0.10174929
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("goldIcon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.041157044, 0.09089533),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(6, 6), Vector2(4, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_on6n6"]
+resource_name = "iron_jump"
+length = 0.09561982
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ironIcon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.041157044, 0.09089533),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(6, 6), Vector2(4, 4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x3ega"]
+_data = {
+&"RESET": SubResource("Animation_6de02"),
+&"diamond_jump": SubResource("Animation_cybgu"),
+&"gold_jump": SubResource("Animation_wdxbp"),
+&"iron_jump": SubResource("Animation_on6n6")
+}
+
+[node name="SingleGameData" type="CanvasLayer" unique_id=1580719335]
+script = ExtResource("1_o3jni")
+
+[node name="RoundedPolygon2D" type="Polygon2D" parent="." unique_id=909762894]
+color = Color(0.99607843, 0.9647059, 0, 0.20392157)
+polygon = PackedVector2Array(1100, -47, 1098, 73, 599, 73, 599, -45)
+polygons = [null]
+script = ExtResource("2_k6jpd")
+corner_radius = 27
+metadata/_custom_type_script = "uid://gdsdtd32sye5"
+
+[node name="ironIcon" type="Sprite2D" parent="." unique_id=920257179]
+texture_filter = 1
+position = Vector2(642, 38)
+scale = Vector2(4, 4)
+texture = ExtResource("3_sg5kw")
+
+[node name="goldIcon" type="Sprite2D" parent="." unique_id=1318626438]
+texture_filter = 1
+position = Vector2(810, 38)
+scale = Vector2(4, 4)
+texture = ExtResource("4_s20qc")
+
+[node name="diamondIcon" type="Sprite2D" parent="." unique_id=1407389329]
+texture_filter = 1
+position = Vector2(967, 38)
+scale = Vector2(4, 4)
+texture = ExtResource("5_pi31b")
+
+[node name="ironLabel" type="Label" parent="." unique_id=694626154]
+offset_left = 679.0
+offset_top = 22.0
+offset_right = 777.0
+offset_bottom = 61.0
+text = "9111"
+label_settings = SubResource("LabelSettings_wvhbo")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters = 4
+
+[node name="goldLabel" type="Label" parent="." unique_id=429349780]
+offset_left = 844.0
+offset_top = 22.0
+offset_right = 942.0
+offset_bottom = 61.0
+text = "7888"
+label_settings = SubResource("LabelSettings_dcudo")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters = 4
+
+[node name="diamondLabel" type="Label" parent="." unique_id=159282234]
+offset_left = 996.0
+offset_top = 22.0
+offset_right = 1094.0
+offset_bottom = 61.0
+text = "1333"
+label_settings = SubResource("LabelSettings_307no")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=445415662]
+libraries/ = SubResource("AnimationLibrary_x3ega")

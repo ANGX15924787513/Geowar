@@ -25,6 +25,7 @@ public partial class PointPlayer : Player
 		SummonHpBar();
 		bulletRoot = GetTree().CurrentScene.GetNode<Node2D>("bulletRoot");
 		base._Ready();
+		ApplyShopUpgrades();
 		SummonPoints();
 		signalManager.OnPlayerDied += OnPointDie;
 		signalManager.OnPlayerHealthChanged += OnGotHurt;
@@ -52,6 +53,43 @@ public partial class PointPlayer : Player
 	private void DownLaunchedBullet()
 	{
 		_launchedBullet--;
+	}
+
+	// ==================== 商店升级应用 ====================
+
+	private void ApplyShopUpgrades()
+	{
+		var dm = GetNode<DataManager>("/root/DataManager");
+
+		int pc = dm.GetUpgradeLevel("point_count");
+		int fr = dm.GetUpgradeLevel("fire_rate");
+		int ms = dm.GetUpgradeLevel("move_speed");
+		int atk = dm.GetUpgradeLevel("atk_hp");
+		int hp = dm.GetUpgradeLevel("max_hp");
+		int ls = dm.GetUpgradeLevel("lifesteal");
+
+		PointSync.AttackBonus = atk;
+		pointCount           += pc;
+		fireRate             += fr;
+		gameManager.playerSpeed += ms * 50;
+		HP                   += hp * 30;
+		_hp                   = HP;
+
+		if (ls > 0)
+			signalManager.OnEnemyDied += OnLifesteal;
+
+		// 升级后重新通知血条
+		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, 0, _hp, HP);
+	}
+
+	/// <summary> 噬血骨刺：击杀回复 HP </summary>
+	public void OnLifesteal()
+	{
+		var dm = GetNode<DataManager>("/root/DataManager");
+		int ls = dm.GetUpgradeLevel("lifesteal");
+		int heal = Mathf.Max(1, HP * ls * 2 / 100);
+		_hp = Mathf.Min(HP, _hp + heal);
+		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, -heal, _hp, HP);
 	}
 
 	public override void _ExitTree()
@@ -120,7 +158,8 @@ public partial class PointPlayer : Player
 		_currentPointCount--;
 		bulletRoot.AddChild(bullet);
 		bullet.GlobalPosition = globalPos;
-		bullet.LinearVelocity = GetGlobalMousePosition() - bullet.GlobalPosition;
+		var aimPos = Cursor.Instance?.AimPosition ?? GetGlobalMousePosition();
+		bullet.LinearVelocity = aimPos - bullet.GlobalPosition;
 		
 		globalAudioPlayer.PlayAudio(attackSound);
 	}
@@ -148,7 +187,7 @@ public partial class PointPlayer : Player
 	
 	private Vector2 GetTangentPoint()
 	{
-		Vector2 mouse = GetGlobalMousePosition();
+		Vector2 mouse = Cursor.Instance?.AimPosition ?? GetGlobalMousePosition();
 		Vector2 dir = (mouse - GlobalPosition).Normalized();
 		float dist = mouse.DistanceTo(GlobalPosition);
 

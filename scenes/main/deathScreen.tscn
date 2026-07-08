@@ -561,9 +561,9 @@ label_settings = ExtResource("2_u6ea1")
 horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=2001760008]
-offset_left = -44.48
-offset_right = 1126.52
-offset_bottom = 55.0
+offset_top = -52.335
+offset_right = 1171.0
+offset_bottom = 2.665001
 texture = SubResource("GradientTexture1D_wvhbo")
 
 [node name="Button" type="Button" parent="TextureRect" unique_id=683769866]
@@ -690,6 +690,8 @@ texture = ExtResource("7_2meay")
 
 [node name="AudioStreamPlayerMusic" type="AudioStreamPlayer" parent="." unique_id=362182559]
 stream = ExtResource("6_2meay")
+volume_db = -10.0
+stream_paused = true
 
 [node name="score" type="Label" parent="." unique_id=1649235298]
 anchors_preset = 8

@@ -124,6 +124,7 @@ public partial class Enemy : RigidBody2D
     {
         if (gameManager.gameState == GameManager.GameState.GAMING)
         {
+            signalManager.EmitSignal(SignalManager.SignalName.OnEnemyDied);
             signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition);
             QueueFree();
         }

@@ -4,10 +4,12 @@ using System;
 public partial class GlobalAudioPlayer : Node
 {
     public AudioStream buttonClickSound;
+    public AudioStream collectXPSound;
 
     public override void _Ready()
     {
-        buttonClickSound = GD.Load("res://sounds/UIAudioPack/bong_001.ogg") as AudioStream;
+        buttonClickSound = GD.Load<AudioStream>("res://sounds/UIAudioPack/bong_001.ogg");
+        collectXPSound = GD.Load<AudioStream>("res://sounds/MCSound/orb.ogg");
     }
     public async void PlayAudio(AudioStream stream,float volume = 1)
     {

@@ -3,6 +3,8 @@ using Godot;
 public partial class Player : RigidBody2D
 {
 	[Export] public int HP = 78;
+	[Export] public float slowDownSmooth = 0.05f;
+	[Export] public float rotateSmooth = 0.05f;
 
 	public GameManager gameManager;
 	public SignalManager signalManager;
@@ -44,7 +46,14 @@ public partial class Player : RigidBody2D
 	{
 		Vector2 velocity = speed * Input.GetVector(
 			"player_left", "player_right", "player_up", "player_down");
-		LinearVelocity = velocity * (float)Engine.TimeScale;
+		if (velocity != Vector2.Zero)
+		{
+			LinearVelocity = LinearVelocity.Lerp(velocity,rotateSmooth);
+		}
+		else
+		{
+			LinearVelocity = LinearVelocity.Lerp(Vector2.Zero, slowDownSmooth);
+		}
 
 		if (_fireRotationTimer > 0f)
 			return;

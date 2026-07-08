@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Title : Label
+public partial class Title : Sprite2D
 {
     private Vector2 mousePos;
     private Vector2 selfPos;

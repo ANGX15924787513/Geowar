@@ -17,6 +17,15 @@ public partial class GameManager : Node
     public float playerSpeed = 500f;
     public float playerRotateSpeed = 1f;
     public float playerRebornTime = 0.2f;
+    public static GameManager Instance { get; private set; }
+
+    // ---- 商店升级 (6项) ----
+    public int pointCountUpgrade;
+    public int fireRateUpgrade;
+    public int moveSpeedUpgrade;
+    public int atkHpUpgrade;
+    public int maxHpUpgrade;
+    public int lifestealUpgrade;
     
     public enum PlayerType
     {
@@ -33,6 +42,7 @@ public partial class GameManager : Node
 
     public override void _Ready()
     {
+        Instance = this;
         playerScene =
         [
             GD.Load<PackedScene>("res://scenes/main/point/pointPlayer.tscn"), //Point

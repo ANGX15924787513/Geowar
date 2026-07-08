@@ -87,12 +87,15 @@ collision_mask = 7
 mass = 2.0
 gravity_scale = 0.0
 script = ExtResource("1_puuut")
-pointCount = 8
+pointCount = 3
 circleRadius = 120.0
 singlePointScene = ExtResource("2_2gt7a")
 hpBarScene = ExtResource("3_x8lvr")
 attackSound = ExtResource("4_rwk6q")
 hurtSound = ExtResource("5_irbxv")
+HP = 30
+slowDownSmooth = 0.03
+rotateSmooth = 0.08
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=944437813]
 scale = Vector2(0.09, 0.09)

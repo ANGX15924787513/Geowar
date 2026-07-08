@@ -12,17 +12,20 @@ public partial class FallItem : Node2D
 	public FallItemType itemType;
 
 	SignalManager signalManager;
+	GlobalAudioPlayer globalAudioPlayer;
 
 	public override void _Ready()
 	{
 		signalManager = GetNode<SignalManager>("/root/SignalManager");
+		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
 	}
 	
 	private void OnBodyEntered(Node2D body)
 	{
 		if (body.IsInGroup("player"))
 		{
-			GD.Print("掉落物被捡起");
+			globalAudioPlayer.PlayAudio(globalAudioPlayer.collectXPSound);
+			GD.Print($"掉落物{itemType}被捡起");
 			signalManager.EmitSignal(SignalManager.SignalName.OnCollectedItem,(int)itemType);
 			QueueFree();
 		}

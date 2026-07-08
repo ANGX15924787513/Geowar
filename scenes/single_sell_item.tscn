@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://ddagcl3nmuqn" path="res://scripts/mainMenu/SingleSellItem.cs" id="1_w22e7"]
 [ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_5b7qm"]
 [ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="3_slhm6"]
-[ext_resource type="Texture2D" uid="uid://8s5k3tmh8e7p" path="res://texture/1718237293545.jpg" id="4_hu4ol"]
 
 [node name="singleSellItem" type="Button" unique_id=656635618]
 offset_right = 143.0
@@ -19,29 +18,39 @@ script = ExtResource("2_5b7qm")
 corner_radius = 20
 metadata/_custom_type_script = "uid://gdsdtd32sye5"
 
-[node name="Label" type="Label" parent="." unique_id=1065482104]
-custom_maximum_size = Vector2(120.985, 42.355)
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1952327672]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 8.0
-offset_right = 128.0
-offset_bottom = 40.0
+offset_top = 2.0
+offset_right = 144.0
+offset_bottom = 151.0
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1065482104]
+custom_maximum_size = Vector2(142.78, -1)
+layout_mode = 2
 theme_override_constants/outline_size = 9
 theme_override_fonts/font = ExtResource("3_slhm6")
 theme_override_font_sizes/font_size = 23
 text = "点"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1187325353]
-modulate = Color(1, 1, 1, 0.7882353)
-layout_mode = 0
-offset_left = 10.0
-offset_top = 58.0
-offset_right = 131.0
-offset_bottom = 144.0
-texture = ExtResource("4_hu4ol")
-expand_mode = 2
-stretch_mode = 5
+[node name="descLabel" type="Label" parent="VBoxContainer" unique_id=907087516]
+custom_maximum_size = Vector2(124.94, -1)
+layout_mode = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_slhm6")
+theme_override_font_sizes/font_size = 10
+text = "描述"
+autowrap_mode = 2
+
+[node name="priceLabel" type="Label" parent="VBoxContainer" unique_id=1594008312]
+layout_mode = 2
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_slhm6")
+theme_override_font_sizes/font_size = 15
+text = "价格:"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="." to="." method="OnPressed"]

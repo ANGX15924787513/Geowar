@@ -1,18 +1,39 @@
 using Godot;
-using System;
 
 public partial class SingleSellItem : Button
 {
-	[Export] private String name;
-	[Export] private Texture2D icon;
+	public ShopItem Item { get; private set; }
+	public int CurrentLevel { get; set; }
+
+	private Label _nameLabel;
+	private Label _descLabel;
+	private Label _priceLabel;
+
+	private System.Action<SingleSellItem> _onBuy;
+
 	public override void _Ready()
 	{
-		GetNode<Label>("Label").Text = name;
-		GetNode<TextureRect>("TextureRect").Texture = icon;
+		_nameLabel  = GetNode<Label>("VBoxContainer/Label");
+		_descLabel  = GetNode<Label>("VBoxContainer/descLabel");
+		_priceLabel = GetNode<Label>("VBoxContainer/priceLabel");
 	}
 
-	private void OnPressed()
+	public void Setup(ShopItem item, int currentLevel, System.Action<SingleSellItem> onBuy)
 	{
-		GD.Print(name + "请求购买");
+		Item = item;
+		CurrentLevel = currentLevel;
+		_onBuy = onBuy;
+		Refresh();
 	}
+
+	public void Refresh()
+	{
+		bool maxed = CurrentLevel >= Item.MaxLevel;
+		_nameLabel.Text  = $"{Item.Name}\n Lv.{CurrentLevel}";
+		_descLabel.Text  = Item.Desc;
+		_priceLabel.Text = maxed ? "MAX" : $"价格:{Item.Price}";
+		Disabled = maxed;
+	}
+
+	private void OnPressed() => _onBuy?.Invoke(this);
 }

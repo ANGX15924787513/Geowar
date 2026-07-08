@@ -10,6 +10,7 @@ public partial class PointSync : RigidBody2D
 	[Export] private float bulletSpeed = 1000f;
 	[Export] private int circleAttackHP = 1;
 	[Export] private int bulletAttackHP = 5;
+	public static int AttackBonus;
 	[Export] private Color bulletColor;
 	bool bulletInitalized;
 	private bool _isDestroyed;  // 防止重复触发 Destroy
@@ -76,11 +77,11 @@ public partial class PointSync : RigidBody2D
 			GD.Print($"子弹创到:{body.Name}");
 			if (pointType == PointType.BULLET)
 			{
-				((Enemy)body).GotHurt(bulletAttackHP);
+				((Enemy)body).GotHurt(bulletAttackHP + AttackBonus);
 				Destroy();
 			}else if (pointType == PointType.CIRCLE)
 			{
-				((Enemy)body).GotHurt(circleAttackHP);
+				((Enemy)body).GotHurt(circleAttackHP + AttackBonus);
 			}
 		}
 		void Destroy()

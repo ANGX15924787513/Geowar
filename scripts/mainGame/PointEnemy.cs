@@ -15,7 +15,8 @@ public partial class PointEnemy : Enemy
 		if (gameManager.gameState != GameManager.GameState.GAMING) return;
 		animationPlayer.Play("pointDie");
 		await ToSignal(animationPlayer, "animation_finished");
-		signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition);
+		signalManager.EmitSignal(SignalManager.SignalName.OnEnemyDied);
+			signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition);
 		QueueFree();
 	}
 }

@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://c35lscg8wiw0y"]
+
+[ext_resource type="Script" uid="uid://mi7gdox3gda" path="res://scripts/mainGame/PauseScreen.cs" id="1_85lkq"]
+[ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="2_u6hs2"]
+[ext_resource type="Script" uid="uid://c4jp5gy0e2p50" path="res://gdscripts/mainGame/deathScrButtontoMainMenu.gd" id="3_qjelw"]
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="4_jx22d"]
+[ext_resource type="Texture2D" uid="uid://cfpc7sdkqauwc" path="res://texture/title.png" id="5_s104e"]
+
+[sub_resource type="Animation" id="Animation_85lkq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1170, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u6hs2"]
+resource_name = "enter"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.17, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1206, 0), Vector2(-71, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qjelw"]
+resource_name = "exit"
+length = 0.24331306
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.24),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1155, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2381944),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jx22d"]
+_data = {
+&"RESET": SubResource("Animation_85lkq"),
+&"enter": SubResource("Animation_u6hs2"),
+&"exit": SubResource("Animation_qjelw")
+}
+
+[sub_resource type="Gradient" id="Gradient_figw8"]
+offsets = PackedFloat32Array(0, 0.25761774, 0.5290859, 0.81163436, 1)
+colors = PackedColorArray(1, 0.5019608, 1, 0.48235294, 0.8955456, 0.7668203, 0.15841699, 0.5884634, 0.7363743, 0.8993638, 0.63186896, 0.7232524, 0.70492685, 0.9721133, 0.96459955, 0.8523057, 0.90588236, 0.5137255, 0.9882353, 0.9529412)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wvhbo"]
+gradient = SubResource("Gradient_figw8")
+width = 365
+height = 73
+fill_to = Vector2(0.988604, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ygqx"]
+font = ExtResource("4_jx22d")
+font_size = 97
+font_color = Color(1, 1, 1, 0.5254902)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.41568628, 0.75686276, 1, 0.15294118)
+shadow_offset = Vector2(7.995, 3.335)
+
+[node name="PauseScreen" type="CanvasLayer" unique_id=1997191542]
+layer = 0
+script = ExtResource("1_85lkq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1314345303]
+libraries/ = SubResource("AnimationLibrary_jx22d")
+
+[node name="Control" type="Control" parent="." unique_id=1307519522]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1170.0
+offset_right = 1210.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Control" unique_id=341514569]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 565.0
+offset_right = 330.0
+offset_bottom = 637.0
+theme = ExtResource("2_u6hs2")
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_color = Color(0.7559879, 0.92182714, 0.82645136, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.57254905)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 57
+text = "返回主菜单"
+flat = true
+script = ExtResource("3_qjelw")
+
+[node name="Button2" type="Button" parent="Control" unique_id=301735134]
+clip_children = 2
+layout_mode = 0
+offset_left = 811.0
+offset_top = 565.0
+offset_right = 1133.0
+offset_bottom = 637.0
+theme = ExtResource("2_u6hs2")
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.57254905)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 57
+text = "继续游戏"
+flat = true
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/Button2" unique_id=1731086159]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("GradientTexture2D_wvhbo")
+
+[node name="Label" type="Label" parent="Control" unique_id=1323936863]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 1.0
+offset_right = 819.0
+offset_bottom = 109.0
+text = "游戏已暂停"
+label_settings = SubResource("LabelSettings_1ygqx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=597975656]
+position = Vector2(1090, 20)
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("5_s104e")
+
+[connection signal="pressed" from="Control/Button" to="Control/Button" method="switch_to_main_menu"]
+[connection signal="pressed" from="Control/Button2" to="." method="OnContinueButtonPressed"]

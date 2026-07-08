@@ -3,11 +3,15 @@
 [ext_resource type="Script" uid="uid://bmy6r4qv42k6c" path="res://scripts/mainMenu/MainMenuShop.cs" id="1_6fqg3"]
 [ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="2_u1dkw"]
 [ext_resource type="PackedScene" uid="uid://brc5y50lu52eb" path="res://scenes/single_sell_item.tscn" id="3_u1dkw"]
-[ext_resource type="Texture2D" uid="uid://8s5k3tmh8e7p" path="res://texture/1718237293545.jpg" id="4_on5q8"]
 [ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="5_2dxno"]
+[ext_resource type="Script" uid="uid://d3fu7lfo20848" path="res://gdscripts/mainMenu/label_shake.gd" id="5_e4jrh"]
 [ext_resource type="Texture2D" uid="uid://chhxvq6rm8nbe" path="res://texture/MCTexture/diamond.png" id="6_2otb7"]
 [ext_resource type="Texture2D" uid="uid://oebgc03q7dk0" path="res://texture/MCTexture/gold_ingot.png" id="6_bfgv4"]
 [ext_resource type="Texture2D" uid="uid://cdc5uwcq1a2yd" path="res://texture/MCTexture/emerald.png" id="7_e4jrh"]
+[ext_resource type="Script" uid="uid://xp7u2fg6eva8" path="res://gdscripts/mainMenu/exchange_button_gold_diam.gd" id="8_2otb7"]
+[ext_resource type="Script" uid="uid://buc6e1ythh12" path="res://gdscripts/mainMenu/exchange_button_diam_emerald.gd" id="10_uxkbo"]
+[ext_resource type="FontFile" uid="uid://sfrfvp70mwee" path="res://fonts/BoutiqueBitmap7x7_1.7.ttf" id="11_y75bg"]
+[ext_resource type="Script" uid="uid://cbgj8q4xky56o" path="res://gdscripts/mainMenu/clear_data_button.gd" id="12_e4s0c"]
 
 [sub_resource type="Gradient" id="Gradient_on5q8"]
 offsets = PackedFloat32Array(0, 0.2603878, 1)
@@ -34,6 +38,16 @@ font = ExtResource("2_u1dkw")
 font_size = 46
 outline_size = 8
 outline_color = Color(0, 0.3254902, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_figw8"]
+offsets = PackedFloat32Array(0, 0.25761774, 0.5290859, 0.81163436, 1)
+colors = PackedColorArray(1, 0.5019608, 1, 0.48235294, 0.8955456, 0.7668203, 0.15841699, 0.5884634, 0.7363743, 0.8993638, 0.63186896, 0.7232524, 0.70492685, 0.9721133, 0.96459955, 0.8523057, 0.90588236, 0.5137255, 0.9882353, 0.9529412)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uxkbo"]
+gradient = SubResource("Gradient_figw8")
+width = 50
+height = 32
+fill_to = Vector2(0.988604, 0)
 
 [sub_resource type="Animation" id="Animation_2dxno"]
 length = 0.001
@@ -95,7 +109,7 @@ script = ExtResource("1_6fqg3")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=746908856]
 offset_right = 1344.0
-offset_bottom = 648.0
+offset_bottom = 925.0
 texture = SubResource("GradientTexture2D_wvhbo")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1023490479]
@@ -145,16 +159,13 @@ flat = true
 [node name="HFlowContainer" type="HFlowContainer" parent="." unique_id=1511081731]
 offset_left = 359.0
 offset_top = 129.0
-offset_right = 1151.0
-offset_bottom = 622.0
+offset_right = 1149.0
+offset_bottom = 635.0
 theme_override_constants/h_separation = 153
 theme_override_constants/v_separation = 158
 
 [node name="singleSellItem" parent="HFlowContainer" unique_id=656635618 instance=ExtResource("3_u1dkw")]
 layout_mode = 2
-icon = ExtResource("4_on5q8")
-name = "这里没有东西"
-icon = ExtResource("4_on5q8")
 
 [node name="singleSellItem2" parent="HFlowContainer" unique_id=963007120 instance=ExtResource("3_u1dkw")]
 layout_mode = 2
@@ -201,7 +212,7 @@ offset_left = 379.0
 offset_top = 23.0
 offset_right = 1226.0
 offset_bottom = 102.0
-theme_override_constants/separation = 63
+theme_override_constants/separation = 45
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=53249181]
 layout_mode = 2
@@ -212,6 +223,7 @@ expand_mode = 2
 layout_mode = 2
 text = "91"
 label_settings = SubResource("LabelSettings_uxkbo")
+script = ExtResource("5_e4jrh")
 
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer" unique_id=231069096]
 layout_mode = 2
@@ -222,6 +234,7 @@ expand_mode = 2
 layout_mode = 2
 text = "91"
 label_settings = SubResource("LabelSettings_7u6xv")
+script = ExtResource("5_e4jrh")
 
 [node name="TextureRect3" type="TextureRect" parent="HBoxContainer" unique_id=1103707912]
 layout_mode = 2
@@ -232,6 +245,95 @@ expand_mode = 2
 layout_mode = 2
 text = "91"
 label_settings = SubResource("LabelSettings_y75bg")
+script = ExtResource("5_e4jrh")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=624088060]
+texture_filter = 1
+offset_left = 626.0
+offset_top = 97.0
+offset_right = 1068.0
+offset_bottom = 131.0
+theme_override_constants/separation = 28
+
+[node name="Button" type="Button" parent="HBoxContainer2" unique_id=1698592922 node_paths=PackedStringArray("line_edit", "diamond_label")]
+clip_children = 2
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.06666667, 0.44705883, 0.47843137, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("5_2dxno")
+theme_override_font_sizes/font_size = 23
+text = "兑换"
+flat = true
+script = ExtResource("8_2otb7")
+line_edit = NodePath("../LineEdit")
+diamond_label = NodePath("../../HBoxContainer/Label2")
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer2/Button" unique_id=1052536125]
+self_modulate = Color(1, 1, 1, 0.6745098)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 32.0
+texture = SubResource("GradientTexture2D_uxkbo")
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer2" unique_id=149967880]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.097532324, 0.5891817, 0.6295535, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("5_2dxno")
+theme_override_font_sizes/font_size = 20
+text = "1"
+placeholder_text = "91"
+alignment = 1
+max_length = 2
+flat = true
+
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=923135587]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.06666667, 0.44705883, 0.47843137, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("5_2dxno")
+theme_override_font_sizes/font_size = 23
+text = "个"
+
+[node name="Button2" type="Button" parent="HBoxContainer2" unique_id=1933909339 node_paths=PackedStringArray("line_edit", "emer_label")]
+clip_children = 2
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0.6666667, 0.17254902, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("5_2dxno")
+theme_override_font_sizes/font_size = 23
+text = "兑换"
+flat = true
+script = ExtResource("10_uxkbo")
+line_edit = NodePath("../LineEdit2")
+emer_label = NodePath("../../HBoxContainer/Label3")
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer2/Button2" unique_id=1127570477]
+self_modulate = Color(1, 1, 1, 0.6745098)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 32.0
+texture = SubResource("GradientTexture2D_uxkbo")
+
+[node name="LineEdit2" type="LineEdit" parent="HBoxContainer2" unique_id=810310944]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0.8676504, 0.23592097, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("5_2dxno")
+theme_override_font_sizes/font_size = 20
+text = "1"
+placeholder_text = "78"
+alignment = 1
+max_length = 2
+flat = true
+
+[node name="Label2" type="Label" parent="HBoxContainer2" unique_id=590829416]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0.6666667, 0.17254902, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("5_2dxno")
+theme_override_font_sizes/font_size = 23
+text = "个"
 
 [node name="Button" type="Button" parent="." unique_id=350984924]
 texture_filter = 1
@@ -251,7 +353,23 @@ expand_icon = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=206801253]
 libraries/ = SubResource("AnimationLibrary_e4jrh")
 
+[node name="Button2" type="Button" parent="." unique_id=391856359]
+modulate = Color(1, 1, 1, 0.02745098)
+offset_left = 1048.0
+offset_right = 1152.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(0.8745098, 0, 0, 1)
+theme_override_fonts/font = ExtResource("11_y75bg")
+text = "CLEAR DATA"
+flat = true
+script = ExtResource("12_e4s0c")
+
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="OnGoldButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="OnDiamondButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="OnEmeraldButtonPressed"]
+[connection signal="on_gold_diam" from="HBoxContainer2/Button" to="." method="OnExchangeGoldToDiamond"]
+[connection signal="pressed" from="HBoxContainer2/Button" to="HBoxContainer2/Button" method="_on_pressed"]
+[connection signal="on_diam_emerald" from="HBoxContainer2/Button2" to="." method="OnExchangeDiamondToEmerald"]
+[connection signal="pressed" from="HBoxContainer2/Button2" to="HBoxContainer2/Button2" method="_on_pressed"]
 [connection signal="pressed" from="Button" to="." method="OnChangeButtonPressed"]
+[connection signal="pressed" from="Button2" to="Button2" method="_on_pressed"]

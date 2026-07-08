@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ruwqfk8wsxbk"]
 
-[ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="1_ekxnf"]
 [ext_resource type="Script" uid="uid://mkpii2byl06m" path="res://scripts/mainMenu/MainMenuRoot.cs" id="1_jk1qb"]
 [ext_resource type="Script" uid="uid://b470cy4afgd0n" path="res://gdscripts/mainMenu/line_destroy.gd" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://cfpc7sdkqauwc" path="res://texture/title.png" id="2_flqon"]
 [ext_resource type="Script" uid="uid://b757ugdocq7vv" path="res://scripts/mainMenu/Title.cs" id="2_tbmy8"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="3_bqqt6"]
 [ext_resource type="Script" uid="uid://drpn5efi25mqb" path="res://scripts/mainMenu/MyButton.cs" id="3_wu84c"]
@@ -102,106 +102,82 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("title/Label:theme_override_colors/font_color")
+tracks/7/path = NodePath("button/startButton:theme_override_colors/font_color")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(0.8745098, 0.8745098, 0.8745098, 0)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("button/startButton:theme_override_colors/font_color")
+tracks/8/path = NodePath("button/startButton:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.8745098, 0.8745098, 0.8745098, 0)]
+"values": [Vector2(1169, 545)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("button/startButton:position")
+tracks/9/path = NodePath("button/exitButton:theme_override_colors/font_color")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1169, 545)]
+"values": [Color(0.8745098, 0.8745098, 0.8745098, 0)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("button/exitButton:theme_override_colors/font_color")
+tracks/10/path = NodePath("button/exitButton:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.8745098, 0.8745098, 0.8745098, 0)]
+"values": [Vector2(-295, 545)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("button/exitButton:position")
+tracks/11/path = NodePath("AudioStreamPlayer:volume_db")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-295, 545)]
+"values": [-27.586]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/12/path = NodePath("AudioStreamPlayer:playing")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-27.586]
+"update": 1,
+"values": [false]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("AudioStreamPlayer:playing")
+tracks/13/path = NodePath("shop:position")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("title/Label:position")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(430, 9)]
-}
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("shop:position")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -342,98 +318,98 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("title/Label:theme_override_colors/font_color")
+tracks/9/path = NodePath("button/startButton:theme_override_colors/font_color")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(1.9733334, 2.023559, 2.0666668, 2.2511706, 2.2942784),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(0.34509805, 0.34509805, 0.34509805, 1), Color(0.8156863, 1, 1, 1)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("button/startButton:theme_override_colors/font_color")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
 "times": PackedFloat32Array(2.339067, 2.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0.8745098, 0.8745098, 0.8745098, 0), Color(0.8745098, 0.8745098, 0.78431374, 1)]
 }
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("button/startButton:position")
-tracks/11/interp = 2
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("button/startButton:position")
+tracks/10/interp = 2
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(2.3406413, 2.5, 2.596623, 2.6333332),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1169, 545), Vector2(18, 545), Vector2(76, 545), Vector2(18, 545)]
 }
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("button/exitButton:theme_override_colors/font_color")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("button/exitButton:theme_override_colors/font_color")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "times": PackedFloat32Array(2.3384686, 2.5053244),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0.8745098, 0.8745098, 0.8745098, 0), Color(0.8745098, 0.81960785, 0.8745098, 1)]
 }
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("button/exitButton:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("button/exitButton:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
 "times": PackedFloat32Array(2.3416166, 2.500602, 2.596623, 2.6333332),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-295, 545), Vector2(844, 545), Vector2(788, 545), Vector2(844, 545)]
 }
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("AudioStreamPlayer:playing")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("AudioStreamPlayer:playing")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
 "times": PackedFloat32Array(0, 1.9032061, 1.9633334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, false, true]
 }
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("AudioStreamPlayer:volume_db")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
 "times": PackedFloat32Array(1.9633334, 2.6333332),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [-10.962999999999994, -5.0]
 }
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("shop:position")
-tracks/16/interp = 2
-tracks/16/loop_wrap = true
-tracks/16/keys = {
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("shop:position")
+tracks/15/interp = 2
+tracks/15/loop_wrap = true
+tracks/15/keys = {
 "times": PackedFloat32Array(2.3506002, 2.5969691),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1290.77, 0), Vector2(1152.245, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("title/Sprite2D:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(1.9800979, 2.0303235, 2.0734315, 2.257935, 2.301043),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(0.34509805, 0.34509805, 0.34509805, 1), Color(0.8156863, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ekxnf"]
@@ -463,16 +439,11 @@ color = Color(0, 0, 0, 1)
 
 [node name="title" type="Node2D" parent="." unique_id=771875376]
 
-[node name="Label" type="Label" parent="title" unique_id=863329063]
-offset_left = 430.0
-offset_top = 9.0
-offset_right = 733.0
-offset_bottom = 100.0
-pivot_offset = Vector2(148.925, 46.42)
-theme_override_colors/font_color = Color(1, 1, 1, 0)
-theme_override_fonts/font = ExtResource("1_ekxnf")
-theme_override_font_sizes/font_size = 82
-text = "Geowar"
+[node name="Sprite2D" type="Sprite2D" parent="title" unique_id=991252253]
+modulate = Color(0.8156863, 1, 1, 1)
+position = Vector2(569, 73.00001)
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("2_flqon")
 script = ExtResource("2_tbmy8")
 transitionR = 100.0
 maxFeelDistance = 500.0
@@ -516,7 +487,7 @@ animationPlayer = NodePath("../AnimationPlayer")
 [node name="startButton" type="Button" parent="button" unique_id=785436282]
 offset_left = 1169.0
 offset_top = 545.0
-offset_right = 1382.0007
+offset_right = 1382.0006
 offset_bottom = 617.0
 theme = ExtResource("3_bqqt6")
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
