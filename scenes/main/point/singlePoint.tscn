@@ -68,6 +68,7 @@ mass = 1.3
 gravity_scale = 0.0
 script = ExtResource("1_i68q0")
 bulletColor = Color(0.8782463, 0.46484894, 0.25551963, 1)
+debugFollowMode = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2117185343]
 modulate = Color(1, 1, 1, 0)

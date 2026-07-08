@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://bainbcjlw2tg8"]
+
+[ext_resource type="Script" uid="uid://dnqba7fvg54ux" path="res://gdscripts/mainMenu/setting.gd" id="1_31ui4"]
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="1_scrng"]
+[ext_resource type="Script" uid="uid://bo5vomjphd7uk" path="res://gdscripts/mainMenu/fps.gd" id="2_31ui4"]
+[ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="3_o8tsb"]
+[ext_resource type="Texture2D" uid="uid://cdc5uwcq1a2yd" path="res://texture/MCTexture/emerald.png" id="4_ikx14"]
+
+[sub_resource type="Gradient" id="Gradient_on5q8"]
+offsets = PackedFloat32Array(0, 0.2603878, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.2132964, 0.2132964, 0.2132964, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_50131"]
+gradient = SubResource("Gradient_on5q8")
+fill_to = Vector2(0.988604, 0.54131055)
+
+[sub_resource type="Theme" id="Theme_rawaq"]
+default_font = ExtResource("1_scrng")
+default_font_size = 26
+
+[sub_resource type="Theme" id="Theme_scrng"]
+default_font = ExtResource("1_scrng")
+default_font_size = 18
+
+[sub_resource type="Animation" id="Animation_8iqn7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1153, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bqguh"]
+resource_name = "enter_setting"
+length = 0.41008076
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0035781332, 0.25776505, 0.41008076),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1153, 0), Vector2(104, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hjk27"]
+resource_name = "exit_setting"
+length = 0.4240088
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00038455613, 0.4240088),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1153, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1s23a"]
+_data = {
+&"RESET": SubResource("Animation_8iqn7"),
+&"enter_setting": SubResource("Animation_bqguh"),
+&"exit_setting": SubResource("Animation_hjk27")
+}
+
+[node name="setting" type="Node2D" unique_id=1969230021]
+position = Vector2(-1153, 0)
+script = ExtResource("1_31ui4")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=83748761]
+offset_left = -193.92809
+offset_right = 1150.0719
+offset_bottom = 925.0
+texture = SubResource("GradientTexture2D_50131")
+
+[node name="FlowContainer" type="FlowContainer" parent="." unique_id=2013916265]
+offset_left = 23.0
+offset_top = 17.0
+offset_right = 934.0
+offset_bottom = 628.0
+
+[node name="Label" type="Label" parent="FlowContainer" unique_id=475672584]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "FPS:"
+
+[node name="SpinBox" type="SpinBox" parent="FlowContainer" unique_id=738128656]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme = SubResource("Theme_scrng")
+min_value = 20.0
+max_value = 240.0
+value = 144.0
+rounded = true
+suffix = "fps"
+script = ExtResource("2_31ui4")
+
+[node name="Button" type="Button" parent="." unique_id=1292672265]
+texture_filter = 1
+offset_left = 953.0719
+offset_top = 1.0
+offset_right = 1251.0719
+offset_bottom = 108.0
+theme_override_colors/font_outline_color = Color(0, 0.6666667, 0.17254902, 1)
+theme_override_constants/outline_size = 17
+theme_override_fonts/font = ExtResource("3_o8tsb")
+theme_override_font_sizes/font_size = 90
+text = "设置"
+icon = ExtResource("4_ikx14")
+flat = true
+alignment = 0
+icon_alignment = 2
+expand_icon = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1072694645]
+libraries/ = SubResource("AnimationLibrary_1s23a")
+
+[connection signal="value_changed" from="FlowContainer/SpinBox" to="FlowContainer/SpinBox" method="_on_value_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

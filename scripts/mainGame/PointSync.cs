@@ -15,8 +15,14 @@ public partial class PointSync : RigidBody2D
 	bool bulletInitalized;
 	private bool _isDestroyed;  // 防止重复触发 Destroy
 	private Vector2 flySpeed;
+	private Node2D _homingTarget;
+	[Export] private float homingStrength = 3f; // 追踪转向力度
 	private SignalManager signalManager;
 	private GameManager gameManager;
+	
+	
+	[Export] private bool debugFollowMode;
+	
 
 	public enum PointType
 	{
@@ -46,6 +52,10 @@ public partial class PointSync : RigidBody2D
 				InitializeBullet();
 				bulletInitalized = true;
 			}
+			else if (debugFollowMode)
+			{
+				HomeToNearestEnemy((float)delta);
+			}
 			else
 			{
 				LinearVelocity = flySpeed;
@@ -53,15 +63,37 @@ public partial class PointSync : RigidBody2D
 		}
 	}
 
+	private void HomeToNearestEnemy(float delta)
+	{
+		// 目标挂了就不再追
+		if (_homingTarget == null || !IsInstanceValid(_homingTarget))
+		{
+			LinearVelocity = flySpeed;
+			return;
+		}
+
+		Vector2 to = _homingTarget.GlobalPosition - GlobalPosition;
+		LinearVelocity = to.Normalized() * bulletSpeed;
+	}
+
 	private void InitializeBullet()
 	{
-		// Area2D area = new Area2D();
-		// area.AddChild(collisionShape2D.Duplicate());
-		// area.BodyEntered += OnBodyEntered;
-		// AddChild(area);
 		LinearVelocity = bulletSpeed * LinearVelocity.Normalized();
 		flySpeed = LinearVelocity;
 		GetNode<PointParticle>("Sprite2D/GPUParticles2D").color = bulletColor;
+
+		// 锁定发射时最近的敌人
+		if (debugFollowMode)
+		{
+			float best = float.MaxValue;
+			foreach (var node in GetTree().GetNodesInGroup("enemy"))
+			{
+				if (node is not Node2D body || !IsInstanceValid(body)) continue;
+				float d = GlobalPosition.DistanceSquaredTo(body.GlobalPosition);
+				if (d < best) { best = d; _homingTarget = body; }
+			}
+		}
+
 		GD.Print("子弹初始化");
 	}
 

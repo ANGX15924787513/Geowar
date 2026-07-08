@@ -49,6 +49,17 @@ movie_writer/movie_file="C:/Users/Administrator/Videos/gdMovieMaker.avi"
 
 enabled=PackedStringArray("res://addons/RoundedPolygon2D/plugin.cfg", "res://addons/easytransition/plugin.cfg", "res://addons/rider-plugin/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://gdscripts/": "purple",
+"res://scenes/": "red",
+"res://scripts/": "green",
+"res://sounds/": "yellow",
+"res://texture/": "orange",
+"res://texture/MCTexture/main_menu/": "blue"
+}
+
 [global_group]
 
 player="玩家碰撞体"

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://mkpii2byl06m" path="res://scripts/mainMenu/MainMenuRoot.cs" id="1_jk1qb"]
 [ext_resource type="Script" uid="uid://b470cy4afgd0n" path="res://gdscripts/mainMenu/line_destroy.gd" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://ycnmppcuqyt5" path="res://gdscripts/mainMenu/physic_show.gd" id="2_1ajci"]
 [ext_resource type="Texture2D" uid="uid://cfpc7sdkqauwc" path="res://texture/title.png" id="2_flqon"]
 [ext_resource type="Script" uid="uid://b757ugdocq7vv" path="res://scripts/mainMenu/Title.cs" id="2_tbmy8"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="3_bqqt6"]
@@ -9,9 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://c8gl7y4f8qd2g" path="res://scenes/main_game.tscn" id="5_rtw2f"]
 [ext_resource type="AudioStream" uid="uid://dywhvmpdmwi8d" path="res://sounds/UIAudioPack/bong_001.ogg" id="6_jk1qb"]
 [ext_resource type="AudioStream" uid="uid://b25eimdkrod48" path="res://sounds/Skyscape - Plum - Melodic Artist.mp3" id="7_oa1go"]
+[ext_resource type="FontFile" uid="uid://sfrfvp70mwee" path="res://fonts/BoutiqueBitmap7x7_1.7.ttf" id="9_7b55j"]
 [ext_resource type="Script" uid="uid://bpplu0nb8yhb1" path="res://gdscripts/mainMenu/lignt_with_cursor.gd" id="11_flqon"]
 [ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="11_lgwnu"]
 [ext_resource type="PackedScene" uid="uid://cf7ell5xwbmn7" path="res://scenes/main_menu_shop.tscn" id="12_flqon"]
+[ext_resource type="PackedScene" uid="uid://bainbcjlw2tg8" path="res://scenes/setting.tscn" id="13_rcqid"]
 
 [sub_resource type="Animation" id="Animation_vue75"]
 length = 0.001
@@ -182,6 +185,30 @@ tracks/13/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1290.77, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("setting:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1155.02, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("VBoxContainer:position")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(159, 471)]
 }
 
 [sub_resource type="Animation" id="Animation_tbmy8"]
@@ -411,6 +438,30 @@ tracks/16/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(0.34509805, 0.34509805, 0.34509805, 1), Color(0.8156863, 1, 1, 1)]
 }
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("setting:position")
+tracks/17/interp = 2
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(2.3433185, 2.7333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1240.96, 0), Vector2(-1155.02, 0)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("VBoxContainer:position")
+tracks/18/interp = 2
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(2.308169, 2.413618, 2.7333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(159, 675), Vector2(159, 471), Vector2(159, 505)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ekxnf"]
 _data = {
@@ -431,16 +482,16 @@ glow_bloom = 1.0
 script = ExtResource("1_jk1qb")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1157166762]
-offset_left = -1812.0
-offset_top = -1262.0
-offset_right = 3777.0
-offset_bottom = 2100.0
+offset_left = -1373.0
+offset_top = -1171.0
+offset_right = 4216.0
+offset_bottom = 2191.0
 color = Color(0, 0, 0, 1)
 
 [node name="title" type="Node2D" parent="." unique_id=771875376]
 
 [node name="Sprite2D" type="Sprite2D" parent="title" unique_id=991252253]
-modulate = Color(0.8156863, 1, 1, 1)
+modulate = Color(1, 1, 1, 0)
 position = Vector2(569, 73.00001)
 scale = Vector2(0.21, 0.21)
 texture = ExtResource("2_flqon")
@@ -487,13 +538,14 @@ animationPlayer = NodePath("../AnimationPlayer")
 [node name="startButton" type="Button" parent="button" unique_id=785436282]
 offset_left = 1169.0
 offset_top = 545.0
-offset_right = 1382.0006
+offset_right = 1382.0005
 offset_bottom = 617.0
 theme = ExtResource("3_bqqt6")
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
 theme_override_colors/font_hover_color = Color(0.84578055, 0.8395044, 0.73087615, 1)
-text = "START"
+text = "開始"
 flat = true
+alignment = 0
 
 [node name="exitButton" type="Button" parent="button" unique_id=538512671]
 offset_left = -295.0
@@ -503,8 +555,28 @@ offset_bottom = 617.0
 theme = ExtResource("3_bqqt6")
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
 theme_override_colors/font_hover_color = Color(0.8745098, 0.81960785, 0.8745098, 1)
-text = "GO AWAY"
+text = "離開"
 flat = true
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=328059941]
+offset_left = 159.0
+offset_top = 471.0
+offset_right = 976.0
+offset_bottom = 608.0001
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=909818967]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_7b55j")
+theme_override_font_sizes/font_size = 44
+text = "你认识吗"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1299359842]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+script = ExtResource("2_1ajci")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=264947568]
 stream = ExtResource("7_oa1go")
@@ -528,6 +600,8 @@ energy = 0.34
 texture = ExtResource("11_lgwnu")
 
 [node name="shop" parent="." unique_id=1299253480 instance=ExtResource("12_flqon")]
+
+[node name="setting" parent="." unique_id=1969230021 instance=ExtResource("13_rcqid")]
 
 [connection signal="pressed" from="button/startButton" to="button" method="_on_start_button_pressed"]
 [connection signal="pressed" from="button/exitButton" to="button" method="_on_exit_button_pressed"]

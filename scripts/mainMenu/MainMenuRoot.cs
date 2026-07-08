@@ -9,9 +9,4 @@ public partial class MainMenuRoot : Node2D
 		gameManager = GetNode<GameManager>("/root/GameManager");
 		gameManager.gameState = GameManager.GameState.MAIN_MENU;
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 }

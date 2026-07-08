@@ -13,12 +13,12 @@
 [ext_resource type="FontFile" uid="uid://sfrfvp70mwee" path="res://fonts/BoutiqueBitmap7x7_1.7.ttf" id="11_y75bg"]
 [ext_resource type="Script" uid="uid://cbgj8q4xky56o" path="res://gdscripts/mainMenu/clear_data_button.gd" id="12_e4s0c"]
 
-[sub_resource type="Gradient" id="Gradient_on5q8"]
+[sub_resource type="Gradient" id="Gradient_y75bg"]
 offsets = PackedFloat32Array(0, 0.2603878, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.2132964, 0.2132964, 0.2132964, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_wvhbo"]
-gradient = SubResource("Gradient_on5q8")
+gradient = SubResource("Gradient_y75bg")
 fill_to = Vector2(0.988604, 0.54131055)
 
 [sub_resource type="LabelSettings" id="LabelSettings_uxkbo"]

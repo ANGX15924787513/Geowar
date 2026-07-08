@@ -196,16 +196,37 @@ public partial class MainMenuShop : Node2D
 		if (animationPlayer.IsPlaying()) return;
 		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
 		if (_isInShop)
+		{
 			animationPlayer.Play("exit_shop");
+			((Node2D)GetNode("../setting")).Visible = true;
+		}
 		else
 		{
 			RefreshDisplay();
 			animationPlayer.Play("enter_shop");
+			((Node2D)GetNode("../setting")).Visible = false;
 		}
 		_isInShop = !_isInShop;
 	}
 
-	private void OnGoldButtonPressed()    { currentChoseItem = ChoseItem.GOLD;    PopulateGrid(); }
-	private void OnDiamondButtonPressed() { currentChoseItem = ChoseItem.DIAMOND; PopulateGrid(); }
-	private void OnEmeraldButtonPressed() { currentChoseItem = ChoseItem.EMERALD; PopulateGrid(); }
+	private void OnGoldButtonPressed()
+	{
+		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		currentChoseItem = ChoseItem.GOLD;    
+		PopulateGrid();
+	}
+
+	private void OnDiamondButtonPressed()
+	{
+		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		currentChoseItem = ChoseItem.DIAMOND; 
+		PopulateGrid();
+	}
+
+	private void OnEmeraldButtonPressed()
+	{
+		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		currentChoseItem = ChoseItem.EMERALD; 
+		PopulateGrid();
+	}
 }
