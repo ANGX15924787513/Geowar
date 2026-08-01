@@ -253,6 +253,18 @@ tracks/16/keys = {
 "update": 0,
 "values": [Color(0.69803923, 0.39215687, 0.06666667, 0.5647059)]
 }
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("TextureRect:size")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1171, 55)]
+}
 
 [sub_resource type="Animation" id="Animation_msnq2"]
 resource_name = "on_initialized"
@@ -524,6 +536,18 @@ tracks/21/keys = {
 "update": 0,
 "values": [Color(0.41568628, 0.75686276, 1, 0)]
 }
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("TextureRect:size")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0, 1.69, 1.96),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1171, 55), Vector2(1171, 55), Vector2(1171, 163.36053)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qiop6"]
 _data = {
@@ -561,9 +585,9 @@ label_settings = ExtResource("2_u6ea1")
 horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=2001760008]
-offset_top = -52.335
-offset_right = 1171.0
-offset_bottom = 2.665001
+offset_left = -44.48
+offset_right = 1126.52
+offset_bottom = 55.0
 texture = SubResource("GradientTexture1D_wvhbo")
 
 [node name="Button" type="Button" parent="TextureRect" unique_id=683769866]
@@ -690,8 +714,6 @@ texture = ExtResource("7_2meay")
 
 [node name="AudioStreamPlayerMusic" type="AudioStreamPlayer" parent="." unique_id=362182559]
 stream = ExtResource("6_2meay")
-volume_db = -10.0
-stream_paused = true
 
 [node name="score" type="Label" parent="." unique_id=1649235298]
 anchors_preset = 8

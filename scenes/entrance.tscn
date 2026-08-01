@@ -342,7 +342,7 @@ main_menu = ExtResource("2_iyrkg")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1998203707]
 offset_right = 1178.0
-offset_bottom = 656.0
+offset_bottom = 851.0
 color = Color(0, 0, 0, 1)
 
 [node name="Node2D" type="Node2D" parent="." unique_id=96402557]

@@ -5,19 +5,19 @@
 [ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="3_a2je4"]
 [ext_resource type="Script" uid="uid://dg0h2ax07sxy8" path="res://gdscripts/mainGame/fallItemAni.gd" id="3_srg2t"]
 
-[node name="Emerald" type="Node2D" unique_id=2023539307]
+[node name="Emerald" type="Node2D" unique_id=2023539307 node_paths=PackedStringArray("Anim")]
 script = ExtResource("1_jcbps")
+Anim = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345318038]
-modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 position = Vector2(0, 7)
-scale = Vector2(1e-05, 1e-05)
+scale = Vector2(3, 3)
 texture = ExtResource("2_srg2t")
 
 [node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=1314580455]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 10
+collision_mask = 10
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D" unique_id=762100368]
 scale = Vector2(1.5, 1.5)

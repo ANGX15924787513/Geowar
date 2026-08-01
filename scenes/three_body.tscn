@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d1k2r6qyd0qru"]
+
+[ext_resource type="Script" uid="uid://b3dq8k6yoaivt" path="res://scripts/ThreeBody.cs" id="1_02vgj"]
+
+[node name="ThreeBody" type="Node2D" unique_id=1842883317]
+script = ExtResource("1_02vgj")

@@ -4,7 +4,9 @@
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="2_u6hs2"]
 [ext_resource type="Script" uid="uid://c4jp5gy0e2p50" path="res://gdscripts/mainGame/deathScrButtontoMainMenu.gd" id="3_qjelw"]
 [ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="4_jx22d"]
+[ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="5_qjelw"]
 [ext_resource type="Texture2D" uid="uid://cfpc7sdkqauwc" path="res://texture/title.png" id="5_s104e"]
+[ext_resource type="Script" uid="uid://cxcy6d4t05xyq" path="res://gdscripts/mainGame/tip_label.gd" id="6_jx22d"]
 
 [sub_resource type="Animation" id="Animation_85lkq"]
 length = 0.001
@@ -59,6 +61,20 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TipLabel")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"refresh_tip"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_qjelw"]
@@ -131,6 +147,7 @@ offset_right = 1210.0
 offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="Control" unique_id=341514569]
+modulate = Color(1, 1, 1, 0.78431374)
 layout_mode = 0
 offset_left = 8.0
 offset_top = 565.0
@@ -147,6 +164,7 @@ flat = true
 script = ExtResource("3_qjelw")
 
 [node name="Button2" type="Button" parent="Control" unique_id=301735134]
+modulate = Color(1, 1, 1, 0.78431374)
 clip_children = 2
 layout_mode = 0
 offset_left = 811.0
@@ -177,6 +195,30 @@ offset_right = 819.0
 offset_bottom = 109.0
 text = "游戏已暂停"
 label_settings = SubResource("LabelSettings_1ygqx")
+
+[node name="TipLabel" type="Label" parent="Control" unique_id=1126590435]
+modulate = Color(1, 1, 1, 0.5882353)
+custom_maximum_size = Vector2(500, -1)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 340.0
+offset_top = 534.0
+offset_right = 840.0
+offset_bottom = 585.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.6313726, 0.9490196, 0.87058824, 0.75686276)
+theme_override_colors/font_outline_color = Color(0.36839342, 0.61445767, 0.5546449, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("5_qjelw")
+theme_override_font_sizes/font_size = 21
+text = "Tip :
+商店会把你卖的东西原价还给你吗?"
+vertical_alignment = 2
+autowrap_mode = 3
+script = ExtResource("6_jx22d")
+tips = PackedStringArray("商店会把你卖的东西原价还给你吗?(奸)", "圆上的点只会受到攻击加成的20%", "这里有tip?!!", "游戏图标和主菜单的标题都是作者自己画的", "商店右上角有个危险的东西?", "帧率最低只能设20帧(有卡死经历)", "真的有人看这个吗......", "It\'s been a long day~", "不要开学!!!", "本项目在Github上开源!", "你大概率只会在暂停页面看到这个(废话)", "不是哥们")
 
 [node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=597975656]
 position = Vector2(1090, 20)

@@ -3,6 +3,7 @@ using System;
 
 public partial class FightBgMusic : AudioStreamPlayer
 {
+	[Export] AudioStream[] fightSounds;
 	public GameManager gameManager;
 	public SignalManager signalManager;
 	public override void _Ready()
@@ -20,6 +21,7 @@ public partial class FightBgMusic : AudioStreamPlayer
 	private void PlaySound()
 	{
 		if (IsPlaying()) return;
+		Stream = fightSounds[GD.RandRange(0, fightSounds.Length - 1)];
 		Play();
 	}
 

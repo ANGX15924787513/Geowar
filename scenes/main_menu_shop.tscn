@@ -173,87 +173,78 @@ layout_mode = 2
 [node name="singleSellItem3" parent="HFlowContainer" unique_id=1599707270 instance=ExtResource("3_u1dkw")]
 layout_mode = 2
 
-[node name="singleSellItem4" parent="HFlowContainer" unique_id=1734302683 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem5" parent="HFlowContainer" unique_id=409769789 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem6" parent="HFlowContainer" unique_id=742277850 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem7" parent="HFlowContainer" unique_id=229344094 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem8" parent="HFlowContainer" unique_id=1365941774 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem9" parent="HFlowContainer" unique_id=1566927038 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem10" parent="HFlowContainer" unique_id=539968345 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem11" parent="HFlowContainer" unique_id=949306778 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem12" parent="HFlowContainer" unique_id=2004713033 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem13" parent="HFlowContainer" unique_id=1832929266 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem14" parent="HFlowContainer" unique_id=1705292992 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=402683938]
+[node name="Q币显示" type="Control" parent="." unique_id=1203224581]
 texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
 offset_left = 379.0
 offset_top = 23.0
-offset_right = 1226.0
+offset_right = 1144.0
 offset_bottom = 102.0
-theme_override_constants/separation = 45
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=53249181]
-layout_mode = 2
+[node name="TextureRect" type="TextureRect" parent="Q币显示" unique_id=53249181]
+layout_mode = 0
+offset_right = 79.0
+offset_bottom = 79.0
 texture = ExtResource("6_bfgv4")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer" unique_id=1360436195]
-layout_mode = 2
-text = "91"
+[node name="Label" type="Label" parent="Q币显示" unique_id=1360436195]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 14.0
+offset_right = 257.0
+offset_bottom = 65.0
+text = "9197+"
 label_settings = SubResource("LabelSettings_uxkbo")
+horizontal_alignment = 1
 script = ExtResource("5_e4jrh")
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer" unique_id=231069096]
-layout_mode = 2
+[node name="TextureRect2" type="TextureRect" parent="Q币显示" unique_id=231069096]
+layout_mode = 0
+offset_left = 266.0
+offset_right = 345.0
+offset_bottom = 79.0
 texture = ExtResource("6_2otb7")
 expand_mode = 2
 
-[node name="Label2" type="Label" parent="HBoxContainer" unique_id=1150803087]
-layout_mode = 2
-text = "91"
+[node name="Label2" type="Label" parent="Q币显示" unique_id=1150803087]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 14.0
+offset_right = 519.0
+offset_bottom = 65.0
+text = "9199+"
 label_settings = SubResource("LabelSettings_7u6xv")
+horizontal_alignment = 1
 script = ExtResource("5_e4jrh")
 
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer" unique_id=1103707912]
-layout_mode = 2
+[node name="TextureRect3" type="TextureRect" parent="Q币显示" unique_id=1103707912]
+layout_mode = 0
+offset_left = 532.0
+offset_right = 611.0
+offset_bottom = 79.0
 texture = ExtResource("7_e4jrh")
 expand_mode = 2
 
-[node name="Label3" type="Label" parent="HBoxContainer" unique_id=264310344]
-layout_mode = 2
-text = "91"
+[node name="Label3" type="Label" parent="Q币显示" unique_id=264310344]
+layout_mode = 0
+offset_left = 606.0
+offset_top = 14.0
+offset_right = 767.0
+offset_bottom = 65.0
+text = "9999+"
 label_settings = SubResource("LabelSettings_y75bg")
+horizontal_alignment = 1
 script = ExtResource("5_e4jrh")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=624088060]
 texture_filter = 1
-offset_left = 626.0
+offset_left = 664.0
 offset_top = 97.0
-offset_right = 1068.0
+offset_right = 1163.0
 offset_bottom = 131.0
-theme_override_constants/separation = 28
+theme_override_constants/separation = 36
 
 [node name="Button" type="Button" parent="HBoxContainer2" unique_id=1698592922 node_paths=PackedStringArray("line_edit", "diamond_label")]
 clip_children = 2
@@ -266,7 +257,7 @@ text = "兑换"
 flat = true
 script = ExtResource("8_2otb7")
 line_edit = NodePath("../LineEdit")
-diamond_label = NodePath("../../HBoxContainer/Label2")
+diamond_label = NodePath("../../Q币显示/Label2")
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer2/Button" unique_id=1052536125]
 self_modulate = Color(1, 1, 1, 0.6745098)
@@ -306,7 +297,7 @@ text = "兑换"
 flat = true
 script = ExtResource("10_uxkbo")
 line_edit = NodePath("../LineEdit2")
-emer_label = NodePath("../../HBoxContainer/Label3")
+emer_label = NodePath("../../Q币显示/Label3")
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer2/Button2" unique_id=1127570477]
 self_modulate = Color(1, 1, 1, 0.6745098)

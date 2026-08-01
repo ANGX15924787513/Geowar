@@ -12,14 +12,18 @@ public partial class PointSync : RigidBody2D
 	[Export] private int bulletAttackHP = 5;
 	public static int AttackBonus;
 	[Export] private Color bulletColor;
-	bool bulletInitalized;
+	bool bulletInitialized;
 	private bool _isDestroyed;  // 防止重复触发 Destroy
 	private Vector2 flySpeed;
 	private Node2D _homingTarget;
 	[Export] private float homingStrength = 3f; // 追踪转向力度
 	private SignalManager signalManager;
 	private GameManager gameManager;
+	private DataManager dataManager;
 	
+	private bool edgeAtkEnabled;
+
+	private float _safeDestTimer;
 	
 	[Export] private bool debugFollowMode;
 	
@@ -35,22 +39,23 @@ public partial class PointSync : RigidBody2D
 	{
 		gameManager =  GetNode<GameManager>("/root/GameManager");
 		signalManager = GetNode<SignalManager>("/root/SignalManager");
+		dataManager = GetNode<DataManager>("/root/DataManager");
 		sprite = GetNode<Sprite2D>("Sprite2D");
 		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 		gpuParticles2D = GetNode<GpuParticles2D>("Sprite2D/GPUParticles2D");
+		edgeAtkEnabled = dataManager.GetUpgradeLevel("edge_atk") == 1;
 		SyncScale();
 	}
 
 	public override void _Process(double delta)
 	{
-		SyncScale();
 		UpdatePointType();
 		if (pointType == PointType.BULLET)
 		{
-			if (!bulletInitalized)
+			if (!bulletInitialized)
 			{
 				InitializeBullet();
-				bulletInitalized = true;
+				bulletInitialized = true;
 			}
 			else if (debugFollowMode)
 			{
@@ -61,6 +66,8 @@ public partial class PointSync : RigidBody2D
 				LinearVelocity = flySpeed;
 			}
 		}
+
+		if (_safeDestTimer > 0) _safeDestTimer -= (float)delta;
 	}
 
 	private void HomeToNearestEnemy(float delta)
@@ -80,7 +87,8 @@ public partial class PointSync : RigidBody2D
 	{
 		LinearVelocity = bulletSpeed * LinearVelocity.Normalized();
 		flySpeed = LinearVelocity;
-		GetNode<PointParticle>("Sprite2D/GPUParticles2D").color = bulletColor;
+		((PointParticle)gpuParticles2D).color = bulletColor;
+		_safeDestTimer = 0.5f;
 
 		// 锁定发射时最近的敌人
 		if (debugFollowMode)
@@ -93,8 +101,6 @@ public partial class PointSync : RigidBody2D
 				if (d < best) { best = d; _homingTarget = body; }
 			}
 		}
-
-		GD.Print("子弹初始化");
 	}
 
 	private void OnBodyEntered(Node2D body)
@@ -102,18 +108,17 @@ public partial class PointSync : RigidBody2D
 		if (gameManager.gameState != GameManager.GameState.GAMING) return;
 		if (body.IsInGroup("wall") && pointType == PointType.BULLET)
 		{
-			GD.Print($"子弹创到:{body.Name}");
+			if (_safeDestTimer > 0) return;
 			Destroy();
 		}else if (body.IsInGroup("enemy"))
 		{
-			GD.Print($"子弹创到:{body.Name}");
 			if (pointType == PointType.BULLET)
 			{
 				((Enemy)body).GotHurt(bulletAttackHP + AttackBonus);
 				Destroy();
-			}else if (pointType == PointType.CIRCLE)
+			}else if (pointType == PointType.CIRCLE && edgeAtkEnabled)
 			{
-				((Enemy)body).GotHurt(circleAttackHP + AttackBonus);
+				((Enemy)body).GotHurt((int)(circleAttackHP + AttackBonus * 0.2f));
 			}
 		}
 		void Destroy()

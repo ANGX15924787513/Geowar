@@ -18,12 +18,19 @@ shader_parameter/dither_scale = 2.0
 [node name="EasyTransition" type="Node" unique_id=5893694]
 script = ExtResource("1_xt2s6")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=433804822]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=143747860]
+layer = 20
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=433804822]
 z_index = 99
 material = SubResource("ShaderMaterial_el85c")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -6.0
+offset_right = 7.0
+offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

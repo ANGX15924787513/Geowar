@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d16fhihc6v5gf"
+path="res://.godot/imported/Spear of Justice - Toby Fox.mp3-066fc9ac49c1649e5d79eac9e5869a45.mp3str"
+
+[deps]
+
+source_file="res://sounds/UTSoundtrack/Spear of Justice - Toby Fox.mp3"
+dest_files=["res://.godot/imported/Spear of Justice - Toby Fox.mp3-066fc9ac49c1649e5d79eac9e5869a45.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

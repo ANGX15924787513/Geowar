@@ -47,8 +47,8 @@ public partial class EnemySummoner : Node2D
 	{
 		var enemy = packedScene.Instantiate() as Node2D;
 		enemy.GlobalPosition = new Vector2(
-			(float)GD.RandRange(-1700f,2600f),
-			(float)GD.RandRange(-1050f,1136f));
+			(float)GD.RandRange(gameManager.gameAreaX.X,gameManager.gameAreaX.Y),
+			(float)GD.RandRange(gameManager.gameAreaY.X,gameManager.gameAreaY.Y));
 		AddChild(enemy);
 	}
 

@@ -14,6 +14,7 @@ public partial class Enemy : RigidBody2D
     public GameManager gameManager;
     public SignalManager signalManager;
     GlobalAudioPlayer globalAudioPlayer;
+    DataManager dataManager;
 
     [Export] private float _reactionTime = 0.8f;   // 反应间隔基准值
     [Export] private float _steeringForce = 2f;   // 转向力度基准值
@@ -32,12 +33,12 @@ public partial class Enemy : RigidBody2D
 
     public override void _Ready()
     {
-        health = MaxHealth;
         gameManager = GetNode<GameManager>("/root/GameManager");
         signalManager =  GetNode<SignalManager>("/root/SignalManager");
         globalAudioPlayer =  GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
+        dataManager = GetNode<DataManager>("/root/DataManager");
         _targetPlayer = GetTree().GetFirstNodeInGroup("player") as Node2D;
-
+        
         // 随机初始化：每个怪物的反应速度、惯性、移速、目标偏移都略有不同
         _randReactionTime = _reactionTime * (float)GD.RandRange(0.6, 1.5);
         _randSteeringForce = _steeringForce * (float)GD.RandRange(0.5, 1.8);
@@ -46,6 +47,9 @@ public partial class Enemy : RigidBody2D
             GD.RandRange(-80, 80),
             GD.RandRange(-80, 80)
         );
+        
+        MaxHealth += (int)(dataManager.GetUpgradeLevel("max_hp") * 0.3);
+        health = MaxHealth;
 
         _delayedTarget = GlobalPosition;
         _delayedTargetReady = true;
@@ -105,7 +109,6 @@ public partial class Enemy : RigidBody2D
 
     public void GotHurt(int damage)
     {
-        GD.Print($"EnemyGotHurt:{damage},hp:{health}");
         if (damage <= 0) return;
         health = Mathf.Max(0, health - damage);
         globalAudioPlayer.PlayAudio(hurtSound,0.6f);
@@ -114,10 +117,9 @@ public partial class Enemy : RigidBody2D
 
     private void OnBodyEntered(Node2D body)
     {
-        if (body is Player)
-        {
-            ((Player)body).GotHurt(Damage);
-        }
+        if (_isDying) return;
+        if (body is Player player)
+            player.GotHurt(Damage + dataManager.GetUpgradeLevel("atk_hp") / 2);
     }
 
     protected virtual void DiedHandler()

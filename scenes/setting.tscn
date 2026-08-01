@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bo5vomjphd7uk" path="res://gdscripts/mainMenu/fps.gd" id="2_31ui4"]
 [ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="3_o8tsb"]
 [ext_resource type="Texture2D" uid="uid://cdc5uwcq1a2yd" path="res://texture/MCTexture/emerald.png" id="4_ikx14"]
+[ext_resource type="Script" uid="uid://1mjfrbmoufn7" path="res://gdscripts/mainMenu/auto_aim_check_box.gd" id="4_o8tsb"]
 
 [sub_resource type="Gradient" id="Gradient_on5q8"]
 offsets = PackedFloat32Array(0, 0.2603878, 1)
@@ -86,18 +87,23 @@ offset_right = 1150.0719
 offset_bottom = 925.0
 texture = SubResource("GradientTexture2D_50131")
 
-[node name="FlowContainer" type="FlowContainer" parent="." unique_id=2013916265]
-offset_left = 23.0
-offset_top = 17.0
-offset_right = 934.0
-offset_bottom = 628.0
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1516741258]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 238.0
+offset_bottom = 86.0
+theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="FlowContainer" unique_id=475672584]
+[node name="FlowContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1883854639]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer" unique_id=475672584]
 layout_mode = 2
 theme = SubResource("Theme_rawaq")
 text = "FPS:"
 
-[node name="SpinBox" type="SpinBox" parent="FlowContainer" unique_id=738128656]
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/FlowContainer" unique_id=738128656]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 theme = SubResource("Theme_scrng")
@@ -107,6 +113,35 @@ value = 144.0
 rounded = true
 suffix = "fps"
 script = ExtResource("2_31ui4")
+
+[node name="FlowContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=2142164246]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer2" unique_id=278782461]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "辅助瞄准:"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer2" unique_id=1812329913]
+layout_mode = 2
+theme = SubResource("Theme_scrng")
+text = "启用"
+script = ExtResource("4_o8tsb")
+
+[node name="FlowContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=2008823645]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer3" unique_id=14071055]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "游戏时隐藏光标:"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer3" unique_id=13848820]
+layout_mode = 2
+theme = SubResource("Theme_scrng")
+text = "启用"
 
 [node name="Button" type="Button" parent="." unique_id=1292672265]
 texture_filter = 1
@@ -128,5 +163,7 @@ expand_icon = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1072694645]
 libraries/ = SubResource("AnimationLibrary_1s23a")
 
-[connection signal="value_changed" from="FlowContainer/SpinBox" to="FlowContainer/SpinBox" method="_on_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/FlowContainer/SpinBox" to="VBoxContainer/FlowContainer/SpinBox" method="_on_value_changed"]
+[connection signal="toggled" from="VBoxContainer/FlowContainer2/CheckBox" to="VBoxContainer/FlowContainer2/CheckBox" method="_on_toggled"]
+[connection signal="toggled" from="VBoxContainer/FlowContainer3/CheckBox" to="." method="_on_hide_mouse_checkbox_toggled"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

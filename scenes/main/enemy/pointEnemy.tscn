@@ -6,6 +6,54 @@
 [ext_resource type="PackedScene" uid="uid://b76ghxiqaoxsn" path="res://scenes/main/point/point_particle.tscn" id="3_wbkv8"]
 [ext_resource type="Animation" uid="uid://21x7k188yrow" path="res://animation/pointSpawn.anim" id="4_wbkv8"]
 
+[sub_resource type="Curve" id="Curve_cfamt"]
+_data = [Vector2(0, 0.631579), 0.0, 0.0, 0, 0, Vector2(0.66381764, 0.6390978), 0.0, 0.0, 0, 0, Vector2(1, 0.28571433), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_iy5o8"]
+curve = SubResource("Curve_cfamt")
+
+[sub_resource type="Curve" id="Curve_iy5o8"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 111.27818), 0.0, 0.0, 0, 0, Vector2(1, 200), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xeava"]
+curve = SubResource("Curve_iy5o8")
+
+[sub_resource type="Gradient" id="Gradient_iy5o8"]
+offsets = PackedFloat32Array(0, 0.3559322)
+colors = PackedColorArray(1, 1, 1, 1, 0.3254902, 0.6392157, 0.85490197, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cfamt"]
+gradient = SubResource("Gradient_iy5o8")
+
+[sub_resource type="Curve" id="Curve_qixb7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6276277, 0.7177033), -0.8892841, -0.8892841, 0, 0, Vector2(0.9099099, 0.37320566), -1.6287085, -1.6287085, 0, 0, Vector2(1, 0.16541362), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_qixb7"]
+curve = SubResource("Curve_qixb7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jrr11"]
+lifetime_randomness = 0.25
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.81
+velocity_pivot = Vector3(1, 0, 0)
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 61.379997
+gravity = Vector3(-98, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+scale_min = 0.089999996
+scale_max = 0.089999996
+scale_curve = SubResource("CurveTexture_qixb7")
+color_ramp = SubResource("GradientTexture1D_cfamt")
+alpha_curve = SubResource("CurveTexture_iy5o8")
+anim_speed_curve = SubResource("CurveTexture_xeava")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_wvhbo"]
 radius = 18.3
 
@@ -23,39 +71,22 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 0.3019608, 0.5764706, 1)]
 }
-
-[sub_resource type="Animation" id="Animation_jrr11"]
-resource_name = "pointDie"
-length = 0.46
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0020662248, 0.45456955),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles2D:color")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.24266493),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 0.3019608, 0.5764706, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jrr11"]
 _data = {
 &"RESET": SubResource("Animation_qo30q"),
-&"pointDie": SubResource("Animation_jrr11"),
 &"pointSpawn": ExtResource("4_wbkv8")
 }
 
@@ -68,6 +99,7 @@ Speed = 480.0
 hurtSound = ExtResource("2_jrr11")
 
 [node name="GPUParticles2D" parent="." unique_id=1966863469 instance=ExtResource("3_wbkv8")]
+process_material = SubResource("ParticleProcessMaterial_jrr11")
 color = Color(1, 0.3019608, 0.5764706, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=265536160]

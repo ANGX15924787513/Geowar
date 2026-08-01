@@ -12,9 +12,7 @@ public partial class PointPlayer : Player
 	[Export] private float fireRotateSpeed = 3f;
 	[Export] private int fireRate = 10;
 	private float _fireTimer;
-	[Export] private PackedScene hpBarScene;
 	[Export] public AudioStream attackSound;
-	[Export] public AudioStream hurtSound;
 
 	private int _currentPointCount;
 	private int _launchedBullet;
@@ -22,27 +20,15 @@ public partial class PointPlayer : Player
 
 	public override void _Ready()
 	{
-		SummonHpBar();
 		bulletRoot = GetTree().CurrentScene.GetNode<Node2D>("bulletRoot");
 		base._Ready();
 		ApplyShopUpgrades();
 		SummonPoints();
+		
 		signalManager.OnPlayerDied += OnPointDie;
-		signalManager.OnPlayerHealthChanged += OnGotHurt;
+		signalManager.OnPlayerHealthChanged += OnHealthChanged;
 		signalManager.OnBulletDestroyed += SpawnPoint;
 		signalManager.OnBulletDestroyed += DownLaunchedBullet;
-	}
-
-	private void OnGotHurt(int damage, int health, int maxHealth)
-	{
-		if (damage <= 0) return;
-		globalAudioPlayer.PlayAudio(hurtSound);
-	}
-
-	private void SummonHpBar()
-	{
-		var scene = hpBarScene.Instantiate();
-		GetTree().CurrentScene.AddChild(scene);
 	}
 
 	private void OnPointDie()
@@ -59,43 +45,31 @@ public partial class PointPlayer : Player
 
 	private void ApplyShopUpgrades()
 	{
-		var dm = GetNode<DataManager>("/root/DataManager");
-
-		int pc = dm.GetUpgradeLevel("point_count");
-		int fr = dm.GetUpgradeLevel("fire_rate");
-		int ms = dm.GetUpgradeLevel("move_speed");
-		int atk = dm.GetUpgradeLevel("atk_hp");
-		int hp = dm.GetUpgradeLevel("max_hp");
-		int ls = dm.GetUpgradeLevel("lifesteal");
+		int pc = dataManager.GetUpgradeLevel("point_count");
+		int fr = dataManager.GetUpgradeLevel("fire_rate");
+		int ms = dataManager.GetUpgradeLevel("move_speed");
+		int atk = dataManager.GetUpgradeLevel("atk_hp");
+		int hp = dataManager.GetUpgradeLevel("max_hp");
+		int ls = dataManager.GetUpgradeLevel("lifesteal");
 
 		PointSync.AttackBonus = atk;
 		pointCount           += pc;
 		fireRate             += fr;
-		gameManager.playerSpeed += ms * 50;
-		HP                   += hp * 30;
+		gameManager.playerSpeed += ms * 20;
+		HP                   += hp * 20;
 		_hp                   = HP;
 
 		if (ls > 0)
-			signalManager.OnEnemyDied += OnLifesteal;
+			signalManager.OnEnemyDied += OnLifeSteal;
 
 		// 升级后重新通知血条
 		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, 0, _hp, HP);
 	}
 
-	/// <summary> 噬血骨刺：击杀回复 HP </summary>
-	public void OnLifesteal()
-	{
-		var dm = GetNode<DataManager>("/root/DataManager");
-		int ls = dm.GetUpgradeLevel("lifesteal");
-		int heal = Mathf.Max(1, HP * ls * 2 / 100);
-		_hp = Mathf.Min(HP, _hp + heal);
-		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, -heal, _hp, HP);
-	}
-
 	public override void _ExitTree()
 	{
 		signalManager.OnPlayerDied -= OnPointDie;
-		signalManager.OnPlayerHealthChanged -= OnGotHurt;
+		signalManager.OnPlayerHealthChanged -= OnHealthChanged;
 		signalManager.OnBulletDestroyed -= SpawnPoint;
 		signalManager.OnBulletDestroyed -= DownLaunchedBullet;
 		base._ExitTree();

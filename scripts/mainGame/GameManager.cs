@@ -10,13 +10,16 @@ public partial class GameManager : Node
         CHOOSE_CARD,
         GAMING,
         GAME_OVER,
-        GAME_PAUSED
+        GAME_PAUSED,
+        STARTING
     }
-    [Export] public GameState gameState;
+    [Export] public GameState gameState = GameState.STARTING;
     public bool charChose { get; set; } = false;
     public float playerSpeed = 500f;
     public float playerRotateSpeed = 1f;
     public float playerRebornTime = 0.2f;
+    public readonly Vector2 gameAreaX = new(-1700f,2600f);
+    public readonly Vector2 gameAreaY = new(-1050f,1136f);
     public static GameManager Instance { get; private set; }
 
     // ---- 商店升级 (6项) ----
@@ -39,9 +42,15 @@ public partial class GameManager : Node
     public List<PackedScene> playerScene;
     
     public SignalManager signalManager;
+    public DataManager dataManager;
+
+    private bool hideMouse;
+    private GameState just;
 
     public override void _Ready()
     {
+        just = gameState;
+        GD.Print($"当前游戏状态: {gameState}");
         Instance = this;
         playerScene =
         [
@@ -49,7 +58,10 @@ public partial class GameManager : Node
             GD.Load<PackedScene>("res://scenes/main/line/linePlayer.tscn"), //Line
             GD.Load<PackedScene>("res://scenes/main/polygon/polygonPlayer.tscn") //Polygon
         ];
+        dataManager = GetNode<DataManager>("/root/DataManager");
         signalManager = GetNode<SignalManager>("/root/SignalManager");
+
+        hideMouse = dataManager.GetBoolConfig("hide_mouse_playing");
     }
 
     public override void _Process(double delta)
@@ -57,6 +69,21 @@ public partial class GameManager : Node
         if (Input.IsKeyPressed(Key.F11))
         {
             DisplayServer.WindowSetMode(DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen?DisplayServer.WindowMode.Windowed:DisplayServer.WindowMode.Fullscreen);
+        }
+
+        if (gameState == GameState.GAMING && hideMouse)
+        {
+            Input.SetMouseMode(Input.MouseModeEnum.Hidden);
+        }
+        else
+        {
+            Input.SetMouseMode(Input.MouseModeEnum.Visible);
+        }
+
+        if (just != gameState)
+        {
+            GD.Print($"游戏状态切换: {gameState}");
+            just = gameState;   
         }
     }
 

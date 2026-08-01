@@ -10,6 +10,8 @@ public partial class FallItem : Node2D
 		EMERALD
 	}
 	public FallItemType itemType;
+	
+	[Export]private AnimationPlayer Anim;
 
 	SignalManager signalManager;
 	GlobalAudioPlayer globalAudioPlayer;
@@ -18,16 +20,23 @@ public partial class FallItem : Node2D
 	{
 		signalManager = GetNode<SignalManager>("/root/SignalManager");
 		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
+		if (Anim == null)
+		{
+			Anim = GetNode<AnimationPlayer>("AnimationPlayer");
+		}
 	}
 	
 	private void OnBodyEntered(Node2D body)
 	{
-		if (body.IsInGroup("player"))
+		if (body.IsInGroup("player") || (body.IsInGroup("circle_point") && ((PointSync)body).pointType == PointSync.PointType.CIRCLE))
 		{
 			globalAudioPlayer.PlayAudio(globalAudioPlayer.collectXPSound);
-			GD.Print($"掉落物{itemType}被捡起");
+			// GD.Print($"掉落物 {itemType} 被捡起");
 			signalManager.EmitSignal(SignalManager.SignalName.OnCollectedItem,(int)itemType);
-			QueueFree();
+			Area2D area2D = GetNode<Area2D>("Sprite2D/Area2D");
+			area2D.CollisionLayer = 0;
+			area2D.CollisionMask = 0;
+			Anim.Play("fallItemAni/collected");
 		}
 	}
 }

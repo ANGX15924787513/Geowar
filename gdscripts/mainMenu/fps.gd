@@ -1,7 +1,7 @@
 extends SpinBox
 
 func _ready() -> void:
-	var saved = DataManager.config.get_value("settings", "fps", 0)
+	var saved = DataManager.config.get_value("settings", "fps", 60)
 	Engine.max_fps = saved if saved >= 20 else 0
 	value = saved if saved >= 20 else 0
 

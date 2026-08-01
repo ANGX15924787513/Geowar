@@ -19,6 +19,8 @@ public partial class MainMenuShop : Node2D
 	private HFlowContainer _grid;
 	private Dictionary<ChoseItem, List<ShopItem>> _catalog = new();
 
+	[Export] private int maxMoneyChar = 9999;
+
 	public override void _Ready()
 	{
 		dataManager = GetNode<DataManager>("/root/DataManager");
@@ -27,9 +29,9 @@ public partial class MainMenuShop : Node2D
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_grid = GetNode<HFlowContainer>("HFlowContainer");
 
-		_goldLabel    = GetNode<Label>("HBoxContainer/Label");
-		_diamondLabel = GetNode<Label>("HBoxContainer/Label2");
-		_emeraldLabel = GetNode<Label>("HBoxContainer/Label3");
+		_goldLabel    = GetNode<Label>("Q币显示/Label");
+		_diamondLabel = GetNode<Label>("Q币显示/Label2");
+		_emeraldLabel = GetNode<Label>("Q币显示/Label3");
 
 		foreach (var child in _grid.GetChildren())
 			if (child is SingleSellItem si)
@@ -47,20 +49,24 @@ public partial class MainMenuShop : Node2D
 	{
 		_catalog[ChoseItem.GOLD] = new List<ShopItem>
 		{
-			new() { Id = "point_count", Name = "骨质增生", Desc = "球更多了  ?\n 点数 +1",           Price = 5,  MaxLevel = 12 },
-			new() { Id = "fire_rate",   Name = "碎裂加速", Desc = "射速 +1，按住射得更快",     Price = 3,  MaxLevel = 15 },
-			new() { Id = "move_speed",  Name = "漂移",     Desc = "移动速度 +50，随便漂",    Price = 4,  MaxLevel = 10 },
+			new() { Id = "point_count", Name = "骨质增生", Desc = "球更多了  ?\n点数 +1",           Price = 20,  MaxLevel = 12 },
+			new() { Id = "line_count", Name = "延展", Desc = "线更多了  \n线数 +1",           Price = 40,  MaxLevel = 28 },
+			new() { Id = "fire_rate",   Name = "碎裂加速", Desc = "射速 +1",     Price = 5,  MaxLevel = 5 },
+			new() { Id = "move_speed",  Name = "漂移",     Desc = "移动速度 +20\n随便漂",    Price = 3,  MaxLevel = 10 },
 		};
 
 		_catalog[ChoseItem.DIAMOND] = new List<ShopItem>
 		{
 			new() { Id = "atk_hp",      Name = "骨刺淬毒", Desc = "子弹伤害 +1",                Price = 5,  MaxLevel = 10 },
+			new() { Id = "edge_atk",      Name = "磨刀石", Desc = "点可以磨死敌人了",                Price = 10,  MaxLevel = 1 },
+			new() { Id = "through",      Name = "一箭穿心", Desc = "线穿透 +2",                Price = 3,  MaxLevel = 5 },
 		};
 
 		_catalog[ChoseItem.EMERALD] = new List<ShopItem>
 		{
-			new() { Id = "max_hp",      Name = "骨骼硬化", Desc = "最大生命值 +30，没那么容易碎",        Price = 3,  MaxLevel = 15 },
-			new() { Id = "lifesteal",   Name = "噬血骨刺", Desc = "击杀敌人回复最大生命值 2%",           Price = 10, MaxLevel = 5 },
+			new() { Id = "max_hp",      Name = "骨骼硬化", Desc = "最大生命值 +20\n更块(三声)了",        Price = 3,  MaxLevel = 15 },
+			new() { Id = "lifesteal",   Name = "噬血骨刺", Desc = "击杀敌人回复 1生命值",           Price = 5, MaxLevel = 5 },
+			new() { Id = "camera_scale",   Name = "上帝视角", Desc = "扩大视野 10%",           Price = 2, MaxLevel = 6 }
 		};
 	}
 
@@ -117,7 +123,7 @@ public partial class MainMenuShop : Node2D
 			{
 				_sellItems[i].Visible = true;
 				int level = dataManager.GetUpgradeLevel(items[i].Id);
-				_sellItems[i].Setup(items[i], level, OnBuyItem);
+				_sellItems[i].Setup(items[i], level, OnBuyItem, OnSellItem);
 			}
 			else
 			{
@@ -154,6 +160,32 @@ public partial class MainMenuShop : Node2D
 		RefreshDisplay();
 	}
 
+	// ==================== 降级 / 卖出 ====================
+
+	private void OnSellItem(SingleSellItem si)
+	{
+		if (si.CurrentLevel <= 0) return;
+
+		// 退还一半价格
+		FallItem.FallItemType currency = currentChoseItem switch
+		{
+			ChoseItem.DIAMOND => FallItem.FallItemType.DIAMOND,
+			ChoseItem.EMERALD => FallItem.FallItemType.EMERALD,
+			_                 => FallItem.FallItemType.GOLD,
+		};
+		int refund = Mathf.Max(1, si.Item.Price / 2);
+
+		int newLevel = si.CurrentLevel - 1;
+		dataManager.SetUpgradeLevel(si.Item.Id, newLevel);
+		dataManager.Add(currency, refund);
+		ApplyUpgrade(si.Item.Id, newLevel);
+
+		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		si.CurrentLevel = newLevel;
+		si.Refresh();
+		RefreshDisplay();
+	}
+
 	// ==================== 升级写进 GameManager ====================
 
 	private void ApplyUpgrade(string id, int level)
@@ -173,9 +205,9 @@ public partial class MainMenuShop : Node2D
 
 	private void RefreshDisplay()
 	{
-		_goldLabel.Text    = dataManager.Gold.ToString();
-		_diamondLabel.Text = dataManager.Diamond.ToString();
-		_emeraldLabel.Text = dataManager.Emerald.ToString();
+		_goldLabel.Text    = dataManager.Gold > maxMoneyChar ? $"{maxMoneyChar}+" : dataManager.Gold.ToString();
+		_diamondLabel.Text = dataManager.Diamond > maxMoneyChar ? $"{maxMoneyChar}+" : dataManager.Diamond.ToString();
+		_emeraldLabel.Text = dataManager.Emerald >  maxMoneyChar ? $"{maxMoneyChar}+" : dataManager.Emerald.ToString();
 	}
 
 	public override void _Process(double delta) => UpdateLineRotation();

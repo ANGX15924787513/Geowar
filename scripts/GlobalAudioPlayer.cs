@@ -5,11 +5,15 @@ public partial class GlobalAudioPlayer : Node
 {
     public AudioStream buttonClickSound;
     public AudioStream collectXPSound;
+    public AudioStream playerHealingSound;
+    public AudioStream playerHurtSound;
 
     public override void _Ready()
     {
         buttonClickSound = GD.Load<AudioStream>("res://sounds/UIAudioPack/bong_001.ogg");
         collectXPSound = GD.Load<AudioStream>("res://sounds/MCSound/orb.ogg");
+        playerHurtSound = GD.Load<AudioStream>("res://sounds/MCSound/fire_hurt1.ogg");
+        playerHealingSound = GD.Load<AudioStream>("res://sounds/MCSound/drink.ogg");
     }
     public async void PlayAudio(AudioStream stream,float volume = 1)
     {

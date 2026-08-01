@@ -16,8 +16,8 @@ scale = Vector2(2.5, 2.5)
 texture = SubResource("CompressedTexture2D_vbc3w")
 
 [node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=1314580455]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 10
+collision_mask = 10
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D" unique_id=116063062]
 scale = Vector2(1.5, 1.5)

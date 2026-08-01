@@ -6,6 +6,7 @@ public partial class Cursor : Sprite2D
 	public static Cursor Instance { get; private set; }
 
 	private GameManager gameManager;
+	private DataManager dataManager;
 	private Node2D _enemyRoot;
 
 	[Export] private float normalScale = 0.5f;
@@ -20,6 +21,8 @@ public partial class Cursor : Sprite2D
 	private float _shakePhase;
 	private Node2D _targetBody;
 
+	private bool isAutoAim;
+
 	public bool IsLocked => _targetBody != null && IsInstanceValid(_targetBody);
 	public Vector2 AimPosition => GlobalPosition;
 
@@ -27,6 +30,8 @@ public partial class Cursor : Sprite2D
 	{
 		Instance = this;
 		gameManager = GetNode<GameManager>("/root/GameManager");
+		dataManager = GetNode<DataManager>("/root/DataManager");
+		isAutoAim = dataManager.GetBoolConfig("auto_aim");
 		Scale = Vector2.One * _currentScale;
 	}
 
@@ -47,7 +52,7 @@ public partial class Cursor : Sprite2D
 		Visible = true;
 
 		// 每帧找 enemyRoot 里最近的敌人
-		UpdateTarget();
+		if (isAutoAim) { UpdateTarget(); }
 
 		bool shooting = Input.IsActionPressed("player_launch_bullet");
 		float targetScale = IsLocked ? lockScale : normalScale;

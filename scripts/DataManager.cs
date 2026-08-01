@@ -18,6 +18,12 @@ public partial class DataManager : Node
 
 	public int GetUpgradeLevel(string id) => (int)config.GetValue("upgrades", id, 0);
 	public void SetUpgradeLevel(string id, int level) { config.SetValue("upgrades", id, level); Save(); }
+	
+	public int GetIntConfig(string id) => (int)config.GetValue("settings", id, 0);
+	public void SetIntConfig(string id, int level) { config.SetValue("settings", id, level); Save(); }
+	
+	public bool GetBoolConfig(string id) => (bool)config.GetValue("settings", id, 0);
+	public void SetBoolConfig(string id, bool on) { config.SetValue("settings", id, on); Save(); }
 
 	public bool Spend(FallItem.FallItemType type, int amount)
 	{
@@ -46,8 +52,13 @@ public partial class DataManager : Node
 	public void ClearData()
 	{
 		config.Clear();
+		GD.Print("游戏数据已清空");
 		Save();
 	}
 
-	public void Save() => config.Save(path);
+	public void Save()
+	{
+		config.Save(path);
+		GD.Print("游戏数据已保存");
+	}
 }

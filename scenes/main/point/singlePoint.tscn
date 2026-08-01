@@ -34,7 +34,7 @@ point_count = 4
 [sub_resource type="CurveTexture" id="CurveTexture_qixb7"]
 curve = SubResource("Curve_qixb7")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xeava"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cfamt"]
 lifetime_randomness = 0.25
 particle_flag_disable_z = true
 emission_shape = 1
@@ -62,22 +62,21 @@ _data = {
 }
 
 [node name="SinglePoint" type="RigidBody2D" unique_id=726211025 groups=["circle_point"]]
+modulate = Color(1, 1, 1, 0)
 collision_layer = 8
 collision_mask = 12
 mass = 1.3
 gravity_scale = 0.0
 script = ExtResource("1_i68q0")
 bulletColor = Color(0.8782463, 0.46484894, 0.25551963, 1)
-debugFollowMode = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2117185343]
-modulate = Color(1, 1, 1, 0)
 scale = Vector2(0.09, 0.09)
 texture = ExtResource("2_iy5o8")
 
 [node name="GPUParticles2D" parent="Sprite2D" unique_id=1966863469 instance=ExtResource("2_xeava")]
 scale = Vector2(11.111112, 11.111112)
-process_material = SubResource("ParticleProcessMaterial_xeava")
+process_material = SubResource("ParticleProcessMaterial_cfamt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=599396763]
 shape = SubResource("CircleShape2D_iy5o8")

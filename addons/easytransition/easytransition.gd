@@ -33,7 +33,7 @@ var _mat: ShaderMaterial
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-	_color_rect = $ColorRect
+	_color_rect = $CanvasLayer/ColorRect
 	_setup_rect(_color_rect)
 	_mat = _setup_material(_color_rect)
 	_mat.set_shader_parameter("progress", 0.0)

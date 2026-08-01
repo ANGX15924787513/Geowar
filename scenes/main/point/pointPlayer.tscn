@@ -7,13 +7,12 @@
 [ext_resource type="AudioStream" uid="uid://bha2rq7h0xsei" path="res://sounds/MCSound/bow.ogg" id="4_rwk6q"]
 [ext_resource type="PackedScene" uid="uid://b76ghxiqaoxsn" path="res://scenes/main/point/point_particle.tscn" id="4_wmijr"]
 [ext_resource type="Animation" uid="uid://21x7k188yrow" path="res://animation/pointSpawn.anim" id="5_e8gw1"]
-[ext_resource type="AudioStream" uid="uid://ewteyrgjuinw" path="res://sounds/MCSound/fire_hurt1.ogg" id="5_irbxv"]
 
 [sub_resource type="Curve" id="Curve_cfamt"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.28571433), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_iy5o8"]
+[sub_resource type="CurveTexture" id="CurveTexture_rwk6q"]
 curve = SubResource("Curve_cfamt")
 
 [sub_resource type="Curve" id="Curve_iy5o8"]
@@ -21,21 +20,21 @@ _limits = [0.0, 200.0, 0.0, 1.0]
 _data = [Vector2(0, 111.27818), 0.0, 0.0, 0, 0, Vector2(1, 200), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_xeava"]
+[sub_resource type="CurveTexture" id="CurveTexture_irbxv"]
 curve = SubResource("Curve_iy5o8")
 
 [sub_resource type="Gradient" id="Gradient_iy5o8"]
 offsets = PackedFloat32Array(0, 0.3559322)
 colors = PackedColorArray(1, 1, 1, 1, 0.3254902, 0.6392157, 0.85490197, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cfamt"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q7nyx"]
 gradient = SubResource("Gradient_iy5o8")
 
 [sub_resource type="Curve" id="Curve_qixb7"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6276277, 0.7177033), -0.8892841, -0.8892841, 0, 0, Vector2(0.9099099, 0.37320566), -1.6287085, -1.6287085, 0, 0, Vector2(1, 0.16541362), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_qixb7"]
+[sub_resource type="CurveTexture" id="CurveTexture_pcoha"]
 curve = SubResource("Curve_qixb7")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wmijr"]
@@ -52,10 +51,10 @@ linear_accel_min = -2.2351742e-06
 linear_accel_max = -2.2351742e-06
 scale_min = 0.089999996
 scale_max = 0.089999996
-scale_curve = SubResource("CurveTexture_qixb7")
-color_ramp = SubResource("GradientTexture1D_cfamt")
-alpha_curve = SubResource("CurveTexture_iy5o8")
-anim_speed_curve = SubResource("CurveTexture_xeava")
+scale_curve = SubResource("CurveTexture_pcoha")
+color_ramp = SubResource("GradientTexture1D_q7nyx")
+alpha_curve = SubResource("CurveTexture_rwk6q")
+anim_speed_curve = SubResource("CurveTexture_irbxv")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pcoha"]
 radius = 20.25
@@ -90,12 +89,11 @@ script = ExtResource("1_puuut")
 pointCount = 3
 circleRadius = 120.0
 singlePointScene = ExtResource("2_2gt7a")
-hpBarScene = ExtResource("3_x8lvr")
 attackSound = ExtResource("4_rwk6q")
-hurtSound = ExtResource("5_irbxv")
 HP = 30
 slowDownSmooth = 0.03
 rotateSmooth = 0.08
+hpBarScene = ExtResource("3_x8lvr")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=944437813]
 scale = Vector2(0.09, 0.09)

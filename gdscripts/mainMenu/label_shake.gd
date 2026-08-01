@@ -5,4 +5,3 @@ func on_not_enough():
 	text = "穷"
 	await get_tree().create_timer(0.5).timeout
 	text = cathe
-	

@@ -15,9 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://cp83onrujwcek" path="res://scenes/main/fallItem/gold.tscn" id="11_ikqpi"]
 [ext_resource type="AudioStream" uid="uid://tg10ron1lt7m" path="res://sounds/DTSoundtrack/Rude Buster - Toby Fox.mp3" id="11_o6v7o"]
 [ext_resource type="PackedScene" uid="uid://c6emv2lm5otyl" path="res://scenes/main/fallItem/diamond.tscn" id="12_5luka"]
+[ext_resource type="PackedScene" uid="uid://bjugu22p6olmn" path="res://scenes/main/fallItem/heal_package.tscn" id="12_wdxbp"]
 [ext_resource type="Script" uid="uid://c4yth4rc4v3ve" path="res://scripts/mainGame/FightBgMusic.cs" id="12_wjob3"]
 [ext_resource type="PackedScene" uid="uid://d1ewvy50hhwal" path="res://scenes/main/fallItem/emerald.tscn" id="13_yu8cv"]
+[ext_resource type="Script" uid="uid://c6wp0vcf0tdho" path="res://scripts/mainGame/FightEnvironment.cs" id="16_cybgu"]
 [ext_resource type="PackedScene" uid="uid://cnkst3k2a5ebt" path="res://scenes/main/ingame_data.tscn" id="18_5luka"]
+[ext_resource type="AudioStream" uid="uid://bmniwg7bi2veq" path="res://sounds/DTSoundtrack/Ruder Buster - Toby Fox.mp3" id="18_5wboo"]
+[ext_resource type="AudioStream" uid="uid://cd8b0ttlrsfa5" path="res://sounds/UTSoundtrack/Heartache - Toby Fox.mp3" id="19_6de02"]
 [ext_resource type="Texture2D" uid="uid://d1lgxxchtfwvl" path="res://texture/cursor.svg" id="20_ibnub"]
 [ext_resource type="Script" uid="uid://prsvneeee8fl" path="res://scripts/mainGame/Cursor.cs" id="20_yu8cv"]
 [ext_resource type="PackedScene" uid="uid://c35lscg8wiw0y" path="res://scenes/main/pause_screen.tscn" id="24_cybgu"]
@@ -108,6 +112,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [0.5]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../chooseChar/HFlowContainer:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_d2op2"]
 resource_name = "card_out"
@@ -189,6 +205,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -550)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../chooseChar/HFlowContainer:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.20000002, 0.56),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_72e8q"]
 resource_name = "card_start"
@@ -245,18 +273,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../WorldEnvironment:environment:glow_intensity")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.5, 3.0]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d2op2"]
 _data = {
@@ -272,7 +288,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.8776157, 0.8776158, 0.8776157, 1, 0, 0, 
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_wvhbo"]
 gradient = SubResource("Gradient_wi4c7")
-fill_to = Vector2(0.83815026, 0.69942194)
+fill_to = Vector2(1, 0.8974359)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ygxny"]
 normal = Vector2(1, 0)
@@ -404,6 +420,7 @@ ironScene = ExtResource("10_vnsdt")
 goldScene = ExtResource("11_ikqpi")
 diamondScene = ExtResource("12_5luka")
 emeraldScene = ExtResource("13_yu8cv")
+healPackageScene = ExtResource("12_wdxbp")
 
 [node name="bulletRoot" type="Node2D" parent="." unique_id=1219904485]
 
@@ -418,10 +435,14 @@ damageLabelScene = ExtResource("10_nqdth")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=790076971]
 environment = SubResource("Environment_70vka")
+script = ExtResource("16_cybgu")
+pauseGlowStrength = 3.0
+deathGlowStrength = 8.0
+gamingGlowStrength = 0.5
 
 [node name="fightBgMusic" type="AudioStreamPlayer" parent="." unique_id=170588867]
-stream = ExtResource("11_o6v7o")
 script = ExtResource("12_wjob3")
+fightSounds = Array[AudioStream]([ExtResource("11_o6v7o"), ExtResource("18_5wboo"), ExtResource("19_6de02")])
 
 [node name="SingleGameData" parent="." unique_id=1580719335 instance=ExtResource("18_5luka")]
 

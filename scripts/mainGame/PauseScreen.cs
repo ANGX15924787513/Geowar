@@ -3,6 +3,8 @@ using Godot;
 public partial class PauseScreen : CanvasLayer
 {
 	private GameManager gameManager;
+	private DataManager dataManager;
+	private SingleGameData gameData;
 	private AnimationPlayer animationPlayer;
 	private GlobalAudioPlayer globalAudioPlayer;
 	public override void _Ready()
@@ -10,6 +12,8 @@ public partial class PauseScreen : CanvasLayer
 		gameManager = GetNode<GameManager>("/root/GameManager");
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
+		dataManager = GetNode<DataManager>("/root/DataManager");
+		gameData = GetNode<SingleGameData>("/root/mainGame/SingleGameData");
 	}
 	
 	public override void _Process(double delta)
@@ -50,6 +54,8 @@ public partial class PauseScreen : CanvasLayer
 		if (gameManager.gameState == GameManager.GameState.GAME_PAUSED)
 		{
 			GetNode("/root/EasyTransition").Call("transition_to", "res://scenes/main_menu.tscn", 1);
+			dataManager.Add(FallItem.FallItemType.GOLD,    gameData.goldCount + gameData.ironCount / 4);
+			dataManager.Add(FallItem.FallItemType.DIAMOND, gameData.diamondCount);
 			gameManager.gameState = GameManager.GameState.MAIN_MENU;
 		}
 	}

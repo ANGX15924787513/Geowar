@@ -4,28 +4,121 @@
 [ext_resource type="Texture2D" uid="uid://chhxvq6rm8nbe" path="res://texture/MCTexture/diamond.png" id="2_1j5ib"]
 [ext_resource type="Script" uid="uid://dg0h2ax07sxy8" path="res://gdscripts/mainGame/fallItemAni.gd" id="3_1j5ib"]
 [ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="3_2yjhb"]
+[ext_resource type="Texture2D" uid="uid://dna2kx1k42phd" path="res://texture/outcircle.svg" id="5_kan15"]
 
-[node name="Diamond" type="Node2D" unique_id=2023539307]
+[sub_resource type="Animation" id="Animation_kan15"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sgbi6"]
+_data = {
+&"RESET": SubResource("Animation_kan15")
+}
+
+[sub_resource type="Animation" id="Animation_scj8e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.5783769, 0.8904278, 0.8509804)]
+}
+
+[sub_resource type="Animation" id="Animation_s6p4m"]
+resource_name = "highlight"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(5, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.59000003, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.5764706, 0.8901961, 0.8509804), Color(0.8901961, 0.32941177, 0.39215687, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fwh3d"]
+_data = {
+&"RESET": SubResource("Animation_scj8e"),
+&"highlight": SubResource("Animation_s6p4m")
+}
+
+[node name="Diamond" type="Node2D" unique_id=2023539307 node_paths=PackedStringArray("lightAnim", "Anim")]
 script = ExtResource("1_hdbro")
+lightAnim = NodePath("PointLight2D/AnimationPlayer")
+Anim = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345318038]
-modulate = Color(1, 1, 1, 0)
 texture_filter = 1
-position = Vector2(0, 7)
-scale = Vector2(1e-05, 1e-05)
+position = Vector2(0, -4.024862)
+scale = Vector2(3, 3)
 texture = ExtResource("2_1j5ib")
 
 [node name="Area2D" type="Area2D" parent="Sprite2D" unique_id=1314580455]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 10
+collision_mask = 10
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite2D/Area2D" unique_id=149045115]
 scale = Vector2(1.5, 1.5)
 polygon = PackedVector2Array(-2, -6, -2, -5, -3, -5, -3, -4, -4, -4, -4, -3, -5, -3, -5, -1, -6, -1, -6, 3, -5, 3, -5, 5, -4, 5, -4, 6, -3, 6, -3, 7, 3, 7, 3, 6, 4, 6, 4, 5, 5, 5, 5, 3, 6, 3, 6, -1, 5, -1, 5, -3, 4, -3, 4, -4, 3, -4, 3, -5, 2, -5, 2, -6)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2141447750]
+libraries/ = SubResource("AnimationLibrary_sgbi6")
 libraries/fallItemAni = ExtResource("3_2yjhb")
 autoplay = &"fallItemAni/ease_in"
 script = ExtResource("3_1j5ib")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1545631000]
+scale = Vector2(1e-05, 1e-05)
+color = Color(0, 0.5783769, 0.8904278, 0.8509804)
+texture = ExtResource("5_kan15")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PointLight2D" unique_id=1575455063]
+libraries/ = SubResource("AnimationLibrary_fwh3d")
+autoplay = &"highlight"
 
 [connection signal="body_entered" from="Sprite2D/Area2D" to="." method="OnBodyEntered"]
