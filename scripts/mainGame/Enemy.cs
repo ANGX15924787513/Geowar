@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Enemy : RigidBody2D
 {
@@ -121,14 +120,18 @@ public partial class Enemy : RigidBody2D
         if (body is Player player)
             player.GotHurt(Damage + dataManager.GetUpgradeLevel("atk_hp") / 2);
     }
-
-    protected virtual void DiedHandler()
+    
+    protected async void DiedHandler()
     {
-        if (gameManager.gameState == GameManager.GameState.GAMING)
-        {
-            signalManager.EmitSignal(SignalManager.SignalName.OnEnemyDied);
-            signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition);
-            QueueFree();
-        }
+        if (gameManager.gameState != GameManager.GameState.GAMING) return;
+        GetNode<Area2D>("Area2D").CollisionMask &= ~(uint)(1 << (3 - 1));
+        RemoveFromGroup("enemy");
+        CollisionLayer &= ~(uint)(1 << (3 - 1));
+        Tween hideTn = GetTree().CreateTween();
+        hideTn.TweenProperty(this, "modulate", new Color(Colors.White, 0), 0.5f);
+        await ToSignal(hideTn, "finished");
+        signalManager.EmitSignal(SignalManager.SignalName.OnEnemyDied);
+        signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition);
+        QueueFree();
     }
 }

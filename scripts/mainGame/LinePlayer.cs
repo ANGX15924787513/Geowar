@@ -1,12 +1,10 @@
 using Godot;
 using System;
-using Godot.Collections;
-using Array = System.Array;
 
 public partial class LinePlayer : Player
 {
 	[Export] private int lineCount;
-	[Export] private int maxLineCount = 30;//TODO:check maxLineCount
+	[Export] private int maxLineCount = 30;
 	[Export] private PackedScene singleLineScene;
 	[Export] public AudioStream attackSound;
 	[Export] private float circleRadius = 120f;
@@ -27,7 +25,7 @@ public partial class LinePlayer : Player
 		bulletRoot = GetTree().CurrentScene.GetNode<Node2D>("bulletRoot");
 		SummonLines();
 		ApplyShopUpgrades();
-		lineCount = Math.Max(lineCount, maxLineCount);
+		lineCount = Math.Min(lineCount, maxLineCount);
 		throughUgLevel = dataManager.GetUpgradeLevel("through");
 		
 		signalManager.OnPlayerDied += OnLineDied;
@@ -255,11 +253,11 @@ public partial class LinePlayer : Player
 		int hp = dataManager.GetUpgradeLevel("max_hp");//
 		int ls = dataManager.GetUpgradeLevel("lifesteal");//
 
-		lineCount = 2 + ct;
+		lineCount = 5 + ct;
 		Line.AttackBonus = atk;
 		fireRate += fr;
 		gameManager.playerSpeed += ms * 20;
-		HP += hp * 20;
+		HP += hp * 5;
 		_hp = HP;
 
 		if (ls > 0)

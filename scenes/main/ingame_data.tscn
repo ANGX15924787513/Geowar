@@ -91,6 +91,7 @@ _data = {
 script = ExtResource("1_o3jni")
 
 [node name="RoundedPolygon2D" type="Polygon2D" parent="." unique_id=909762894]
+position = Vector2(29, 0)
 color = Color(0.99607843, 0.9647059, 0, 0.20392157)
 polygon = PackedVector2Array(1100, -47, 1098, 73, 599, 73, 599, -45)
 polygons = [null]
@@ -100,26 +101,26 @@ metadata/_custom_type_script = "uid://gdsdtd32sye5"
 
 [node name="ironIcon" type="Sprite2D" parent="." unique_id=920257179]
 texture_filter = 1
-position = Vector2(642, 38)
+position = Vector2(671, 38)
 scale = Vector2(4, 4)
 texture = ExtResource("3_sg5kw")
 
 [node name="goldIcon" type="Sprite2D" parent="." unique_id=1318626438]
 texture_filter = 1
-position = Vector2(810, 38)
+position = Vector2(839, 38)
 scale = Vector2(4, 4)
 texture = ExtResource("4_s20qc")
 
 [node name="diamondIcon" type="Sprite2D" parent="." unique_id=1407389329]
 texture_filter = 1
-position = Vector2(967, 38)
+position = Vector2(996, 38)
 scale = Vector2(4, 4)
 texture = ExtResource("5_pi31b")
 
 [node name="ironLabel" type="Label" parent="." unique_id=694626154]
-offset_left = 679.0
+offset_left = 708.0
 offset_top = 22.0
-offset_right = 777.0
+offset_right = 806.0
 offset_bottom = 61.0
 text = "9111"
 label_settings = SubResource("LabelSettings_wvhbo")
@@ -128,9 +129,9 @@ vertical_alignment = 1
 visible_characters = 4
 
 [node name="goldLabel" type="Label" parent="." unique_id=429349780]
-offset_left = 844.0
+offset_left = 873.0
 offset_top = 22.0
-offset_right = 942.0
+offset_right = 971.0
 offset_bottom = 61.0
 text = "7888"
 label_settings = SubResource("LabelSettings_dcudo")
@@ -139,9 +140,9 @@ vertical_alignment = 1
 visible_characters = 4
 
 [node name="diamondLabel" type="Label" parent="." unique_id=159282234]
-offset_left = 996.0
+offset_left = 1025.0
 offset_top = 22.0
-offset_right = 1094.0
+offset_right = 1123.0
 offset_bottom = 61.0
 text = "1333"
 label_settings = SubResource("LabelSettings_307no")

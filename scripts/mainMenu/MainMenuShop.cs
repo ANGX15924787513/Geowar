@@ -50,7 +50,7 @@ public partial class MainMenuShop : Node2D
 		_catalog[ChoseItem.GOLD] = new List<ShopItem>
 		{
 			new() { Id = "point_count", Name = "骨质增生", Desc = "球更多了  ?\n点数 +1",           Price = 20,  MaxLevel = 12 },
-			new() { Id = "line_count", Name = "延展", Desc = "线更多了  \n线数 +1",           Price = 40,  MaxLevel = 28 },
+			new() { Id = "line_count", Name = "延展", Desc = "线更多了  \n线数 +1",           Price = 40,  MaxLevel = 10 },
 			new() { Id = "fire_rate",   Name = "碎裂加速", Desc = "射速 +1",     Price = 5,  MaxLevel = 5 },
 			new() { Id = "move_speed",  Name = "漂移",     Desc = "移动速度 +20\n随便漂",    Price = 3,  MaxLevel = 10 },
 		};
@@ -64,7 +64,7 @@ public partial class MainMenuShop : Node2D
 
 		_catalog[ChoseItem.EMERALD] = new List<ShopItem>
 		{
-			new() { Id = "max_hp",      Name = "骨骼硬化", Desc = "最大生命值 +20\n更块(三声)了",        Price = 3,  MaxLevel = 15 },
+			new() { Id = "max_hp",      Name = "骨骼硬化", Desc = "点最大生命值 +10\n线最大生命值 +5\n更块(三声)了",        Price = 3,  MaxLevel = 15 },
 			new() { Id = "lifesteal",   Name = "噬血骨刺", Desc = "击杀敌人回复 1生命值",           Price = 5, MaxLevel = 5 },
 			new() { Id = "camera_scale",   Name = "上帝视角", Desc = "扩大视野 10%",           Price = 2, MaxLevel = 6 }
 		};

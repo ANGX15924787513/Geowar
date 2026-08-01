@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using Environment = Godot.Environment;
 
 public partial class FightEnvironment : WorldEnvironment

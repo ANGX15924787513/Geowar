@@ -56,7 +56,7 @@ public partial class PointPlayer : Player
 		pointCount           += pc;
 		fireRate             += fr;
 		gameManager.playerSpeed += ms * 20;
-		HP                   += hp * 20;
+		HP                   += hp * 10;
 		_hp                   = HP;
 
 		if (ls > 0)

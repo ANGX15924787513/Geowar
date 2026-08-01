@@ -1,6 +1,3 @@
-using Godot;
-using System;
-
 public partial class Emerald : FallItem
 {
     public override void _Ready()

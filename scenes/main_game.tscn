@@ -18,7 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://bjugu22p6olmn" path="res://scenes/main/fallItem/heal_package.tscn" id="12_wdxbp"]
 [ext_resource type="Script" uid="uid://c4yth4rc4v3ve" path="res://scripts/mainGame/FightBgMusic.cs" id="12_wjob3"]
 [ext_resource type="PackedScene" uid="uid://d1ewvy50hhwal" path="res://scenes/main/fallItem/emerald.tscn" id="13_yu8cv"]
+[ext_resource type="PackedScene" uid="uid://bnagdambsylcw" path="res://scenes/main/enemy/lineEnemy.tscn" id="15_on6n6"]
 [ext_resource type="Script" uid="uid://c6wp0vcf0tdho" path="res://scripts/mainGame/FightEnvironment.cs" id="16_cybgu"]
+[ext_resource type="PackedScene" uid="uid://dhuwldck3gq2v" path="res://scenes/main/enemy/SuperLight.tscn" id="16_x3ega"]
 [ext_resource type="PackedScene" uid="uid://cnkst3k2a5ebt" path="res://scenes/main/ingame_data.tscn" id="18_5luka"]
 [ext_resource type="AudioStream" uid="uid://bmniwg7bi2veq" path="res://sounds/DTSoundtrack/Ruder Buster - Toby Fox.mp3" id="18_5wboo"]
 [ext_resource type="AudioStream" uid="uid://cd8b0ttlrsfa5" path="res://sounds/UTSoundtrack/Heartache - Toby Fox.mp3" id="19_6de02"]
@@ -426,8 +428,8 @@ healPackageScene = ExtResource("12_wdxbp")
 
 [node name="enemyRoot" type="Node2D" parent="." unique_id=1270765480]
 script = ExtResource("6_wi4c7")
-pointEnemy = ExtResource("7_wi4c7")
-pointSummonWaitTime = 0.6
+Enemies = Array[PackedScene]([ExtResource("7_wi4c7"), ExtResource("15_on6n6")])
+superLight = ExtResource("16_x3ega")
 
 [node name="damageLabelRoot" type="Node2D" parent="." unique_id=777239897]
 script = ExtResource("9_2l77h")

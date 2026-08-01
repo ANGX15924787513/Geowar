@@ -1,0 +1,178 @@
+[gd_scene format=3 uid="uid://b73k5mlyu1srm"]
+
+[ext_resource type="Script" uid="uid://csuocfvljca20" path="res://gdscripts/mainGame/hp_bar.gd" id="1_jwsj7"]
+[ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_16cxq"]
+[ext_resource type="Script" uid="uid://blvq5ipr1gw6t" path="res://gdscripts/mainGame/line_hp_bar.gd" id="5_26sbq"]
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="5_p5jwu"]
+[ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="6_lglm1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pcoha"]
+font = ExtResource("5_p5jwu")
+font_size = 44
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0.41568628, 0.75686276, 1, 1)
+shadow_offset = Vector2(3.685, 2.88)
+
+[sub_resource type="Animation" id="Animation_bxwpo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:points")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(1, 1, 30, -19, 50, 6, 87, -14, 113, 6, 144, -4, 179, -2)]
+}
+
+[sub_resource type="Animation" id="Animation_26sbq"]
+resource_name = "shake_heal"
+length = 0.2665629
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:points")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.032310665, 0.13328145, 0.23829108),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(179, 0, 1, 0), PackedVector2Array(179, 0, 139, -11, 118, 13, 88, 19, 55, -21, 22, 13, 1, 0), PackedVector2Array(179, 0, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6d1y7"]
+resource_name = "shake"
+length = 0.29079592
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:points")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12520379, 0.2625241),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(1, 0, 179, 0), PackedVector2Array(1, 1, 30, -19, 50, 6, 87, -14, 113, 6, 144, -4, 179, -2), PackedVector2Array(1, 0, 179, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e3fme"]
+_data = {
+&"RESET": SubResource("Animation_bxwpo"),
+&"shake_heal": SubResource("Animation_26sbq"),
+&"shake_hurt": SubResource("Animation_6d1y7")
+}
+
+[sub_resource type="Animation" id="Animation_oouw2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(50, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_62shl"]
+resource_name = "start"
+length = 0.43619385
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16155328, 0.43619385),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-471.245, 0), Vector2(50, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8a7tb"]
+_data = {
+&"RESET": SubResource("Animation_oouw2"),
+&"start": SubResource("Animation_62shl")
+}
+
+[node name="HpBar" type="CanvasLayer" unique_id=409945784]
+layer = 0
+script = ExtResource("1_jwsj7")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1591701894]
+position = Vector2(50, 0)
+
+[node name="RoundedPolygon2D" type="Polygon2D" parent="Node2D" unique_id=1614173520]
+position = Vector2(147, 18.857143)
+scale = Vector2(1, 0.71428573)
+color = Color(0, 0.8803748, 0.9359333, 0.20392157)
+polygon = PackedVector2Array(-130, 3, -130, 118, 450, 118, 450, 3)
+polygons = [null]
+script = ExtResource("2_16cxq")
+corner_radius = 31
+metadata/_custom_type_script = "uid://gdsdtd32sye5"
+
+[node name="RoundedPolygon2D2" type="Polygon2D" parent="Node2D" unique_id=687936974]
+position = Vector2(147, 18.857143)
+scale = Vector2(1, 0.71428573)
+color = Color(0, 0.8784314, 0.9372549, 0.20392157)
+polygon = PackedVector2Array(315, 13.400002, 315, 104.399994, 445, 105.79999, 440, 12)
+polygons = [null]
+script = ExtResource("2_16cxq")
+corner_radius = 31
+metadata/_custom_type_script = "uid://gdsdtd32sye5"
+
+[node name="Label" type="Label" parent="Node2D" unique_id=1118882277]
+offset_left = 469.0
+offset_top = 35.428574
+offset_right = 590.0
+offset_bottom = 85.42857
+text = "LINE"
+label_settings = SubResource("LabelSettings_pcoha")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Node2D" unique_id=1450708595]
+offset_left = 243.0
+offset_top = 36.428574
+offset_right = 454.0
+offset_bottom = 84.42857
+theme = ExtResource("6_lglm1")
+theme_override_colors/font_color = Color(0.73362124, 0.97536844, 0.9999998, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.80266654, 0.86, 0.7411765)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.09019608)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 43
+text = "718/910"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Line2D" type="Line2D" parent="Node2D" unique_id=202531634]
+position = Vector2(41, 63)
+points = PackedVector2Array(1, 1, 30, -19, 50, 6, 87, -14, 113, 6, 144, -4, 179, -2)
+width = 8.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 16
+script = ExtResource("5_26sbq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Line2D" unique_id=1206723702]
+libraries/ = SubResource("AnimationLibrary_e3fme")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1319636957]
+libraries/ = SubResource("AnimationLibrary_8a7tb")
+autoplay = &"start"

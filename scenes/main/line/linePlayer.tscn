@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://cdyh3j4blb1g6" path="res://scripts/mainGame/LinePlayer.cs" id="1_nt1s8"]
 [ext_resource type="PackedScene" uid="uid://b76ghxiqaoxsn" path="res://scenes/main/point/point_particle.tscn" id="2_nt1s8"]
 [ext_resource type="PackedScene" uid="uid://b4cxtj8en4gsm" path="res://scenes/main/line/line.tscn" id="2_ui6pj"]
-[ext_resource type="PackedScene" uid="uid://l1pk7e07umx8" path="res://scenes/main/point/point_hp_bar.tscn" id="3_0lots"]
 [ext_resource type="AudioStream" uid="uid://bha2rq7h0xsei" path="res://sounds/MCSound/bow.ogg" id="4_07li4"]
+[ext_resource type="PackedScene" uid="uid://b73k5mlyu1srm" path="res://scenes/main/line/line_hp_bar.tscn" id="4_ui6pj"]
 
 [sub_resource type="Curve" id="Curve_rmvlx"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.28571433), 0.0, 0.0, 0, 0]
@@ -91,7 +91,8 @@ maxLineCount = 10
 singleLineScene = ExtResource("2_ui6pj")
 attackSound = ExtResource("4_07li4")
 circleRadius = 220.0
-hpBarScene = ExtResource("3_0lots")
+HP = 42
+hpBarScene = ExtResource("4_ui6pj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1389574380]
 scale = Vector2(0.09, 0.09)

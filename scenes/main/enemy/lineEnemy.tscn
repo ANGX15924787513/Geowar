@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://bnagdambsylcw"]
+
+[ext_resource type="Script" uid="uid://1scj2276bkm2" path="res://scripts/mainGame/LineEnemy.cs" id="1_s0o18"]
+[ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="2_is4nh"]
+[ext_resource type="AudioStream" uid="uid://3br2pk5nnep6" path="res://sounds/MCSound/anvil_land.ogg" id="2_pitl7"]
+[ext_resource type="Animation" uid="uid://21x7k188yrow" path="res://animation/pointSpawn.anim" id="5_i50e5"]
+
+[sub_resource type="Curve" id="Curve_fql75"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4604811, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hqura"]
+curve = SubResource("Curve_fql75")
+
+[sub_resource type="Gradient" id="Gradient_kqcdh"]
+colors = PackedColorArray(1, 0.3, 0.58000004, 0.6313726, 1, 0.3, 0.58000004, 0.34509805)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pitl7"]
+gradient = SubResource("Gradient_kqcdh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7tox5"]
+lifetime_randomness = 0.19
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(70.52, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 30.0
+gravity = Vector3(0, 168, 0)
+scale_min = 0.099999994
+scale_max = 0.099999994
+color_ramp = SubResource("GradientTexture1D_pitl7")
+alpha_curve = SubResource("CurveTexture_hqura")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wvhbo"]
+radius = 19.0
+height = 180.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fql75"]
+radius = 36.0
+height = 352.0
+
+[sub_resource type="Animation" id="Animation_qo30q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jrr11"]
+_data = {
+&"RESET": SubResource("Animation_qo30q"),
+&"pointSpawn": ExtResource("5_i50e5")
+}
+
+[node name="lineEnemy" type="RigidBody2D" unique_id=1698197225 groups=["enemy"]]
+collision_layer = 4
+collision_mask = 11
+mass = 0.1
+gravity_scale = 0.0
+constant_torque = 800.0
+script = ExtResource("1_s0o18")
+Speed = 500.0
+hurtSound = ExtResource("2_pitl7")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="." unique_id=1941674116]
+scale = Vector2(0.5, 0.5)
+amount = 60
+texture = ExtResource("2_is4nh")
+process_material = SubResource("ParticleProcessMaterial_7tox5")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=679369546]
+scale = Vector2(0.5, 0.5)
+points = PackedVector2Array(-70, 0, 70, 0)
+width = 36.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2131312782]
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_wvhbo")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=635009078]
+scale = Vector2(0.5, 0.5)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=562572082]
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_fql75")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1704063383]
+libraries/ = SubResource("AnimationLibrary_jrr11")
+autoplay = &"pointSpawn"
+
+[node name="Timer" type="Timer" parent="." unique_id=1055263806]
+wait_time = 5.0
+autostart = true
+
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]
+[connection signal="timeout" from="Timer" to="." method="OnRushTimerTimeout"]
