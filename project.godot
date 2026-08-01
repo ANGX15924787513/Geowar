@@ -15,12 +15,11 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="Geowar"
-config/description="A world only BLACK and WHITE.
-Feel the beauty of geometry."
-config/version="0.0.0"
+config/description="Feel the beauty of geometry."
+config/version="0.0.3"
 run/main_scene="uid://cddlp6x2v6uyt"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
-run/max_fps=144
+run/max_fps=60
 boot_splash/show_image=false
 config/icon="uid://c6f6n4u0h334d"
 
