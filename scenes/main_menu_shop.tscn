@@ -74,10 +74,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.35541722),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.29, 0.35541722),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1152, 0), Vector2(0, 0)]
+"values": [Vector2(1152, 0), Vector2(-73, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_2otb7"]
@@ -161,7 +161,7 @@ offset_left = 359.0
 offset_top = 129.0
 offset_right = 1149.0
 offset_bottom = 635.0
-theme_override_constants/h_separation = 153
+theme_override_constants/h_separation = 159
 theme_override_constants/v_separation = 158
 
 [node name="singleSellItem" parent="HFlowContainer" unique_id=656635618 instance=ExtResource("3_u1dkw")]
@@ -171,6 +171,42 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="singleSellItem3" parent="HFlowContainer" unique_id=1599707270 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem4" parent="HFlowContainer" unique_id=2115151411 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem5" parent="HFlowContainer" unique_id=1702308609 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem6" parent="HFlowContainer" unique_id=1000338099 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem7" parent="HFlowContainer" unique_id=1023480054 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem8" parent="HFlowContainer" unique_id=560504895 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem9" parent="HFlowContainer" unique_id=971947936 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem10" parent="HFlowContainer" unique_id=123246961 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem11" parent="HFlowContainer" unique_id=1394068247 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem12" parent="HFlowContainer" unique_id=1734099429 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem13" parent="HFlowContainer" unique_id=1504080602 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem14" parent="HFlowContainer" unique_id=1516193181 instance=ExtResource("3_u1dkw")]
+layout_mode = 2
+
+[node name="singleSellItem15" parent="HFlowContainer" unique_id=202515944 instance=ExtResource("3_u1dkw")]
 layout_mode = 2
 
 [node name="Q币显示" type="Control" parent="." unique_id=1203224581]

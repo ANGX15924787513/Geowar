@@ -6,12 +6,16 @@ public partial class LineEnemy : Enemy
     private bool isRushing;
     public override void _Process(double delta)
     {
-        if (gameManager.gameState != GameManager.GameState.GAMING) return;
+        if (gameManager.gameState != GameManager.GameState.GAMING)
+        {
+            LinearVelocity = LinearVelocity.Lerp(Vector2.Zero, 0.05f);
+            return;
+        }
         if(!isRushing) base._Process(delta);
         else
         {
             float targetDir = (_targetPlayer.Position - Position).Angle();
-            AngularVelocity = targetDir - Rotation;
+            AngularVelocity = 2*(targetDir - Rotation);
         }
     }
 
@@ -27,6 +31,6 @@ public partial class LineEnemy : Enemy
 
     private void OnRushTimerTimeout()
     {
-        Rush();
+        if(!isRushing && gameManager.gameState == GameManager.GameState.GAMING) Rush();
     }
 }

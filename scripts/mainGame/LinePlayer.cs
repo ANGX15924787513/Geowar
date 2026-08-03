@@ -3,6 +3,7 @@ using System;
 
 public partial class LinePlayer : Player
 {
+	[Export] private AudioStream chargeSound;
 	[Export] private int lineCount;
 	[Export] private int maxLineCount = 30;
 	[Export] private PackedScene singleLineScene;
@@ -17,6 +18,7 @@ public partial class LinePlayer : Player
 	private const float lineWidth = 20f;
 	private const float gap = 8f;
 	private const float spacing = lineWidth + gap;
+	private bool isPreLaunching;
 
 	private int throughUgLevel;
 	public override void _Ready()
@@ -39,14 +41,24 @@ public partial class LinePlayer : Player
 		//右键 -> ToPreLaunchPos -> GetPositionInBulletSide/Lib
 		//else -> GiveVelocityAll OK
 		base._Process(delta);
-		if (gameManager.gameState != GameManager.GameState.GAMING) return;
+		if (gameManager.gameState != GameManager.GameState.GAMING)
+		{
+			LinearVelocity = LinearVelocity.Lerp(Vector2.Zero, 0.05f);
+			return;
+		}
 		if (Input.IsActionPressed("pre_launch_bullet"))
 		{
 			ToPreLaunchPos();
+			if(!isPreLaunching)
+			{
+				isPreLaunching = true;
+				globalAudioPlayer.PlayAudio(chargeSound);
+			}
 		}
 		else
 		{
 			GiveVelocityAll((float)delta);
+			isPreLaunching = false;
 		}
 
 		AngularVelocity = -Rotation;

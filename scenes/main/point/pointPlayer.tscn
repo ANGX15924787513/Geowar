@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cbqf2iphpknmu" path="res://scripts/mainGame/PointPlayer.cs" id="1_puuut"]
 [ext_resource type="PackedScene" uid="uid://crdufn10ly8us" path="res://scenes/main/point/singlePoint.tscn" id="2_2gt7a"]
+[ext_resource type="AudioStream" uid="uid://8x4jx7r71u6i" path="res://sounds/MCSound/activate_x2.00.ogg" id="2_irbxv"]
 [ext_resource type="Texture2D" uid="uid://dec7ilndm5gvd" path="res://texture/circle.svg" id="3_ggpb5"]
 [ext_resource type="PackedScene" uid="uid://l1pk7e07umx8" path="res://scenes/main/point/point_hp_bar.tscn" id="3_x8lvr"]
 [ext_resource type="AudioStream" uid="uid://bha2rq7h0xsei" path="res://sounds/MCSound/bow.ogg" id="4_rwk6q"]
@@ -86,6 +87,7 @@ collision_mask = 7
 mass = 2.0
 gravity_scale = 0.0
 script = ExtResource("1_puuut")
+chargeAudio = ExtResource("2_irbxv")
 pointCount = 3
 circleRadius = 120.0
 singlePointScene = ExtResource("2_2gt7a")
