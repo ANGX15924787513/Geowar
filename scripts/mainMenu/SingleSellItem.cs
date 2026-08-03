@@ -12,6 +12,8 @@ public partial class SingleSellItem : Control
 	private System.Action<SingleSellItem> _onBuy;
 	private System.Action<SingleSellItem> _onSell;
 
+	public bool rare;
+
 	public override void _Ready()
 	{
 		_nameLabel  = GetNode<Label>("VBoxContainer/Label");
@@ -22,6 +24,7 @@ public partial class SingleSellItem : Control
 	public void Setup(ShopItem item, int currentLevel,
 		System.Action<SingleSellItem> onBuy, System.Action<SingleSellItem> onSell)
 	{
+		rare = item.isSpecial;
 		Item = item;
 		CurrentLevel = currentLevel;
 		_onBuy = onBuy;
@@ -32,6 +35,9 @@ public partial class SingleSellItem : Control
 	public void Refresh()
 	{
 		bool maxed = CurrentLevel >= Item.MaxLevel;
+		Polygon2D d = GetNode<Polygon2D>("RoundedPolygon2D");
+		if(rare) d.Color = new Color(Colors.Gold,(float)86/256);
+		else d.Color = new Color(Colors.White,(float)86/256);
 		_nameLabel.Text  = $"{Item.Name}\n Lv.{CurrentLevel}";
 		_descLabel.Text  = Item.Desc;
 		_priceLabel.Text = maxed ? "MAX" : $"价格:{Item.Price}";

@@ -70,7 +70,15 @@ public partial class LinePlayer : Player
 		else
 			Decelerate(delta);
 		if (CanLaunchBullet())
-			LaunchBullet();
+		{
+			if (Input.IsActionPressed("shift") && _currentLineCount == lineCount)
+			{
+				LaunchAllBullet();
+			}else if(!Input.IsActionPressed("shift"))
+			{
+				LaunchBullet();
+			}
+		}
 
 		if (_launchedBullet == 0 && _currentLineCount != lineCount)
 		{
@@ -253,6 +261,37 @@ public partial class LinePlayer : Player
 		bullet.flySpeed = vel;  // AddChild 之后设，不怕 reparent 清掉
 		bullet.穿透等级 += 2*throughUgLevel;
 		
+		globalAudioPlayer.PlayAudio(attackSound);
+	}
+
+	private void LaunchAllBullet()
+	{
+		int willLaunch = _currentLineCount - 2;
+		_launchedBullet += willLaunch;
+		_fireRotationTimer = 0.5f;
+		_currentLineCount -= willLaunch;
+		for (int i = 0; i < willLaunch; i++)
+		{
+			Line bullet = null;
+			foreach (var b in GetChildren())
+			{
+				if (b is Line && !b.IsInGroup("lineSide"))
+				{
+					bullet = b as Line;
+					break;
+				}
+			}
+			if (bullet == null) return;
+
+			Vector2 gPos = bullet.GlobalPosition;
+			var aimPos = Cursor.Instance?.AimPosition ?? GetGlobalMousePosition();
+			Vector2 vel = (aimPos - gPos).Normalized() * 1000f;
+			bullet.GetParent().RemoveChild(bullet);
+			bulletRoot.AddChild(bullet);
+			bullet.GlobalPosition = gPos;
+			bullet.flySpeed = vel;  // AddChild 之后设，不怕 reparent 清掉
+			bullet.穿透等级 += 2*throughUgLevel;
+		}
 		globalAudioPlayer.PlayAudio(attackSound);
 	}
 

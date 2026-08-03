@@ -2,6 +2,14 @@ using Godot;
 
 public partial class Enemy : RigidBody2D
 {
+    public enum EnemyTypeEnum
+    {
+        NORMAL,
+        SUPER,
+        EXTREME
+    }
+
+    public EnemyTypeEnum enemyType;
     [Export] public int MaxHealth { get; set; } = 10;
     [Export] public float Speed { get; set; } = 150;
     [Export] public int Damage { get; set; } = 3;
@@ -128,10 +136,10 @@ public partial class Enemy : RigidBody2D
         RemoveFromGroup("enemy");
         CollisionLayer &= ~(uint)(1 << (3 - 1));
         Tween hideTn = GetTree().CreateTween();
-        hideTn.TweenProperty(this, "modulate", new Color(Colors.White, 0), 0.5f);
+        hideTn.TweenProperty(this, "modulate", new Color(Colors.White, 0), 0.2f);
         await ToSignal(hideTn, "finished");
         signalManager.EmitSignal(SignalManager.SignalName.OnEnemyDied);
-        signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition);
+        signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition,(int)enemyType);
         QueueFree();
     }
 }

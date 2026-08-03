@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b4cxtj8en4gsm"]
 
 [ext_resource type="Script" uid="uid://dhj43hf1dgloe" path="res://scripts/mainGame/Line.cs" id="1_nhty8"]
+[ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="2_e8ajl"]
 [ext_resource type="Texture2D" uid="uid://dna2kx1k42phd" path="res://texture/outcircle.svg" id="2_wkxmh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ifow5"]
@@ -85,6 +86,7 @@ _data = {
 [node name="line" type="Node2D" unique_id=253992808]
 modulate = Color(1, 1, 1, 0)
 script = ExtResource("1_nhty8")
+lightTex = ExtResource("2_e8ajl")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2002651965]
 collision_layer = 8

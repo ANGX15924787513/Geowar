@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://qr2gvpaeiioj" path="res://scripts/mainGame/PointSync.cs" id="1_i68q0"]
 [ext_resource type="Texture2D" uid="uid://dec7ilndm5gvd" path="res://texture/circle.svg" id="2_iy5o8"]
+[ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="2_qixb7"]
 [ext_resource type="PackedScene" uid="uid://b76ghxiqaoxsn" path="res://scenes/main/point/point_particle.tscn" id="2_xeava"]
 [ext_resource type="Animation" uid="uid://21x7k188yrow" path="res://animation/pointSpawn.anim" id="4_cfamt"]
 
@@ -31,7 +32,7 @@ gradient = SubResource("Gradient_iy5o8")
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6276277, 0.7177033), -0.8892841, -0.8892841, 0, 0, Vector2(0.9099099, 0.37320566), -1.6287085, -1.6287085, 0, 0, Vector2(1, 0.16541362), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_qixb7"]
+[sub_resource type="CurveTexture" id="CurveTexture_qk3sq"]
 curve = SubResource("Curve_qixb7")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cfamt"]
@@ -48,7 +49,7 @@ linear_accel_min = -2.2351742e-06
 linear_accel_max = -2.2351742e-06
 scale_min = 0.089999996
 scale_max = 0.089999996
-scale_curve = SubResource("CurveTexture_qixb7")
+scale_curve = SubResource("CurveTexture_qk3sq")
 color_ramp = SubResource("GradientTexture1D_cfamt")
 alpha_curve = SubResource("CurveTexture_iy5o8")
 anim_speed_curve = SubResource("CurveTexture_xeava")
@@ -62,13 +63,13 @@ _data = {
 }
 
 [node name="SinglePoint" type="RigidBody2D" unique_id=726211025 groups=["circle_point"]]
-modulate = Color(1, 1, 1, 0)
 collision_layer = 8
 collision_mask = 12
 mass = 1.3
 gravity_scale = 0.0
 script = ExtResource("1_i68q0")
 bulletColor = Color(0.8782463, 0.46484894, 0.25551963, 1)
+lightTex = ExtResource("2_qixb7")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2117185343]
 scale = Vector2(0.09, 0.09)

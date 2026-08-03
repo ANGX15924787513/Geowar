@@ -86,7 +86,14 @@ public partial class PointPlayer : Player
 			Decelerate(delta);
 
 		if (CanLaunchBullet())
-			LaunchBullet();
+			if (Input.IsActionPressed("shift") && _currentPointCount == pointCount)
+			{
+				LaunchBigBullet();
+			}
+			else if(!Input.IsActionPressed("shift"))
+			{
+				LaunchBullet();
+			}
 
 		if (_launchedBullet == 0 && _currentPointCount != pointCount)
 		{
@@ -135,6 +142,26 @@ public partial class PointPlayer : Player
 		var aimPos = Cursor.Instance?.AimPosition ?? GetGlobalMousePosition();
 		bullet.LinearVelocity = aimPos - bullet.GlobalPosition;
 		
+		globalAudioPlayer.PlayAudio(attackSound);
+	}
+
+	private void LaunchBigBullet()
+	{
+		int willLaunch = _currentPointCount - 1;
+		_launchedBullet += willLaunch;
+		AngularVelocity = fireRotateSpeed;
+		_fireRotationTimer = 0.5f;
+		_currentPointCount -= willLaunch;
+		for (int i = 0; i < willLaunch; i++)
+		{
+			var bullet = GetClosestPoint(GetPoints(), GetTangentPoint());
+			Vector2 globalPos = bullet.GlobalPosition;
+			bullet.GetParent().RemoveChild(bullet);
+			bulletRoot.AddChild(bullet);
+			bullet.GlobalPosition = globalPos;
+			var aimPos = Cursor.Instance?.AimPosition ?? GetGlobalMousePosition();
+			bullet.LinearVelocity = aimPos - bullet.GlobalPosition;
+		}
 		globalAudioPlayer.PlayAudio(attackSound);
 	}
 

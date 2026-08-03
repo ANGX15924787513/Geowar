@@ -53,18 +53,20 @@ public partial class EnemySummoner : Node2D
 		enemy.GlobalPosition = new Vector2(
 			(float)GD.RandRange(gameManager.gameAreaX.X,gameManager.gameAreaX.Y),
 			(float)GD.RandRange(gameManager.gameAreaY.X,gameManager.gameAreaY.Y));
-		if (GetRand(superEnemyRate))
+		if (GetRand(superEnemyRate) && gameManager.difficulty >=gameManager.SUPER_ENY)
 		{
 			enemy.MaxHealth *= GD.RandRange(2,5);
 			enemy.Speed *= (float)GD.RandRange(1d,2d);
 			enemy.Damage = (int)(enemy.Damage * GD.RandRange(2d, 5d));
+			enemy.enemyType = Enemy.EnemyTypeEnum.SUPER;
 		}
-		else if(GetRand(susuperEnemyRate))
+		else if(GetRand(susuperEnemyRate) && gameManager.difficulty >= gameManager.SUSUPER_ENY)
 		{
 			enemy.MaxHealth *= GD.RandRange(5,10);
 			enemy.Speed *= (float)GD.RandRange(3d,5d);
 			enemy.Damage = (int)(enemy.Damage * GD.RandRange(5d, 8d));
 			enemy.AddChild(superLight.Instantiate<PointLight2D>());
+			enemy.enemyType = Enemy.EnemyTypeEnum.EXTREME;
 		}
 		AddChild(enemy);
 	}

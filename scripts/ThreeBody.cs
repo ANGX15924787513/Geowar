@@ -19,13 +19,20 @@ public partial class ThreeBody : Node2D
     {
         float posRange = 150f;
         // 初始条件：三质点
-        (Vector2 pos, Vector2 vel, float mass)[] init =
-        [
-            (new Vector2((float)GD.RandRange(-posRange, posRange), (float)GD.RandRange(-posRange, posRange)), new Vector2(0, 120), 200),
-                (new Vector2((float)GD.RandRange(-posRange, posRange), (float)GD.RandRange(-posRange, posRange)), new Vector2(-80, -60), 200),
-                (new Vector2((float)GD.RandRange(-posRange, posRange), (float)GD.RandRange(-posRange, posRange)), new Vector2(120, -40), 200)
-        ];
-
+        float totalDist;
+        (Vector2 pos, Vector2 vel, float mass)[] init;
+        do
+        {
+            init = [
+                (new Vector2((float)GD.RandRange(-posRange, posRange), (float)GD.RandRange(-posRange, posRange)),
+                    new Vector2(0, 120), 200),
+                (new Vector2((float)GD.RandRange(-posRange, posRange), (float)GD.RandRange(-posRange, posRange)),
+                    new Vector2(-80, -60), 200),
+                (new Vector2((float)GD.RandRange(-posRange, posRange), (float)GD.RandRange(-posRange, posRange)),
+                    new Vector2(120, -40), 200)
+            ];
+            totalDist = init[0].pos.DistanceTo(init[1].pos) + init[1].pos.DistanceTo(init[2].pos) + init[2].pos.DistanceTo(init[0].pos);
+        }while (totalDist < 400f);
         foreach (var (pos, vel, mass) in init)
         {
             _bodies.Add(new Body { Pos = pos, Vel = vel, Mass = mass, Radius = Mathf.Sqrt(mass) * 1.2f });

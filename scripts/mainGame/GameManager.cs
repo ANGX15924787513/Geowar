@@ -13,6 +13,12 @@ public partial class GameManager : Node
         STARTING
     }
     [Export] public GameState gameState = GameState.STARTING;
+    
+    // --- 难度处理 ---
+    public readonly float LINE_RUSH = 0.3f;
+    public readonly float SUPER_ENY = 0.2f;
+    public readonly float SUSUPER_ENY = 0.5f;
+    
     public bool charChose { get; set; } = false;
     public float playerSpeed = 500f;
     public float playerRotateSpeed = 1f;
@@ -20,6 +26,9 @@ public partial class GameManager : Node
     public readonly Vector2 gameAreaX = new(-1700f,2600f);
     public readonly Vector2 gameAreaY = new(-1050f,1136f);
     public static GameManager Instance { get; private set; }
+
+    public float difficulty;
+    //在商店中更新
 
     // ---- 商店升级 (6项) ----
     public int pointCountUpgrade;

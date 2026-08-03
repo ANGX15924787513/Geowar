@@ -52,9 +52,25 @@ public partial class FallItemRoot : Node2D
 		AddChild(pck);
 	}
 
-	private void RandomlySpawn(Vector2 pos)
+	private void RandomlySpawn(Vector2 pos,Enemy.EnemyTypeEnum enemyType)
 	{
-		int rand = GD.RandRange(0, 100);
+		int start;
+		switch (enemyType)
+		{
+			case Enemy.EnemyTypeEnum.NORMAL:
+				start = 0;
+				break;
+			case Enemy.EnemyTypeEnum.SUPER:
+				start = 20;
+				break;
+			case Enemy.EnemyTypeEnum.EXTREME:
+				start = 50;
+				break;
+			default:	
+				start = 0;	
+				break;
+		}
+		int rand = GD.RandRange(start, 100);
 		if (ironSpawnProb + goldSpawnProb + diamondSpawnProb > 100)
 		{
 			GD.PrintErr("掉落物设置错误:总概率超过100%");

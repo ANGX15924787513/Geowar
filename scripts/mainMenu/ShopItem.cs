@@ -8,4 +8,5 @@ public partial class ShopItem : Resource
 	public string Desc;        // 描述
 	public int Price;          // 价格
 	public int MaxLevel = 99;  // 最大购买等级
+	public bool isSpecial = false;
 }

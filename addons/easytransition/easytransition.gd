@@ -68,7 +68,7 @@ func transition_to(
 	_apply_params(animation, color, mask_texture, dither, dither_intensity, dither_scale)
 
 	await _tween_progress(0.0, 1.0, duration * 0.5)
-	get_tree().change_scene_to_file(path)
+	get_tree().change_scene_to_file.call_deferred(path)
 	await _tween_progress(1.0, 0.0, duration * 0.5)
 
 	is_transitioning = false

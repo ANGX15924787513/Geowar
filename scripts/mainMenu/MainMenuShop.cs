@@ -1,5 +1,7 @@
+using System;
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class MainMenuShop : Node2D
 {
@@ -20,37 +22,17 @@ public partial class MainMenuShop : Node2D
 	private Dictionary<ChoseItem, List<ShopItem>> _catalog = new();
 
 	[Export] private int maxMoneyChar = 9999;
-
-	public override void _Ready()
-	{
-		dataManager = GetNode<DataManager>("/root/DataManager");
-		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
-		line2D = GetNode<Line2D>("Line2D");
-		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		_grid = GetNode<HFlowContainer>("HFlowContainer");
-
-		_goldLabel    = GetNode<Label>("Q币显示/Label");
-		_diamondLabel = GetNode<Label>("Q币显示/Label2");
-		_emeraldLabel = GetNode<Label>("Q币显示/Label3");
-
-		foreach (var child in _grid.GetChildren())
-			if (child is SingleSellItem si)
-				_sellItems.Add(si);
-
-		BuildCatalog();
-		SanitizeSaveData();
-		RefreshDisplay();
-		PopulateGrid();
-	}
-
+	
+	[Export] private PackedScene singleSellItemScene;
+	
 	// ==================== 商品目录 (6件) ====================
 
 	private void BuildCatalog()
 	{
 		_catalog[ChoseItem.GOLD] = new List<ShopItem>
 		{
-			new() { Id = "point_count", Name = "骨质增生", Desc = "球更多了  ?\n点数 +1",           Price = 20,  MaxLevel = 12 },
-			new() { Id = "line_count", Name = "延展", Desc = "线更多了  \n线数 +1",           Price = 40,  MaxLevel = 10 },
+			new() { Id = "point_count", Name = "骨质增生", Desc = "球更多了  ?\n点数 +1",           Price = 20,  MaxLevel = 7 },
+			new() { Id = "line_count", Name = "延展", Desc = "线更多了  \n线数 +1",           Price = 30,  MaxLevel = 10 },
 			new() { Id = "fire_rate",   Name = "碎裂加速", Desc = "射速 +1",     Price = 5,  MaxLevel = 5 },
 			new() { Id = "move_speed",  Name = "漂移",     Desc = "移动速度 +20\n随便漂",    Price = 3,  MaxLevel = 10 },
 		};
@@ -58,6 +40,7 @@ public partial class MainMenuShop : Node2D
 		_catalog[ChoseItem.DIAMOND] = new List<ShopItem>
 		{
 			new() { Id = "atk_hp",      Name = "骨刺淬毒", Desc = "子弹伤害 +1",                Price = 5,  MaxLevel = 10 },
+			new() { Id = "line",      Name = "线", Desc = "可以使用线了(你变成刺了)",                Price = 20,  MaxLevel = 1 ,isSpecial = true},
 			new() { Id = "edge_atk",      Name = "磨刀石", Desc = "点可以磨死敌人了",                Price = 10,  MaxLevel = 1 },
 			new() { Id = "through",      Name = "一箭穿心", Desc = "线穿透 +2",                Price = 3,  MaxLevel = 5 },
 		};
@@ -70,6 +53,73 @@ public partial class MainMenuShop : Node2D
 		};
 	}
 
+	public override void _Ready()
+	{
+		dataManager = GetNode<DataManager>("/root/DataManager");
+		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
+		line2D = GetNode<Line2D>("Line2D");
+		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		_grid = GetNode<HFlowContainer>("HFlowContainer");
+
+		_goldLabel    = GetNode<Label>("Q币显示/Label");
+		_diamondLabel = GetNode<Label>("Q币显示/Label2");
+		_emeraldLabel = GetNode<Label>("Q币显示/Label3");
+		
+		BuildCatalog();
+		ClearGrid();
+		SanitizeSaveData();
+		RefreshDisplay();
+		PopulateGrid();
+		UpdateDifficulty();
+	}
+
+	private void ClearGrid()
+	{
+		foreach (var child in _grid.GetChildren())
+			if (child is SingleSellItem si)
+				_grid.RemoveChild(si);
+		
+		var maxC = _catalog.Select(_v => _v.Value.Count).Prepend(0).Max();
+
+		for (var i = 0; i < maxC; i++)
+		{
+			_grid.AddChild(singleSellItemScene.Instantiate<SingleSellItem>());
+		}
+
+		foreach (var child in _grid.GetChildren())
+			if (child is SingleSellItem si)
+				_sellItems.Add(si);
+	}
+
+	public float UpdateDifficulty()
+	{
+		int total = 0;
+		foreach (var a in _catalog)
+		{
+			foreach (var b in a.Value)
+			{
+				total += b.MaxLevel;
+			}
+		}
+
+		int current = 0;
+		foreach (var a in _catalog)
+		{
+			foreach (var b in a.Value)
+			{
+				current += dataManager.GetUpgradeLevel(b.Id);
+			}
+		}
+
+		if (total == 0)
+		{
+			GD.PrintErr("难度计算错误:总升级为0");
+			return 0;
+		}
+		GameManager.Instance.difficulty = (float)current / total;
+		GD.Print($"当前难度为:{(int)(GameManager.Instance.difficulty * 100 - GameManager.Instance.difficulty * 10000 % 100 * 0.01)}%");
+		return GameManager.Instance.difficulty;
+	}
 	/// <summary> 读档时把超出 MaxLevel 的脏数据修正 </summary>
 	private void SanitizeSaveData()
 	{
@@ -158,6 +208,7 @@ public partial class MainMenuShop : Node2D
 		si.CurrentLevel = newLevel;
 		si.Refresh();
 		RefreshDisplay();
+		UpdateDifficulty();
 	}
 
 	// ==================== 降级 / 卖出 ====================
@@ -184,6 +235,7 @@ public partial class MainMenuShop : Node2D
 		si.CurrentLevel = newLevel;
 		si.Refresh();
 		RefreshDisplay();
+		UpdateDifficulty();
 	}
 
 	// ==================== 升级写进 GameManager ====================
