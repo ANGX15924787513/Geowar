@@ -5,34 +5,84 @@ public partial class DataManager : Node
 	public ConfigFile config = new ConfigFile();
 	string path = "user://坠母.cfg";
 
-	public int Gold    { get => (int)config.GetValue("counts", "gold",    0); set => config.SetValue("counts", "gold",    value); }
-	public int Diamond { get => (int)config.GetValue("counts", "diamond", 0); set => config.SetValue("counts", "diamond", value); }
-	public int Emerald { get => (int)config.GetValue("counts", "emerald", 0); set => config.SetValue("counts", "emerald", value); }
+	public static DataManager Instance { get; private set; }
+
+	public int Gold
+	{
+		get => (int)config.GetValue("counts", "gold", 0);
+		set => config.SetValue("counts", "gold", value);
+	}
+
+	public int Diamond
+	{
+		get => (int)config.GetValue("counts", "diamond", 0);
+		set => config.SetValue("counts", "diamond", value);
+	}
+
+	public int Emerald
+	{
+		get => (int)config.GetValue("counts", "emerald", 0);
+		set => config.SetValue("counts", "emerald", value);
+	}
 
 	public override void _Ready()
 	{
 		if (config.Load(path) != Error.Ok)
 			Save();
+		Instance = this;
 	}
 
 	public int GetUpgradeLevel(string id) => (int)config.GetValue("upgrades", id, 0);
-	public void SetUpgradeLevel(string id, int level) { config.SetValue("upgrades", id, level); Save(); }
-	
+
+	public void SetUpgradeLevel(string id, int level)
+	{
+		config.SetValue("upgrades", id, level);
+		Save();
+	}
+
 	public int GetIntConfig(string id) => (int)config.GetValue("settings", id, 0);
-	public void SetIntConfig(string id, int level) { config.SetValue("settings", id, level); Save(); }
-	
-	public bool GetBoolConfig(string id) => (bool)config.GetValue("settings", id, 0);
-	public void SetBoolConfig(string id, bool on) { config.SetValue("settings", id, on); Save(); }
+
+	public void SetIntConfig(string id, int level)
+	{
+		config.SetValue("settings", id, level);
+		Save();
+	}
+
+	public bool GetBoolConfig(string id) => (bool)config.GetValue("settings", id, false);
+
+	public void SetBoolConfig(string id, bool on)
+	{
+		config.SetValue("settings", id, on);
+		Save();
+	}
+
+	public float GetFloatConfig(string id) => (float)config.GetValue("settings", id, 0);
+
+	public void SetFloatConfig(string id, float f)
+	{
+		config.SetValue("settings", id, f);
+		Save();
+	}
 
 	public bool Spend(FallItem.FallItemType type, int amount)
 	{
 		switch (type)
 		{
-			case FallItem.FallItemType.GOLD:    if (Gold    < amount) return false; Gold    -= amount; break;
-			case FallItem.FallItemType.DIAMOND: if (Diamond < amount) return false; Diamond -= amount; break;
-			case FallItem.FallItemType.EMERALD: if (Emerald < amount) return false; Emerald -= amount; break;
+			case FallItem.FallItemType.GOLD:
+				if (Gold < amount) return false;
+				Gold -= amount;
+				break;
+			case FallItem.FallItemType.DIAMOND:
+				if (Diamond < amount) return false;
+				Diamond -= amount;
+				break;
+			case FallItem.FallItemType.EMERALD:
+				if (Emerald < amount) return false;
+				Emerald -= amount;
+				break;
 			default: return false;
 		}
+
 		Save();
 		return true;
 	}
@@ -41,10 +91,11 @@ public partial class DataManager : Node
 	{
 		switch (type)
 		{
-			case FallItem.FallItemType.GOLD:    Gold    += amount; break;
+			case FallItem.FallItemType.GOLD: Gold += amount; break;
 			case FallItem.FallItemType.DIAMOND: Diamond += amount; break;
 			case FallItem.FallItemType.EMERALD: Emerald += amount; break;
 		}
+
 		Save();
 	}
 
@@ -59,5 +110,10 @@ public partial class DataManager : Node
 	{
 		config.Save(path);
 		GD.Print("游戏数据已保存");
+	}
+
+	public bool IsExists(string id, string sec = "settings")
+	{
+		return config.HasSectionKey(sec, id);
 	}
 }

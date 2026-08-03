@@ -118,7 +118,7 @@ public partial class Enemy : RigidBody2D
     {
         if (damage <= 0) return;
         health = Mathf.Max(0, health - damage);
-        globalAudioPlayer.PlayAudio(hurtSound,0.6f);
+        globalAudioPlayer.PlayAudio(hurtSound,globalAudioPlayer.PlayerAttackVolume);
         signalManager.EmitSignal(SignalManager.SignalName.OnEnemyGotHurt, damage,GlobalPosition);
     }
 

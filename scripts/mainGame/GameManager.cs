@@ -18,6 +18,8 @@ public partial class GameManager : Node
     public readonly float LINE_RUSH = 0.3f;
     public readonly float SUPER_ENY = 0.2f;
     public readonly float SUSUPER_ENY = 0.5f;
+
+    public bool glowDisabled;
     
     public bool charChose { get; set; } = false;
     public float playerSpeed = 500f;
@@ -70,6 +72,7 @@ public partial class GameManager : Node
         signalManager = GetNode<SignalManager>("/root/SignalManager");
 
         hideMouse = dataManager.GetBoolConfig("hide_mouse_playing");
+        glowDisabled = dataManager.GetBoolConfig("glow_disabled");
     }
 
     public override void _Process(double delta)
@@ -113,5 +116,10 @@ public partial class GameManager : Node
     {
         Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
         return viewportSize / 2;
+    }
+
+    public void RefreshGlow()
+    {
+        GetNode<WorldEnvironment>("/root/mainMenu/WorldEnvironment").Environment.GlowEnabled = !glowDisabled;
     }
 }

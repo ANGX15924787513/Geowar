@@ -11,8 +11,8 @@ public partial class EnemySummoner : Node2D
 	
 	//Timer
 	private float _SummonTimer;
-	[Export] private float SummonWaitTime = 1.3f;
-	private float SummonWaitTimeOffset = 0.3f;
+	[Export] private float SummonWaitTime = 2f;
+	private float SummonWaitTimeOffset = 0.2f;
 	
 	
 	GameManager gameManager;
@@ -20,6 +20,7 @@ public partial class EnemySummoner : Node2D
 	public override void _Ready()
 	{
 		gameManager = GetNode<GameManager>("/root/GameManager");
+		SummonWaitTime = 2 - 1.8f * gameManager.difficulty;
 		ResetAllTimer();
 	}
 	public override void _Process(double delta)

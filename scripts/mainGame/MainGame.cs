@@ -10,6 +10,7 @@ public partial class MainGame : Control
 	{
 		signalManager = GetNode<SignalManager>("/root/SignalManager");
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		GetNode<WorldEnvironment>("WorldEnvironment").Environment.GlowEnabled = !GameManager.Instance.glowDisabled;
 		signalManager.OnPlayerDied += OnPlayerDied;
 		signalManager.ShowDeathScreen += ShowDeathScreen;
 		animationPlayer.AnimationFinished += OnAnimationFinished;

@@ -53,14 +53,17 @@ public partial class SingleGameData : CanvasLayer
 		switch (fallItemType)
 		{
 			case FallItemType.IRON:
+				if (animationPlayer.IsPlaying()) break;
 				animationPlayer.Play("iron_jump");
 				ironCount++;
 				break;
 			case FallItemType.GOLD:
+				if (animationPlayer.IsPlaying()) break;
 				animationPlayer.Play("gold_jump");
 				goldCount++;
 				break;
 			case FallItemType.DIAMOND:
+				if (animationPlayer.IsPlaying()) break;
 				animationPlayer.Play("diamond_jump");
 				diamondCount++;
 				break;

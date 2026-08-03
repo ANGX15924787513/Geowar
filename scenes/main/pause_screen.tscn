@@ -218,7 +218,7 @@ text = "Tip :
 vertical_alignment = 2
 autowrap_mode = 3
 script = ExtResource("6_jx22d")
-tips = PackedStringArray("商店会把你卖的东西原价还给你吗?(奸)", "圆上的点只会受到攻击加成的20%", "这里有tip?!!", "游戏图标和主菜单的标题都是作者自己画的", "商店右上角有个危险的东西?", "帧率最低只能设20帧(有卡死经历)", "真的有人看这个吗......", "It\'s been a long day~", "不要开学!!!", "本项目在Github上开源!", "你大概率只会在暂停页面看到这个(废话)", "不是哥们")
+tips = PackedStringArray("商店会把你卖的东西原价还给你吗?(奸)", "圆上的点只会受到攻击加成的20%", "这里有tip?!!", "游戏图标和主菜单的标题都是作者自己画的", "商店右上角有个危险的东西?", "帧率最低只能设20帧(有卡死经历)", "真的有人看这个吗......", "It\'s been a long day~", "不要开学!!!", "本项目在Github上开源!", "你大概率只会在暂停页面看到这个(废话)", "不是哥们", "按住shift再攻击可以释放大招!", "第一次启动时会把帧率设为屏幕刷新率!", "游戏会根据升级状况来确定难度!")
 
 [node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=597975656]
 position = Vector2(1090, 20)

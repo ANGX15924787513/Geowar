@@ -32,6 +32,7 @@ public partial class Player : RigidBody2D
 		
 		SummonHpBar();
 		cs = 1 - dataManager.GetUpgradeLevel("camera_scale") * 0.1f;
+		gameManager.playerSpeed = 500;
 	}
 
 	public override void _ExitTree()

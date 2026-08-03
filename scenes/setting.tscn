@@ -90,8 +90,8 @@ texture = SubResource("GradientTexture2D_50131")
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1516741258]
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 238.0
-offset_bottom = 86.0
+offset_right = 945.0
+offset_bottom = 229.0
 theme_override_constants/separation = 8
 
 [node name="FlowContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1883854639]
@@ -143,6 +143,58 @@ layout_mode = 2
 theme = SubResource("Theme_scrng")
 text = "启用"
 
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=372563613]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=925154546]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+theme_override_colors/font_color = Color(0.585062, 0.585062, 0.5850621, 1)
+text = "音量设置"
+
+[node name="FlowContainer4" type="HBoxContainer" parent="VBoxContainer" unique_id=119936210]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer4" unique_id=677372398]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "击打音量(防耳聋)"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/FlowContainer4" unique_id=1049381814]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer" unique_id=1160782420]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=15022029]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+theme_override_colors/font_color = Color(0.585062, 0.585062, 0.5850621, 1)
+text = "视频设置"
+
+[node name="FlowContainer5" type="HBoxContainer" parent="VBoxContainer" unique_id=142892061]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer5" unique_id=1317545633]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "禁用泛光"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer5" unique_id=1410549467]
+layout_mode = 2
+theme = SubResource("Theme_scrng")
+text = "启用"
+
 [node name="Button" type="Button" parent="." unique_id=1292672265]
 texture_filter = 1
 offset_left = 953.0719
@@ -166,4 +218,6 @@ libraries/ = SubResource("AnimationLibrary_1s23a")
 [connection signal="value_changed" from="VBoxContainer/FlowContainer/SpinBox" to="VBoxContainer/FlowContainer/SpinBox" method="_on_value_changed"]
 [connection signal="toggled" from="VBoxContainer/FlowContainer2/CheckBox" to="VBoxContainer/FlowContainer2/CheckBox" method="_on_toggled"]
 [connection signal="toggled" from="VBoxContainer/FlowContainer3/CheckBox" to="." method="_on_hide_mouse_checkbox_toggled"]
+[connection signal="value_changed" from="VBoxContainer/FlowContainer4/HSlider" to="." method="_on_player_attack_volume_changed"]
+[connection signal="toggled" from="VBoxContainer/FlowContainer5/CheckBox" to="." method="_on_glow_check_box_toggled"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

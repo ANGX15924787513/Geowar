@@ -7,5 +7,6 @@ public partial class MainMenuRoot : Node2D
 	{
 		gameManager = GetNode<GameManager>("/root/GameManager");
 		gameManager.gameState = GameManager.GameState.MAIN_MENU;
+		GetNode<WorldEnvironment>("WorldEnvironment").Environment.GlowEnabled = !GameManager.Instance.glowDisabled;
 	}
 }
