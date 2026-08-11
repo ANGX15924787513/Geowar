@@ -10,8 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://cdc5uwcq1a2yd" path="res://texture/MCTexture/emerald.png" id="7_e4jrh"]
 [ext_resource type="Script" uid="uid://xp7u2fg6eva8" path="res://gdscripts/mainMenu/exchange_button_gold_diam.gd" id="8_2otb7"]
 [ext_resource type="Script" uid="uid://buc6e1ythh12" path="res://gdscripts/mainMenu/exchange_button_diam_emerald.gd" id="10_uxkbo"]
-[ext_resource type="FontFile" uid="uid://sfrfvp70mwee" path="res://fonts/BoutiqueBitmap7x7_1.7.ttf" id="11_y75bg"]
-[ext_resource type="Script" uid="uid://cbgj8q4xky56o" path="res://gdscripts/mainMenu/clear_data_button.gd" id="12_e4s0c"]
 
 [sub_resource type="Gradient" id="Gradient_y75bg"]
 offsets = PackedFloat32Array(0, 0.2603878, 1)
@@ -103,19 +101,31 @@ _data = {
 &"exit_shop": SubResource("Animation_2otb7")
 }
 
-[node name="shop" type="Node2D" unique_id=1299253480]
-position = Vector2(-1152, 0)
+[node name="shop" type="Control" unique_id=209555573]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1152.0
+offset_right = -1152.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_6fqg3")
 singleSellItemScene = ExtResource("3_u1dkw")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=746908856]
-offset_right = 1344.0
-offset_bottom = 925.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 189.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = SubResource("GradientTexture2D_wvhbo")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1023490479]
 position = Vector2(289, 328)
-rotation = 0.12217305
+rotation = 0.122173056
 points = PackedVector2Array(0, -500, 0, 500)
 width = 20.0
 default_color = Color(1, 1, 1, 0.627451)
@@ -124,9 +134,13 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=250407464]
-offset_top = 188.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -459.0
 offset_right = 239.0
-offset_bottom = 647.0
+grow_vertical = 0
 theme_override_constants/separation = 102
 alignment = 1
 
@@ -158,10 +172,16 @@ text = "绿宝石"
 flat = true
 
 [node name="HFlowContainer" type="HFlowContainer" parent="." unique_id=1511081731]
-offset_left = 359.0
-offset_top = 129.0
-offset_right = 1149.0
-offset_bottom = 635.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -790.0
+offset_top = -506.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_constants/h_separation = 159
 theme_override_constants/v_separation = 158
 
@@ -173,7 +193,6 @@ layout_mode = 2
 
 [node name="Q币显示" type="Control" parent="." unique_id=1203224581]
 texture_filter = 1
-layout_mode = 3
 anchors_preset = 0
 offset_left = 379.0
 offset_top = 23.0
@@ -238,6 +257,7 @@ script = ExtResource("5_e4jrh")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=624088060]
 texture_filter = 1
+layout_mode = 0
 offset_left = 664.0
 offset_top = 97.0
 offset_right = 1163.0
@@ -326,10 +346,10 @@ text = "个"
 
 [node name="Button" type="Button" parent="." unique_id=350984924]
 texture_filter = 1
+layout_mode = 0
 offset_left = -111.0
-offset_top = 29.0
 offset_right = 289.0
-offset_bottom = 136.0
+offset_bottom = 107.0
 theme_override_colors/font_outline_color = Color(0.7519841, 0.7183986, 0.022548294, 1)
 theme_override_constants/outline_size = 17
 theme_override_fonts/font = ExtResource("5_2dxno")
@@ -342,17 +362,6 @@ expand_icon = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=206801253]
 libraries/ = SubResource("AnimationLibrary_e4jrh")
 
-[node name="Button2" type="Button" parent="." unique_id=391856359]
-modulate = Color(1, 1, 1, 0.02745098)
-offset_left = 1048.0
-offset_right = 1152.0
-offset_bottom = 24.0
-theme_override_colors/font_color = Color(0.8745098, 0, 0, 1)
-theme_override_fonts/font = ExtResource("11_y75bg")
-text = "CLEAR DATA"
-flat = true
-script = ExtResource("12_e4s0c")
-
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="OnGoldButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="OnDiamondButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="OnEmeraldButtonPressed"]
@@ -361,4 +370,3 @@ script = ExtResource("12_e4s0c")
 [connection signal="on_diam_emerald" from="HBoxContainer2/Button2" to="." method="OnExchangeDiamondToEmerald"]
 [connection signal="pressed" from="HBoxContainer2/Button2" to="HBoxContainer2/Button2" method="_on_pressed"]
 [connection signal="pressed" from="Button" to="." method="OnChangeButtonPressed"]
-[connection signal="pressed" from="Button2" to="Button2" method="_on_pressed"]

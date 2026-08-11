@@ -1069,10 +1069,10 @@ tracks/4/path = NodePath("title/Line2D:points")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.71905494, 1.319055),
+"times": PackedFloat32Array(0.71905494, 1.324737),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [PackedVector2Array(213, -73, 28, 11, 213, 95), PackedVector2Array(-157, -373, 28, 11, -157, 395)]
+"values": [PackedVector2Array(213, -73, 28, 11, 213, 95), PackedVector2Array(-408, -817.6094, 28, 11, -404, 952.3906)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -1145,10 +1145,10 @@ tracks/10/path = NodePath("button/startButton:position")
 tracks/10/interp = 2
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(2.3406413, 2.5, 2.596623, 2.6333332),
+"times": PackedFloat32Array(2.3406413, 2.5, 2.5980108, 2.6333332),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1169, 545), Vector2(18, 545), Vector2(76, 545), Vector2(18, 545)]
+"values": [Vector2(1169, 9), Vector2(18, 9), Vector2(76, 9), Vector2(18, 9)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
@@ -1166,13 +1166,13 @@ tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/path = NodePath("button/exitButton:position")
-tracks/12/interp = 1
+tracks/12/interp = 2
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(2.3416166, 2.500602, 2.596623, 2.6333332),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-295, 545), Vector2(844, 545), Vector2(788, 545), Vector2(844, 545)]
+"values": [Vector2(-295, 9), Vector2(990, 9), Vector2(950, 9), Vector2(990, 9)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
@@ -1284,18 +1284,26 @@ _data = {
 background_mode = 3
 glow_enabled = true
 glow_normalized = true
-glow_intensity = 2.63
+glow_intensity = 1.2
 glow_strength = 0.59
 glow_bloom = 1.0
 
-[node name="mainMenu" type="Node2D" unique_id=1560239308]
+[node name="mainMenu" type="Control" unique_id=551941515]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_jk1qb")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1157166762]
-offset_left = -1373.0
-offset_top = -1171.0
-offset_right = 4216.0
-offset_bottom = 2191.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="ThreeBody" parent="." unique_id=1842883317 instance=ExtResource("787_jrd63")]
@@ -1305,7 +1313,7 @@ position = Vector2(574, 317)
 [node name="title" type="Node2D" parent="." unique_id=771875376]
 
 [node name="Sprite2D" type="Sprite2D" parent="title" unique_id=991252253]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(0.8156863, 1, 1, 1)
 position = Vector2(569, 73.00001)
 scale = Vector2(0.21, 0.21)
 texture = ExtResource("2_flqon")
@@ -1330,7 +1338,7 @@ script = ExtResource("1_l6cm7")
 
 [node name="Line2D2" type="Line2D" parent="title" unique_id=1428891639]
 position = Vector2(1552, 117)
-points = PackedVector2Array(-157, -373, -342, 11, -157, 395)
+points = PackedVector2Array(51.694946, -816.5682, -342, 11, 54.694946, 785.4318)
 width = 15.82
 joint_mode = 2
 begin_cap_mode = 2
@@ -1345,10 +1353,19 @@ autoplay = &"start_show"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=328059941]
 modulate = Color(1, 1, 1, 0)
-offset_left = 159.0
-offset_top = 471.0
-offset_right = 976.0
-offset_bottom = 608.00085
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -417.0
+offset_top = -177.0
+offset_right = 400.0
+offset_bottom = -40.000977
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=909818967]
 layout_mode = 2
@@ -1364,17 +1381,30 @@ alignment = 1
 script = ExtResource("2_1ajci")
 itemTextures = Array[Texture2D]([ExtResource("11_4o0s1"), ExtResource("12_pdydv"), ExtResource("13_w2wtl"), ExtResource("14_pnm16"), ExtResource("15_halah"), ExtResource("16_jrd63"), ExtResource("17_ym2r4"), ExtResource("18_hiv7j"), ExtResource("19_r7h3l"), ExtResource("20_bkahe"), ExtResource("21_h32wm"), ExtResource("22_e0cfb"), ExtResource("23_wmb35"), ExtResource("24_moj7m"), ExtResource("25_sipg8"), ExtResource("26_iwr1w"), ExtResource("27_f16ke"), ExtResource("28_h2ku3"), ExtResource("29_l34jo"), ExtResource("30_s6wki"), ExtResource("31_yj3ku"), ExtResource("32_rp5py"), ExtResource("33_rcy1q"), ExtResource("34_mgh6n"), ExtResource("35_woo53"), ExtResource("36_h0ixd"), ExtResource("37_vvg3g"), ExtResource("38_2wwvt"), ExtResource("39_tuo06"), ExtResource("40_0bs70"), ExtResource("41_u8jjs"), ExtResource("42_sk2yw"), ExtResource("43_dbndo"), ExtResource("44_ecykp"), ExtResource("45_x85lx"), ExtResource("46_gxlj3"), ExtResource("47_la70m"), ExtResource("48_4psd0"), ExtResource("49_wctwv"), ExtResource("50_2vreb"), ExtResource("51_nl74b"), ExtResource("52_nejef"), ExtResource("53_fa58e"), ExtResource("54_ln10g"), ExtResource("55_yo4ki"), ExtResource("56_vrmwa"), ExtResource("57_mqlnt"), ExtResource("58_0u8vr"), ExtResource("59_asf50"), ExtResource("60_qsr1a"), ExtResource("61_0fc12"), ExtResource("62_iyqpr"), ExtResource("63_np8gb"), ExtResource("64_vu88k"), ExtResource("65_7gnxr"), ExtResource("66_w8j2v"), ExtResource("67_xhq04"), ExtResource("68_pukfd"), ExtResource("69_bh7hg"), ExtResource("70_hwt53"), ExtResource("71_sn4s5"), ExtResource("72_r36y1"), ExtResource("73_wqxds"), ExtResource("74_mmyue"), ExtResource("75_i0503"), ExtResource("76_hiumm"), ExtResource("77_m67d1"), ExtResource("78_w52vk"), ExtResource("79_1v83m"), ExtResource("80_h12yi"), ExtResource("81_l5oo1"), ExtResource("82_ai40s"), ExtResource("83_v6kfn"), ExtResource("84_yrubp"), ExtResource("85_8rww5"), ExtResource("86_8fqkc"), ExtResource("87_4mtvr"), ExtResource("88_vdy2w"), ExtResource("89_hiq3q"), ExtResource("90_a8utd"), ExtResource("91_5e8sj"), ExtResource("92_au1ga"), ExtResource("93_atpo7"), ExtResource("94_8lena"), ExtResource("95_n56x6"), ExtResource("96_g6hnl"), ExtResource("97_eejiy"), ExtResource("98_0xdvf"), ExtResource("99_r0b3h"), ExtResource("100_xhwgk"), ExtResource("101_ysetp"), ExtResource("102_esvya"), ExtResource("103_f1urg"), ExtResource("104_o5ldj"), ExtResource("105_qx8tg"), ExtResource("106_rgxl1"), ExtResource("107_e73l7"), ExtResource("108_23xkg"), ExtResource("109_auga6"), ExtResource("110_4jgoh"), ExtResource("111_locib"), ExtResource("112_rf21v"), ExtResource("113_ucffx"), ExtResource("114_005tv"), ExtResource("115_xnx8l"), ExtResource("116_xkceu"), ExtResource("117_7nv00"), ExtResource("118_wqlwy"), ExtResource("119_g4iwg"), ExtResource("120_kp5hk"), ExtResource("121_e80gn"), ExtResource("122_efek5"), ExtResource("123_een82"), ExtResource("124_dgxk1"), ExtResource("125_fgk62"), ExtResource("126_a02p6"), ExtResource("127_0bfuj"), ExtResource("128_1w5i6"), ExtResource("129_x0ec1"), ExtResource("130_31i3i"), ExtResource("131_gaggs"), ExtResource("132_5u8pd"), ExtResource("133_rg8de"), ExtResource("134_qwj3n"), ExtResource("135_f38a8"), ExtResource("136_ko4hm"), ExtResource("137_6b05g"), ExtResource("138_aeh7d"), ExtResource("139_i73ry"), ExtResource("140_abjve"), ExtResource("141_7m0h5"), ExtResource("142_gphm1"), ExtResource("143_viq2w"), ExtResource("144_jbw0d"), ExtResource("145_xhavt"), ExtResource("146_rfh82"), ExtResource("147_io8fn"), ExtResource("148_buvkd"), ExtResource("149_b0d1f"), ExtResource("150_xwldx"), ExtResource("151_jcjno"), ExtResource("152_gnq60"), ExtResource("153_tuv7c"), ExtResource("154_amvlj"), ExtResource("155_pubsb"), ExtResource("156_g87iq"), ExtResource("157_0q33v"), ExtResource("158_pahwv"), ExtResource("159_im0ej"), ExtResource("160_580ti"), ExtResource("161_wblk4"), ExtResource("162_smwqf"), ExtResource("163_4ce08"), ExtResource("164_8ik37"), ExtResource("165_6ykc6"), ExtResource("166_12dur"), ExtResource("167_hldc4"), ExtResource("168_637ph"), ExtResource("169_5juc0"), ExtResource("170_nsgdg"), ExtResource("171_1b8ym"), ExtResource("172_shex5"), ExtResource("173_eef44"), ExtResource("174_732u0"), ExtResource("175_2ykk8"), ExtResource("176_n483h"), ExtResource("177_2tsas"), ExtResource("178_xpfk8"), ExtResource("179_776xh"), ExtResource("180_8eoqx"), ExtResource("181_vkosx"), ExtResource("182_emv6d"), ExtResource("183_l8jdm"), ExtResource("184_wshpe"), ExtResource("185_mnrfb"), ExtResource("186_m8ll7"), ExtResource("187_0x3as"), ExtResource("188_s7kj1"), ExtResource("189_1gsgd"), ExtResource("190_ppdrm"), ExtResource("191_d2kxs"), ExtResource("192_0c4c2"), ExtResource("193_qvbce"), ExtResource("194_x14hn"), ExtResource("195_m18vv"), ExtResource("196_ja7xw"), ExtResource("197_j4p3w"), ExtResource("198_5n0h4"), ExtResource("199_6cpvh"), ExtResource("200_h55qo"), ExtResource("201_nh3pl"), ExtResource("202_cg5wk"), ExtResource("203_du0vn"), ExtResource("204_3gte2"), ExtResource("205_00eu6"), ExtResource("206_wsglg"), ExtResource("207_p8tq4"), ExtResource("208_lrhx2"), ExtResource("209_h74sx"), ExtResource("210_mtfpm"), ExtResource("211_bivrr"), ExtResource("212_mmb3t"), ExtResource("213_fwv1s"), ExtResource("214_66iuj"), ExtResource("215_ejj7g"), ExtResource("216_x7brj"), ExtResource("217_dx3pm"), ExtResource("218_7fnsj"), ExtResource("219_5oeye"), ExtResource("220_360go"), ExtResource("221_6bays"), ExtResource("222_xlm2j"), ExtResource("223_ya4fp"), ExtResource("224_g0uqj"), ExtResource("225_t5ejf"), ExtResource("226_qbq5y"), ExtResource("227_nrsif"), ExtResource("228_ew058"), ExtResource("229_7266v"), ExtResource("230_q16nq"), ExtResource("231_jrfuv"), ExtResource("232_iu14g"), ExtResource("233_owq5y"), ExtResource("234_oeoj1"), ExtResource("235_5vota"), ExtResource("236_bqtth"), ExtResource("237_mxn5g"), ExtResource("238_o83rg"), ExtResource("239_e4ng2"), ExtResource("240_7aiqq"), ExtResource("241_ib4jo"), ExtResource("242_mcvpg"), ExtResource("243_irl5t"), ExtResource("244_hegl1"), ExtResource("245_1kqaj"), ExtResource("246_kx6r6"), ExtResource("247_a43kn"), ExtResource("248_7h0v6"), ExtResource("249_s0xrd"), ExtResource("250_ucexx"), ExtResource("251_83y4d"), ExtResource("252_6lmr7"), ExtResource("253_bsxce"), ExtResource("254_43y1e"), ExtResource("255_g4fim"), ExtResource("256_o5fml"), ExtResource("257_ya675"), ExtResource("258_smqc1"), ExtResource("259_5xxxv"), ExtResource("260_olb6l"), ExtResource("261_sb358"), ExtResource("262_cqti6"), ExtResource("263_lm6gr"), ExtResource("264_5jkgm"), ExtResource("265_0v33r"), ExtResource("266_hldqt"), ExtResource("267_pfrvu"), ExtResource("268_hwxw1"), ExtResource("269_87emh"), ExtResource("270_2v4ob"), ExtResource("271_sw13b"), ExtResource("272_60vdh"), ExtResource("273_qbe42"), ExtResource("274_k5bkr"), ExtResource("275_utejf"), ExtResource("276_5s78c"), ExtResource("277_h1oy7"), ExtResource("278_c3a0w"), ExtResource("279_eye0k"), ExtResource("280_o3rjo"), ExtResource("281_al0hw"), ExtResource("282_b6xla"), ExtResource("283_eea44"), ExtResource("284_qg8jj"), ExtResource("285_xfmdk"), ExtResource("286_4q78g"), ExtResource("287_j6x28"), ExtResource("288_wtf2i"), ExtResource("289_0upft"), ExtResource("290_lx20w"), ExtResource("291_n320x"), ExtResource("292_juihu"), ExtResource("293_846ku"), ExtResource("294_7d3om"), ExtResource("295_ftsjn"), ExtResource("296_2r3k2"), ExtResource("297_5yv2w"), ExtResource("298_1bf3o"), ExtResource("299_j82g3"), ExtResource("300_0eo6b"), ExtResource("301_g8je1"), ExtResource("302_obh34"), ExtResource("303_yde2c"), ExtResource("304_ywnx8"), ExtResource("305_kt3mn"), ExtResource("306_lrslq"), ExtResource("307_vi51d"), ExtResource("308_2a3bp"), ExtResource("309_lnsbv"), ExtResource("310_i5e4n"), ExtResource("311_a7jn7"), ExtResource("312_qkcou"), ExtResource("313_x7ede"), ExtResource("314_ak0sg"), ExtResource("315_3yoqx"), ExtResource("316_rctwr"), ExtResource("317_ivlg4"), ExtResource("318_ofbd3"), ExtResource("319_8b8u5"), ExtResource("320_3dr52"), ExtResource("321_onkh3"), ExtResource("322_arr6f"), ExtResource("323_ivdvu"), ExtResource("324_bc7y2"), ExtResource("325_hek8o"), ExtResource("326_dmt57"), ExtResource("327_sva8y"), ExtResource("328_8midq"), ExtResource("329_rfu7x"), ExtResource("330_5d4hu"), ExtResource("331_jbkpk"), ExtResource("332_0bfcd"), ExtResource("333_sl65h"), ExtResource("334_ld3d4"), ExtResource("335_5b8ur"), ExtResource("336_njfr8"), ExtResource("337_hwupo"), ExtResource("338_ijges"), ExtResource("339_ku52l"), ExtResource("340_rel11"), ExtResource("341_ir2a8"), ExtResource("342_3yjg2"), ExtResource("343_nos30"), ExtResource("344_pa2ym"), ExtResource("345_5sn6k"), ExtResource("346_7bbxo"), ExtResource("347_cyexf"), ExtResource("348_27md1"), ExtResource("349_xex56"), ExtResource("350_lw81j"), ExtResource("351_57pi1"), ExtResource("352_ehe2a"), ExtResource("353_y0u71"), ExtResource("354_4vbgx"), ExtResource("355_iaod6"), ExtResource("356_s2g50"), ExtResource("357_e6e3w"), ExtResource("358_noarp"), ExtResource("359_1qjq2"), ExtResource("360_db7n2"), ExtResource("361_744e0"), ExtResource("362_26ue2"), ExtResource("363_ae2sf"), ExtResource("364_cxw1l"), ExtResource("365_arfap"), ExtResource("366_7ff6v"), ExtResource("367_8tdei"), ExtResource("368_dntjn"), ExtResource("369_qit44"), ExtResource("370_efhlm"), ExtResource("371_iuv7m"), ExtResource("372_ds7od"), ExtResource("373_w0obg"), ExtResource("374_m60e2"), ExtResource("375_qig81"), ExtResource("376_wv4db"), ExtResource("377_22g6f"), ExtResource("378_hv3dd"), ExtResource("379_0pv55"), ExtResource("380_rqvkp"), ExtResource("381_3vvst"), ExtResource("382_i4hib"), ExtResource("383_8yl2t"), ExtResource("384_ninin"), ExtResource("385_qbfvf"), ExtResource("386_6wtnv"), ExtResource("387_w6ijs"), ExtResource("388_3tb31"), ExtResource("389_5ndif"), ExtResource("390_2wwn0"), ExtResource("391_e5plv"), ExtResource("392_auuts"), ExtResource("393_sttyb"), ExtResource("394_741fd"), ExtResource("395_hfdgy"), ExtResource("396_w6fhk"), ExtResource("397_hwh6o"), ExtResource("398_86w7c"), ExtResource("399_uiti8"), ExtResource("400_cd2uv"), ExtResource("401_6kcjl"), ExtResource("402_v2ucj"), ExtResource("403_c8vqv"), ExtResource("404_ux888"), ExtResource("405_sdyly"), ExtResource("406_x0bjc"), ExtResource("407_8r586"), ExtResource("408_on0fa"), ExtResource("409_65ey4"), ExtResource("410_ccl5t"), ExtResource("411_f78el"), ExtResource("412_3okjt"), ExtResource("413_ygij4"), ExtResource("414_72v63"), ExtResource("415_xqavk"), ExtResource("416_k2sm6"), ExtResource("417_51kd8"), ExtResource("418_onpgt"), ExtResource("419_buy43"), ExtResource("420_l3v3v"), ExtResource("421_al6of"), ExtResource("422_nh2k2"), ExtResource("423_svyix"), ExtResource("424_sqpau"), ExtResource("425_7dw3y"), ExtResource("426_figwb"), ExtResource("427_kk036"), ExtResource("428_j84ov"), ExtResource("429_qsh1v"), ExtResource("430_idick"), ExtResource("431_vejw0"), ExtResource("432_1kiqd"), ExtResource("433_yfakv"), ExtResource("434_c6plv"), ExtResource("435_hov4x"), ExtResource("436_i67y2"), ExtResource("437_hwayf"), ExtResource("438_1npes"), ExtResource("439_o2w2e"), ExtResource("440_u6u43"), ExtResource("441_ae68p"), ExtResource("442_n1n06"), ExtResource("443_14m33"), ExtResource("444_2wrbx"), ExtResource("445_6r4cs"), ExtResource("446_28i2g"), ExtResource("447_8tu4l"), ExtResource("448_mul46"), ExtResource("449_e27jl"), ExtResource("450_ve06a"), ExtResource("451_2y4kn"), ExtResource("452_kq8f2"), ExtResource("453_gsube"), ExtResource("454_hpjai"), ExtResource("455_ox8jo"), ExtResource("456_qdevb"), ExtResource("457_v03gm"), ExtResource("458_exmqn"), ExtResource("459_bl0uy"), ExtResource("460_sysj1"), ExtResource("461_vrroo"), ExtResource("462_fex0t"), ExtResource("463_iuik2"), ExtResource("464_8nkqe"), ExtResource("465_ytcwo"), ExtResource("466_1wbfj"), ExtResource("467_458iv"), ExtResource("468_q6kjj"), ExtResource("469_gms2w"), ExtResource("470_po13q"), ExtResource("471_tdj3w"), ExtResource("472_j4df0"), ExtResource("473_orrha"), ExtResource("474_ij11o"), ExtResource("475_jcccc"), ExtResource("476_g6x3g"), ExtResource("477_il8bh"), ExtResource("478_08d62"), ExtResource("479_deujy"), ExtResource("480_qqv18"), ExtResource("481_tr2fi"), ExtResource("482_23gc3"), ExtResource("483_mauvo"), ExtResource("484_sos4c"), ExtResource("485_hymh3"), ExtResource("486_ec8n8"), ExtResource("487_6388h"), ExtResource("488_xtgqs"), ExtResource("489_e0ac8"), ExtResource("490_3lt7n"), ExtResource("491_j768j"), ExtResource("492_lb0bq"), ExtResource("493_tag7s"), ExtResource("494_xwq62"), ExtResource("495_u5bxa"), ExtResource("496_ul70w"), ExtResource("497_qnc7o"), ExtResource("498_xq6yf"), ExtResource("499_xhqrc"), ExtResource("500_v82qk"), ExtResource("501_ihb00"), ExtResource("502_bdl76"), ExtResource("503_xeecq"), ExtResource("504_ttqle"), ExtResource("505_hmopk"), ExtResource("506_6l6t6"), ExtResource("507_nabhh"), ExtResource("508_tutyt"), ExtResource("509_qmx0h"), ExtResource("510_7pi02"), ExtResource("511_q1jhr"), ExtResource("512_4ju4h"), ExtResource("513_woaib"), ExtResource("514_nnh35"), ExtResource("515_fxh4u"), ExtResource("516_6p7qn"), ExtResource("517_vaa6x"), ExtResource("518_4olv3"), ExtResource("519_poqpk"), ExtResource("520_lmti2"), ExtResource("521_sujxs"), ExtResource("522_1lktq"), ExtResource("523_mlkss"), ExtResource("524_qotlf"), ExtResource("525_2vrxw"), ExtResource("526_kk2rp"), ExtResource("527_cmsqq"), ExtResource("528_24qi6"), ExtResource("529_ibhfp"), ExtResource("530_pb0ul"), ExtResource("531_xlmoe"), ExtResource("532_4xe08"), ExtResource("533_atiqt"), ExtResource("534_l4dl5"), ExtResource("535_xyewk"), ExtResource("536_shq6o"), ExtResource("537_yrof1"), ExtResource("538_8ysyx"), ExtResource("539_n8g66"), ExtResource("540_xvrsv"), ExtResource("541_tsg5p"), ExtResource("542_lexm0"), ExtResource("543_dll36"), ExtResource("544_ir8tj"), ExtResource("545_8750e"), ExtResource("546_sp2i7"), ExtResource("547_7jkqy"), ExtResource("548_w6nnc"), ExtResource("549_6l2yb"), ExtResource("550_b7djy"), ExtResource("551_6ycqd"), ExtResource("552_y1x6l"), ExtResource("553_eav26"), ExtResource("554_d7cyg"), ExtResource("555_172s6"), ExtResource("556_8t0jq"), ExtResource("557_mit1e"), ExtResource("558_fgjx3"), ExtResource("559_npq7q"), ExtResource("560_cmrjl"), ExtResource("561_flvor"), ExtResource("562_veuqv"), ExtResource("563_e8exm"), ExtResource("564_84jyn"), ExtResource("565_wn1co"), ExtResource("566_hwmmx"), ExtResource("567_tr8py"), ExtResource("568_gskuq"), ExtResource("569_b5u83"), ExtResource("570_70kuf"), ExtResource("571_kngaw"), ExtResource("572_0kb6m"), ExtResource("573_yfkbc"), ExtResource("574_krqd6"), ExtResource("575_rn3mo"), ExtResource("576_3wdle"), ExtResource("577_pjs2y"), ExtResource("578_wf4oe"), ExtResource("579_074x8"), ExtResource("580_a7o7p"), ExtResource("581_0afyg"), ExtResource("582_nxchl"), ExtResource("583_84akh"), ExtResource("584_fjprf"), ExtResource("585_308j5"), ExtResource("586_qj57b"), ExtResource("587_0h2iv"), ExtResource("588_yvari"), ExtResource("589_v0oee"), ExtResource("590_jx0k4"), ExtResource("591_5yljc"), ExtResource("592_wouwf"), ExtResource("593_8a7lp"), ExtResource("594_dgd2m"), ExtResource("595_n71mp"), ExtResource("596_ohwnp"), ExtResource("597_l364g"), ExtResource("598_c5jjm"), ExtResource("599_34cr3"), ExtResource("600_36epw"), ExtResource("601_saf3v"), ExtResource("602_1hfpk"), ExtResource("603_aulud"), ExtResource("604_x3m02"), ExtResource("605_804pu"), ExtResource("606_n1473"), ExtResource("607_4d3v6"), ExtResource("608_nuqe1"), ExtResource("609_nj1u3"), ExtResource("610_u55oq"), ExtResource("611_v6riv"), ExtResource("612_rxn17"), ExtResource("613_s3oam"), ExtResource("614_5sdmk"), ExtResource("615_yjto3"), ExtResource("616_wsetk"), ExtResource("617_af4mo"), ExtResource("618_x7oex"), ExtResource("619_vshh3"), ExtResource("620_hkbg5"), ExtResource("621_2bffa"), ExtResource("622_i0rtm"), ExtResource("623_4j7kj"), ExtResource("624_k6sri"), ExtResource("625_cidx0"), ExtResource("626_2ib45"), ExtResource("627_os2s3"), ExtResource("628_7bl4g"), ExtResource("629_lw5xw"), ExtResource("630_pvdnj"), ExtResource("631_rhylt"), ExtResource("632_ayogm"), ExtResource("633_i76o1"), ExtResource("634_0fwhn"), ExtResource("635_8lq4h"), ExtResource("636_qkb3i"), ExtResource("637_t2lw8"), ExtResource("638_87h7r"), ExtResource("639_ewtsi"), ExtResource("640_6drrw"), ExtResource("641_6mdlt"), ExtResource("642_6h0lv"), ExtResource("643_33s16"), ExtResource("644_aojvn"), ExtResource("645_j2hk2"), ExtResource("646_2iqk7"), ExtResource("647_lcnax"), ExtResource("648_pw0fq"), ExtResource("649_3aegi"), ExtResource("650_v1lnw"), ExtResource("651_h055j"), ExtResource("652_owq4v"), ExtResource("653_c0pf6"), ExtResource("654_hh0fj"), ExtResource("655_0abvp"), ExtResource("656_idoch"), ExtResource("657_lo3ww"), ExtResource("658_8iqsg"), ExtResource("659_ntmuh"), ExtResource("660_afwyh"), ExtResource("661_vy7ay"), ExtResource("662_j3ybi"), ExtResource("663_dlkgq"), ExtResource("664_07aeq"), ExtResource("665_ab5jx"), ExtResource("666_rs8ij"), ExtResource("667_g41yl"), ExtResource("668_3ennp"), ExtResource("669_ykffo"), ExtResource("670_xmbc5"), ExtResource("671_s53nl"), ExtResource("672_ndwna"), ExtResource("673_ma2qb"), ExtResource("674_7u8pf"), ExtResource("675_0vufb"), ExtResource("676_yrasx"), ExtResource("677_b7pby"), ExtResource("678_hu2v1"), ExtResource("679_rg7y2"), ExtResource("680_3o1gp"), ExtResource("681_ue43l"), ExtResource("682_tadoc"), ExtResource("683_w3rsq"), ExtResource("684_63t3f"), ExtResource("685_ht0l2"), ExtResource("686_dkeny"), ExtResource("687_wh4jl"), ExtResource("688_3ryhd"), ExtResource("689_22lpi"), ExtResource("690_vv7f1"), ExtResource("691_hctl7"), ExtResource("692_npc8n"), ExtResource("693_vji7j"), ExtResource("694_0frqf"), ExtResource("695_0bwhw"), ExtResource("696_awkny"), ExtResource("697_v6um6"), ExtResource("698_47rl6"), ExtResource("699_h0ljm"), ExtResource("700_kurql"), ExtResource("701_oqmgc"), ExtResource("702_4w6c4"), ExtResource("703_cqu05"), ExtResource("704_ovqc4"), ExtResource("705_sto4l"), ExtResource("706_quyev"), ExtResource("707_avf5o"), ExtResource("708_pwt1g"), ExtResource("709_uxstp"), ExtResource("710_55ogc"), ExtResource("711_kjdsb"), ExtResource("712_iepf5"), ExtResource("713_dwkk2"), ExtResource("714_etvkg"), ExtResource("715_e8tjn"), ExtResource("716_qraa4"), ExtResource("717_ncxqc"), ExtResource("718_ea8d4"), ExtResource("719_abfi0"), ExtResource("720_tle6d"), ExtResource("721_j6ign"), ExtResource("722_bsc8d"), ExtResource("723_5lkp5"), ExtResource("724_sdjdu"), ExtResource("725_rxh0p"), ExtResource("726_8rk8a"), ExtResource("727_abag7"), ExtResource("728_lhtyl"), ExtResource("729_31p0l"), ExtResource("730_ghobi"), ExtResource("731_p6382"), ExtResource("732_yhaaa"), ExtResource("733_qq3li"), ExtResource("734_f76w1"), ExtResource("735_wlv43"), ExtResource("736_tpw83"), ExtResource("737_jtwlr"), ExtResource("738_jogrk"), ExtResource("739_uji5j"), ExtResource("740_fukj8"), ExtResource("741_2g6f6"), ExtResource("742_hioro"), ExtResource("743_rl7fo"), ExtResource("744_62rg7"), ExtResource("745_x3ifd"), ExtResource("746_64hne"), ExtResource("747_b46xo"), ExtResource("748_1vida"), ExtResource("749_g3f3e"), ExtResource("750_7sdrg"), ExtResource("751_rgmsb"), ExtResource("752_s2agy"), ExtResource("753_5ntl1"), ExtResource("754_xejkl"), ExtResource("755_funsx"), ExtResource("756_i205x"), ExtResource("757_ldpsd"), ExtResource("758_utgkd"), ExtResource("759_e1v41"), ExtResource("760_mu3li"), ExtResource("761_enw2c"), ExtResource("762_2vad0"), ExtResource("763_20267"), ExtResource("764_vc8m5"), ExtResource("765_wd5x3"), ExtResource("766_xcveh"), ExtResource("767_oph7t"), ExtResource("768_i5bhi"), ExtResource("769_83mcs"), ExtResource("770_r1st3"), ExtResource("771_is3sa"), ExtResource("772_4wun7"), ExtResource("773_6w5cq"), ExtResource("774_7ixlt"), ExtResource("775_rhujp"), ExtResource("776_vxgsn"), ExtResource("777_n076q")])
 
-[node name="button" type="Node2D" parent="." unique_id=582423641 node_paths=PackedStringArray("animationPlayer")]
+[node name="button" type="Control" parent="." unique_id=1713086836 node_paths=PackedStringArray("animationPlayer")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -94.0
+grow_horizontal = 2
+grow_vertical = 0
 script = ExtResource("3_wu84c")
 switchSound = ExtResource("6_jk1qb")
 switch_scene = ExtResource("5_rtw2f")
 animationPlayer = NodePath("../AnimationPlayer")
 
 [node name="startButton" type="Button" parent="button" unique_id=785436282]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
 offset_left = 1169.0
-offset_top = 545.0
-offset_right = 1382.0009
-offset_bottom = 630.0
+offset_top = 451.0
+offset_right = 1331.0006
+offset_bottom = 536.0
+grow_vertical = 0
 theme = ExtResource("3_bqqt6")
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
 theme_override_colors/font_hover_color = Color(0.84578055, 0.8395044, 0.73087615, 1)
@@ -1383,10 +1413,18 @@ flat = true
 alignment = 0
 
 [node name="exitButton" type="Button" parent="button" unique_id=538512671]
-offset_left = -295.0
-offset_top = 545.0
-offset_right = -8.0
-offset_bottom = 630.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1447.0
+offset_top = 451.0
+offset_right = -1284.9998
+offset_bottom = 536.0
+grow_horizontal = 0
+grow_vertical = 0
 theme = ExtResource("3_bqqt6")
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
 theme_override_colors/font_hover_color = Color(0.8745098, 0.81960785, 0.8745098, 1)
@@ -1417,8 +1455,10 @@ energy = 0.34
 texture = ExtResource("11_lgwnu")
 
 [node name="shop" parent="." unique_id=1299253480 instance=ExtResource("12_flqon")]
+layout_mode = 1
 
 [node name="setting" parent="." unique_id=1969230021 instance=ExtResource("13_rcqid")]
+layout_mode = 1
 
 [connection signal="pressed" from="button/startButton" to="button" method="_on_start_button_pressed"]
 [connection signal="pressed" from="button/exitButton" to="button" method="_on_exit_button_pressed"]

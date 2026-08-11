@@ -333,6 +333,7 @@ autoplay = &"card_start"
 stream = ExtResource("2_2l77h")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=65408965]
+z_index = -10
 layout_mode = 0
 offset_left = -4134.0
 offset_top = -2973.0

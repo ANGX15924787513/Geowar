@@ -33,8 +33,10 @@ DataManager="*uid://c4qk3afa54td1"
 
 [display]
 
+window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/vsync/vsync_mode=0
 mouse_cursor/custom_image="uid://dqpexf05seg0q"
 
 [dotnet]

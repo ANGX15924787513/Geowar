@@ -34,12 +34,20 @@ public partial class LineEnemy : Enemy
         GetTree().CurrentScene.AddChild(line);
         isRushing = true;
         LinearVelocity = new Vector2(0, 0);
-        await ToSignal(GetTree().CreateTimer(1f), "timeout");
-        LinearVelocity = (_targetPlayer.Position - Position).Normalized() * 3000;
-        GetTree().CurrentScene.RemoveChild(line);
-        await ToSignal(GetTree().CreateTimer(1f), "timeout");
-        line = null;
-        isRushing = false;
+        // await ToSignal(GetTree().CreateTimer(1f), "timeout");
+        GetTree().CreateTimer(1f).Timeout += () =>
+        {
+            LockRotation = true;
+            LinearVelocity = (_targetPlayer.Position - Position).Normalized() * 3000;
+            GetTree().CurrentScene.RemoveChild(line);
+            // await ToSignal(GetTree().CreateTimer(1f), "timeout");
+            GetTree().CreateTimer(1f).Timeout += () =>
+            {
+                LockRotation = false;
+                line = null;
+                isRushing = false;
+            };
+        };
     }
 
     private void OnRushTimerTimeout()

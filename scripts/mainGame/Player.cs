@@ -37,6 +37,8 @@ public partial class Player : RigidBody2D
 
 	public override void _ExitTree()
 	{
+		_hp = 0;
+		
 		signalManager.OnCardOut -= AddCamera;
 		signalManager.OnPlayerDied -= OnDie;
 	}

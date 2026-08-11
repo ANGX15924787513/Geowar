@@ -6,6 +6,8 @@
 [ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="3_o8tsb"]
 [ext_resource type="Texture2D" uid="uid://cdc5uwcq1a2yd" path="res://texture/MCTexture/emerald.png" id="4_ikx14"]
 [ext_resource type="Script" uid="uid://1mjfrbmoufn7" path="res://gdscripts/mainMenu/auto_aim_check_box.gd" id="4_o8tsb"]
+[ext_resource type="FontFile" uid="uid://sfrfvp70mwee" path="res://fonts/BoutiqueBitmap7x7_1.7.ttf" id="5_50131"]
+[ext_resource type="Script" uid="uid://cbgj8q4xky56o" path="res://gdscripts/mainMenu/clear_data_button.gd" id="6_rawaq"]
 
 [sub_resource type="Gradient" id="Gradient_on5q8"]
 offsets = PackedFloat32Array(0, 0.2603878, 1)
@@ -77,22 +79,138 @@ _data = {
 &"exit_setting": SubResource("Animation_hjk27")
 }
 
-[node name="setting" type="Node2D" unique_id=1969230021]
-position = Vector2(-1153, 0)
+[node name="setting" type="Control" unique_id=25666315]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1153.0
+offset_right = -1153.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_31ui4")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=83748761]
+layout_mode = 0
 offset_left = -193.92809
 offset_right = 1150.0719
 offset_bottom = 925.0
 texture = SubResource("GradientTexture2D_50131")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1516741258]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 945.0
-offset_bottom = 229.0
+layout_mode = 1
+offset_right = 925.0
+offset_bottom = 471.0
 theme_override_constants/separation = 8
+
+[node name="GameSettings" type="Label" parent="VBoxContainer" unique_id=1008977971]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+theme_override_colors/font_color = Color(0.585062, 0.585062, 0.5850621, 1)
+text = "游戏设置"
+
+[node name="FlowContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=2142164246]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer2" unique_id=278782461]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "辅助瞄准:"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer2" unique_id=1812329913]
+layout_mode = 2
+theme = SubResource("Theme_scrng")
+text = "启用"
+script = ExtResource("4_o8tsb")
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=372563613]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="VolumeSettings" type="Label" parent="VBoxContainer" unique_id=925154546]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+theme_override_colors/font_color = Color(0.585062, 0.585062, 0.5850621, 1)
+text = "音量设置"
+
+[node name="GamingRand" type="HBoxContainer" parent="VBoxContainer" unique_id=1365678287]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer/GamingRand" unique_id=1358167930]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "游戏中音乐随机变换"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/GamingRand" unique_id=690036966]
+layout_mode = 2
+theme = SubResource("Theme_scrng")
+text = "启用"
+
+[node name="FlowContainer4" type="HBoxContainer" parent="VBoxContainer" unique_id=119936210]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer4" unique_id=677372398]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "击打音效(防耳聋)"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/FlowContainer4" unique_id=1049381814]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="mainMenuBgMusicVol" type="HBoxContainer" parent="VBoxContainer" unique_id=1297158931]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="VBoxContainer/mainMenuBgMusicVol" unique_id=1261998483]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "主菜单音乐"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/mainMenuBgMusicVol" unique_id=1844546224]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="GamingBgMusicVol" type="HBoxContainer" parent="VBoxContainer" unique_id=56698163]
+layout_mode = 2
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="VBoxContainer/GamingBgMusicVol" unique_id=1506257867]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "游戏中音乐"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/GamingBgMusicVol" unique_id=1396867506]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 10
+ticks_on_borders = true
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer" unique_id=1160782420]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="VideoSettings" type="Label" parent="VBoxContainer" unique_id=15022029]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+theme_override_colors/font_color = Color(0.585062, 0.585062, 0.5850621, 1)
+text = "视频设置"
 
 [node name="FlowContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1883854639]
 layout_mode = 2
@@ -114,20 +232,19 @@ rounded = true
 suffix = "fps"
 script = ExtResource("2_31ui4")
 
-[node name="FlowContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=2142164246]
+[node name="FlowContainer5" type="HBoxContainer" parent="VBoxContainer" unique_id=142892061]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="VBoxContainer/FlowContainer2" unique_id=278782461]
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer5" unique_id=1317545633]
 layout_mode = 2
 theme = SubResource("Theme_rawaq")
-text = "辅助瞄准:"
+text = "禁用泛光"
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer2" unique_id=1812329913]
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer5" unique_id=1410549467]
 layout_mode = 2
 theme = SubResource("Theme_scrng")
 text = "启用"
-script = ExtResource("4_o8tsb")
 
 [node name="FlowContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=2008823645]
 layout_mode = 2
@@ -143,64 +260,29 @@ layout_mode = 2
 theme = SubResource("Theme_scrng")
 text = "启用"
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=372563613]
-layout_mode = 2
-theme_override_constants/separation = 28
-
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=925154546]
-layout_mode = 2
-theme = SubResource("Theme_rawaq")
-theme_override_colors/font_color = Color(0.585062, 0.585062, 0.5850621, 1)
-text = "音量设置"
-
-[node name="FlowContainer4" type="HBoxContainer" parent="VBoxContainer" unique_id=119936210]
-layout_mode = 2
-theme_override_constants/separation = 17
-
-[node name="Label" type="Label" parent="VBoxContainer/FlowContainer4" unique_id=677372398]
-layout_mode = 2
-theme = SubResource("Theme_rawaq")
-text = "击打音量(防耳聋)"
-
-[node name="HSlider" type="HSlider" parent="VBoxContainer/FlowContainer4" unique_id=1049381814]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-max_value = 1.0
-step = 0.1
-value = 1.0
-tick_count = 10
-ticks_on_borders = true
-
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer" unique_id=1160782420]
-layout_mode = 2
-theme_override_constants/separation = 28
-
-[node name="Label2" type="Label" parent="VBoxContainer" unique_id=15022029]
-layout_mode = 2
-theme = SubResource("Theme_rawaq")
-theme_override_colors/font_color = Color(0.585062, 0.585062, 0.5850621, 1)
-text = "视频设置"
-
-[node name="FlowContainer5" type="HBoxContainer" parent="VBoxContainer" unique_id=142892061]
-layout_mode = 2
-theme_override_constants/separation = 17
-
-[node name="Label" type="Label" parent="VBoxContainer/FlowContainer5" unique_id=1317545633]
-layout_mode = 2
-theme = SubResource("Theme_rawaq")
-text = "禁用泛光"
-
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer5" unique_id=1410549467]
-layout_mode = 2
-theme = SubResource("Theme_scrng")
-text = "启用"
+[node name="Button2" type="Button" parent="." unique_id=1075619314]
+modulate = Color(1, 0.23921569, 0.3764706, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -82.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_50131")
+text = "清除数据"
+flat = true
+script = ExtResource("6_rawaq")
 
 [node name="Button" type="Button" parent="." unique_id=1292672265]
 texture_filter = 1
-offset_left = 953.0719
-offset_top = 1.0
-offset_right = 1251.0719
-offset_bottom = 108.0
+layout_mode = 0
+offset_left = 953.072
+offset_right = 1251.072
+offset_bottom = 107.0
 theme_override_colors/font_outline_color = Color(0, 0.6666667, 0.17254902, 1)
 theme_override_constants/outline_size = 17
 theme_override_fonts/font = ExtResource("3_o8tsb")
@@ -215,9 +297,14 @@ expand_icon = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1072694645]
 libraries/ = SubResource("AnimationLibrary_1s23a")
 
-[connection signal="value_changed" from="VBoxContainer/FlowContainer/SpinBox" to="VBoxContainer/FlowContainer/SpinBox" method="_on_value_changed"]
 [connection signal="toggled" from="VBoxContainer/FlowContainer2/CheckBox" to="VBoxContainer/FlowContainer2/CheckBox" method="_on_toggled"]
-[connection signal="toggled" from="VBoxContainer/FlowContainer3/CheckBox" to="." method="_on_hide_mouse_checkbox_toggled"]
+[connection signal="toggled" from="VBoxContainer/GamingRand/CheckBox" to="." method="_on_gaming_rand_check_box_toggled"]
+[connection signal="toggled" from="VBoxContainer/GamingRand/CheckBox" to="VBoxContainer/GamingRand/CheckBox" method="_on_toggled"]
 [connection signal="value_changed" from="VBoxContainer/FlowContainer4/HSlider" to="." method="_on_player_attack_volume_changed"]
+[connection signal="value_changed" from="VBoxContainer/mainMenuBgMusicVol/HSlider" to="." method="_on_mainmenu_bg_vol_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GamingBgMusicVol/HSlider" to="." method="_on_gaming_bg_vol_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/FlowContainer/SpinBox" to="VBoxContainer/FlowContainer/SpinBox" method="_on_value_changed"]
 [connection signal="toggled" from="VBoxContainer/FlowContainer5/CheckBox" to="." method="_on_glow_check_box_toggled"]
+[connection signal="toggled" from="VBoxContainer/FlowContainer3/CheckBox" to="." method="_on_hide_mouse_checkbox_toggled"]
+[connection signal="pressed" from="Button2" to="Button2" method="_on_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

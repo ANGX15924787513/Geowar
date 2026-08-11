@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class MainMenuRoot : Node2D
+public partial class MainMenuRoot : Control
 {
 	GameManager gameManager;
 	public override void _Ready()

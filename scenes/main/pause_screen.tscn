@@ -141,18 +141,23 @@ libraries/ = SubResource("AnimationLibrary_jx22d")
 [node name="Control" type="Control" parent="." unique_id=1307519522]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 1170.0
-offset_right = 1210.0
-offset_bottom = 40.0
+offset_right = 1170.0002
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Button" type="Button" parent="Control" unique_id=341514569]
 modulate = Color(1, 1, 1, 0.78431374)
-layout_mode = 0
-offset_left = 8.0
-offset_top = 565.0
-offset_right = 330.0
-offset_bottom = 637.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -72.000244
+offset_right = 322.0
+grow_vertical = 0
 theme = ExtResource("2_u6hs2")
 theme_type_variation = &"FlatButton"
 theme_override_colors/font_color = Color(0.7559879, 0.92182714, 0.82645136, 1)
@@ -166,11 +171,16 @@ script = ExtResource("3_qjelw")
 [node name="Button2" type="Button" parent="Control" unique_id=301735134]
 modulate = Color(1, 1, 1, 0.78431374)
 clip_children = 2
-layout_mode = 0
-offset_left = 811.0
-offset_top = 565.0
-offset_right = 1133.0
-offset_bottom = 637.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -263.0
+offset_top = -72.0
+grow_horizontal = 0
+grow_vertical = 0
 theme = ExtResource("2_u6hs2")
 theme_type_variation = &"FlatButton"
 theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
@@ -188,11 +198,14 @@ offset_bottom = 40.0
 texture = SubResource("GradientTexture2D_wvhbo")
 
 [node name="Label" type="Label" parent="Control" unique_id=1323936863]
-layout_mode = 0
-offset_left = 285.0
-offset_top = 1.0
-offset_right = 819.0
-offset_bottom = 109.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -267.0
+offset_right = 267.0
+offset_bottom = 108.0
+grow_horizontal = 2
 text = "游戏已暂停"
 label_settings = SubResource("LabelSettings_1ygqx")
 
@@ -200,13 +213,15 @@ label_settings = SubResource("LabelSettings_1ygqx")
 modulate = Color(1, 1, 1, 0.5882353)
 custom_maximum_size = Vector2(500, -1)
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 340.0
-offset_top = 534.0
-offset_right = 840.0
-offset_bottom = 585.0
+offset_left = -250.0
+offset_top = -51.0
+offset_right = 250.0
+grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.6313726, 0.9490196, 0.87058824, 0.75686276)
 theme_override_colors/font_outline_color = Color(0.36839342, 0.61445767, 0.5546449, 1)
@@ -220,10 +235,17 @@ autowrap_mode = 3
 script = ExtResource("6_jx22d")
 tips = PackedStringArray("商店会把你卖的东西原价还给你吗?(奸)", "圆上的点只会受到攻击加成的20%", "这里有tip?!!", "游戏图标和主菜单的标题都是作者自己画的", "商店右上角有个危险的东西?", "帧率最低只能设20帧(有卡死经历)", "真的有人看这个吗......", "It\'s been a long day~", "不要开学!!!", "本项目在Github上开源!", "你大概率只会在暂停页面看到这个(废话)", "不是哥们", "按住shift再攻击可以释放大招!", "第一次启动时会把帧率设为屏幕刷新率!", "游戏会根据升级状况来确定难度!")
 
-[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=597975656]
-position = Vector2(1090, 20)
-scale = Vector2(0.045, 0.045)
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=336211755]
+custom_maximum_size = Vector2(180, 50)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -2560.0
+offset_bottom = 720.0
+grow_horizontal = 0
 texture = ExtResource("5_s104e")
+stretch_mode = 4
 
 [connection signal="pressed" from="Control/Button" to="Control/Button" method="switch_to_main_menu"]
 [connection signal="pressed" from="Control/Button2" to="." method="OnContinueButtonPressed"]

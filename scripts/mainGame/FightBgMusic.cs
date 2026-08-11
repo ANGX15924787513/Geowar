@@ -21,6 +21,13 @@ public partial class FightBgMusic : AudioStreamPlayer
 	{
 		if (IsPlaying()) return;
 		Stream = fightSounds[GD.RandRange(0, fightSounds.Length - 1)];
+		if (Stream.ResourceName != "Rude Buster - Toby Fox.mp3" && DataManager.Instance.GetBoolConfig("gaming_rand_play")){
+			Finished += () =>
+			{
+				Stream = fightSounds[GD.RandRange(0, fightSounds.Length - 1)];
+				Play();
+			};
+		}
 		Play();
 	}
 

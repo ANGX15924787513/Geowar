@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class MyButton : Node2D
+public partial class MyButton : Control
 {
 	[Export] private AudioStream switchSound;
 	private AudioStreamPlayer audioPlayer;

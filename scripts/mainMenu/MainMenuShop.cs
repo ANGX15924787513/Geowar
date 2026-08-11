@@ -3,7 +3,7 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class MainMenuShop : Node2D
+public partial class MainMenuShop : Control
 {
 	public enum ChoseItem { GOLD, DIAMOND, EMERALD, NONE }
 	public ChoseItem currentChoseItem;
@@ -48,7 +48,7 @@ public partial class MainMenuShop : Node2D
 		_catalog[ChoseItem.EMERALD] = new List<ShopItem>
 		{
 			new() { Id = "max_hp",      Name = "骨骼硬化", Desc = "点最大生命值 +10\n线最大生命值 +5\n更块(三声)了",        Price = 3,  MaxLevel = 15 },
-			new() { Id = "lifesteal",   Name = "噬血骨刺", Desc = "击杀敌人回复 1生命值",           Price = 5, MaxLevel = 5 },
+			new() { Id = "lifesteal",   Name = "噬血骨刺", Desc = "击杀敌人回复 1生命值",           Price = 5, MaxLevel = 2 },
 			new() { Id = "camera_scale",   Name = "上帝视角", Desc = "扩大视野 10%",           Price = 2, MaxLevel = 6 }
 		};
 	}
@@ -282,13 +282,13 @@ public partial class MainMenuShop : Node2D
 		if (_isInShop)
 		{
 			animationPlayer.Play("exit_shop");
-			((Node2D)GetNode("../setting")).Visible = true;
+			((CanvasItem)GetNode("../setting")).Visible = true;
 		}
 		else
 		{
 			RefreshDisplay();
 			animationPlayer.Play("enter_shop");
-			((Node2D)GetNode("../setting")).Visible = false;
+			((CanvasItem)GetNode("../setting")).Visible = false;
 		}
 		_isInShop = !_isInShop;
 	}
