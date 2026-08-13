@@ -64,22 +64,25 @@ public partial class Enemy : RigidBody2D
 
     public override void _Process(double delta)
     {
-        if (gameManager.gameState == GameManager.GameState.GAMING)
-        {
-            MoveToPlayer();
-        }
-        else
-        {
-            LinearVelocity = Vector2.Zero;
-        }
-
         if (health <= 0 && !_isDying)
         {
             _isDying = true; DiedHandler();
         }
     }
 
-    private void MoveToPlayer()
+    public override void _PhysicsProcess(double delta)
+    {
+        if (gameManager.gameState == GameManager.GameState.GAMING)
+        {
+                MoveToPlayer((float)delta);
+        }
+        else
+        {
+            LinearVelocity = Vector2.Zero;
+        }
+    }
+
+    private void MoveToPlayer(float delta)
     {
         if (_targetPlayer == null)
         {
@@ -87,9 +90,7 @@ public partial class Enemy : RigidBody2D
             LinearVelocity = Vector2.Zero;
             return;
         }
-
-        float dt = (float)GetProcessDeltaTime();
-        _timeSinceReaction += dt;
+        _timeSinceReaction += delta;
 
         // 每个怪物的反应节奏不同，锁定时加入随机偏移
         if (_timeSinceReaction >= _randReactionTime)
@@ -100,7 +101,6 @@ public partial class Enemy : RigidBody2D
 
         // 目标方向与距离
         Vector2 toTarget = _delayedTarget - GlobalPosition;
-        float distSq = toTarget.LengthSquared();
 
         // 足够近就平滑停下
         // if (distSq < 1f)
@@ -111,7 +111,7 @@ public partial class Enemy : RigidBody2D
 
         // 惯性转向：每个怪物的速度和转向力度都不同
         Vector2 desiredVelocity = toTarget.Normalized() * Speed * _speedMultiplier;
-        LinearVelocity = LinearVelocity.Lerp(desiredVelocity, _randSteeringForce * dt);
+        LinearVelocity = LinearVelocity.Lerp(desiredVelocity, _randSteeringForce * delta);
     }
 
     public void GotHurt(int damage)
@@ -129,7 +129,7 @@ public partial class Enemy : RigidBody2D
             player.GotHurt(Damage + dataManager.GetUpgradeLevel("atk_hp") / 2);
     }
     
-    protected async void DiedHandler()
+    protected void DiedHandler()
     {
         if (gameManager.gameState != GameManager.GameState.GAMING) return;
         GetNode<Area2D>("Area2D").CollisionMask &= ~(uint)(1 << (3 - 1));
@@ -137,9 +137,20 @@ public partial class Enemy : RigidBody2D
         CollisionLayer &= ~(uint)(1 << (3 - 1));
         Tween hideTn = GetTree().CreateTween();
         hideTn.TweenProperty(this, "modulate", new Color(Colors.White, 0), 0.2f);
-        await ToSignal(hideTn, "finished");
-        signalManager.EmitSignal(SignalManager.SignalName.OnEnemyDied);
-        signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition,(int)enemyType);
-        QueueFree();
+        hideTn.Finished += () =>
+        {
+            signalManager.EmitSignal(SignalManager.SignalName.OnEnemyDied);
+            signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition,(int)enemyType);
+            QueueFree();
+        };
+    }
+
+    public void SetScale(float sc)
+    {
+        foreach (Node node in GetChildren())
+        {
+            if (node is not Node2D ci) continue;
+            ci.Scale *= sc;
+        }
     }
 }

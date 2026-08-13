@@ -24,6 +24,7 @@ public partial class LinePlayer : Player
 	public override void _Ready()
 	{
 		base._Ready();
+		currentPlayerType = PlayerTypeEnum.LINE;
 		bulletRoot = GetTree().CurrentScene.GetNode<Node2D>("bulletRoot");
 		SummonLines();
 		ApplyShopUpgrades();
@@ -40,35 +41,11 @@ public partial class LinePlayer : Player
 	{
 		//右键 -> ToPreLaunchPos -> GetPositionInBulletSide/Lib
 		//else -> GiveVelocityAll OK
-		base._Process(delta);
 		if (gameManager.gameState != GameManager.GameState.GAMING)
 		{
-			LinearVelocity = LinearVelocity.Lerp(Vector2.Zero, 0.05f);
 			return;
 		}
-		if (Input.IsActionPressed("pre_launch_bullet"))
-		{
-			ToPreLaunchPos();
-			if(!isPreLaunching)
-			{
-				isPreLaunching = true;
-				globalAudioPlayer.PlayAudio(chargeSound);
-			}
-		}
-		else
-		{
-			GiveVelocityAll((float)delta);
-			isPreLaunching = false;
-		}
-
-		AngularVelocity = -Rotation;
-
-		if (CanMove())
-		{
-			ApplyMovement(gameManager.playerSpeed);
-		}
-		else
-			Decelerate(delta);
+		base._Process(delta);
 		if (CanLaunchBullet())
 		{
 			if (Input.IsActionPressed("shift") && _currentLineCount == lineCount)
@@ -96,6 +73,36 @@ public partial class LinePlayer : Player
 		{
 			_currentLineCount = lineCount;
 		}
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (gameManager.gameState != GameManager.GameState.GAMING)
+		{
+			LinearVelocity = LinearVelocity.Lerp(Vector2.Zero, 0.05f);
+			return;
+		}
+		if (Input.IsActionPressed("pre_launch_bullet"))
+		{
+			ToPreLaunchPos();
+			if(!isPreLaunching)
+			{
+				isPreLaunching = true;
+				globalAudioPlayer.PlayAudio(chargeSound);
+			}
+		}
+		else
+		{
+			GiveVelocityAll((float)delta);
+			isPreLaunching = false;
+		}
+		AngularVelocity = -Rotation;
+		if (CanMove())
+		{
+			ApplyMovement(gameManager.playerSpeed);
+		}
+		else
+			Decelerate(delta);
 	}
 
 	private void SummonLines()

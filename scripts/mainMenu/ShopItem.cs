@@ -1,4 +1,5 @@
 using Godot;
+using static Player;
 
 /// <summary> 商店商品定义 </summary>
 public partial class ShopItem : Resource
@@ -9,4 +10,5 @@ public partial class ShopItem : Resource
 	public int Price;          // 价格
 	public int MaxLevel = 99;  // 最大购买等级
 	public bool isSpecial = false;
+	public PlayerTypeEnum addTo = PlayerTypeEnum.NONE;
 }

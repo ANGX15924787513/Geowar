@@ -22,7 +22,7 @@ public partial class LineEnemy : Enemy
         }
     }
 
-    private async void Rush()
+    private void Rush()
     {
         line = new Line2D();
         line.JointMode = Line2D.LineJointMode.Round;
@@ -34,15 +34,17 @@ public partial class LineEnemy : Enemy
         GetTree().CurrentScene.AddChild(line);
         isRushing = true;
         LinearVelocity = new Vector2(0, 0);
-        // await ToSignal(GetTree().CreateTimer(1f), "timeout");
         GetTree().CreateTimer(1f).Timeout += () =>
         {
+            //rushing
+            CollisionMask &= ~(uint)(1 << (4 - 1));
             LockRotation = true;
             LinearVelocity = (_targetPlayer.Position - Position).Normalized() * 3000;
             GetTree().CurrentScene.RemoveChild(line);
-            // await ToSignal(GetTree().CreateTimer(1f), "timeout");
             GetTree().CreateTimer(1f).Timeout += () =>
             {
+                //after rush
+                CollisionMask |= 1 << (4 - 1);
                 LockRotation = false;
                 line = null;
                 isRushing = false;
@@ -52,7 +54,7 @@ public partial class LineEnemy : Enemy
 
     private void OnRushTimerTimeout()
     {
-        if(!isRushing && gameManager.gameState == GameManager.GameState.GAMING && GameManager.Instance.difficulty >= gameManager.LINE_RUSH) Rush();
+        if(!isRushing && gameManager.gameState == GameManager.GameState.GAMING && SingleGameData.Instance.currentDifficulty >= gameManager.LINE_RUSH) Rush();
     }
 
     public override void _ExitTree()

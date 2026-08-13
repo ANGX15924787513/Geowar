@@ -59,6 +59,7 @@ public partial class GameManager : Node
 
     public override void _Ready()
     {
+        GD.Print($"当前平台: {OS.GetName()}");
         just = gameState;
         GD.Print($"当前游戏状态: {gameState}");
         Instance = this;

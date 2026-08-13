@@ -36,7 +36,7 @@ public partial class ThreeBody : Node2D
         foreach (var (pos, vel, mass) in init)
         {
             _bodies.Add(new Body { Pos = pos, Vel = vel, Mass = mass, Radius = Mathf.Sqrt(mass) * 1.2f });
-            _trails.Add(new Vector2[200]);
+            _trails.Add(new Vector2[100]);
         }
     }
 
@@ -115,7 +115,7 @@ public partial class ThreeBody : Node2D
                 var pts = new Vector2[trail.Length];
                 for (int i = 0; i < trail.Length; i++)
                     pts[i] = trail[i];
-                DrawPolyline(pts, new Color(1f, 1f, 1f, 0.8f), 20);
+                DrawPolyline(pts, new Color(1f, 1f, 1f, 0.2f), 10);
             }
         }
     }

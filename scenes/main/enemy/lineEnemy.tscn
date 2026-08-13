@@ -21,13 +21,14 @@ gradient = SubResource("Gradient_kqcdh")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7tox5"]
 lifetime_randomness = 0.19
 particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 20, 0)
 emission_shape = 3
 emission_box_extents = Vector3(70.52, 1, 1)
 direction = Vector3(0, -1, 0)
 spread = 30.0
 gravity = Vector3(0, 168, 0)
-scale_min = 0.099999994
-scale_max = 0.099999994
+scale_min = 0.08
+scale_max = 0.08
 color_ramp = SubResource("GradientTexture1D_pitl7")
 alpha_curve = SubResource("CurveTexture_hqura")
 

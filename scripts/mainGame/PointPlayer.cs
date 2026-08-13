@@ -22,6 +22,7 @@ public partial class PointPlayer : Player
 	{
 		bulletRoot = GetTree().CurrentScene.GetNode<Node2D>("bulletRoot");
 		base._Ready();
+		currentPlayerType = PlayerTypeEnum.POINT;
 		ApplyShopUpgrades();
 		SummonPoints();
 		
@@ -78,12 +79,6 @@ public partial class PointPlayer : Player
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
-		GiveVelocityAll();
-
-		if (CanMove())
-			ApplyMovement(gameManager.playerSpeed, gameManager.playerRotateSpeed);
-		else
-			Decelerate(delta);
 
 		if (CanLaunchBullet())
 			if (Input.IsActionPressed("shift") && _currentPointCount == pointCount)
@@ -111,6 +106,16 @@ public partial class PointPlayer : Player
 		{
 			_currentPointCount = pointCount;
 		}
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		GiveVelocityAll();
+
+		if (CanMove())
+			ApplyMovement(gameManager.playerSpeed, gameManager.playerRotateSpeed);
+		else
+			Decelerate(delta);
 	}
 
 	private bool CanLaunchBullet()

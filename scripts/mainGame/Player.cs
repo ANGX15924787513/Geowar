@@ -6,6 +6,9 @@ public partial class Player : RigidBody2D
 	[Export] public float slowDownSmooth = 0.05f;
 	[Export] public float rotateSmooth = 0.05f;
 	[Export] private PackedScene hpBarScene;
+	
+	public enum PlayerTypeEnum{POINT,LINE,POLYGON,NONE}
+	public PlayerTypeEnum currentPlayerType;
 
 	public GameManager gameManager;
 	public SignalManager signalManager;
@@ -56,7 +59,7 @@ public partial class Player : RigidBody2D
 			signalManager.EmitSignal(SignalManager.SignalName.OnPlayerDied);
 		}
 	}
-	
+
 	public void ApplyMovement(float speed, float rotateSpeed)
 	{
 		Vector2 velocity = speed * Input.GetVector(

@@ -2,11 +2,12 @@ using System;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using static Player;
 
 public partial class MainMenuShop : Control
 {
-	public enum ChoseItem { GOLD, DIAMOND, EMERALD, NONE }
-	public ChoseItem currentChoseItem;
+	public enum ItemEnum { GOLD, DIAMOND, EMERALD, NONE }
+	public ItemEnum currentItemEnum;
 
 	private Line2D line2D;
 	private AnimationPlayer animationPlayer;
@@ -19,33 +20,33 @@ public partial class MainMenuShop : Control
 
 	private List<SingleSellItem> _sellItems = new();
 	private HFlowContainer _grid;
-	private Dictionary<ChoseItem, List<ShopItem>> _catalog = new();
+	private Dictionary<ItemEnum, List<ShopItem>> _catalog = new();
 
 	[Export] private int maxMoneyChar = 9999;
 	
 	[Export] private PackedScene singleSellItemScene;
 	
-	// ==================== 商品目录 (6件) ====================
+	// ==================== 商品目录 ====================
 
 	private void BuildCatalog()
 	{
-		_catalog[ChoseItem.GOLD] = new List<ShopItem>
+		_catalog[ItemEnum.GOLD] = new List<ShopItem>
 		{
-			new() { Id = "point_count", Name = "骨质增生", Desc = "球更多了  ?\n点数 +1",           Price = 20,  MaxLevel = 7 },
-			new() { Id = "line_count", Name = "延展", Desc = "线更多了  \n线数 +1",           Price = 30,  MaxLevel = 10 },
-			new() { Id = "fire_rate",   Name = "碎裂加速", Desc = "射速 +1",     Price = 5,  MaxLevel = 5 },
+			new() { Id = "point_count", Name = "骨质增生", Desc = "球更多了  ?\n点数 +1",           Price = 20,  MaxLevel = 7 ,addTo = PlayerTypeEnum.POINT},
+			new() { Id = "line_count", Name = "延展", Desc = "线更多了  \n线数 +1",           Price = 30,  MaxLevel = 10 ,addTo =  PlayerTypeEnum.LINE},
+			new() { Id = "fire_rate",   Name = "碎裂加速", Desc = "射速 +1",     Price = 5,  MaxLevel = 5},
 			new() { Id = "move_speed",  Name = "漂移",     Desc = "移动速度 +20\n随便漂",    Price = 3,  MaxLevel = 10 },
 		};
 
-		_catalog[ChoseItem.DIAMOND] = new List<ShopItem>
+		_catalog[ItemEnum.DIAMOND] = new List<ShopItem>
 		{
 			new() { Id = "atk_hp",      Name = "骨刺淬毒", Desc = "子弹伤害 +1",                Price = 5,  MaxLevel = 10 },
 			new() { Id = "line",      Name = "线", Desc = "可以使用线了(你变成刺了)",                Price = 20,  MaxLevel = 1 ,isSpecial = true},
-			new() { Id = "edge_atk",      Name = "磨刀石", Desc = "点可以磨死敌人了",                Price = 10,  MaxLevel = 1 },
-			new() { Id = "through",      Name = "一箭穿心", Desc = "线穿透 +2",                Price = 3,  MaxLevel = 5 },
+			new() { Id = "edge_atk",      Name = "磨刀石", Desc = "点可以磨死敌人了",                Price = 10,  MaxLevel = 1 ,addTo = PlayerTypeEnum.POINT},
+			new() { Id = "through",      Name = "一箭穿心", Desc = "线穿透 +2",                Price = 3,  MaxLevel = 5 ,addTo = PlayerTypeEnum.LINE},
 		};
 
-		_catalog[ChoseItem.EMERALD] = new List<ShopItem>
+		_catalog[ItemEnum.EMERALD] = new List<ShopItem>
 		{
 			new() { Id = "max_hp",      Name = "骨骼硬化", Desc = "点最大生命值 +10\n线最大生命值 +5\n更块(三声)了",        Price = 3,  MaxLevel = 15 },
 			new() { Id = "lifesteal",   Name = "噬血骨刺", Desc = "击杀敌人回复 1生命值",           Price = 5, MaxLevel = 2 },
@@ -164,7 +165,7 @@ public partial class MainMenuShop : Control
 
 	private void PopulateGrid()
 	{
-		var items = _catalog.GetValueOrDefault(currentChoseItem);
+		var items = _catalog.GetValueOrDefault(currentItemEnum);
 		if (items == null) { HideAll(); return; }
 
 		for (int i = 0; i < _sellItems.Count; i++)
@@ -190,10 +191,10 @@ public partial class MainMenuShop : Control
 	{
 		if (si.CurrentLevel >= si.Item.MaxLevel) return;
 
-		FallItem.FallItemType currency = currentChoseItem switch
+		FallItem.FallItemType currency = currentItemEnum switch
 		{
-			ChoseItem.DIAMOND => FallItem.FallItemType.DIAMOND,
-			ChoseItem.EMERALD => FallItem.FallItemType.EMERALD,
+			ItemEnum.DIAMOND => FallItem.FallItemType.DIAMOND,
+			ItemEnum.EMERALD => FallItem.FallItemType.EMERALD,
 			_                 => FallItem.FallItemType.GOLD,
 		};
 
@@ -218,10 +219,10 @@ public partial class MainMenuShop : Control
 		if (si.CurrentLevel <= 0) return;
 
 		// 退还一半价格
-		FallItem.FallItemType currency = currentChoseItem switch
+		FallItem.FallItemType currency = currentItemEnum switch
 		{
-			ChoseItem.DIAMOND => FallItem.FallItemType.DIAMOND,
-			ChoseItem.EMERALD => FallItem.FallItemType.EMERALD,
+			ItemEnum.DIAMOND => FallItem.FallItemType.DIAMOND,
+			ItemEnum.EMERALD => FallItem.FallItemType.EMERALD,
 			_                 => FallItem.FallItemType.GOLD,
 		};
 		int refund = Mathf.Max(1, si.Item.Price / 2);
@@ -266,10 +267,10 @@ public partial class MainMenuShop : Control
 
 	private void UpdateLineRotation()
 	{
-		float target = currentChoseItem switch
+		float target = currentItemEnum switch
 		{
-			ChoseItem.GOLD    => 7f,
-			ChoseItem.EMERALD => -7f,
+			ItemEnum.GOLD    => 7f,
+			ItemEnum.EMERALD => -7f,
 			_                 => 0f,
 		};
 		line2D.RotationDegrees = Mathf.Lerp(line2D.RotationDegrees, target, 8f * (float)GetProcessDeltaTime());
@@ -296,21 +297,21 @@ public partial class MainMenuShop : Control
 	private void OnGoldButtonPressed()
 	{
 		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
-		currentChoseItem = ChoseItem.GOLD;    
+		currentItemEnum = ItemEnum.GOLD;    
 		PopulateGrid();
 	}
 
 	private void OnDiamondButtonPressed()
 	{
 		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
-		currentChoseItem = ChoseItem.DIAMOND; 
+		currentItemEnum = ItemEnum.DIAMOND; 
 		PopulateGrid();
 	}
 
 	private void OnEmeraldButtonPressed()
 	{
 		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
-		currentChoseItem = ChoseItem.EMERALD; 
+		currentItemEnum = ItemEnum.EMERALD; 
 		PopulateGrid();
 	}
 }

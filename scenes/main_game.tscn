@@ -27,6 +27,8 @@
 [ext_resource type="Texture2D" uid="uid://d1lgxxchtfwvl" path="res://texture/cursor.svg" id="20_ibnub"]
 [ext_resource type="Script" uid="uid://prsvneeee8fl" path="res://scripts/mainGame/Cursor.cs" id="20_yu8cv"]
 [ext_resource type="PackedScene" uid="uid://c35lscg8wiw0y" path="res://scenes/main/pause_screen.tscn" id="24_cybgu"]
+[ext_resource type="Script" uid="uid://caxl8s3rge8q6" path="res://gdscripts/mainGame/mobile_joystick.gd" id="26_307no"]
+[ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="27_rr87q"]
 
 [sub_resource type="Animation" id="Animation_s3esy"]
 length = 0.001
@@ -318,6 +320,15 @@ glow_intensity = 0.5
 glow_strength = 1.45
 glow_bloom = 0.29
 
+[sub_resource type="LabelSettings" id="LabelSettings_dp0eu"]
+font = ExtResource("27_rr87q")
+font_size = 26
+font_color = Color(0.76862746, 1, 1, 0.5294118)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.41568628, 0.75686276, 1, 1)
+shadow_offset = Vector2(0, 0)
+
 [node name="mainGame" type="Control" unique_id=431242745]
 layout_mode = 3
 anchors_preset = 0
@@ -450,6 +461,43 @@ fightSounds = Array[AudioStream]([ExtResource("11_o6v7o"), ExtResource("18_5wboo
 [node name="SingleGameData" parent="." unique_id=1580719335 instance=ExtResource("18_5luka")]
 
 [node name="PauseScreen" parent="." unique_id=1664483136 instance=ExtResource("24_cybgu")]
+
+[node name="MobileJoystick" type="CanvasLayer" parent="." unique_id=480617292]
+script = ExtResource("26_307no")
+
+[node name="Control" type="Control" parent="MobileJoystick" unique_id=255498514]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -162.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MobileJoystick/Control" unique_id=1061498296]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -158.0
+offset_right = 259.0
+grow_vertical = 0
+theme_override_constants/separation = 57
+alignment = 2
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="MobileJoystick/Control/VBoxContainer" unique_id=1418135573]
+layout_mode = 2
+action_left = &"player_left"
+action_right = &"player_right"
+action_up = &"player_up"
+action_down = &"player_down"
+
+[node name="Label" type="Label" parent="MobileJoystick/Control/VBoxContainer" unique_id=1415180521]
+layout_mode = 2
+text = "移动"
+label_settings = SubResource("LabelSettings_dp0eu")
+horizontal_alignment = 1
 
 [node name="cursor" type="Sprite2D" parent="." unique_id=239297404]
 scale = Vector2(0.5, 0.5)

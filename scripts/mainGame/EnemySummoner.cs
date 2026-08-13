@@ -20,7 +20,7 @@ public partial class EnemySummoner : Node2D
 	public override void _Ready()
 	{
 		gameManager = GetNode<GameManager>("/root/GameManager");
-		SummonWaitTime = 2 - 1.8f * gameManager.difficulty;
+		SummonWaitTime = 2 - 1.8f * SingleGameData.Instance.currentDifficulty;
 		ResetAllTimer();
 	}
 	public override void _Process(double delta)
@@ -54,15 +54,17 @@ public partial class EnemySummoner : Node2D
 		enemy.GlobalPosition = new Vector2(
 			(float)GD.RandRange(gameManager.gameAreaX.X,gameManager.gameAreaX.Y),
 			(float)GD.RandRange(gameManager.gameAreaY.X,gameManager.gameAreaY.Y));
-		if (GetRand(superEnemyRate) && gameManager.difficulty >=gameManager.SUPER_ENY)
+		if (GetRand(superEnemyRate) && SingleGameData.Instance.currentDifficulty >=gameManager.SUPER_ENY)
 		{
+			enemy.SetScale(1.2f);
 			enemy.MaxHealth *= GD.RandRange(2,5);
 			enemy.Speed *= (float)GD.RandRange(1d,2d);
 			enemy.Damage = (int)(enemy.Damage * GD.RandRange(2d, 5d));
 			enemy.enemyType = Enemy.EnemyTypeEnum.SUPER;
 		}
-		else if(GetRand(susuperEnemyRate) && gameManager.difficulty >= gameManager.SUSUPER_ENY)
+		else if(GetRand(susuperEnemyRate) && SingleGameData.Instance.currentDifficulty >= gameManager.SUSUPER_ENY)
 		{
+			enemy.SetScale(1.5f);
 			enemy.MaxHealth *= GD.RandRange(5,10);
 			enemy.Speed *= (float)GD.RandRange(3d,5d);
 			enemy.Damage = (int)(enemy.Damage * GD.RandRange(5d, 8d));

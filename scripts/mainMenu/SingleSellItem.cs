@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 
 public partial class SingleSellItem : Control
@@ -13,6 +14,7 @@ public partial class SingleSellItem : Control
 	private System.Action<SingleSellItem> _onSell;
 
 	public bool rare;
+	public bool blocked;
 
 	public override void _Ready()
 	{
@@ -29,6 +31,8 @@ public partial class SingleSellItem : Control
 		CurrentLevel = currentLevel;
 		_onBuy = onBuy;
 		_onSell = onSell;
+		blocked = DataManager.Instance.GetUpgradeLevel(item.addTo.ToString().ToLower().Split(".").Last()) == 0 && 
+		          item.addTo is not (Player.PlayerTypeEnum.NONE or Player.PlayerTypeEnum.POINT);
 		Refresh();
 	}
 
@@ -41,8 +45,15 @@ public partial class SingleSellItem : Control
 		_nameLabel.Text  = $"{Item.Name}\n Lv.{CurrentLevel}";
 		_descLabel.Text  = Item.Desc;
 		_priceLabel.Text = maxed ? "MAX" : $"价格:{Item.Price}";
-		GetNode<Button>("HBoxContainer/Button").Disabled = maxed;
-		GetNode<Button>("HBoxContainer/Button2").Disabled = CurrentLevel == 0;
+		GetNode<CanvasItem>("blockSign").Visible = blocked;
+		if (blocked)
+		{
+			CanvasItem bg = GetNode<CanvasItem>("RoundedPolygon2D");
+			bg.Modulate =
+				bg.Modulate.Darkened(0.2f);
+		}
+		GetNode<Button>("HBoxContainer/Button").Disabled = blocked || maxed;
+		GetNode<Button>("HBoxContainer/Button2").Disabled = blocked || CurrentLevel == 0;
 	}
 
 	private void OnPressed() => _onBuy?.Invoke(this);

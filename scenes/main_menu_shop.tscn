@@ -185,10 +185,7 @@ grow_vertical = 0
 theme_override_constants/h_separation = 159
 theme_override_constants/v_separation = 158
 
-[node name="singleSellItem" parent="HFlowContainer" unique_id=656635618 instance=ExtResource("3_u1dkw")]
-layout_mode = 2
-
-[node name="singleSellItem2" parent="HFlowContainer" unique_id=2115151411 instance=ExtResource("3_u1dkw")]
+[node name="singleSellItem" parent="HFlowContainer" unique_id=2115151411 instance=ExtResource("3_u1dkw")]
 layout_mode = 2
 
 [node name="Q币显示" type="Control" parent="." unique_id=1203224581]
