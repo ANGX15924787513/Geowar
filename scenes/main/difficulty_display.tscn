@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://g1r6hft3iwp4"]
+
+[ext_resource type="Script" uid="uid://5vwe774q4hus" path="res://scripts/mainGame/DifficultyDisplay.cs" id="1_55ht1"]
+[ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_rb53g"]
+[ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="3_7rts7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wvhbo"]
+font = ExtResource("3_7rts7")
+font_size = 23
+outline_size = 1
+outline_color = Color(1, 0.32941177, 0.3764706, 1)
+
+[node name="DifficultyDisplay" type="CanvasLayer" unique_id=116312170]
+
+[node name="Control" type="Control" parent="." unique_id=1595619844]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -49.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_55ht1")
+
+[node name="Background" type="Polygon2D" parent="Control" unique_id=1638548598]
+self_modulate = Color(0.8784314, 0.5568628, 0.45882353, 0.20392157)
+clip_children = 2
+position = Vector2(147, 5.0000076)
+polygon = PackedVector2Array(838, 0, 838, 39, 0, 39, 0, 0)
+polygons = [null]
+script = ExtResource("2_rb53g")
+corner_radius = 15
+metadata/_custom_type_script = "uid://gdsdtd32sye5"
+
+[node name="Progress" type="Polygon2D" parent="Control/Background" unique_id=1080382676]
+position = Vector2(-834, 0)
+color = Color(0.8784314, 0.5568628, 0.45882353, 1)
+polygon = PackedVector2Array(838, 0, 838, 39, 0, 39, 0, 0)
+polygons = [null]
+script = ExtResource("2_rb53g")
+corner_radius = 15
+metadata/_custom_type_script = "uid://gdsdtd32sye5"
+
+[node name="Label" type="Label" parent="Control" unique_id=1904944450]
+layout_mode = 0
+offset_left = 158.0
+offset_top = 11.0
+offset_right = 259.0
+offset_bottom = 37.0
+text = "难度:99%"
+label_settings = SubResource("LabelSettings_wvhbo")
+
+[node name="Timer" type="Timer" parent="Control" unique_id=862204188]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Control/Timer" to="Control" method="OnTimeout"]

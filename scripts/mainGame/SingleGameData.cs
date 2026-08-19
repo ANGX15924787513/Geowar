@@ -71,19 +71,19 @@ public partial class SingleGameData : CanvasLayer
 		switch (fallItemType)
 		{
 			case FallItemType.IRON:
+				ironCount++;
 				if (animationPlayer.IsPlaying()) break;
 				animationPlayer.Play("iron_jump");
-				ironCount++;
 				break;
 			case FallItemType.GOLD:
+				goldCount++;
 				if (animationPlayer.IsPlaying()) break;
 				animationPlayer.Play("gold_jump");
-				goldCount++;
 				break;
 			case FallItemType.DIAMOND:
+				diamondCount++;
 				if (animationPlayer.IsPlaying()) break;
 				animationPlayer.Play("diamond_jump");
-				diamondCount++;
 				break;
 		}
 		ironLabel.Text = ironCount.ToString();

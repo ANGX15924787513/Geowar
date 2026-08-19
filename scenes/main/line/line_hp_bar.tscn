@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csuocfvljca20" path="res://gdscripts/mainGame/hp_bar.gd" id="1_jwsj7"]
 [ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_16cxq"]
+[ext_resource type="Script" uid="uid://dxwh24qp8hw8a" path="res://gdscripts/mainGame/line_pre_launch_progress_bar.gd" id="3_bxwpo"]
 [ext_resource type="Script" uid="uid://blvq5ipr1gw6t" path="res://gdscripts/mainGame/line_hp_bar.gd" id="5_26sbq"]
 [ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="5_p5jwu"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="6_lglm1"]
@@ -114,20 +115,29 @@ script = ExtResource("1_jwsj7")
 position = Vector2(50, 0)
 
 [node name="RoundedPolygon2D" type="Polygon2D" parent="Node2D" unique_id=1614173520]
+self_modulate = Color(0, 0.8803748, 0.9359333, 0.20392157)
 position = Vector2(147, 18.857143)
 scale = Vector2(1, 0.71428573)
-color = Color(0, 0.8803748, 0.9359333, 0.20392157)
 polygon = PackedVector2Array(-130, 3, -130, 118, 450, 118, 450, 3)
 polygons = [null]
 script = ExtResource("2_16cxq")
 corner_radius = 31
 metadata/_custom_type_script = "uid://gdsdtd32sye5"
 
+[node name="ProgressBar" type="ProgressBar" parent="Node2D" unique_id=1565628237]
+offset_left = 42.0
+offset_top = 85.0
+offset_right = 455.0
+offset_bottom = 98.0
+value = 100.0
+show_percentage = false
+script = ExtResource("3_bxwpo")
+
 [node name="RoundedPolygon2D2" type="Polygon2D" parent="Node2D" unique_id=687936974]
 position = Vector2(147, 18.857143)
 scale = Vector2(1, 0.71428573)
 color = Color(0, 0.8784314, 0.9372549, 0.20392157)
-polygon = PackedVector2Array(315, 13.400002, 315, 104.399994, 445, 105.79999, 440, 12)
+polygon = PackedVector2Array(315, 13.400002, 315, 104.399994, 445, 105.79999, 446, 14.199999)
 polygons = [null]
 script = ExtResource("2_16cxq")
 corner_radius = 31

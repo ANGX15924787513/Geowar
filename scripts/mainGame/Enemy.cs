@@ -114,19 +114,27 @@ public partial class Enemy : RigidBody2D
         LinearVelocity = LinearVelocity.Lerp(desiredVelocity, _randSteeringForce * delta);
     }
 
-    public void GotHurt(int damage)
+    public void GotHurt(int damage,Node2D from,bool isAtkBk = true)
     {
         if (damage <= 0) return;
         health = Mathf.Max(0, health - damage);
         globalAudioPlayer.PlayAudio(hurtSound,globalAudioPlayer.PlayerAttackVolume);
+        if(isAtkBk && from != null) AttackBack(from);
         signalManager.EmitSignal(SignalManager.SignalName.OnEnemyGotHurt, damage,GlobalPosition);
+    }
+    
+    private void AttackBack(Node2D from)
+    {
+        const float atkBkStrength = 900;
+        Vector2 dir = (Position - from.Position).Normalized();
+        LinearVelocity = atkBkStrength * dir;
     }
 
     private void OnBodyEntered(Node2D body)
     {
         if (_isDying) return;
         if (body is Player player)
-            player.GotHurt(Damage + dataManager.GetUpgradeLevel("atk_hp") / 2);
+            player.GotHurt(Damage + dataManager.GetUpgradeLevel("atk_hp") / 2,this);
     }
     
     protected void DiedHandler()

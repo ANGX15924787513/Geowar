@@ -7,6 +7,8 @@ func _ready() -> void:
 	_is_in_shop = false
 	animationPlayer = $AnimationPlayer
 	$VBoxContainer/FlowContainer3/CheckBox.button_pressed = DataManager.GetBoolConfig("hide_mouse_playing")
+	$VBoxContainer/FlowContainer6/CheckBox.button_pressed = DataManager.GetBoolConfig("use_custom_cursor")
+	Input.set_custom_mouse_cursor(load("res://texture/UICursor/tile_0028.png") if $VBoxContainer/FlowContainer6/CheckBox.button_pressed else null)
 	$VBoxContainer/FlowContainer4/HSlider.value = GlobalAudioPlayer.PlayerAttackVolume
 	$VBoxContainer/FlowContainer5/CheckBox.button_pressed = DataManager.GetBoolConfig("glow_disabled")
 	$VBoxContainer/mainMenuBgMusicVol/HSlider.value = GlobalAudioPlayer.menuBgVolume
@@ -22,6 +24,9 @@ func _on_button_pressed() -> void:
 		animationPlayer.play("enter_setting")
 	_is_in_shop = not _is_in_shop
 
+func _on_using_custom_cursor_toggled(toggled_on: bool) -> void:
+	Input.set_custom_mouse_cursor(load("res://texture/UICursor/tile_0028.png") if toggled_on else null)
+	DataManager.SetBoolConfig("use_custom_cursor",toggled_on)
 
 func _on_hide_mouse_checkbox_toggled(toggled_on: bool) -> void:
 	DataManager.SetBoolConfig("hide_mouse_playing",toggled_on)

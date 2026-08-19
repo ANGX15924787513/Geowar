@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://ci61ihj051dxg"]
+
+[ext_resource type="Script" uid="uid://r5xfdc3vbmeb" path="res://scripts/mainGame/Skill/SeparateSkill.cs" id="1_src2b"]
+[ext_resource type="Texture2D" uid="uid://i5qlmgjjumeo" path="res://texture/MCTexture/minecart_tnt.png" id="2_451el"]
+[ext_resource type="FontFile" uid="uid://sfrfvp70mwee" path="res://fonts/BoutiqueBitmap7x7_1.7.ttf" id="2_qenpw"]
+[ext_resource type="Script" uid="uid://c6rugy084xi2a" path="res://gdscripts/tay_imer.gd" id="3_451el"]
+[ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="4_v2vbq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ifow5"]
+font = ExtResource("2_qenpw")
+font_color = Color(1, 1, 1, 0.7058824)
+
+[sub_resource type="Gradient" id="Gradient_figw8"]
+offsets = PackedFloat32Array(0, 0.25761774, 0.5290859, 0.81163436, 1)
+colors = PackedColorArray(1, 0.5019608, 1, 0.48235294, 0.8955456, 0.7668203, 0.15841699, 0.5884634, 0.7363743, 0.8993638, 0.63186896, 0.7232524, 0.70492685, 0.9721133, 0.96459955, 0.8523057, 0.90588236, 0.5137255, 0.9882353, 0.9529412)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ifow5"]
+gradient = SubResource("Gradient_figw8")
+height = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_sgdes"]
+font = ExtResource("2_qenpw")
+font_size = 10
+font_color = Color(1, 1, 1, 0.47058824)
+
+[node name="SkillBox" type="Control" unique_id=1534040639]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 115.0
+offset_bottom = 72.0
+script = ExtResource("1_src2b")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1202539620]
+self_modulate = Color(1, 1, 1, 0.5019608)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.375
+offset_right = 30.375
+offset_bottom = 60.75
+grow_horizontal = 2
+texture = ExtResource("2_451el")
+
+[node name="VB" type="VBoxContainer" parent="." unique_id=2020370230]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 3.0
+offset_bottom = 34.0
+grow_horizontal = 2
+
+[node name="NameLabel" type="Label" parent="VB" unique_id=1893756119]
+clip_children = 2
+layout_mode = 2
+text = "TNT"
+label_settings = SubResource("LabelSettings_ifow5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VB/NameLabel" unique_id=957864730]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ifow5")
+
+[node name="DescLabel" type="Label" parent="VB" unique_id=1944407715]
+layout_mode = 2
+text = "炸死你"
+label_settings = SubResource("LabelSettings_sgdes")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1037180848]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 62.0
+offset_right = 104.0
+offset_bottom = 70.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="." unique_id=2031617145]
+autostart = true
+script = ExtResource("3_451el")
+
+[node name="RoundedPolygon2D" type="Polygon2D" parent="." unique_id=1705752188]
+z_index = -1
+color = Color(0.32156864, 0.5803922, 1, 0.20392157)
+polygon = PackedVector2Array(0, 0, 115, 0, 115, 72, 0, 72)
+polygons = [null]
+script = ExtResource("4_v2vbq")
+corner_radius = 15
+metadata/_custom_type_script = "uid://gdsdtd32sye5"

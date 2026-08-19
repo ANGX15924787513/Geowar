@@ -14,6 +14,8 @@ public partial class GameManager : Node
     }
     [Export] public GameState gameState = GameState.STARTING;
     
+    [Signal] public delegate void OnGameStateChangeEventHandler(GameState newState);
+    
     // --- 难度处理 ---
     public readonly float LINE_RUSH = 0.3f;
     public readonly float SUPER_ENY = 0.2f;
@@ -25,8 +27,8 @@ public partial class GameManager : Node
     public float playerSpeed = 500f;
     public float playerRotateSpeed = 1f;
     public float playerRebornTime = 0.2f;
-    public readonly Vector2 gameAreaX = new(-1700f,2600f);
-    public readonly Vector2 gameAreaY = new(-1050f,1136f);
+    public readonly Vector2 gameAreaX = new(-1650f,2550f);
+    public readonly Vector2 gameAreaY = new(-1000f,1086f);
     public static GameManager Instance { get; private set; }
 
     public float difficulty;
@@ -56,9 +58,12 @@ public partial class GameManager : Node
 
     private bool hideMouse;
     private GameState just;
+    
+    private static readonly Vector2I originWindowSize = new(1880, 1080);
 
     public override void _Ready()
     {
+        ScreenInit();
         GD.Print($"当前平台: {OS.GetName()}");
         just = gameState;
         GD.Print($"当前游戏状态: {gameState}");
@@ -74,6 +79,15 @@ public partial class GameManager : Node
 
         hideMouse = dataManager.GetBoolConfig("hide_mouse_playing");
         glowDisabled = dataManager.GetBoolConfig("glow_disabled");
+    }
+
+    private void ScreenInit()
+    {
+        DisplayServer.WindowSetSize(originWindowSize);
+        DisplayServer.WindowSetPosition(DisplayServer.ScreenGetSize() / 2 - DisplayServer.WindowGetSize() / 2);
+        #if TOOLS
+            GetTree().Root.Unresizable = false;
+        #endif
     }
 
     public override void _Process(double delta)
@@ -95,6 +109,7 @@ public partial class GameManager : Node
         if (just != gameState)
         {
             GD.Print($"游戏状态切换: {gameState}");
+            EmitSignal(SignalName.OnGameStateChange, (int)gameState);
             just = gameState;   
         }
     }

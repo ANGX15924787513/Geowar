@@ -5,8 +5,7 @@
 [resource]
 font = ExtResource("1_mge8p")
 font_size = 258
-font_color = Color(0.76862746, 1, 1, 1)
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0.41568628, 0.75686276, 1, 1)
-shadow_offset = Vector2(0, 0)
+shadow_offset = Vector2(9.75, -4.785)

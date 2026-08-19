@@ -14,7 +14,9 @@ public partial class PauseScreen : CanvasLayer
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
 		dataManager = GetNode<DataManager>("/root/DataManager");
-		gameData = GetNode<SingleGameData>("/root/mainGame/SingleGameData");
+		gameData = GetNode<SingleGameData>("/root/mainGame/CanvasLayers/SingleGameData");
+		
+		GetTree().Root.FocusExited += FEPauseHandler;
 	}
 	
 	public override void _Process(double delta)
@@ -25,12 +27,21 @@ public partial class PauseScreen : CanvasLayer
 		}
 	}
 
-	private void PauseHandler()
+	private void FEPauseHandler()
+	{
+		if (gameManager.gameState == GameManager.GameState.GAMING)
+		{
+			PauseHandler();
+		}
+	}
+
+	private async void PauseHandler()
 	{
 		if (gameManager.gameState == GameManager.GameState.GAMING)
 		{
 			gameManager.gameState = GameManager.GameState.GAME_PAUSED;
 			animationPlayer.Play("enter");
+			await ToSignal(animationPlayer, "animation_finished");
 		}
 		else
 		{
@@ -41,7 +52,7 @@ public partial class PauseScreen : CanvasLayer
 	private async void OnContinueButtonPressed()
 	{
 		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
-		if (gameManager.gameState == GameManager.GameState.GAME_PAUSED)
+		if (gameManager.gameState == GameManager.GameState.GAME_PAUSED && !animationPlayer.IsPlaying())
 		{
 			animationPlayer.Play("exit");
 			await ToSignal(animationPlayer, "animation_finished");

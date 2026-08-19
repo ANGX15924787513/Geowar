@@ -135,14 +135,14 @@ public partial class LinePlayer : Player
 			{
 				Vector2 target = GetPositionInBulletSide(ctSide);
 				// child.LinearVelocity = 2 * (target - child.GlobalPosition);
-				child.Position = child.Position.Lerp(target, 0.05f);
+				child.Position = child.Position.Lerp(target, 0.08f);
 				ctSide++;
 			}
 			else
 			{
 				Vector2 target = GetPositionInBulletLib(count);
 				// child.LinearVelocity = 2 * (target - child.GlobalPosition);
-				child.Position = child.Position.Lerp(target, 0.05f);
+				child.Position = child.Position.Lerp(target, 0.08f);
 				count++;
 			}
 			// 计算目标角度

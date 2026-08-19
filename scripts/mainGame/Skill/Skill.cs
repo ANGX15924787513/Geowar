@@ -1,0 +1,11 @@
+using Godot;
+using System;
+
+public partial class Skill : Resource
+{
+public string id;
+public string name;
+public string desc;
+public float cooldown;
+public string iconPath = null;
+}

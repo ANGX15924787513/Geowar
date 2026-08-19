@@ -116,16 +116,16 @@ public partial class PointSync : RigidBody2D
 		{
 			if (pointType == PointType.BULLET)
 			{
-				((Enemy)body).GotHurt(bulletAttackHP + AttackBonus);
+				((Enemy)body).GotHurt(bulletAttackHP + AttackBonus,this);
 				Destroy();
 			}else if (pointType == PointType.CIRCLE && edgeAtkEnabled)
 			{
-				((Enemy)body).GotHurt((int)(circleAttackHP + AttackBonus * 0.2f));
+				((Enemy)body).GotHurt((int)(circleAttackHP + AttackBonus * 0.2f),this,false);
 			}
 
 			for (int i = 0; i < 10; i++)
 			{
-				CollideLight((GlobalPosition + body.GlobalPosition)/2,Colors.Aqua);
+				TayTool.CollideLight((GlobalPosition + body.GlobalPosition)/2,Colors.Aqua,GetTree(),lightTex);
 			}
 		}
 		void Destroy()
@@ -135,25 +135,6 @@ public partial class PointSync : RigidBody2D
 			signalManager.EmitSignal("OnBulletDestroyed");
 			QueueFree();
 		}
-	}
-
-	private void CollideLight(Vector2 position,Color color)
-	{
-		float duration = 0.8f;
-		var light = new PointLight2D();
-		light.Texture = lightTex;
-		light.TextureScale = 0.1f;
-		light.Color = color;
-		light.Energy = 2;
-		light.Position = position + new Vector2(GD.Randf() - 0.5f, GD.Randf() - 0.5f) * 40;
-		GetTree().CurrentScene.AddChild(light);
-		Tween tw = GetTree().CreateTween();
-		Tween tw2 = GetTree().CreateTween();
-		Tween tw3 = GetTree().CreateTween();
-		tw.TweenProperty(light,"texture_scale",0.02f,duration);
-		tw2.TweenProperty(light,"position",light.Position + new Vector2(GD.Randf() - 0.5f, GD.Randf() - 0.5f) * 300,duration);
-		tw3.TweenProperty(light,"modulate",new Color(1, 1, 1, 0.5f), duration);
-		GetTree().CreateTimer(duration).Timeout += light.QueueFree;
 	}
 
 	private void SyncScale()

@@ -28,6 +28,7 @@ public partial class EnemySummoner : Node2D
 		if (gameManager.gameState == GameManager.GameState.GAMING)
 		{
 			UpdateAllTimer((float)delta);
+			SummonWaitTime = 2 - 1.8f * SingleGameData.Instance.currentDifficulty;
 		}
 	}
 	private void ResetAllTimer()

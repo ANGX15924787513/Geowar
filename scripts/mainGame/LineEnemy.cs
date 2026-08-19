@@ -17,7 +17,7 @@ public partial class LineEnemy : Enemy
         else
         {
             float targetDir = (_targetPlayer.Position - Position).Angle();
-            AngularVelocity = 3*(targetDir - Rotation);
+            AngularVelocity = 5*(targetDir - Rotation);
             line.Points = [GlobalPosition,line.Points[1].Lerp(_targetPlayer.GlobalPosition,0.08f)];
         }
     }
@@ -39,7 +39,7 @@ public partial class LineEnemy : Enemy
             //rushing
             CollisionMask &= ~(uint)(1 << (4 - 1));
             LockRotation = true;
-            LinearVelocity = (_targetPlayer.Position - Position).Normalized() * 3000;
+            LinearVelocity = (_targetPlayer.Position - Position).Normalized() * 4000;
             GetTree().CurrentScene.RemoveChild(line);
             GetTree().CreateTimer(1f).Timeout += () =>
             {

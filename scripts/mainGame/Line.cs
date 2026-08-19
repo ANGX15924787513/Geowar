@@ -76,16 +76,12 @@ public partial class Line : Node2D
         {
             if (lineState == LineState.BULLET)
             {
-                ((Enemy)body).GotHurt(bulletAttackHP + AttackBonus);
+                ((Enemy)body).GotHurt(bulletAttackHP + AttackBonus,this);
                 _left穿透--;
                 if (_left穿透 <= 0)
                 {
                     Destroy();
                 }
-            }
-            else if (lineState == LineState.CORE && rotating)
-            {
-                ((Enemy)body).GotHurt((int)(rotatingAttackHP + AttackBonus * 0.2f));
             }
             for (int i = 0; i < 10; i++)
             {

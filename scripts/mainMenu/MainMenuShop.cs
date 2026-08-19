@@ -44,6 +44,7 @@ public partial class MainMenuShop : Control
 			new() { Id = "line",      Name = "线", Desc = "可以使用线了(你变成刺了)",                Price = 20,  MaxLevel = 1 ,isSpecial = true},
 			new() { Id = "edge_atk",      Name = "磨刀石", Desc = "点可以磨死敌人了",                Price = 10,  MaxLevel = 1 ,addTo = PlayerTypeEnum.POINT},
 			new() { Id = "through",      Name = "一箭穿心", Desc = "线穿透 +2",                Price = 3,  MaxLevel = 5 ,addTo = PlayerTypeEnum.LINE},
+			new() { Id = "skill_tnt",      Name = "核弹支援", Desc = "随机呼叫火力支援! \n每90秒TNT轰炸全场",                Price = 15,  MaxLevel = 1 ,isSpecial = true},
 		};
 
 		_catalog[ItemEnum.EMERALD] = new List<ShopItem>

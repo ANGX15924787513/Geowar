@@ -91,13 +91,25 @@ public partial class Player : RigidBody2D
 		AngularVelocity = Mathf.Lerp(AngularVelocity, 0f, 2f * (float)delta);
 	}
 
-	public void GotHurt(int damage)
+	public void GotHurt(int damage,Enemy from)
 	{
 		if (damage <= 0 || gameManager.gameState != GameManager.GameState.GAMING || hurtCooldown > 0) return;
 		hurtCooldown = 0.2f;
 		// GD.Print($"玩家受伤 {damage} 点");
+		AttackBack(from);
 		_hp = Mathf.Max(0, _hp - damage);
 		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, -damage, _hp, HP);
+	}
+
+	/// <summary>
+	/// 敌人对玩家的击退
+	/// </summary>
+	/// <param name="from">攻击玩家的敌人</param>
+	private void AttackBack(Enemy from)
+	{
+		const float atkBkStrength = 1400;
+		Vector2 dir = (Position - from.Position).Normalized();
+		LinearVelocity = atkBkStrength * dir;
 	}
 
 	public void GotHeal(int heal)

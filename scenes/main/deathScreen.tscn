@@ -256,14 +256,26 @@ tracks/16/keys = {
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("TextureRect:size")
+tracks/17/path = NodePath("TextureRect:anchors_preset")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("TextureRect:size")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1171, 55)]
+"values": [Vector2(1171, 54.999878)]
 }
 
 [sub_resource type="Animation" id="Animation_msnq2"]
@@ -539,14 +551,26 @@ tracks/21/keys = {
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("TextureRect:size")
+tracks/22/path = NodePath("TextureRect:anchors_preset")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
-"times": PackedFloat32Array(0, 1.69, 1.96),
+"times": PackedFloat32Array(1.93),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("TextureRect:size")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0, 1.84, 1.92),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1171, 55), Vector2(1171, 55), Vector2(1171, 163.36053)]
+"values": [Vector2(1171, 54.999878), Vector2(1171, 54.999878), Vector2(1171, 149)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qiop6"]
@@ -585,9 +609,17 @@ label_settings = ExtResource("2_u6ea1")
 horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=2001760008]
-offset_left = -44.48
-offset_right = 1126.52
-offset_bottom = 55.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -620.48
+offset_top = -648.0
+offset_right = 550.52
+offset_bottom = -593.0001
+grow_horizontal = 2
+grow_vertical = 0
 texture = SubResource("GradientTexture1D_wvhbo")
 
 [node name="Button" type="Button" parent="TextureRect" unique_id=683769866]
@@ -610,7 +642,7 @@ script = ExtResource("2_30exn")
 layout_mode = 0
 offset_left = 1159.0
 offset_top = -78.0
-offset_right = 1606.0
+offset_right = 1606.0007
 offset_bottom = -6.0
 theme = ExtResource("1_gp1bb")
 theme_type_variation = &"FlatButton"
@@ -714,6 +746,7 @@ texture = ExtResource("7_2meay")
 
 [node name="AudioStreamPlayerMusic" type="AudioStreamPlayer" parent="." unique_id=362182559]
 stream = ExtResource("6_2meay")
+volume_db = -10.0
 
 [node name="score" type="Label" parent="." unique_id=1649235298]
 anchors_preset = 8

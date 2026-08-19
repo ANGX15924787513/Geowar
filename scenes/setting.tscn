@@ -124,6 +124,21 @@ theme = SubResource("Theme_scrng")
 text = "启用"
 script = ExtResource("4_o8tsb")
 
+[node name="FlowContainer6" type="HBoxContainer" parent="VBoxContainer" unique_id=1924434690]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer6" unique_id=552243039]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "使用自定义光标:"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer6" unique_id=1387538457]
+layout_mode = 2
+theme = SubResource("Theme_scrng")
+text = "启用"
+script = ExtResource("4_o8tsb")
+
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=372563613]
 layout_mode = 2
 theme_override_constants/separation = 28
@@ -298,6 +313,8 @@ expand_icon = true
 libraries/ = SubResource("AnimationLibrary_1s23a")
 
 [connection signal="toggled" from="VBoxContainer/FlowContainer2/CheckBox" to="VBoxContainer/FlowContainer2/CheckBox" method="_on_toggled"]
+[connection signal="toggled" from="VBoxContainer/FlowContainer6/CheckBox" to="." method="_on_using_custom_cursor_toggled"]
+[connection signal="toggled" from="VBoxContainer/FlowContainer6/CheckBox" to="VBoxContainer/FlowContainer6/CheckBox" method="_on_toggled"]
 [connection signal="toggled" from="VBoxContainer/GamingRand/CheckBox" to="." method="_on_gaming_rand_check_box_toggled"]
 [connection signal="toggled" from="VBoxContainer/GamingRand/CheckBox" to="VBoxContainer/GamingRand/CheckBox" method="_on_toggled"]
 [connection signal="value_changed" from="VBoxContainer/FlowContainer4/HSlider" to="." method="_on_player_attack_volume_changed"]

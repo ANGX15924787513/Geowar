@@ -29,6 +29,9 @@
 [ext_resource type="PackedScene" uid="uid://c35lscg8wiw0y" path="res://scenes/main/pause_screen.tscn" id="24_cybgu"]
 [ext_resource type="Script" uid="uid://caxl8s3rge8q6" path="res://gdscripts/mainGame/mobile_joystick.gd" id="26_307no"]
 [ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="27_rr87q"]
+[ext_resource type="PackedScene" uid="uid://g1r6hft3iwp4" path="res://scenes/main/difficulty_display.tscn" id="30_rr87q"]
+[ext_resource type="PackedScene" uid="uid://ci61ihj051dxg" path="res://scenes/main/skill_box.tscn" id="31_dp0eu"]
+[ext_resource type="Script" uid="uid://p8gkw5mhl2ws" path="res://scripts/mainGame/AdditionSkillManager.cs" id="31_urnot"]
 
 [sub_resource type="Animation" id="Animation_s3esy"]
 length = 0.001
@@ -458,14 +461,23 @@ gamingGlowStrength = 0.5
 script = ExtResource("12_wjob3")
 fightSounds = Array[AudioStream]([ExtResource("11_o6v7o"), ExtResource("18_5wboo"), ExtResource("19_6de02")])
 
-[node name="SingleGameData" parent="." unique_id=1580719335 instance=ExtResource("18_5luka")]
+[node name="cursor" type="Sprite2D" parent="." unique_id=239297404]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_ibnub")
+script = ExtResource("20_yu8cv")
+lockRange = 200.0
 
-[node name="PauseScreen" parent="." unique_id=1664483136 instance=ExtResource("24_cybgu")]
+[node name="CanvasLayers" type="Node" parent="." unique_id=866581108]
 
-[node name="MobileJoystick" type="CanvasLayer" parent="." unique_id=480617292]
+[node name="SingleGameData" parent="CanvasLayers" unique_id=1580719335 instance=ExtResource("18_5luka")]
+
+[node name="PauseScreen" parent="CanvasLayers" unique_id=1664483136 instance=ExtResource("24_cybgu")]
+
+[node name="MobileJoystick" type="CanvasLayer" parent="CanvasLayers" unique_id=480617292]
+visible = false
 script = ExtResource("26_307no")
 
-[node name="Control" type="Control" parent="MobileJoystick" unique_id=255498514]
+[node name="Control" type="Control" parent="CanvasLayers/MobileJoystick" unique_id=255498514]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -475,7 +487,7 @@ offset_top = -162.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MobileJoystick/Control" unique_id=1061498296]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayers/MobileJoystick/Control" unique_id=1061498296]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -486,21 +498,32 @@ grow_vertical = 0
 theme_override_constants/separation = 57
 alignment = 2
 
-[node name="VirtualJoystick" type="VirtualJoystick" parent="MobileJoystick/Control/VBoxContainer" unique_id=1418135573]
+[node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayers/MobileJoystick/Control/VBoxContainer" unique_id=1418135573]
 layout_mode = 2
 action_left = &"player_left"
 action_right = &"player_right"
 action_up = &"player_up"
 action_down = &"player_down"
 
-[node name="Label" type="Label" parent="MobileJoystick/Control/VBoxContainer" unique_id=1415180521]
+[node name="Label" type="Label" parent="CanvasLayers/MobileJoystick/Control/VBoxContainer" unique_id=1415180521]
 layout_mode = 2
 text = "移动"
 label_settings = SubResource("LabelSettings_dp0eu")
 horizontal_alignment = 1
 
-[node name="cursor" type="Sprite2D" parent="." unique_id=239297404]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_ibnub")
-script = ExtResource("20_yu8cv")
-lockRange = 200.0
+[node name="DifficultyDisplay" parent="CanvasLayers" unique_id=116312170 instance=ExtResource("30_rr87q")]
+
+[node name="AdditionSkill" type="CanvasLayer" parent="CanvasLayers" unique_id=275075242]
+script = ExtResource("31_urnot")
+separateSkillScene = ExtResource("31_dp0eu")
+
+[node name="VContainer" type="VBoxContainer" parent="CanvasLayers/AdditionSkill" unique_id=1714008358]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = 80.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 81

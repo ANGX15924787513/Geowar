@@ -1,4 +1,5 @@
 using Godot;
+using static TayTool;
 
 public partial class FallItemRoot : Node2D
 {
@@ -46,9 +47,10 @@ public partial class FallItemRoot : Node2D
 	private void SpawnHealPck()
 	{
 		var pck = healPackageScene.Instantiate<Node2D>();
-		pck.GlobalPosition = new Vector2(
-			(float)GD.RandRange(gameManager.gameAreaX.X,gameManager.gameAreaX.Y),
-			(float)GD.RandRange(gameManager.gameAreaY.X,gameManager.gameAreaY.Y));
+		var pos = new Vector2(
+				(float)GD.RandRange(gameManager.gameAreaX.X,gameManager.gameAreaX.Y),
+				(float)GD.RandRange(gameManager.gameAreaY.X,gameManager.gameAreaY.Y));
+		pck.GlobalPosition = pos;
 		AddChild(pck);
 	}
 

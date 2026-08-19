@@ -13,7 +13,7 @@ public partial class ShowGet : Node2D
 	public override void _Ready()
 	{
 		dataManager = GetNode<DataManager>("/root/DataManager");
-		gameData = GetNode<SingleGameData>("/root/mainGame/SingleGameData");
+		gameData = GetNode<SingleGameData>("/root/mainGame/CanvasLayers/SingleGameData");
 
 		ironLabel    = GetNode<Label>("ironLabel");
 		goldLabel    = GetNode<Label>("goldLabel");
