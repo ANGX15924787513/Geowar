@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2nmfxmt2lov2"]
 
-[ext_resource type="Script" uid="uid://dygac78e354lb" path="res://scripts/mainGame/PolygonSync.cs" id="1_0o177"]
+[ext_resource type="Script" uid="uid://dygac78e354lb" path="res://scripts/main_game/player/polygon/PolygonSync.cs" id="1_0o177"]
 [ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_dtqjw"]
 
 [sub_resource type="Animation" id="Animation_0o177"]

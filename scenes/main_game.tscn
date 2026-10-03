@@ -1,37 +1,40 @@
 [gd_scene format=3 uid="uid://c8gl7y4f8qd2g"]
 
-[ext_resource type="Script" uid="uid://dyvmom5coralf" path="res://gdscripts/choose_char.gd" id="1_0rdsr"]
-[ext_resource type="Script" uid="uid://buxsrabtnjdbl" path="res://scripts/mainGame/MainGame.cs" id="1_70vka"]
+[ext_resource type="Script" uid="uid://1ffhlmlbtgsn" path="res://scripts/ChooseChar.cs" id="1_0rdsr"]
+[ext_resource type="Script" uid="uid://buxsrabtnjdbl" path="res://scripts/main_game/MainGame.cs" id="1_70vka"]
 [ext_resource type="PackedScene" uid="uid://lrp2pvwn6ve2" path="res://scenes/main/char_choose_card.tscn" id="1_s3esy"]
 [ext_resource type="AudioStream" uid="uid://dvajp1xahmdh1" path="res://sounds/UIAudioPack/minimize_005.ogg" id="2_2l77h"]
 [ext_resource type="PackedScene" uid="uid://tajp4pm82d5q" path="res://scenes/main/deathScreen.tscn" id="2_nqdth"]
+[ext_resource type="Script" uid="uid://dp8ropcpvckoa" path="res://scripts/main_game/ui/CustomImageViewer.cs" id="4_6vdpn"]
 [ext_resource type="AudioStream" uid="uid://i1rj58f1l8rq" path="res://sounds/UTSoundtrack/Start Menu - Toby Fox.mp3" id="6_6de02"]
-[ext_resource type="Script" uid="uid://ct86a66buuv87" path="res://scripts/mainGame/EnemySummoner.cs" id="6_wi4c7"]
+[ext_resource type="Script" uid="uid://ct86a66buuv87" path="res://scripts/main_game/enemy/EnemySummoner.cs" id="6_wi4c7"]
 [ext_resource type="PackedScene" uid="uid://sd77pd0hbw7p" path="res://scenes/main/enemy/pointEnemy.tscn" id="7_wi4c7"]
-[ext_resource type="Script" uid="uid://corc7m7ypb7j4" path="res://scripts/mainGame/DamageLabelRoot.cs" id="9_2l77h"]
-[ext_resource type="Script" uid="uid://btlw2mqpdsq48" path="res://scripts/mainGame/FallItemRoot.cs" id="9_wjob3"]
+[ext_resource type="Script" uid="uid://corc7m7ypb7j4" path="res://scripts/main_game/DamageLabelRoot.cs" id="9_2l77h"]
+[ext_resource type="Script" uid="uid://btlw2mqpdsq48" path="res://scripts/main_game/fall_item/FallItemRoot.cs" id="9_wjob3"]
 [ext_resource type="PackedScene" uid="uid://b345jokkxog21" path="res://scenes/main/damage_to_enemy.tscn" id="10_nqdth"]
 [ext_resource type="PackedScene" uid="uid://c1c1mydomi2c" path="res://scenes/main/fallItem/iron.tscn" id="10_vnsdt"]
 [ext_resource type="PackedScene" uid="uid://cp83onrujwcek" path="res://scenes/main/fallItem/gold.tscn" id="11_ikqpi"]
 [ext_resource type="AudioStream" uid="uid://tg10ron1lt7m" path="res://sounds/DTSoundtrack/Rude Buster - Toby Fox.mp3" id="11_o6v7o"]
 [ext_resource type="PackedScene" uid="uid://c6emv2lm5otyl" path="res://scenes/main/fallItem/diamond.tscn" id="12_5luka"]
 [ext_resource type="PackedScene" uid="uid://bjugu22p6olmn" path="res://scenes/main/fallItem/heal_package.tscn" id="12_wdxbp"]
-[ext_resource type="Script" uid="uid://c4yth4rc4v3ve" path="res://scripts/mainGame/FightBgMusic.cs" id="12_wjob3"]
+[ext_resource type="Script" uid="uid://c4yth4rc4v3ve" path="res://scripts/main_game/ui/FightBgMusic.cs" id="12_wjob3"]
 [ext_resource type="PackedScene" uid="uid://d1ewvy50hhwal" path="res://scenes/main/fallItem/emerald.tscn" id="13_yu8cv"]
 [ext_resource type="PackedScene" uid="uid://bnagdambsylcw" path="res://scenes/main/enemy/lineEnemy.tscn" id="15_on6n6"]
-[ext_resource type="Script" uid="uid://c6wp0vcf0tdho" path="res://scripts/mainGame/FightEnvironment.cs" id="16_cybgu"]
+[ext_resource type="Script" uid="uid://c6wp0vcf0tdho" path="res://scripts/main_game/FightEnvironment.cs" id="16_cybgu"]
 [ext_resource type="PackedScene" uid="uid://dhuwldck3gq2v" path="res://scenes/main/enemy/SuperLight.tscn" id="16_x3ega"]
 [ext_resource type="PackedScene" uid="uid://cnkst3k2a5ebt" path="res://scenes/main/ingame_data.tscn" id="18_5luka"]
 [ext_resource type="AudioStream" uid="uid://bmniwg7bi2veq" path="res://sounds/DTSoundtrack/Ruder Buster - Toby Fox.mp3" id="18_5wboo"]
 [ext_resource type="AudioStream" uid="uid://cd8b0ttlrsfa5" path="res://sounds/UTSoundtrack/Heartache - Toby Fox.mp3" id="19_6de02"]
 [ext_resource type="Texture2D" uid="uid://d1lgxxchtfwvl" path="res://texture/cursor.svg" id="20_ibnub"]
-[ext_resource type="Script" uid="uid://prsvneeee8fl" path="res://scripts/mainGame/Cursor.cs" id="20_yu8cv"]
+[ext_resource type="Script" uid="uid://prsvneeee8fl" path="res://scripts/main_game/ui/Cursor.cs" id="20_yu8cv"]
 [ext_resource type="PackedScene" uid="uid://c35lscg8wiw0y" path="res://scenes/main/pause_screen.tscn" id="24_cybgu"]
-[ext_resource type="Script" uid="uid://caxl8s3rge8q6" path="res://gdscripts/mainGame/mobile_joystick.gd" id="26_307no"]
+[ext_resource type="Script" uid="uid://djk32on0saxdi" path="res://scripts/main_game/ui/MobileJoystick.cs" id="26_307no"]
 [ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="27_rr87q"]
 [ext_resource type="PackedScene" uid="uid://g1r6hft3iwp4" path="res://scenes/main/difficulty_display.tscn" id="30_rr87q"]
 [ext_resource type="PackedScene" uid="uid://ci61ihj051dxg" path="res://scenes/main/skill_box.tscn" id="31_dp0eu"]
-[ext_resource type="Script" uid="uid://p8gkw5mhl2ws" path="res://scripts/mainGame/AdditionSkillManager.cs" id="31_urnot"]
+[ext_resource type="Texture2D" uid="uid://dj2fov018t4q6" path="res://texture/UICursor/tile_0057.png" id="31_jmxl0"]
+[ext_resource type="Script" uid="uid://p8gkw5mhl2ws" path="res://scripts/main_game/skill/AdditionSkillManager.cs" id="31_urnot"]
+[ext_resource type="Script" uid="uid://0ug424ai2coc" path="res://scripts/main_game/GlobalCamera.cs" id="33_4e2rb"]
 
 [sub_resource type="Animation" id="Animation_s3esy"]
 length = 0.001
@@ -332,6 +335,8 @@ outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0.41568628, 0.75686276, 1, 1)
 shadow_offset = Vector2(0, 0)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvhbo"]
+
 [node name="mainGame" type="Control" unique_id=431242745]
 layout_mode = 3
 anchors_preset = 0
@@ -349,11 +354,12 @@ stream = ExtResource("2_2l77h")
 [node name="TextureRect" type="TextureRect" parent="." unique_id=65408965]
 z_index = -10
 layout_mode = 0
-offset_left = -4134.0
-offset_top = -2973.0
-offset_right = 5145.0
-offset_bottom = 3118.0
+offset_left = -3159.0
+offset_top = -2005.0
+offset_right = 4084.0
+offset_bottom = 2014.0
 texture = SubResource("GradientTexture2D_wvhbo")
+script = ExtResource("4_6vdpn")
 
 [node name="chooseChar" type="Control" parent="." unique_id=1742858920]
 anchors_preset = 0
@@ -417,6 +423,7 @@ position = Vector2(20, 20)
 shape = SubResource("WorldBoundaryShape2D_70vka")
 
 [node name="Line2D" type="Line2D" parent="Wall" unique_id=1441219329]
+modulate = Color(1, 1, 1, 0.6901961)
 points = PackedVector2Array(-1719, -1052, -1724, 1136, 2671, 1136, 2670, -1048)
 closed = true
 width = 60.88
@@ -474,7 +481,6 @@ lockRange = 200.0
 [node name="PauseScreen" parent="CanvasLayers" unique_id=1664483136 instance=ExtResource("24_cybgu")]
 
 [node name="MobileJoystick" type="CanvasLayer" parent="CanvasLayers" unique_id=480617292]
-visible = false
 script = ExtResource("26_307no")
 
 [node name="Control" type="Control" parent="CanvasLayers/MobileJoystick" unique_id=255498514]
@@ -500,6 +506,7 @@ alignment = 2
 
 [node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayers/MobileJoystick/Control/VBoxContainer" unique_id=1418135573]
 layout_mode = 2
+joystick_mode = 2
 action_left = &"player_left"
 action_right = &"player_right"
 action_up = &"player_up"
@@ -508,6 +515,34 @@ action_down = &"player_down"
 [node name="Label" type="Label" parent="CanvasLayers/MobileJoystick/Control/VBoxContainer" unique_id=1415180521]
 layout_mode = 2
 text = "移动"
+label_settings = SubResource("LabelSettings_dp0eu")
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayers/MobileJoystick/Control" unique_id=116910953]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -259.0
+offset_top = -158.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 57
+alignment = 2
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayers/MobileJoystick/Control/VBoxContainer2" unique_id=600422789]
+texture_filter = 1
+position = Vector2(78, 18)
+scale = Vector2(5.9999967, 5.538456)
+texture_normal = ExtResource("31_jmxl0")
+shape = SubResource("CircleShape2D_wvhbo")
+action = "player_launch_bullet"
+
+[node name="Label" type="Label" parent="CanvasLayers/MobileJoystick/Control/VBoxContainer2" unique_id=240662307]
+layout_mode = 2
+text = "射击"
 label_settings = SubResource("LabelSettings_dp0eu")
 horizontal_alignment = 1
 
@@ -527,3 +562,7 @@ offset_top = 80.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 81
+
+[node name="GlobalCamera" type="Camera2D" parent="." unique_id=974698148]
+limit_smoothed = true
+script = ExtResource("33_4e2rb")

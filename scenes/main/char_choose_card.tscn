@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://lrp2pvwn6ve2"]
 
-[ext_resource type="Script" uid="uid://bbhvjew7dsjix" path="res://scripts/mainGame/CharChooseCard.cs" id="1_aeyky"]
-[ext_resource type="Script" uid="uid://7ctb0v1k5b0e" path="res://gdscripts/mainGame/cccard_lock_handler.gd" id="1_ysn4h"]
+[ext_resource type="Script" uid="uid://bbhvjew7dsjix" path="res://scripts/main_game/choose_card/CharChooseCard.cs" id="1_aeyky"]
+[ext_resource type="Script" uid="uid://dnfl5i4ib5cxf" path="res://scripts/main_game/choose_card/CccardLockHandler.cs" id="1_ysn4h"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="2_ysn4h"]
 [ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="4_q30u0"]
 

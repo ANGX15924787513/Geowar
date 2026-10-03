@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b76ghxiqaoxsn"]
 
 [ext_resource type="Texture2D" uid="uid://bfmwh34ogk6p8" path="res://texture/circle_particle.svg" id="1_f84aj"]
-[ext_resource type="Script" uid="uid://owyg07fab3ek" path="res://scripts/mainGame/PointParticle.cs" id="2_efu8s"]
+[ext_resource type="Script" uid="uid://owyg07fab3ek" path="res://scripts/main_game/player/point/PointParticle.cs" id="2_efu8s"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_iy5o8"]
 particles_animation = true

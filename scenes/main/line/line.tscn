@@ -1,8 +1,41 @@
 [gd_scene format=3 uid="uid://b4cxtj8en4gsm"]
 
-[ext_resource type="Script" uid="uid://dhj43hf1dgloe" path="res://scripts/mainGame/Line.cs" id="1_nhty8"]
+[ext_resource type="Script" uid="uid://dhj43hf1dgloe" path="res://scripts/main_game/player/line/Line.cs" id="1_nhty8"]
 [ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="2_e8ajl"]
 [ext_resource type="Texture2D" uid="uid://dna2kx1k42phd" path="res://texture/outcircle.svg" id="2_wkxmh"]
+[ext_resource type="Texture2D" uid="uid://bsag76etwq53m" path="res://texture/MCTexture/fire_sep.png" id="4_3jvx0"]
+
+[sub_resource type="Gradient" id="Gradient_hqura"]
+offsets = PackedFloat32Array(0, 0.72634274, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.96675193, 0.96675193, 0.96675193, 1, 1, 1, 1, 0.34509805)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rkbwy"]
+gradient = SubResource("Gradient_hqura")
+
+[sub_resource type="Curve" id="Curve_mt28x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7529138, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.6123189), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hqura"]
+curve = SubResource("Curve_mt28x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3jvx0"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2.575, 2, 1)
+angle_min = 150.00002
+angle_max = 210.00002
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 280.0
+initial_velocity_max = 320.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 99.99999
+linear_accel_max = 99.99999
+scale_min = 0.9
+scale_max = 1.1
+scale_curve = SubResource("CurveTexture_hqura")
+color_ramp = SubResource("GradientTexture1D_rkbwy")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ifow5"]
 radius = 10.2
@@ -12,7 +45,7 @@ height = 106.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4604811, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_hqura"]
+[sub_resource type="CurveTexture" id="CurveTexture_rkbwy"]
 curve = SubResource("Curve_3jvx0")
 
 [sub_resource type="Gradient" id="Gradient_wkxmh"]
@@ -32,7 +65,7 @@ gravity = Vector3(-168.2, 0, 0)
 scale_min = 0.099999994
 scale_max = 0.099999994
 color_ramp = SubResource("GradientTexture1D_wkxmh")
-alpha_curve = SubResource("CurveTexture_hqura")
+alpha_curve = SubResource("CurveTexture_rkbwy")
 
 [sub_resource type="Animation" id="Animation_g13rk"]
 length = 0.001
@@ -83,10 +116,20 @@ _data = {
 &"spawn": SubResource("Animation_nhty8")
 }
 
-[node name="line" type="Node2D" unique_id=253992808]
+[node name="line" type="Node2D" unique_id=253992808 node_paths=PackedStringArray("fireParticle")]
 modulate = Color(1, 1, 1, 0)
 script = ExtResource("1_nhty8")
 lightTex = ExtResource("2_e8ajl")
+fireParticle = NodePath("FireGPUParticles2D")
+
+[node name="FireGPUParticles2D" type="GPUParticles2D" parent="." unique_id=1475210687]
+process_mode = 4
+visible = false
+texture_filter = 1
+position = Vector2(0, 46)
+amount = 100
+texture = ExtResource("4_3jvx0")
+process_material = SubResource("ParticleProcessMaterial_3jvx0")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2002651965]
 collision_layer = 8

@@ -1,13 +1,17 @@
 [gd_scene format=3 uid="uid://bainbcjlw2tg8"]
 
-[ext_resource type="Script" uid="uid://dnqba7fvg54ux" path="res://gdscripts/mainMenu/setting.gd" id="1_31ui4"]
+[ext_resource type="Script" uid="uid://cuwpxkrqud672" path="res://scripts/main_menu/settings/SettingPanel.cs" id="1_hjk27"]
 [ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="1_scrng"]
-[ext_resource type="Script" uid="uid://bo5vomjphd7uk" path="res://gdscripts/mainMenu/fps.gd" id="2_31ui4"]
+[ext_resource type="Script" uid="uid://dc5r6vocuid4f" path="res://scripts/main_menu/settings/ui/Fps.cs" id="2_31ui4"]
+[ext_resource type="Theme" uid="uid://b8seujl4urdda" path="res://resources/setting_theme.tres" id="3_8iqn7"]
 [ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="3_o8tsb"]
 [ext_resource type="Texture2D" uid="uid://cdc5uwcq1a2yd" path="res://texture/MCTexture/emerald.png" id="4_ikx14"]
-[ext_resource type="Script" uid="uid://1mjfrbmoufn7" path="res://gdscripts/mainMenu/auto_aim_check_box.gd" id="4_o8tsb"]
+[ext_resource type="Script" uid="uid://i7gydlb4hbb8" path="res://scripts/main_menu/settings/ui/AutoAimCheckBox.cs" id="4_o8tsb"]
 [ext_resource type="FontFile" uid="uid://sfrfvp70mwee" path="res://fonts/BoutiqueBitmap7x7_1.7.ttf" id="5_50131"]
-[ext_resource type="Script" uid="uid://cbgj8q4xky56o" path="res://gdscripts/mainMenu/clear_data_button.gd" id="6_rawaq"]
+[ext_resource type="Script" uid="uid://dsktegjl4uvl5" path="res://scripts/main_menu/settings/CustomalizeBgImage.cs" id="5_bqguh"]
+[ext_resource type="Texture2D" uid="uid://nt3nsly4o8eh" path="res://texture/HMOSIcons/ic_public_folder.svg" id="6_bqguh"]
+[ext_resource type="Script" uid="uid://dbekpka1kbx0y" path="res://scripts/main_menu/settings/ui/ClearDataButton.cs" id="6_rawaq"]
+[ext_resource type="Texture2D" uid="uid://bmbn0cu8dnpuo" path="res://texture/HMOSIcons/ic_public_reset.svg" id="7_hjk27"]
 
 [sub_resource type="Gradient" id="Gradient_on5q8"]
 offsets = PackedFloat32Array(0, 0.2603878, 1)
@@ -20,10 +24,6 @@ fill_to = Vector2(0.988604, 0.54131055)
 [sub_resource type="Theme" id="Theme_rawaq"]
 default_font = ExtResource("1_scrng")
 default_font_size = 26
-
-[sub_resource type="Theme" id="Theme_scrng"]
-default_font = ExtResource("1_scrng")
-default_font_size = 18
 
 [sub_resource type="Animation" id="Animation_8iqn7"]
 length = 0.001
@@ -88,7 +88,7 @@ offset_left = -1153.0
 offset_right = -1153.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_31ui4")
+script = ExtResource("1_hjk27")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=83748761]
 layout_mode = 0
@@ -120,7 +120,7 @@ text = "辅助瞄准:"
 
 [node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer2" unique_id=1812329913]
 layout_mode = 2
-theme = SubResource("Theme_scrng")
+theme = ExtResource("3_8iqn7")
 text = "启用"
 script = ExtResource("4_o8tsb")
 
@@ -135,9 +135,112 @@ text = "使用自定义光标:"
 
 [node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer6" unique_id=1387538457]
 layout_mode = 2
-theme = SubResource("Theme_scrng")
+theme = ExtResource("3_8iqn7")
 text = "启用"
 script = ExtResource("4_o8tsb")
+
+[node name="CustomalizeBgImage" type="HBoxContainer" parent="VBoxContainer" unique_id=1432046628 node_paths=PackedStringArray("PathLabel", "PathEditor", "ResetButton", "AlphaSlider", "BlurSlider")]
+layout_mode = 2
+theme_override_constants/separation = 7
+script = ExtResource("5_bqguh")
+PathLabel = NodePath("Label2")
+PathEditor = NodePath("LineEdit")
+ResetButton = NodePath("Button2")
+AlphaSlider = NodePath("HSlider")
+BlurSlider = NodePath("HSlider2")
+
+[node name="Label" type="Label" parent="VBoxContainer/CustomalizeBgImage" unique_id=1675510075]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "自定义背景图像:"
+
+[node name="Label2" type="Label" parent="VBoxContainer/CustomalizeBgImage" unique_id=1191204084]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+theme_override_colors/font_shadow_color = Color(0.37027133, 0.56609184, 1, 0.57254905)
+theme_override_font_sizes/font_size = 20
+text = "路径:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/CustomalizeBgImage" unique_id=1705728448]
+custom_maximum_size = Vector2(300, -1)
+layout_mode = 2
+theme = ExtResource("3_8iqn7")
+theme_override_font_sizes/font_size = 8
+text = "C://Users/Administrator"
+alignment = 2
+expand_to_text_length = true
+flat = true
+select_all_on_focus = true
+
+[node name="Button" type="Button" parent="VBoxContainer/CustomalizeBgImage" unique_id=872199963]
+layout_mode = 2
+theme = ExtResource("3_8iqn7")
+text = "选择"
+icon = ExtResource("6_bqguh")
+icon_alignment = 2
+
+[node name="Button2" type="Button" parent="VBoxContainer/CustomalizeBgImage" unique_id=1027306959]
+layout_mode = 2
+theme = ExtResource("3_8iqn7")
+text = "重置"
+icon = ExtResource("7_hjk27")
+icon_alignment = 2
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/CustomalizeBgImage" unique_id=1746012855]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.02
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/CustomalizeBgImage/HSlider" unique_id=1238753403]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_rawaq")
+theme_override_colors/font_shadow_color = Color(0.16470589, 0.5764706, 0.57254905, 0.5411765)
+theme_override_font_sizes/font_size = 15
+text = "背景透明度"
+horizontal_alignment = 1
+
+[node name="HSlider2" type="HSlider" parent="VBoxContainer/CustomalizeBgImage" unique_id=1641037414]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+max_value = 10.0
+step = 0.5
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/CustomalizeBgImage/HSlider2" unique_id=610063596]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_rawaq")
+theme_override_colors/font_shadow_color = Color(0.79607844, 0.5764706, 0.57254905, 0.5411765)
+theme_override_font_sizes/font_size = 15
+text = "背景模糊度"
+horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=372563613]
 layout_mode = 2
@@ -160,7 +263,7 @@ text = "游戏中音乐随机变换"
 
 [node name="CheckBox" type="CheckBox" parent="VBoxContainer/GamingRand" unique_id=690036966]
 layout_mode = 2
-theme = SubResource("Theme_scrng")
+theme = ExtResource("3_8iqn7")
 text = "启用"
 
 [node name="FlowContainer4" type="HBoxContainer" parent="VBoxContainer" unique_id=119936210]
@@ -239,7 +342,7 @@ text = "FPS:"
 [node name="SpinBox" type="SpinBox" parent="VBoxContainer/FlowContainer" unique_id=738128656]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
-theme = SubResource("Theme_scrng")
+theme = ExtResource("3_8iqn7")
 min_value = 20.0
 max_value = 240.0
 value = 144.0
@@ -258,7 +361,7 @@ text = "禁用泛光"
 
 [node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer5" unique_id=1410549467]
 layout_mode = 2
-theme = SubResource("Theme_scrng")
+theme = ExtResource("3_8iqn7")
 text = "启用"
 
 [node name="FlowContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=2008823645]
@@ -272,7 +375,7 @@ text = "游戏时隐藏光标:"
 
 [node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer3" unique_id=13848820]
 layout_mode = 2
-theme = SubResource("Theme_scrng")
+theme = ExtResource("3_8iqn7")
 text = "启用"
 
 [node name="Button2" type="Button" parent="." unique_id=1075619314]
@@ -315,6 +418,11 @@ libraries/ = SubResource("AnimationLibrary_1s23a")
 [connection signal="toggled" from="VBoxContainer/FlowContainer2/CheckBox" to="VBoxContainer/FlowContainer2/CheckBox" method="_on_toggled"]
 [connection signal="toggled" from="VBoxContainer/FlowContainer6/CheckBox" to="." method="_on_using_custom_cursor_toggled"]
 [connection signal="toggled" from="VBoxContainer/FlowContainer6/CheckBox" to="VBoxContainer/FlowContainer6/CheckBox" method="_on_toggled"]
+[connection signal="text_submitted" from="VBoxContainer/CustomalizeBgImage/LineEdit" to="VBoxContainer/CustomalizeBgImage" method="DgOnFileSelected"]
+[connection signal="pressed" from="VBoxContainer/CustomalizeBgImage/Button" to="VBoxContainer/CustomalizeBgImage" method="onChooseButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/CustomalizeBgImage/Button2" to="VBoxContainer/CustomalizeBgImage" method="OnResetButtonPressed"]
+[connection signal="value_changed" from="VBoxContainer/CustomalizeBgImage/HSlider" to="VBoxContainer/CustomalizeBgImage" method="OnAlphaSliderValueChanged"]
+[connection signal="value_changed" from="VBoxContainer/CustomalizeBgImage/HSlider2" to="VBoxContainer/CustomalizeBgImage" method="OnBlurSliderValueChanged"]
 [connection signal="toggled" from="VBoxContainer/GamingRand/CheckBox" to="." method="_on_gaming_rand_check_box_toggled"]
 [connection signal="toggled" from="VBoxContainer/GamingRand/CheckBox" to="VBoxContainer/GamingRand/CheckBox" method="_on_toggled"]
 [connection signal="value_changed" from="VBoxContainer/FlowContainer4/HSlider" to="." method="_on_player_attack_volume_changed"]

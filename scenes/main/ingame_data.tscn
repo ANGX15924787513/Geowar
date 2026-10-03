@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnkst3k2a5ebt"]
 
-[ext_resource type="Script" uid="uid://bh6ibypkyccqd" path="res://scripts/mainGame/SingleGameData.cs" id="1_o3jni"]
+[ext_resource type="Script" uid="uid://bh6ibypkyccqd" path="res://scripts/main_game/SingleGameData.cs" id="1_o3jni"]
 [ext_resource type="Script" uid="uid://gdsdtd32sye5" path="res://addons/RoundedPolygon2D/RoundedPolygon2D.gd" id="2_k6jpd"]
 [ext_resource type="Texture2D" uid="uid://b5mdscac6swe1" path="res://texture/MCTexture/iron_ingot.png" id="3_sg5kw"]
 [ext_resource type="Texture2D" uid="uid://oebgc03q7dk0" path="res://texture/MCTexture/gold_ingot.png" id="4_s20qc"]

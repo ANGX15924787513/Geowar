@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://crdufn10ly8us"]
 
-[ext_resource type="Script" uid="uid://qr2gvpaeiioj" path="res://scripts/mainGame/PointSync.cs" id="1_i68q0"]
+[ext_resource type="Script" uid="uid://qr2gvpaeiioj" path="res://scripts/main_game/player/point/PointSync.cs" id="1_i68q0"]
 [ext_resource type="Texture2D" uid="uid://dec7ilndm5gvd" path="res://texture/circle.svg" id="2_iy5o8"]
 [ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="2_qixb7"]
 [ext_resource type="PackedScene" uid="uid://b76ghxiqaoxsn" path="res://scenes/main/point/point_particle.tscn" id="2_xeava"]

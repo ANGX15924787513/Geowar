@@ -1,18 +1,19 @@
 [gd_scene format=3 uid="uid://ruwqfk8wsxbk"]
 
-[ext_resource type="Script" uid="uid://mkpii2byl06m" path="res://scripts/mainMenu/MainMenuRoot.cs" id="1_jk1qb"]
-[ext_resource type="Script" uid="uid://b470cy4afgd0n" path="res://gdscripts/mainMenu/line_destroy.gd" id="1_l6cm7"]
-[ext_resource type="Script" uid="uid://ycnmppcuqyt5" path="res://gdscripts/mainMenu/physic_show.gd" id="2_1ajci"]
+[ext_resource type="Script" uid="uid://mkpii2byl06m" path="res://scripts/main_menu/MainMenuRoot.cs" id="1_jk1qb"]
+[ext_resource type="Script" uid="uid://b8j6x41dn80vh" path="res://scripts/main_menu/LineDestroy.cs" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://dtanovj3s02ol" path="res://scripts/main_menu/PhysicShow.cs" id="2_1ajci"]
 [ext_resource type="Texture2D" uid="uid://cfpc7sdkqauwc" path="res://texture/title.png" id="2_flqon"]
-[ext_resource type="Script" uid="uid://b757ugdocq7vv" path="res://scripts/mainMenu/Title.cs" id="2_tbmy8"]
+[ext_resource type="Script" uid="uid://b757ugdocq7vv" path="res://scripts/main_menu/Title.cs" id="2_tbmy8"]
+[ext_resource type="Script" uid="uid://c84kusfcm0gpy" path="res://scripts/main_menu/CustomImageMenuViewer.cs" id="2_ym2r4"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="3_bqqt6"]
-[ext_resource type="Script" uid="uid://drpn5efi25mqb" path="res://scripts/mainMenu/MyButton.cs" id="3_wu84c"]
+[ext_resource type="Script" uid="uid://drpn5efi25mqb" path="res://scripts/main_menu/MyButton.cs" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://c8gl7y4f8qd2g" path="res://scenes/main_game.tscn" id="5_rtw2f"]
 [ext_resource type="AudioStream" uid="uid://dywhvmpdmwi8d" path="res://sounds/UIAudioPack/bong_001.ogg" id="6_jk1qb"]
 [ext_resource type="AudioStream" uid="uid://b25eimdkrod48" path="res://sounds/Skyscape - Plum - Melodic Artist.mp3" id="7_oa1go"]
 [ext_resource type="FontFile" uid="uid://sfrfvp70mwee" path="res://fonts/BoutiqueBitmap7x7_1.7.ttf" id="9_7b55j"]
 [ext_resource type="Texture2D" uid="uid://btd8udtshush4" path="res://texture/MCTexture/main_menu/item/acacia_boat.png" id="11_4o0s1"]
-[ext_resource type="Script" uid="uid://bpplu0nb8yhb1" path="res://gdscripts/mainMenu/lignt_with_cursor.gd" id="11_flqon"]
+[ext_resource type="Script" uid="uid://dmnoxbbh71a7k" path="res://scripts/main_menu/LigntWithCursor.cs" id="11_flqon"]
 [ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="11_lgwnu"]
 [ext_resource type="PackedScene" uid="uid://cf7ell5xwbmn7" path="res://scenes/main_menu_shop.tscn" id="12_flqon"]
 [ext_resource type="Texture2D" uid="uid://cluqymx0t8h2o" path="res://texture/MCTexture/main_menu/item/acacia_chest_boat.png" id="12_pdydv"]
@@ -782,7 +783,7 @@
 [ext_resource type="Texture2D" uid="uid://cnjgl24tokn74" path="res://texture/MCTexture/main_menu/item/zombie_spawn_egg.png" id="775_rhujp"]
 [ext_resource type="Texture2D" uid="uid://clbdmmipdydqs" path="res://texture/MCTexture/main_menu/item/zombie_villager_spawn_egg.png" id="776_vxgsn"]
 [ext_resource type="Texture2D" uid="uid://cklho4sppcppx" path="res://texture/MCTexture/main_menu/item/zombified_piglin_spawn_egg.png" id="777_n076q"]
-[ext_resource type="Script" uid="uid://l8olrvi7ja3n" path="res://gdscripts/mainMenu/menu_bg_music_player.gd" id="779_pdydv"]
+[ext_resource type="Script" uid="uid://ciftdt0kd57ow" path="res://scripts/main_menu/MenuBgMusicPlayer.cs" id="779_pdydv"]
 [ext_resource type="AudioStream" uid="uid://c3s3ebiwer40l" path="res://sounds/UTSoundtrack/Home - Toby Fox.mp3" id="780_halah"]
 [ext_resource type="AudioStream" uid="uid://twp7fj1spkhj" path="res://sounds/UTSoundtrack/Menu (Full) - Toby Fox.mp3" id="781_jrd63"]
 [ext_resource type="AudioStream" uid="uid://c0rc0is1d7n7r" path="res://sounds/UTSoundtrack/Undertale - Toby Fox.wav" id="782_ym2r4"]
@@ -1281,6 +1282,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+script = ExtResource("2_ym2r4")
 
 [node name="ThreeBody" parent="." unique_id=1842883317 instance=ExtResource("787_jrd63")]
 modulate = Color(1, 1, 1, 0)

@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://c35lscg8wiw0y"]
 
-[ext_resource type="Script" uid="uid://mi7gdox3gda" path="res://scripts/mainGame/PauseScreen.cs" id="1_85lkq"]
+[ext_resource type="Script" uid="uid://mi7gdox3gda" path="res://scripts/main_game/ui/PauseScreen.cs" id="1_85lkq"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="2_u6hs2"]
-[ext_resource type="Script" uid="uid://c4jp5gy0e2p50" path="res://gdscripts/mainGame/deathScrButtontoMainMenu.gd" id="3_qjelw"]
+[ext_resource type="Script" uid="uid://cji6tl15k16c2" path="res://scripts/main_game/ui/DeathScrButtontoMainMenu.cs" id="3_qjelw"]
 [ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="4_jx22d"]
 [ext_resource type="FontFile" uid="uid://8gke1x8rcymq" path="res://fonts/BoutiqueBitmap9x9_1.9.ttf" id="5_qjelw"]
 [ext_resource type="Texture2D" uid="uid://cfpc7sdkqauwc" path="res://texture/title.png" id="5_s104e"]
-[ext_resource type="Script" uid="uid://cxcy6d4t05xyq" path="res://gdscripts/mainGame/tip_label.gd" id="6_jx22d"]
+[ext_resource type="Script" uid="uid://wkxfyo628r4q" path="res://scripts/main_game/ui/TipLabel.cs" id="6_jx22d"]
 
 [sub_resource type="Animation" id="Animation_85lkq"]
 length = 0.001

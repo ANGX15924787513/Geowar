@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://sd77pd0hbw7p"]
 
-[ext_resource type="Script" uid="uid://dq0qsoxw1jfo4" path="res://scripts/mainGame/PointEnemy.cs" id="1_4rhja"]
+[ext_resource type="Script" uid="uid://dq0qsoxw1jfo4" path="res://scripts/main_game/enemy/point/PointEnemy.cs" id="1_4rhja"]
 [ext_resource type="Texture2D" uid="uid://dec7ilndm5gvd" path="res://texture/circle.svg" id="1_hsjov"]
 [ext_resource type="AudioStream" uid="uid://3br2pk5nnep6" path="res://sounds/MCSound/anvil_land.ogg" id="2_jrr11"]
 [ext_resource type="PackedScene" uid="uid://b76ghxiqaoxsn" path="res://scenes/main/point/point_particle.tscn" id="3_wbkv8"]

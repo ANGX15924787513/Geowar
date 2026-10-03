@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dxw2hkjokuql6"]
+
+[ext_resource type="Texture2D" uid="uid://bsag76etwq53m" path="res://texture/MCTexture/fire_sep.png" id="1_403pr"]
+
+[sub_resource type="Gradient" id="Gradient_hqura"]
+offsets = PackedFloat32Array(0, 0.72634274, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.96675193, 0.96675193, 0.96675193, 1, 1, 1, 1, 0.34509805)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rkbwy"]
+gradient = SubResource("Gradient_hqura")
+
+[sub_resource type="Curve" id="Curve_mt28x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7529138, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.6123189), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hqura"]
+curve = SubResource("Curve_mt28x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_403pr"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2.575, 2, 1)
+angle_min = 150.00002
+angle_max = 210.00002
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 280.0
+initial_velocity_max = 320.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 99.99999
+linear_accel_max = 99.99999
+scale_min = 0.9
+scale_max = 1.1
+scale_curve = SubResource("CurveTexture_hqura")
+color_ramp = SubResource("GradientTexture1D_rkbwy")
+
+[node name="GPUParticles2D" type="GPUParticles2D" unique_id=1640878304]
+texture_filter = 1
+emitting = false
+amount = 20
+texture = ExtResource("1_403pr")
+lifetime = 3.0
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_403pr")

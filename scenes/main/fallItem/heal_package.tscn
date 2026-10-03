@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bjugu22p6olmn"]
 
-[ext_resource type="Script" uid="uid://btr8esj16t11d" path="res://scripts/mainGame/fallItem/HealPackage.cs" id="1_8d78l"]
+[ext_resource type="Script" uid="uid://btr8esj16t11d" path="res://scripts/main_game/fall_item/HealPackage.cs" id="1_8d78l"]
 [ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="1_mmuij"]
 [ext_resource type="Texture2D" uid="uid://dn4xyibn7oo2t" path="res://texture/MCTexture/instant_health.png" id="1_tebs1"]
-[ext_resource type="Script" uid="uid://dg0h2ax07sxy8" path="res://gdscripts/mainGame/fallItemAni.gd" id="2_tebs1"]
+[ext_resource type="Script" uid="uid://b73bcwbwqvdu8" path="res://scripts/main_game/fall_item/FallItemAni.cs" id="2_tebs1"]
 [ext_resource type="Texture2D" uid="uid://dna2kx1k42phd" path="res://texture/outcircle.svg" id="5_scj8e"]
 
 [sub_resource type="Animation" id="Animation_q7k2m"]

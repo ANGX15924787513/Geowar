@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c6emv2lm5otyl"]
 
-[ext_resource type="Script" uid="uid://bu7cckgfhldae" path="res://scripts/mainGame/fallItem/Diamond.cs" id="1_hdbro"]
+[ext_resource type="Script" uid="uid://bu7cckgfhldae" path="res://scripts/main_game/fall_item/Diamond.cs" id="1_hdbro"]
 [ext_resource type="Texture2D" uid="uid://chhxvq6rm8nbe" path="res://texture/MCTexture/diamond.png" id="2_1j5ib"]
-[ext_resource type="Script" uid="uid://dg0h2ax07sxy8" path="res://gdscripts/mainGame/fallItemAni.gd" id="3_1j5ib"]
+[ext_resource type="Script" uid="uid://b73bcwbwqvdu8" path="res://scripts/main_game/fall_item/FallItemAni.cs" id="3_1j5ib"]
 [ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="3_2yjhb"]
 [ext_resource type="Texture2D" uid="uid://dna2kx1k42phd" path="res://texture/outcircle.svg" id="5_kan15"]
 

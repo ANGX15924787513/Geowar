@@ -54,7 +54,6 @@ enabled=PackedStringArray("res://addons/RoundedPolygon2D/plugin.cfg", "res://add
 [file_customization]
 
 folder_colors={
-"res://gdscripts/": "purple",
 "res://scenes/": "red",
 "res://scripts/": "green",
 "res://sounds/": "yellow",
@@ -126,6 +125,10 @@ pre_launch_bullet={
 ]
 }
 
+[internationalization]
+
+locale/include_text_server_data=true
+
 [layer_names]
 
 2d_physics/layer_1="墻"
@@ -140,3 +143,4 @@ pre_launch_bullet={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true

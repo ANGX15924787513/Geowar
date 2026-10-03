@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using Godot.Collections;
 
 public static partial class TayTool
@@ -16,7 +15,7 @@ public static partial class TayTool
         return closest;
     }
     
-    public static void CollideLight(Vector2 position,Color color,SceneTree tree,Texture2D lightTex = null)
+    public static void CollideLight(Vector2 position,Color color,SceneTree tree,Texture2D lightTex = null,float distMult = 1)
     {
         if (lightTex == null)
         {
@@ -34,7 +33,7 @@ public static partial class TayTool
         Tween tw2 = tree.CreateTween();
         Tween tw3 = tree.CreateTween();
         tw.TweenProperty(light,"texture_scale",0.02f,duration);
-        tw2.TweenProperty(light,"position",light.Position + new Vector2(GD.Randf() - 0.5f, GD.Randf() - 0.5f) * 300,duration);
+        tw2.TweenProperty(light,"position",light.Position + new Vector2(GD.Randf() - 0.5f, GD.Randf() - 0.5f) * (300 * distMult),duration);
         tw3.TweenProperty(light,"modulate",new Color(1, 1, 1, 0.5f), duration);
         tree.CreateTimer(duration).Timeout += light.QueueFree;
     }

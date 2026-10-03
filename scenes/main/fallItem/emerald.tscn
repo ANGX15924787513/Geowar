@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://d1ewvy50hhwal"]
 
-[ext_resource type="Script" uid="uid://40ud3qp13lmr" path="res://scripts/mainGame/fallItem/Emerald.cs" id="1_jcbps"]
+[ext_resource type="Script" uid="uid://40ud3qp13lmr" path="res://scripts/main_game/fall_item/Emerald.cs" id="1_jcbps"]
 [ext_resource type="Texture2D" uid="uid://cdc5uwcq1a2yd" path="res://texture/MCTexture/emerald.png" id="2_srg2t"]
 [ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="3_a2je4"]
-[ext_resource type="Script" uid="uid://dg0h2ax07sxy8" path="res://gdscripts/mainGame/fallItemAni.gd" id="3_srg2t"]
+[ext_resource type="Script" uid="uid://b73bcwbwqvdu8" path="res://scripts/main_game/fall_item/FallItemAni.cs" id="3_srg2t"]
 
 [node name="Emerald" type="Node2D" unique_id=2023539307 node_paths=PackedStringArray("Anim")]
 script = ExtResource("1_jcbps")
