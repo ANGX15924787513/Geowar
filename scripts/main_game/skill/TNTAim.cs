@@ -2,7 +2,7 @@ using Godot;
 
 public partial class TNTAim : TextureRect
 {
-    private static int counter = 0;
+    private static int counter;
     public Enemy aimNode;
     private float time;
 
@@ -39,10 +39,7 @@ public partial class TNTAim : TextureRect
         //爆炸
         GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.boomSound,0.8f);
         if (IsInstanceValid(aimNode)) aimNode.Hurt(9999999,null);
-        for (int i = 0; i < 50; i++)
-        {
-            TayTool.CollideLight(Position, Colors.Red, GetTree(),null,10f);
-        }
+        TayTool.CollideLight(Position, Colors.Red, GetTree(),50,10f);
         QueueFree();
     }
 }

@@ -2,6 +2,13 @@ using Godot;
 
 public partial class SignalManager : Node
 {
+    public static SignalManager Instance { get; private set; }
+
+    public override void _Ready()
+    {
+        Instance = this;
+    }
+
     [Signal] public delegate void OnCardOutEventHandler();
     [Signal] public delegate void OnBulletDestroyedEventHandler();
     [Signal] public delegate void OnPlayerHealthChangedEventHandler(int damage, int health, int maxHealth);

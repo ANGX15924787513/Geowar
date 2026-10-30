@@ -1,7 +1,8 @@
 using Godot;
 
-public partial class MyButton : Control
+public partial class MenuButtons : Control
 {
+	public static MenuButtons Instance;
 	[Export] private AudioStream switchSound;
 	private AudioStreamPlayer audioPlayer;
 	private Node transition;
@@ -14,6 +15,9 @@ public partial class MyButton : Control
 		AddChild(audioPlayer);
 		transition = GetNode("/root/EasyTransition");
 	}
+
+	public override void _EnterTree() => Instance = this;
+	public override void _ExitTree() => Instance = null;
 
 	private void _on_exit_button_pressed()
 	{

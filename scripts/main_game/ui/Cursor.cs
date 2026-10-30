@@ -4,8 +4,6 @@ public partial class Cursor : Sprite2D
 {
 	public static Cursor Instance { get; private set; }
 
-	private GameManager gameManager;
-	private DataManager dataManager;
 	private Node2D _enemyRoot;
 
 	[Export] private float normalScale = 0.5f;
@@ -28,9 +26,12 @@ public partial class Cursor : Sprite2D
 	public override void _Ready()
 	{
 		Instance = this;
-		gameManager = GetNode<GameManager>("/root/GameManager");
-		dataManager = GetNode<DataManager>("/root/DataManager");
-		isAutoAim = dataManager.GetBoolConfig("auto_aim");
+		isAutoAim = DataManager.Instance.GetBoolConfig("auto_aim");
+		// if(OS.GetName()=="Android" || OS.GetName()== "iOS")
+		// {
+		// 	isAutoAim = false;
+		// 	Visible = false;
+		// }
 		Scale = Vector2.One * _currentScale;
 	}
 
@@ -43,7 +44,7 @@ public partial class Cursor : Sprite2D
 	{
 		float dt = (float)delta;
 
-		if (gameManager.gameState != GameManager.GameState.GAMING)
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING)
 		{
 			Visible = false;
 			return;
@@ -83,13 +84,25 @@ public partial class Cursor : Sprite2D
 
 		if (_enemyRoot != null)
 		{
-			foreach (var child in _enemyRoot.GetChildren())
+			Vector2 mousePos = new Vector2();
+			if (GameManager.Instance.isMobile)
 			{
+				var pos = GameManager.Instance.GetLastPressedPosition();
+				if (pos.HasValue) mousePos = pos.Value;
+			}
+			else
+			{
+				mousePos = GetGlobalMousePosition();
+			}
+			int childCount = _enemyRoot.GetChildCount();
+			for (int i = 0; i < childCount; i++)
+			{
+				var child = _enemyRoot.GetChild(i);
 				if (child is not Node2D body) continue;
 				if (!body.IsInGroup("enemy")) continue;
 				if (!IsInstanceValid(body)) continue;
 
-				float dist = body.GlobalPosition.DistanceTo(GetGlobalMousePosition());
+				float dist = body.GlobalPosition.DistanceTo(mousePos);
 				if (dist < minDist)
 				{
 					minDist = dist;

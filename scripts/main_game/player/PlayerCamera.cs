@@ -7,9 +7,9 @@ public partial class PlayerCamera : Camera2D
     public static PlayerCamera Instance;
 
     // 抖动相关
-    private float _shakeTime = 0f;
-    private float _shakeDuration = 0f;
-    private float _shakeIntensity = 0f;
+    private float _shakeTime;
+    private float _shakeDuration;
+    private float _shakeIntensity;
 
     public override void _EnterTree()
     {

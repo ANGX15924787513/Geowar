@@ -18,11 +18,6 @@ public partial class Enemy : RigidBody2D
     public bool IsDead => health <= 0;
     protected bool _isDying;
     protected Node2D _targetPlayer;
-    public GameManager gameManager;
-    public SignalManager signalManager;
-    GlobalAudioPlayer globalAudioPlayer;
-    DataManager dataManager;
-
     [Export] private float _reactionTime = 0.8f;   // 反应间隔基准值
     [Export] private float _steeringForce = 2f;   // 转向力度基准值
     
@@ -47,10 +42,6 @@ public partial class Enemy : RigidBody2D
 
     public override void _Ready()
     {
-        gameManager = GetNode<GameManager>("/root/GameManager");
-        signalManager =  GetNode<SignalManager>("/root/SignalManager");
-        globalAudioPlayer =  GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
-        dataManager = GetNode<DataManager>("/root/DataManager");
         _targetPlayer = GetTree().GetFirstNodeInGroup("player") as Node2D;
         
         // 随机初始化：每个怪物的反应速度、惯性、移速、目标偏移都略有不同
@@ -62,7 +53,7 @@ public partial class Enemy : RigidBody2D
             GD.RandRange(-80, 80)
         );
         
-        MaxHealth += (int)(dataManager.GetUpgradeLevel("max_hp") * 0.3);
+        MaxHealth += (int)(DataManager.Instance.GetUpgradeLevel("max_hp") * 0.3);
         health = MaxHealth;
 
         _delayedTarget = GlobalPosition;
@@ -71,10 +62,10 @@ public partial class Enemy : RigidBody2D
 
     public override void _Process(double delta)
     {
-        if (gameManager.gameState == GameManager.GameState.GAMING && _fireTimer > 0)
+        if (GameManager.Instance.gameState == GameManager.GameState.GAMING && _fireTimer > 0)
         {
             _fireTimer -= (float)delta;
-        }else if (gameManager.gameState == GameManager.GameState.GAMING && _fireTimer < 0)
+        }else if (GameManager.Instance.gameState == GameManager.GameState.GAMING && _fireTimer < 0)
         {
             Hurt(_fireDamage,null,false,GlobalAudioPlayer.Instance.onFireSound);
             _fireTimer = firedCooldown;
@@ -87,7 +78,7 @@ public partial class Enemy : RigidBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (gameManager.gameState == GameManager.GameState.GAMING)
+        if (GameManager.Instance.gameState == GameManager.GameState.GAMING)
         {
                 MoveToPlayer((float)delta);
         }
@@ -99,7 +90,7 @@ public partial class Enemy : RigidBody2D
 
     private void MoveToPlayer(float delta)
     {
-        if (_targetPlayer == null)
+        if (!IsInstanceValid(_targetPlayer))
         {
             // 玩家不存在时停止移动，避免惯性滑行
             LinearVelocity = Vector2.Zero;
@@ -133,9 +124,9 @@ public partial class Enemy : RigidBody2D
     {
         if (damage <= 0) return;
         health = Mathf.Max(0, health - damage);
-        globalAudioPlayer.PlayAudio(attackSound ?? hurtSound,globalAudioPlayer.PlayerAttackVolume);
+        GlobalAudioPlayer.Instance.PlayAudio(attackSound ?? hurtSound,GlobalAudioPlayer.Instance.PlayerAttackVolume);
         if(isAtkBk && from != null) AttackBack(from);
-        signalManager.EmitSignal(SignalManager.SignalName.OnEnemyGotHurt, damage,GlobalPosition);
+        SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnEnemyGotHurt, damage,GlobalPosition);
     }
     
     private void AttackBack(Node2D from)
@@ -149,12 +140,12 @@ public partial class Enemy : RigidBody2D
     {
         if (_isDying) return;
         if (body is Player player)
-            player.Hurt(Damage + dataManager.GetUpgradeLevel("atk_hp") / 2,this);
+            player.Hurt(Damage + DataManager.Instance.GetUpgradeLevel("atk_hp") / 2,this);
     }
     
     protected void DiedHandler()
     {
-        if (gameManager.gameState != GameManager.GameState.GAMING) return;
+        if (GameManager.Instance.gameState != GameManager.GameState.GAMING) return;
         GetNode<Area2D>("Area2D").CollisionMask &= ~(uint)(1 << (3 - 1));
         RemoveFromGroup("enemy");
         CollisionLayer &= ~(uint)(1 << (3 - 1));
@@ -162,8 +153,8 @@ public partial class Enemy : RigidBody2D
         hideTn.TweenProperty(this, "modulate", new Color(Colors.White, 0), 0.2f);
         hideTn.Finished += () =>
         {
-            signalManager.EmitSignal(SignalManager.SignalName.OnEnemyDied);
-            signalManager.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition,(int)enemyType);
+            SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnEnemyDied);
+            SignalManager.Instance.EmitSignal(SignalManager.SignalName.RequestCollectionSpawn, GlobalPosition,(int)enemyType);
             QueueFree();
         };
     }

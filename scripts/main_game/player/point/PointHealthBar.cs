@@ -33,22 +33,21 @@ public partial class PointHealthBar : Line2D
 	[Export] public float shake_duration = 0.5f;
 	[Export] public float recover_speed = 3.0f;
 
-	private float shake_timer = 0.0f;
-	private bool is_shaking = false;
+	private float shake_timer;
+	private bool is_shaking;
 	private float[] _point_offsets;
 	private float[] _offset_velocities;
+	private Vector2[] _pts;
+	private Vector2[] _unitDir;
 
 	// 血量驱动
 	private float _hp_ratio = 1.0f;
 	private float _display_ratio = 1.0f;
 	private float _display_radius;
 
-	private SignalManager signalManager;
-
 	public override void _Ready()
 	{
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
-		signalManager.OnPlayerHealthChanged += on_player_got_hurt;
+		SignalManager.Instance.OnPlayerHealthChanged += on_player_got_hurt;
 		_display_radius = radius;
 		_display_ratio = 1.0f;
 		_init_offsets();
@@ -57,13 +56,20 @@ public partial class PointHealthBar : Line2D
 
 	public override void _ExitTree()
 	{
-		signalManager.OnPlayerHealthChanged -= on_player_got_hurt;
+		SignalManager.Instance.OnPlayerHealthChanged -= on_player_got_hurt;
 	}
 
 	private void _init_offsets()
 	{
 		Array.Resize(ref _point_offsets, point_count);
 		Array.Resize(ref _offset_velocities, point_count);
+		_pts = new Vector2[point_count];
+		_unitDir = new Vector2[point_count];
+		for (int i = 0; i < point_count; i++)
+		{
+			float angle = Mathf.DegToRad(360.0f * i / point_count);
+			_unitDir[i] = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+		}
 	}
 
 	public override void _Process(double delta)
@@ -93,7 +99,6 @@ public partial class PointHealthBar : Line2D
 
 	public override void _Draw()
 	{
-		var pts = new Vector2[point_count];
 		float r = _display_radius;
 		var half_alpha_red = Colors.Red;
 		half_alpha_red.A = 0.7f;
@@ -104,10 +109,9 @@ public partial class PointHealthBar : Line2D
 
 		for (int i = 0; i < point_count; i++)
 		{
-			float angle = Mathf.DegToRad(360.0f * i / point_count);
-			pts[i] = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (r + _point_offsets[i]);
+			_pts[i] = _unitDir[i] * (r + _point_offsets[i]);
 		}
-		Points = pts;
+		Points = _pts;
 	}
 
 	public Vector2 get_pos_in_circle_with_index(float r, int index)

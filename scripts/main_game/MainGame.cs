@@ -2,24 +2,22 @@ using Godot;
 
 public partial class MainGame : Control
 {
-	SignalManager signalManager;
 	AnimationPlayer animationPlayer;
 	[Export] public PackedScene deathScreenScene;
 
 	public override void _Ready()
 	{
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		GetNode<WorldEnvironment>("WorldEnvironment").Environment.GlowEnabled = !GameManager.Instance.glowDisabled;
-		signalManager.OnPlayerDied += OnPlayerDied;
-		signalManager.ShowDeathScreen += ShowDeathScreen;
+		SignalManager.Instance.OnPlayerDied += OnPlayerDied;
+		SignalManager.Instance.ShowDeathScreen += ShowDeathScreen;
 		animationPlayer.AnimationFinished += OnAnimationFinished;
 	}
 
 	public override void _ExitTree()
 	{
-		signalManager.OnPlayerDied -= OnPlayerDied;
-		signalManager.ShowDeathScreen -= ShowDeathScreen;
+		SignalManager.Instance.OnPlayerDied -= OnPlayerDied;
+		SignalManager.Instance.ShowDeathScreen -= ShowDeathScreen;
 		animationPlayer.AnimationFinished -= OnAnimationFinished;
 	}
 
@@ -31,7 +29,7 @@ public partial class MainGame : Control
 	private void OnAnimationFinished(StringName animName)
 	{
 		if (animName == "game_over")
-			signalManager.EmitSignal(SignalManager.SignalName.ShowDeathScreen);
+			SignalManager.Instance.EmitSignal(SignalManager.SignalName.ShowDeathScreen);
 	}
 
 	private void ShowDeathScreen()

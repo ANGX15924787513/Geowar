@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Entrance : Node2D
+public partial class Entrance : Control
 {
 	[Export] public PackedScene main_menu;
 

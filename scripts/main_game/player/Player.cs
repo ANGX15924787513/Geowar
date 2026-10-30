@@ -15,11 +15,6 @@ public partial class Player : RigidBody2D
 	public enum PlayerTypeEnum{POINT,LINE,POLYGON,NONE}
 	public PlayerTypeEnum currentPlayerType;
 
-	public GameManager gameManager;
-	public SignalManager signalManager;
-	public GlobalAudioPlayer globalAudioPlayer;
-	public DataManager dataManager;
-
 	protected int _hp;
 	protected float _fireRotationTimer;
 	private bool _isDead;
@@ -32,18 +27,14 @@ public partial class Player : RigidBody2D
 	public override void _Ready()
 	{
 		_hp = HP;
-		gameManager = GetNode<GameManager>("/root/GameManager");
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
-		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
-		dataManager =  GetNode<DataManager>("/root/DataManager");
 		os = OS.GetName();
-		signalManager.OnCardOut += AddCamera;
-		signalManager.OnPlayerDied += OnDie;
-		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged,0,CurrentHP,HP);
+		SignalManager.Instance.OnCardOut += AddCamera;
+		SignalManager.Instance.OnPlayerDied += OnDie;
+		SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged,0,CurrentHP,HP);
 		
 		SummonHpBar();
-		cs = 1 - dataManager.GetUpgradeLevel("camera_scale") * 0.1f;
-		gameManager.playerSpeed = 500;
+		cs = 1 - DataManager.Instance.GetUpgradeLevel("camera_scale") * 0.1f;
+		GameManager.Instance.playerSpeed = 500;
 	}
 
 	public override void _EnterTree()
@@ -55,22 +46,22 @@ public partial class Player : RigidBody2D
 	{
 		_hp = 0;
 		
-		signalManager.OnCardOut -= AddCamera;
-		signalManager.OnPlayerDied -= OnDie;
+		SignalManager.Instance.OnCardOut -= AddCamera;
+		SignalManager.Instance.OnPlayerDied -= OnDie;
 		Instance = null;
 	}
 
 	public override void _Process(double delta)
 	{
-		if (gameManager.gameState != GameManager.GameState.GAMING) return;
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING) return;
 		if (_fireRotationTimer > 0f)
 			_fireRotationTimer -= (float)delta;
 		if (hurtCooldown > 0f)
 			hurtCooldown -= (float)delta;
-		if (!_isDead && _hp <= 0 && gameManager.gameState == GameManager.GameState.GAMING)
+		if (!_isDead && _hp <= 0 && GameManager.Instance.gameState == GameManager.GameState.GAMING)
 		{
 			_isDead = true;
-			signalManager.EmitSignal(SignalManager.SignalName.OnPlayerDied);
+			SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnPlayerDied);
 		}
 	}
 
@@ -96,7 +87,7 @@ public partial class Player : RigidBody2D
 			AngularVelocity = (float)(velocity.Y / speed * rotateSpeed * Engine.TimeScale);
 	}
 
-	protected bool CanMove() => gameManager.gameState == GameManager.GameState.GAMING;
+	protected bool CanMove() => GameManager.Instance.gameState == GameManager.GameState.GAMING;
 
 	/// <summary> 游戏结束或不可移动时平滑减速直到停止 </summary>
 	protected void Decelerate(double delta)
@@ -108,7 +99,7 @@ public partial class Player : RigidBody2D
 	public void Hurt(int damage,Enemy from)
 	{
 		if (damage <= 0 || 
-		    gameManager.gameState != GameManager.GameState.GAMING || 
+		    GameManager.Instance.gameState != GameManager.GameState.GAMING || 
 		    hurtCooldown > 0 ||
 		    isInvincible
 		    ) return;
@@ -116,7 +107,7 @@ public partial class Player : RigidBody2D
 		playerCamera.Shake(20);
 		AttackBack(from);
 		_hp = Mathf.Max(0, _hp - damage);
-		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, -damage, _hp, HP);
+		SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, -damage, _hp, HP);
 	}
 
 	/// <summary>
@@ -132,10 +123,10 @@ public partial class Player : RigidBody2D
 
 	public void GotHeal(int heal)
 	{
-		if (heal <= 0 || gameManager.gameState != GameManager.GameState.GAMING) return;
-		// GD.Print($"治愈玩家 {heal} 点");
+		if (heal <= 0 || GameManager.Instance.gameState != GameManager.GameState.GAMING) return;
+		// TayTool.Log("玩家",$"治愈玩家 {heal} 点");
 		_hp = Mathf.Min(_hp + heal, HP);
-		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, heal, _hp, HP);
+		SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, heal, _hp, HP);
 	}
 
 	public int CurrentHP => _hp;
@@ -161,22 +152,22 @@ public partial class Player : RigidBody2D
 
 	public void OnDie()
 	{
-		GD.Print("游戏结束");
-		gameManager.gameState = GameManager.GameState.GAME_OVER;
+		TayTool.Log("玩家","游戏结束");
+		GameManager.Instance.gameState = GameManager.GameState.GAME_OVER;
 	}
 	
 	public void OnLifeSteal()
 	{
-		int ls = dataManager.GetUpgradeLevel("lifesteal");
+		int ls = DataManager.Instance.GetUpgradeLevel("lifesteal");
 		if (ls == 0 || _hp == HP) return;
 		int heal = Mathf.Max(1, ls * 1);
 		_hp = Mathf.Min(HP, _hp + heal);
-		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, heal, _hp, HP);
+		SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, heal, _hp, HP);
 	}
 	
 	public void OnHealthChanged(int change, int health, int maxHealth)
 	{
-		if (change < 0) globalAudioPlayer.PlayAudio(globalAudioPlayer.playerHurtSounds.PickRandom());
-		else if(change > 0) globalAudioPlayer.PlayAudio(globalAudioPlayer.playerHealingSound);
+		if (change < 0) GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.playerHurtSounds.PickRandom());
+		else if(change > 0) GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.playerHealingSound);
 	}
 }

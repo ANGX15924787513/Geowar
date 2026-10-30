@@ -27,18 +27,6 @@ default_font_size = 26
 
 [sub_resource type="Animation" id="Animation_8iqn7"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1153, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_bqguh"]
 resource_name = "enter_setting"
@@ -91,10 +79,11 @@ grow_vertical = 2
 script = ExtResource("1_hjk27")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=83748761]
-layout_mode = 0
-offset_left = -193.92809
-offset_right = 1150.0719
-offset_bottom = 925.0
+visible = false
+layout_mode = 1
+offset_left = -167.0
+offset_right = 1152.0
+offset_bottom = 648.0
 texture = SubResource("GradientTexture2D_50131")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1516741258]
@@ -380,16 +369,11 @@ text = "启用"
 
 [node name="Button2" type="Button" parent="." unique_id=1075619314]
 modulate = Color(1, 0.23921569, 0.3764706, 1)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -82.0
-offset_top = -24.0
-grow_horizontal = 0
-grow_vertical = 0
+layout_mode = 0
+offset_left = 1067.0
+offset_top = 618.0
+offset_right = 1149.0
+offset_bottom = 642.0
 theme_override_fonts/font = ExtResource("5_50131")
 text = "清除数据"
 flat = true
@@ -421,12 +405,13 @@ libraries/ = SubResource("AnimationLibrary_1s23a")
 [connection signal="text_submitted" from="VBoxContainer/CustomalizeBgImage/LineEdit" to="VBoxContainer/CustomalizeBgImage" method="DgOnFileSelected"]
 [connection signal="pressed" from="VBoxContainer/CustomalizeBgImage/Button" to="VBoxContainer/CustomalizeBgImage" method="onChooseButtonPressed"]
 [connection signal="pressed" from="VBoxContainer/CustomalizeBgImage/Button2" to="VBoxContainer/CustomalizeBgImage" method="OnResetButtonPressed"]
-[connection signal="value_changed" from="VBoxContainer/CustomalizeBgImage/HSlider" to="VBoxContainer/CustomalizeBgImage" method="OnAlphaSliderValueChanged"]
-[connection signal="value_changed" from="VBoxContainer/CustomalizeBgImage/HSlider2" to="VBoxContainer/CustomalizeBgImage" method="OnBlurSliderValueChanged"]
+[connection signal="drag_ended" from="VBoxContainer/CustomalizeBgImage/HSlider" to="VBoxContainer/CustomalizeBgImage" method="OnAlphaSliderDragEnded"]
+[connection signal="drag_ended" from="VBoxContainer/CustomalizeBgImage/HSlider2" to="VBoxContainer/CustomalizeBgImage" method="OnBlurSliderDragEnded"]
 [connection signal="toggled" from="VBoxContainer/GamingRand/CheckBox" to="." method="_on_gaming_rand_check_box_toggled"]
-[connection signal="toggled" from="VBoxContainer/GamingRand/CheckBox" to="VBoxContainer/GamingRand/CheckBox" method="_on_toggled"]
-[connection signal="value_changed" from="VBoxContainer/FlowContainer4/HSlider" to="." method="_on_player_attack_volume_changed"]
+[connection signal="drag_ended" from="VBoxContainer/FlowContainer4/HSlider" to="." method="_on_player_attack_volume_drag_ended"]
+[connection signal="drag_ended" from="VBoxContainer/mainMenuBgMusicVol/HSlider" to="." method="_on_mainmenu_bg_vol_slider_drag_ended"]
 [connection signal="value_changed" from="VBoxContainer/mainMenuBgMusicVol/HSlider" to="." method="_on_mainmenu_bg_vol_slider_value_changed"]
+[connection signal="drag_ended" from="VBoxContainer/GamingBgMusicVol/HSlider" to="." method="_on_gaming_bg_vol_slider_drag_ended"]
 [connection signal="value_changed" from="VBoxContainer/GamingBgMusicVol/HSlider" to="." method="_on_gaming_bg_vol_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/FlowContainer/SpinBox" to="VBoxContainer/FlowContainer/SpinBox" method="_on_value_changed"]
 [connection signal="toggled" from="VBoxContainer/FlowContainer5/CheckBox" to="." method="_on_glow_check_box_toggled"]

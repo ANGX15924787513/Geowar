@@ -1,7 +1,8 @@
 using Godot;
 
-public partial class Title : Sprite2D
+public partial class Title : TextureRect
 {
+    public static Title Instance;
     private Vector2 mousePos;
     private Vector2 selfPos;
     private AnimationPlayer animationPlayer;
@@ -14,6 +15,9 @@ public partial class Title : Sprite2D
         selfPos = GlobalPosition;
         animationPlayer = GetNode<AnimationPlayer>("../../AnimationPlayer");
     }
+    
+    public override void _EnterTree() => Instance = this;
+    public override void _ExitTree() => Instance = null;
 
     public override void _Process(double delta)
     {

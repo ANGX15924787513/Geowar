@@ -3,8 +3,6 @@ using Godot;
 public partial class FightBgMusic : AudioStreamPlayer
 {
 	[Export] AudioStream[] fightSounds;
-	public GameManager gameManager;
-	public SignalManager signalManager;
 	public static FightBgMusic Instance{get; private set;}
 
 	public override void _EnterTree()
@@ -14,14 +12,12 @@ public partial class FightBgMusic : AudioStreamPlayer
 
 	public override void _Ready()
 	{
-		gameManager = GetNode<GameManager>("/root/GameManager");
-		signalManager =  GetNode<SignalManager>("/root/SignalManager");
-		signalManager.OnCardOut += PlaySound;
+		SignalManager.Instance.OnCardOut += PlaySound;
 	}
 
 	public override void _ExitTree()
 	{
-		signalManager.OnCardOut -= PlaySound;
+		SignalManager.Instance.OnCardOut -= PlaySound;
 		Instance = null;
 	}
 
@@ -57,10 +53,10 @@ public partial class FightBgMusic : AudioStreamPlayer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (gameManager.gameState == GameManager.GameState.GAMING && GetStreamPaused())
+		if (GameManager.Instance.gameState == GameManager.GameState.GAMING && GetStreamPaused())
 		{
 			SetStreamPaused(false);
-		}else if (gameManager.gameState != GameManager.GameState.GAMING && !GetStreamPaused())
+		}else if (GameManager.Instance.gameState != GameManager.GameState.GAMING && !GetStreamPaused())
 		{
 			SetStreamPaused(true);
 		}

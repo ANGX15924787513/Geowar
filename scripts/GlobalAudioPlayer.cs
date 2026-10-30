@@ -21,7 +21,6 @@ public partial class GlobalAudioPlayer : Node
     System.Collections.Generic.Dictionary<AudioStream, AudioStreamPlayer> players = new();
     System.Collections.Generic.Dictionary<AudioStreamPlayer,float> fcSavedVolumes = new();
     
-    private DataManager dataManager;
     public static GlobalAudioPlayer Instance{get; private set;}
 
     public override void _Ready()
@@ -33,23 +32,22 @@ public partial class GlobalAudioPlayer : Node
         playerHealingSound = GD.Load<AudioStream>("res://sounds/MCSound/drink.ogg");
         boomSound = GD.Load<AudioStream>("res://sounds/MCSound/explode1.ogg");
         for (int i =1; i < 5; i++) { playerHurtSounds.Add(GD.Load<AudioStream>($"res://sounds/MCSound/villager/hit{i}.ogg")); }
-        dataManager = GetNode<DataManager>("/root/DataManager");
         
         VolumeInit();
     }
 
     private void VolumeInit()
     {
-        PlayerAttackVolume = dataManager.IsExistsSetting("player_attack_volume")
-            ? dataManager.GetFloatConfig("player_attack_volume")
+        PlayerAttackVolume = DataManager.Instance.IsExistsSetting("player_attack_volume")
+            ? DataManager.Instance.GetFloatConfig("player_attack_volume")
             : 0.6f;
 
-        menuBgVolume = dataManager.IsExistsSetting("mainmenu_bg_volume")
-            ? dataManager.GetFloatConfig("mainmenu_bg_volume")
+        menuBgVolume = DataManager.Instance.IsExistsSetting("mainmenu_bg_volume")
+            ? DataManager.Instance.GetFloatConfig("mainmenu_bg_volume")
             : 1f;
         
-        gamingBgVolume = dataManager.IsExistsSetting("gaming_bg_volume")
-            ? dataManager.GetFloatConfig("gaming_bg_volume")
+        gamingBgVolume = DataManager.Instance.IsExistsSetting("gaming_bg_volume")
+            ? DataManager.Instance.GetFloatConfig("gaming_bg_volume")
             : 1f;
     }
 
@@ -57,7 +55,7 @@ public partial class GlobalAudioPlayer : Node
     {
         if (stream == null)
         {
-            GD.PrintErr("音频流为空");
+            TayTool.Log("音频","音频流为空",TayTool.LogTypeEnum.Err);
             return;
         }
 

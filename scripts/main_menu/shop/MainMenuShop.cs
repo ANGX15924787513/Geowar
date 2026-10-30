@@ -6,13 +6,12 @@ using static Player;
 
 public partial class MainMenuShop : Control
 {
+	public static MainMenuShop Instance;
 	public enum ItemEnum { GOLD, DIAMOND, EMERALD, NONE }
 	public ItemEnum currentItemEnum;
 
 	private Line2D line2D;
 	private AnimationPlayer animationPlayer;
-	private DataManager dataManager;
-	private GlobalAudioPlayer globalAudioPlayer;
 
 	private Label _goldLabel, _diamondLabel, _emeraldLabel;
 
@@ -46,6 +45,7 @@ public partial class MainMenuShop : Control
 			new() { Id = "edge_atk",      Name = "磨刀石", Desc = "点可以磨死敌人了",                Price = 10,  MaxLevel = 1 ,addTo = PlayerTypeEnum.POINT},
 			new() { Id = "through",      Name = "一箭穿心", Desc = "线穿透 +2",                Price = 3,  MaxLevel = 5 ,addTo = PlayerTypeEnum.LINE},
 			new() { Id = "skill_tnt",      Name = "核弹支援", Desc = "随机呼叫火力支援! \n每90秒TNT轰炸全场",                Price = 15,  MaxLevel = 1 ,isSpecial = true},
+			new() { Id = "skill_collect_all_coins",      Name = "旋风吸入", Desc = "这下爽了 \n每30秒收集所有金币",                Price = 10,  MaxLevel = 1 ,isSpecial = true},
 		};
 
 		_catalog[ItemEnum.EMERALD] = new List<ShopItem>
@@ -56,10 +56,11 @@ public partial class MainMenuShop : Control
 		};
 	}
 
+	public override void _EnterTree() => Instance = this;
+	public override void _ExitTree() => Instance = null;
+
 	public override void _Ready()
 	{
-		dataManager = GetNode<DataManager>("/root/DataManager");
-		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
 		line2D = GetNode<Line2D>("Line2D");
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_grid = GetNode<HFlowContainer>("HFlowContainer");
@@ -110,17 +111,17 @@ public partial class MainMenuShop : Control
 		{
 			foreach (var b in a.Value)
 			{
-				current += dataManager.GetUpgradeLevel(b.Id);
+				current += DataManager.Instance.GetUpgradeLevel(b.Id);
 			}
 		}
 
 		if (total == 0)
 		{
-			GD.PrintErr("难度计算错误:总升级为0");
+			TayTool.Log("难度","难度计算错误: 总升级为 0",TayTool.LogTypeEnum.Err);
 			return 0;
 		}
 		GameManager.Instance.difficulty = (float)current / total;
-		GD.Print($"当前难度为:{(int)(GameManager.Instance.difficulty * 100 - GameManager.Instance.difficulty * 10000 % 100 * 0.01)}%");
+		TayTool.Log("难度",$"当前难度为: {(int)(GameManager.Instance.difficulty * 100 - GameManager.Instance.difficulty * 10000 % 100 * 0.01)}%");
 		return GameManager.Instance.difficulty;
 	}
 	/// <summary> 读档时把超出 MaxLevel 的脏数据修正 </summary>
@@ -129,9 +130,9 @@ public partial class MainMenuShop : Control
 		foreach (var (_, items) in _catalog)
 			foreach (var item in items)
 			{
-				int stored = dataManager.GetUpgradeLevel(item.Id);
+				int stored = DataManager.Instance.GetUpgradeLevel(item.Id);
 				if (stored > item.MaxLevel)
-					dataManager.SetUpgradeLevel(item.Id, item.MaxLevel);
+					DataManager.Instance.SetUpgradeLevel(item.Id, item.MaxLevel);
 			}
 	}
 
@@ -139,28 +140,28 @@ public partial class MainMenuShop : Control
 
 	private void OnExchangeGoldToDiamond(int count)
 	{
-		if (dataManager.playerData.GoldCurrency < 10 * count)
+		if (DataManager.Instance.playerData.GoldCurrency < 10 * count)
 		{
-			GD.Print("货币不足!");
+			TayTool.Log("商店","货币不足!",TayTool.LogTypeEnum.Err);
 			return;
 		}
-		dataManager.Spend(FallItem.FallItemType.GOLD, 10 * count);
-		dataManager.Add(FallItem.FallItemType.DIAMOND, 1 * count);
+		DataManager.Instance.Spend(FallItem.FallItemType.GOLD, 10 * count);
+		DataManager.Instance.Add(FallItem.FallItemType.DIAMOND, 1 * count);
 		RefreshDisplay();
-		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.buttonClickSound);
 	}
 
 	private void OnExchangeDiamondToEmerald(int count)
 	{
-		if (dataManager.playerData.DiamondCurrency < 10 * count)
+		if (DataManager.Instance.playerData.DiamondCurrency < 10 * count)
 		{
-			GD.Print("货币不足!");
+			TayTool.Log("商店","货币不足!",TayTool.LogTypeEnum.Err);
 			return;
 		}
-		dataManager.Spend(FallItem.FallItemType.DIAMOND, 10 * count);
-		dataManager.Add(FallItem.FallItemType.EMERALD, 1 * count);
+		DataManager.Instance.Spend(FallItem.FallItemType.DIAMOND, 10 * count);
+		DataManager.Instance.Add(FallItem.FallItemType.EMERALD, 1 * count);
 		RefreshDisplay();
-		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.buttonClickSound);
 	}
 
 	// ==================== 网格填充 ====================
@@ -175,7 +176,7 @@ public partial class MainMenuShop : Control
 			if (i < items.Count)
 			{
 				_sellItems[i].Visible = true;
-				int level = dataManager.GetUpgradeLevel(items[i].Id);
+				int level = DataManager.Instance.GetUpgradeLevel(items[i].Id);
 				_sellItems[i].Setup(items[i], level, OnBuyItem, OnSellItem);
 			}
 			else
@@ -200,14 +201,14 @@ public partial class MainMenuShop : Control
 			_                 => FallItem.FallItemType.GOLD,
 		};
 
-		if (!dataManager.Spend(currency, si.Item.Price))
+		if (!DataManager.Instance.Spend(currency, si.Item.Price))
 			return;
 
-		int newLevel = dataManager.GetUpgradeLevel(si.Item.Id) + 1;
-		dataManager.SetUpgradeLevel(si.Item.Id, newLevel);
+		int newLevel = DataManager.Instance.GetUpgradeLevel(si.Item.Id) + 1;
+		DataManager.Instance.SetUpgradeLevel(si.Item.Id, newLevel);
 		ApplyUpgrade(si.Item.Id, newLevel);
 
-		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.buttonClickSound);
 		si.CurrentLevel = newLevel;
 		si.Refresh();
 		RefreshDisplay();
@@ -230,11 +231,11 @@ public partial class MainMenuShop : Control
 		int refund = Mathf.Max(1, si.Item.Price / 2);
 
 		int newLevel = si.CurrentLevel - 1;
-		dataManager.SetUpgradeLevel(si.Item.Id, newLevel);
-		dataManager.Add(currency, refund);
+		DataManager.Instance.SetUpgradeLevel(si.Item.Id, newLevel);
+		DataManager.Instance.Add(currency, refund);
 		ApplyUpgrade(si.Item.Id, newLevel);
 
-		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.buttonClickSound);
 		si.CurrentLevel = newLevel;
 		si.Refresh();
 		RefreshDisplay();
@@ -258,9 +259,9 @@ public partial class MainMenuShop : Control
 
 	// ==================== UI ====================
 
-	private void RefreshDisplay()
+	public void RefreshDisplay()
 	{
-		PlayerData pdata = dataManager.playerData;
+		PlayerData pdata = DataManager.Instance.playerData;
 		_goldLabel.Text    = pdata.GoldCurrency > maxMoneyChar ? $"{maxMoneyChar}+" : pdata.GoldCurrency.ToString();
 		_diamondLabel.Text = pdata.DiamondCurrency > maxMoneyChar ? $"{maxMoneyChar}+" : pdata.DiamondCurrency.ToString();
 		_emeraldLabel.Text = pdata.EmeraldCurrency >  maxMoneyChar ? $"{maxMoneyChar}+" : pdata.EmeraldCurrency.ToString();
@@ -270,6 +271,7 @@ public partial class MainMenuShop : Control
 
 	private void UpdateLineRotation()
 	{
+		if (!_isInShop) return;
 		float target = currentItemEnum switch
 		{
 			ItemEnum.GOLD    => 7f,
@@ -282,38 +284,38 @@ public partial class MainMenuShop : Control
 	private void OnChangeButtonPressed()
 	{
 		if (animationPlayer.IsPlaying()) return;
-		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.buttonClickSound);
 		if (_isInShop)
 		{
 			animationPlayer.Play("exit_shop");
-			((CanvasItem)GetNode("../setting")).Visible = true;
 		}
 		else
 		{
 			RefreshDisplay();
 			animationPlayer.Play("enter_shop");
-			((CanvasItem)GetNode("../setting")).Visible = false;
 		}
 		_isInShop = !_isInShop;
+		SettingPanel.Instance.Visible = !_isInShop;
+		MainMenuRoot.Instance.SwitchCentreVisible(!_isInShop);
 	}
 
 	private void OnGoldButtonPressed()
 	{
-		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.buttonClickSound);
 		currentItemEnum = ItemEnum.GOLD;    
 		PopulateGrid();
 	}
 
 	private void OnDiamondButtonPressed()
 	{
-		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.buttonClickSound);
 		currentItemEnum = ItemEnum.DIAMOND; 
 		PopulateGrid();
 	}
 
 	private void OnEmeraldButtonPressed()
 	{
-		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
+		GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.buttonClickSound);
 		currentItemEnum = ItemEnum.EMERALD; 
 		PopulateGrid();
 	}

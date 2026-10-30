@@ -9,6 +9,10 @@ public partial class AdditionSkillManager : CanvasLayer
 	new() {
 		id = "skill_tnt", name = "TNT", desc = "比核弹强一点", cooldown = 90f,
 		iconPath = "res://texture/MCTexture/minecart_tnt.png" },
+	new() {
+		id = "skill_collect_all_coins", name = "旋风吸入", desc = "捐需~", cooldown = 30f,
+		iconPath = "res://texture/MCTexture/hopper.png" },
+	
 	];
 
 	public override void _Ready()

@@ -7,14 +7,11 @@ public partial class SingleGameData : CanvasLayer
 	public int goldCount;
 	public int diamondCount;
 	
-	private Label ironLabel;
-	private Label goldLabel;
-	private Label diamondLabel;
+	[Export]private Label ironLabel;
+	[Export]private Label goldLabel;
+	[Export]private Label diamondLabel;
 	
-	private AnimationPlayer animationPlayer;
-	
-	private SignalManager signalManager;
-	private GameManager gameManager;
+	[Export]private AnimationPlayer animationPlayer;
 	
 	public static SingleGameData Instance;
 	
@@ -24,21 +21,14 @@ public partial class SingleGameData : CanvasLayer
 	private float toHighTimer;
 	public override void _Ready()
 	{
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
-		gameManager = GetNode<GameManager>("/root/GameManager");
-		ironLabel = GetNode<Label>("ironLabel");
-		goldLabel = GetNode<Label>("goldLabel");
-		diamondLabel = GetNode<Label>("diamondLabel");
-		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-
-		currentDifficulty = gameManager.difficulty;
+		currentDifficulty = GameManager.Instance.difficulty;
 		toHighTimer = ToHighTime;
 		
 		ironLabel.Text = ironCount.ToString();
 		goldLabel.Text = goldCount.ToString();
 		diamondLabel.Text = diamondCount.ToString();
 
-		signalManager.OnCollectedItem += UpdateInfo;
+		SignalManager.Instance.OnCollectedItem += UpdateInfo;
 	}
 
 	public override void _EnterTree()
@@ -48,12 +38,12 @@ public partial class SingleGameData : CanvasLayer
 
 	public override void _ExitTree()
 	{
-		signalManager.OnCollectedItem -= UpdateInfo;
+		SignalManager.Instance.OnCollectedItem -= UpdateInfo;
 	}
 
 	public override void _Process(double delta)
 	{
-		if (gameManager.gameState != GameManager.GameState.GAMING)
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING)
 		{
 			Visible = false;
 		}
@@ -62,7 +52,7 @@ public partial class SingleGameData : CanvasLayer
 			Visible = true;
 			if (!(toHighTimer > 0)) return;
 			toHighTimer -= (float)delta;
-			currentDifficulty = gameManager.difficulty + (1 - gameManager.difficulty) * ((ToHighTime - toHighTimer) / ToHighTime);
+			currentDifficulty = GameManager.Instance.difficulty + (1 - GameManager.Instance.difficulty) * ((ToHighTime - toHighTimer) / ToHighTime);
 		}
 	}
 

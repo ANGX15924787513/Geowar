@@ -6,12 +6,8 @@ public partial class CharChooseCard : Line2D
 	private Label descriptionLabel;
 	private Button Button;
 	private int indexInContainer;
-	GameManager gameManager;
-	GlobalAudioPlayer globalAudioPlayer;
 	public override void _Ready()
 	{
-		gameManager = GetNode<GameManager>("/root/GameManager");
-		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
 		nameLabel = GetNode<Label>("nameLabel");
 		descriptionLabel = GetNode<Label>("descriptionLabel");
 		Button = GetNode<Button>("Button");
@@ -41,10 +37,10 @@ public partial class CharChooseCard : Line2D
 	{
 		var animationPlayer = GetNode<AnimationPlayer>("/root/mainGame/AnimationPlayer");
 		if (animationPlayer.IsPlaying()) return;
-		globalAudioPlayer.PlayAudio(globalAudioPlayer.buttonClickSound);
-		gameManager.playerType =  (GameManager.PlayerType)indexInContainer;
+		GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.buttonClickSound);
+		GameManager.Instance.playerType =  (GameManager.PlayerType)indexInContainer;
 		animationPlayer.Play("card_out");
-		gameManager.charChose = true;
-		gameManager.SummonPlayer(GetTree());
+		GameManager.Instance.charChose = true;
+		GameManager.Instance.SummonPlayer(GetTree());
 	}
 }

@@ -17,8 +17,9 @@ public partial class ChooseChar : Control
 		GameManager.Instance.gameState = GameManager.GameState.CHOOSE_CARD;
 	}
 
-	public void emit_card_out()
-	{
-		GetNode<SignalManager>("/root/SignalManager").EmitSignal(SignalManager.SignalName.OnCardOut);
-	}
+    public void emit_card_out()
+    {
+        SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnCardOut);
+    }
+
 }

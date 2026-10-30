@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class GameManager : Node
 {
@@ -13,6 +14,10 @@ public partial class GameManager : Node
         STARTING
     }
     [Export] public GameState gameState = GameState.STARTING;
+    [ExportGroup("Player Scenes")]
+    [Export] private PackedScene pointPlayerScene;
+    [Export] private PackedScene linePlayerScene;
+    [Export] private PackedScene polygonPlayerScene;
     
     [Signal] public delegate void OnGameStateChangeEventHandler(GameState newState);
     
@@ -23,7 +28,7 @@ public partial class GameManager : Node
 
     public bool glowDisabled;
     
-    public bool charChose { get; set; } = false;
+    public bool charChose { get; set; }
     public float playerSpeed = 500f;
     public float playerRotateSpeed = 1f;
     public float playerRebornTime = 0.2f;
@@ -53,33 +58,25 @@ public partial class GameManager : Node
     public int playerTypeCount = 3;
     
     public List<PackedScene> playerScene;
-    
-    public SignalManager signalManager;
-    public DataManager dataManager;
 
     private bool hideMouse;
     private GameState just;
     
-    private static readonly Vector2I originWindowSize = new(1880, 1080);
+    private static readonly Vector2I originWindowSize = new(1280, 720);
+    public bool isMobile;
 
     public override void _Ready()
     {
         ScreenInit();
-        GD.Print($"当前平台: {OS.GetName()}");
+        TayTool.Log("平台",$"当前平台: {OS.GetName()}");
+        isMobile = OS.GetName() == "Android" || OS.GetName() == "iOS";
         just = gameState;
-        GD.Print($"当前游戏状态: {gameState}");
+        TayTool.Log("状态",$"当前游戏状态: {gameState}");
         Instance = this;
-        playerScene =
-        [
-            GD.Load<PackedScene>("res://scenes/main/point/pointPlayer.tscn"), //Point
-            GD.Load<PackedScene>("res://scenes/main/line/linePlayer.tscn"), //Line
-            GD.Load<PackedScene>("res://scenes/main/polygon/polygonPlayer.tscn") //Polygon
-        ];
-        dataManager = GetNode<DataManager>("/root/DataManager");
-        signalManager = GetNode<SignalManager>("/root/SignalManager");
-
-        hideMouse = dataManager.GetBoolConfig("hide_mouse_playing");
-        glowDisabled = dataManager.GetBoolConfig("glow_disabled");
+        TayTool.Initialize();
+        playerScene = [pointPlayerScene,linePlayerScene,polygonPlayerScene];
+        hideMouse = DataManager.Instance.GetBoolConfig("hide_mouse_playing");
+        glowDisabled = DataManager.Instance.GetBoolConfig("glow_disabled");
     }
 
     private void ScreenInit()
@@ -109,7 +106,7 @@ public partial class GameManager : Node
 
         if (just != gameState)
         {
-            GD.Print($"游戏状态切换: {gameState}");
+            TayTool.Log("状态",$"游戏状态切换: {gameState}");
             EmitSignal(SignalName.OnGameStateChange, (int)gameState);
             just = gameState;   
         }
@@ -125,7 +122,7 @@ public partial class GameManager : Node
         tree.CurrentScene.AddChild(player);
         gameState = GameState.GAMING;
         charChose = false;
-        signalManager.EmitSignal(SignalManager.SignalName.OnCardOut);
+        SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnCardOut);
     }
     
     // 获取屏幕中央坐标（相对于当前视口）
@@ -138,5 +135,41 @@ public partial class GameManager : Node
     public void RefreshGlow()
     {
         GetNode<WorldEnvironment>("/root/mainMenu/WorldEnvironment").Environment.GlowEnabled = !glowDisabled;
+    }
+    
+    private Dictionary<int, Vector2> _activeTouches = new();
+    private int _lastPressedIndex = -1;
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventScreenTouch touch)
+        {
+            if (touch.Pressed)
+            {
+                _activeTouches[touch.Index] = touch.Position;
+                _lastPressedIndex = touch.Index;   // ← 记录最近按下
+            }
+            else
+            {
+                _activeTouches.Remove(touch.Index);
+                // 如果最后按下的那个抬起了，需要重新找一个
+                if (_lastPressedIndex == touch.Index)
+                    _lastPressedIndex = _activeTouches.Count > 0
+                        ? _activeTouches.Keys.Max()   // 或换成"最近按下的另一个"
+                        : -1;
+            }
+        }
+        else if (@event is InputEventScreenDrag drag)
+        {
+            _activeTouches[drag.Index] = drag.Position;
+        }
+    }
+
+    /// <summary> 获取最后开始触碰的点，没有则返回 null </summary>
+    public Vector2? GetLastPressedPosition()
+    {
+        if (_lastPressedIndex == -1) return null;
+        if (!_activeTouches.TryGetValue(_lastPressedIndex, out var pos)) return null;
+        return pos;
     }
 }

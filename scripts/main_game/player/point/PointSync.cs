@@ -17,11 +17,6 @@ public partial class PointSync : RigidBody2D
 	private Vector2 flySpeed;
 	private Node2D _homingTarget;
 	[Export] private float homingStrength = 3f; // 追踪转向力度
-	private SignalManager signalManager;
-	private GameManager gameManager;
-	private DataManager dataManager;
-
-	[Export] private CompressedTexture2D lightTex;
 	
 	private bool edgeAtkEnabled;
 
@@ -39,13 +34,10 @@ public partial class PointSync : RigidBody2D
 	
 	public override void _Ready()
 	{
-		gameManager =  GetNode<GameManager>("/root/GameManager");
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
-		dataManager = GetNode<DataManager>("/root/DataManager");
 		sprite = GetNode<Sprite2D>("Sprite2D");
 		collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
 		gpuParticles2D = GetNode<GpuParticles2D>("Sprite2D/GPUParticles2D");
-		edgeAtkEnabled = dataManager.GetUpgradeLevel("edge_atk") == 1;
+		edgeAtkEnabled = DataManager.Instance.GetUpgradeLevel("edge_atk") == 1;
 		SyncScale();
 	}
 
@@ -107,7 +99,7 @@ public partial class PointSync : RigidBody2D
 
 	private void OnBodyEntered(Node2D body)
 	{
-		if (gameManager.gameState != GameManager.GameState.GAMING) return;
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING) return;
 		if (body.IsInGroup("wall") && pointType == PointType.BULLET)
 		{
 			if (_safeDestTimer > 0) return;
@@ -123,16 +115,13 @@ public partial class PointSync : RigidBody2D
 				((Enemy)body).Hurt((int)(circleAttackHP + AttackBonus * 0.2f),this,false);
 			}
 
-			for (int i = 0; i < 10; i++)
-			{
-				TayTool.CollideLight((GlobalPosition + body.GlobalPosition)/2,Colors.Aqua,GetTree(),lightTex);
-			}
+			TayTool.CollideLight((GlobalPosition + body.GlobalPosition)/2,Colors.Aqua,GetTree());
 		}
 		void Destroy()
 		{
 			if (_isDestroyed) return;
 			_isDestroyed = true;
-			signalManager.EmitSignal("OnBulletDestroyed");
+			SignalManager.Instance.EmitSignal("OnBulletDestroyed");
 			QueueFree();
 		}
 	}

@@ -5,8 +5,9 @@
 [ext_resource type="AnimationLibrary" uid="uid://dl2xf38lxurau" path="res://animation/fallItemAni.res" id="3_3eafw"]
 [ext_resource type="Script" uid="uid://b73bcwbwqvdu8" path="res://scripts/main_game/fall_item/FallItemAni.cs" id="3_yt4de"]
 
-[node name="Gold" type="Node2D" unique_id=2023539307]
+[node name="Gold" type="Node2D" unique_id=2023539307 node_paths=PackedStringArray("Anim")]
 script = ExtResource("1_q8eyh")
+Anim = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345318038]
 texture_filter = 1

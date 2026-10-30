@@ -3,18 +3,16 @@ using Godot;
 public partial class HpBar : CanvasLayer
 {
 	private Label health_label;
-	private SignalManager signalManager;
 
 	public override void _Ready()
 	{
 		health_label = GetNode<Label>("Node2D/Label2");
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
-		signalManager.OnPlayerHealthChanged += on_player_health_changed;
+		SignalManager.Instance.OnPlayerHealthChanged += on_player_health_changed;
 	}
 
 	public override void _ExitTree()
 	{
-		signalManager.OnPlayerHealthChanged -= on_player_health_changed;
+		SignalManager.Instance.OnPlayerHealthChanged -= on_player_health_changed;
 	}
 
 	public override void _Process(double _delta)

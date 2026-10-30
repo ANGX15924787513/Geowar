@@ -2,29 +2,36 @@ using Godot;
 
 public partial class DifficultyDisplay : Control
 {
-	Polygon2D progressPolygon;
-	Polygon2D backgroundPolygon;
+	[Export]Polygon2D progressPolygon;
+	[Export]Polygon2D backgroundPolygon;
 
-	private Label label;
+	[Export]private Label label;
 	//0,1为右侧顶点
 	private float left, right;
 	
 	float difficulty;
 	public override void _Ready()
 	{
-		progressPolygon = GetNode<Polygon2D>("Background/Progress");
-		backgroundPolygon = GetNode<Polygon2D>("Background");
-		label = GetNode<Label>("Label");
 		left = backgroundPolygon.Polygon[3].X;
 		right = backgroundPolygon.Polygon[0].X;
 		difficulty = SingleGameData.Instance.currentDifficulty;
+		GameManager.Instance.OnGameStateChange += UpdateVisible;
 		OnTimeout();
 	}
-	
+
+	public override void _ExitTree()
+	{
+		GameManager.Instance.OnGameStateChange -= UpdateVisible;
+	}
+
+	private void UpdateVisible(GameManager.GameState newState)
+	{
+		Visible = newState == GameManager.GameState.GAMING;
+	}
+
 	public override void _Process(double delta)
 	{
 		difficulty = SingleGameData.Instance.currentDifficulty;
-		Visible = GameManager.Instance.gameState == GameManager.GameState.GAMING;
 		if (Visible)
 		{
 			ProgressUpdate();

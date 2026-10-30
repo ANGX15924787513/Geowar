@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://b757ugdocq7vv" path="res://scripts/main_menu/Title.cs" id="2_tbmy8"]
 [ext_resource type="Script" uid="uid://c84kusfcm0gpy" path="res://scripts/main_menu/CustomImageMenuViewer.cs" id="2_ym2r4"]
 [ext_resource type="Theme" uid="uid://hduyib3i4cgg" path="res://bold_font_theme.tres" id="3_bqqt6"]
-[ext_resource type="Script" uid="uid://drpn5efi25mqb" path="res://scripts/main_menu/MyButton.cs" id="3_wu84c"]
+[ext_resource type="Script" uid="uid://drpn5efi25mqb" path="res://scripts/main_menu/MenuButtons.cs" id="3_wu84c"]
 [ext_resource type="PackedScene" uid="uid://c8gl7y4f8qd2g" path="res://scenes/main_game.tscn" id="5_rtw2f"]
 [ext_resource type="AudioStream" uid="uid://dywhvmpdmwi8d" path="res://sounds/UIAudioPack/bong_001.ogg" id="6_jk1qb"]
 [ext_resource type="AudioStream" uid="uid://b25eimdkrod48" path="res://sounds/Skyscape - Plum - Melodic Artist.mp3" id="7_oa1go"]
@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://btd8udtshush4" path="res://texture/MCTexture/main_menu/item/acacia_boat.png" id="11_4o0s1"]
 [ext_resource type="Script" uid="uid://dmnoxbbh71a7k" path="res://scripts/main_menu/LigntWithCursor.cs" id="11_flqon"]
 [ext_resource type="Texture2D" uid="uid://basfv832fldxr" path="res://texture/circle_glow.svg" id="11_lgwnu"]
-[ext_resource type="PackedScene" uid="uid://cf7ell5xwbmn7" path="res://scenes/main_menu_shop.tscn" id="12_flqon"]
+[ext_resource type="PackedScene" uid="uid://cf7ell5xwbmn7" path="res://scenes/shop.tscn" id="12_flqon"]
 [ext_resource type="Texture2D" uid="uid://cluqymx0t8h2o" path="res://texture/MCTexture/main_menu/item/acacia_chest_boat.png" id="12_pdydv"]
 [ext_resource type="PackedScene" uid="uid://bainbcjlw2tg8" path="res://scenes/setting.tscn" id="13_rcqid"]
 [ext_resource type="Texture2D" uid="uid://ns7cq3t2kwty" path="res://texture/MCTexture/main_menu/item/acacia_door.png" id="13_w2wtl"]
@@ -914,55 +914,55 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("button/exitButton:position")
+tracks/10/path = NodePath("AudioStreamPlayer:volume_db")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-295, 545)]
+"values": [-27.586]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/11/path = NodePath("ThreeBody:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-27.586]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("shop:position")
+tracks/12/path = NodePath("VBoxContainer:modulate")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1290.77, 0)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("setting:position")
+tracks/13/path = NodePath("shop:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-1155.02, 0)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("ThreeBody:modulate")
+tracks/14/path = NodePath("setting:modulate")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -974,14 +974,26 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("VBoxContainer:modulate")
+tracks/15/path = NodePath("setting:position")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(-1152, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("button/exitButton:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -2)]
 }
 
 [sub_resource type="Animation" id="Animation_tbmy8"]
@@ -1082,10 +1094,10 @@ tracks/6/path = NodePath("title/Line2D2:default_color")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(1.8633332, 2.3333333),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0.4699999, 0.99004894, 1.8633332, 2.3333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.2677903, 0.2677903, 0.2677903, 1)]
+"values": [Color(0.2677903, 0.2677903, 0.2677903, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.2677903, 0.2677903, 0.2677903, 1)]
 }
 tracks/7/type = "method"
 tracks/7/imported = false
@@ -1154,7 +1166,7 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("button/exitButton:position")
+tracks/12/path = NodePath("button/exitButton:offset_transform_position")
 tracks/12/interp = 2
 tracks/12/loop_wrap = true
 tracks/12/keys = {
@@ -1178,46 +1190,22 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("shop:position")
-tracks/14/interp = 2
+tracks/14/path = NodePath("title/Sprite2D:modulate")
+tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(2.3506002, 2.5969691),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1290.77, 0), Vector2(1152.245, 0)]
-}
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("title/Sprite2D:modulate")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
 "times": PackedFloat32Array(1.9800979, 2.0303235, 2.0734315, 2.257935, 2.301043),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(0.34509805, 0.34509805, 0.34509805, 1), Color(0.8156863, 1, 1, 1)]
 }
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("setting:position")
-tracks/16/interp = 2
-tracks/16/loop_wrap = true
-tracks/16/keys = {
-"times": PackedFloat32Array(2.3433185, 2.7333333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-1240.96, 0), Vector2(-1155.02, 0)]
-}
-tracks/17/type = "method"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("AudioStreamPlayer")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
+tracks/15/type = "method"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("AudioStreamPlayer")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
 "times": PackedFloat32Array(1.97),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -1225,14 +1213,38 @@ tracks/17/keys = {
 "method": &"play_bg"
 }]
 }
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("ThreeBody:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(1.8803747, 2.37),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("VBoxContainer:modulate")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(2.308169, 2.4604845),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("ThreeBody:modulate")
+tracks/18/path = NodePath("shop:modulate")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
-"times": PackedFloat32Array(1.8803747, 2.37),
+"times": PackedFloat32Array(2.36, 2.53),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -1240,11 +1252,11 @@ tracks/18/keys = {
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("VBoxContainer:modulate")
+tracks/19/path = NodePath("setting:modulate")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(2.308169, 2.4604845),
+"times": PackedFloat32Array(2.38, 2.56),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -1265,7 +1277,7 @@ glow_intensity = 1.2
 glow_strength = 0.59
 glow_bloom = 1.0
 
-[node name="mainMenu" type="Control" unique_id=551941515]
+[node name="mainMenu" type="Control" unique_id=551941515 node_paths=PackedStringArray("_colorRect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1273,6 +1285,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jk1qb")
+_colorRect = NodePath("ColorRect")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1157166762]
 layout_mode = 1
@@ -1288,12 +1301,26 @@ script = ExtResource("2_ym2r4")
 modulate = Color(1, 1, 1, 0)
 position = Vector2(574, 317)
 
-[node name="title" type="Node2D" parent="." unique_id=771875376]
+[node name="title" type="Control" parent="." unique_id=940225870]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="title" unique_id=991252253]
-modulate = Color(0.8156863, 1, 1, 1)
-position = Vector2(569, 73.00001)
+[node name="Sprite2D" type="TextureRect" parent="title" unique_id=961417010]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2.0
+offset_right = 2562.0
+offset_bottom = 720.0
+grow_horizontal = 2
 scale = Vector2(0.21, 0.21)
+pivot_offset = Vector2(-341.28, 0)
 texture = ExtResource("2_flqon")
 script = ExtResource("2_tbmy8")
 transitionR = 100.0
@@ -1380,7 +1407,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 1169.0
 offset_top = 451.0
-offset_right = 1331.0007
+offset_right = 1331.001
 offset_bottom = 536.0
 grow_vertical = 0
 theme = ExtResource("3_bqqt6")
@@ -1397,12 +1424,15 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1447.0
-offset_top = 451.0
-offset_right = -1284.9998
-offset_bottom = 536.0
+offset_left = -1152.0
+offset_top = -96.0
+offset_right = -989.99976
+offset_bottom = -11.0
 grow_horizontal = 0
 grow_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(-295, 9)
+offset_transform_visual_only = false
 theme = ExtResource("3_bqqt6")
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
 theme_override_colors/font_hover_color = Color(0.8745098, 0.81960785, 0.8745098, 1)
@@ -1433,10 +1463,27 @@ energy = 0.34
 texture = ExtResource("11_lgwnu")
 
 [node name="shop" parent="." unique_id=1299253480 instance=ExtResource("12_flqon")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = -1152.0
+offset_bottom = 648.0
+grow_horizontal = 0
+grow_vertical = 1
 
 [node name="setting" parent="." unique_id=1969230021 instance=ExtResource("13_rcqid")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -1152.0
+offset_right = -1152.0
+offset_bottom = 648.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [connection signal="pressed" from="button/startButton" to="button" method="_on_start_button_pressed"]
 [connection signal="pressed" from="button/exitButton" to="button" method="_on_exit_button_pressed"]

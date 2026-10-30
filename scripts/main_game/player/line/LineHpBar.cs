@@ -3,20 +3,18 @@ using Godot;
 public partial class LineHpBar : Line2D
 {
 	private AnimationPlayer ani;
-	private SignalManager signalManager;
 
 	public override void _Ready()
 	{
 		ani = GetNode<AnimationPlayer>("AnimationPlayer");
 		ani.Play("shake_heal");
 		DefaultColor = Colors.Green;
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
-		signalManager.OnPlayerHealthChanged += refresh;
+		SignalManager.Instance.OnPlayerHealthChanged += refresh;
 	}
 
 	public override void _ExitTree()
 	{
-		signalManager.OnPlayerHealthChanged -= refresh;
+		SignalManager.Instance.OnPlayerHealthChanged -= refresh;
 	}
 
 	private void refresh(int change, int hp, int max_hp)

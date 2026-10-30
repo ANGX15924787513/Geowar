@@ -29,19 +29,19 @@ public partial class LinePlayer : Player
 		SummonLines();
 		ApplyShopUpgrades();
 		lineCount = Math.Min(lineCount, maxLineCount);
-		throughUgLevel = dataManager.GetUpgradeLevel("through");
+		throughUgLevel = DataManager.Instance.GetUpgradeLevel("through");
 		
-		signalManager.OnPlayerDied += OnLineDied;
-		signalManager.OnPlayerHealthChanged += OnHealthChanged;
-		signalManager.OnBulletDestroyed += SpawnLine;
-		signalManager.OnBulletDestroyed += DownLaunchedBullet;
+		SignalManager.Instance.OnPlayerDied += OnLineDied;
+		SignalManager.Instance.OnPlayerHealthChanged += OnHealthChanged;
+		SignalManager.Instance.OnBulletDestroyed += SpawnLine;
+		SignalManager.Instance.OnBulletDestroyed += DownLaunchedBullet;
 	}
 	
 	public override void _Process(double delta)
 	{
 		//右键 -> ToPreLaunchPos -> GetPositionInBulletSide/Lib
 		//else -> GiveVelocityAll OK
-		if (gameManager.gameState != GameManager.GameState.GAMING)
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING)
 		{
 			return;
 		}
@@ -78,7 +78,7 @@ public partial class LinePlayer : Player
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (gameManager.gameState != GameManager.GameState.GAMING)
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING)
 		{
 			LinearVelocity = LinearVelocity.Lerp(Vector2.Zero, 0.05f);
 			return;
@@ -89,7 +89,7 @@ public partial class LinePlayer : Player
 			if(!isPreLaunching)
 			{
 				isPreLaunching = true;
-				globalAudioPlayer.PlayAudio(chargeSound);
+				GlobalAudioPlayer.Instance.PlayAudio(chargeSound);
 			}
 		}
 		else
@@ -100,7 +100,7 @@ public partial class LinePlayer : Player
 		AngularVelocity = -Rotation;
 		if (CanMove() && !isInvincible)
 		{
-			ApplyMovement(gameManager.playerSpeed);
+			ApplyMovement(GameManager.Instance.playerSpeed);
 		}
 		else
 			Decelerate(delta);
@@ -116,10 +116,11 @@ public partial class LinePlayer : Player
 			AddChild(p);
 		}
 
+		Vector2 summonMouseDir = (GetGlobalMousePosition() - GlobalPosition).Normalized();
 		for (int i = 0; i < 2; i++)
 		{
 			var p = (Node2D)singleLineScene.Instantiate();
-			p.Position = GetPositionInBulletSide(i);
+			p.Position = GetPositionInBulletSide(i, summonMouseDir);
 			p.AddToGroup("lineSide");
 			AddChild(p);
 		}
@@ -129,25 +130,28 @@ public partial class LinePlayer : Player
 	{
 		int count = 0;
 		int ctSide = 0;
-		foreach (var node in GetChildren())
+		Vector2 mouseDir = (GetGlobalMousePosition() - GlobalPosition).Normalized();
+		int childCount = GetChildCount();
+		for (int i = 0; i < childCount; i++)
 		{
+			var node = GetChild(i);
 			if (node is not Line child) continue;
 			if (child.IsInGroup("lineSide"))
 			{
-				Vector2 target = GetPositionInBulletSide(ctSide);
+				Vector2 target = GetPositionInBulletSide(ctSide, mouseDir);
 				// child.LinearVelocity = 2 * (target - child.GlobalPosition);
 				child.Position = child.Position.Lerp(target, 0.08f);
 				ctSide++;
 			}
 			else
 			{
-				Vector2 target = GetPositionInBulletLib(count);
+				Vector2 target = GetPositionInBulletLib(count, mouseDir);
 				// child.LinearVelocity = 2 * (target - child.GlobalPosition);
 				child.Position = child.Position.Lerp(target, 0.08f);
 				count++;
 			}
 			// 计算目标角度
-			float targetAngle = Mathf.Pi / 2 + (GetGlobalMousePosition() - GlobalPosition).Angle();
+			float targetAngle = Mathf.Pi / 2 + mouseDir.Angle();
 
 // 最短角度差
 			float diff = targetAngle - child.Rotation;
@@ -158,9 +162,8 @@ public partial class LinePlayer : Player
 		}
 	}
 
-	private Vector2 GetPositionInBulletLib(int index)
+	private Vector2 GetPositionInBulletLib(int index, Vector2 mouseDir)
 	{
-		Vector2 mouseDir = (GetGlobalMousePosition() - GlobalPosition).Normalized();
 		int libSize = _currentLineCount - 2;
 
 		float halfWidth = (libSize - 1) * spacing / 2f;   // 仍用于计算侧边线
@@ -171,9 +174,8 @@ public partial class LinePlayer : Player
 		return offset;
 	}
 
-	private Vector2 GetPositionInBulletSide(int index)
+	private Vector2 GetPositionInBulletSide(int index, Vector2 mouseDir)
 	{
-		Vector2 mouseDir = (GetGlobalMousePosition() - GlobalPosition).Normalized();
 		Vector2 leftDir = new Vector2(-mouseDir.Y, mouseDir.X);
 		int libSize = _currentLineCount - 2;
     
@@ -210,8 +212,10 @@ public partial class LinePlayer : Player
 	private void GiveVelocityAll(float delta)
 	{
 		int count = 0;
-		foreach (var node in GetChildren())
+		int childCount = GetChildCount();
+		for (int i = 0; i < childCount; i++)
 		{
+			var node = GetChild(i);
 			if (node is not Line child) continue;
 			Vector2 target = GetPositionInCircle(count);
 			child.Position = child.Position.Lerp(target, 0.05f);
@@ -232,7 +236,7 @@ public partial class LinePlayer : Player
 
 	private bool CanLaunchBullet()
 	{
-		if (gameManager.gameState != GameManager.GameState.GAMING) return false;
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING) return false;
 		if (_currentLineCount <= 2) return false;
 		if (!(Input.IsActionPressed("player_launch_bullet") && Input.IsActionPressed("pre_launch_bullet"))) return false;
 
@@ -267,8 +271,8 @@ public partial class LinePlayer : Player
 		bulletRoot.AddChild(bullet);
 		bullet.GlobalPosition = gPos;
 		bullet.flySpeed = vel;  // AddChild 之后设，不怕 reparent 清掉
-		bullet.穿透等级 += 2*throughUgLevel;
-		globalAudioPlayer.PlayAudio(attackSound);
+		bullet.throughLevel += 2*throughUgLevel;
+		GlobalAudioPlayer.Instance.PlayAudio(attackSound);
 	}
 
 	private void LaunchAllBullet()
@@ -297,32 +301,32 @@ public partial class LinePlayer : Player
 			bulletRoot.AddChild(bullet);
 			bullet.GlobalPosition = gPos;
 			bullet.flySpeed = vel;  // AddChild 之后设，不怕 reparent 清掉
-			bullet.穿透等级 += 2*throughUgLevel;
+			bullet.throughLevel += 2*throughUgLevel;
 		}
-		globalAudioPlayer.PlayAudio(attackSound);
+		GlobalAudioPlayer.Instance.PlayAudio(attackSound);
 	}
 
 	private void ApplyShopUpgrades()
 	{
-		int ct = dataManager.GetUpgradeLevel("line_count");//
-		int fr = dataManager.GetUpgradeLevel("fire_rate");//
-		int ms = dataManager.GetUpgradeLevel("move_speed");//
-		int atk = dataManager.GetUpgradeLevel("atk_hp");//
-		int hp = dataManager.GetUpgradeLevel("max_hp");//
-		int ls = dataManager.GetUpgradeLevel("lifesteal");//
+		int ct = DataManager.Instance.GetUpgradeLevel("line_count");//
+		int fr = DataManager.Instance.GetUpgradeLevel("fire_rate");//
+		int ms = DataManager.Instance.GetUpgradeLevel("move_speed");//
+		int atk = DataManager.Instance.GetUpgradeLevel("atk_hp");//
+		int hp = DataManager.Instance.GetUpgradeLevel("max_hp");//
+		int ls = DataManager.Instance.GetUpgradeLevel("lifesteal");//
 
 		lineCount = 5 + ct;
 		Line.AttackBonus = atk;
 		fireRate += fr;
-		gameManager.playerSpeed += ms * 20;
+		GameManager.Instance.playerSpeed += ms * 20;
 		HP += hp * 5;
 		_hp = HP;
 
 		if (ls > 0)
-			signalManager.OnEnemyDied += OnLifeSteal;
+			SignalManager.Instance.OnEnemyDied += OnLifeSteal;
 
 		// 升级后重新通知血条
-		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, 0, _hp, HP);
+		SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, 0, _hp, HP);
 	}
 
 	public void ApplyMovement(float speed)
@@ -341,10 +345,10 @@ public partial class LinePlayer : Player
 	
 	public override void _ExitTree()
 	{
-		signalManager.OnPlayerDied -= OnLineDied;
-		signalManager.OnPlayerHealthChanged -= OnHealthChanged;
-		signalManager.OnBulletDestroyed -= SpawnLine;
-		signalManager.OnBulletDestroyed -= DownLaunchedBullet;
+		SignalManager.Instance.OnPlayerDied -= OnLineDied;
+		SignalManager.Instance.OnPlayerHealthChanged -= OnHealthChanged;
+		SignalManager.Instance.OnBulletDestroyed -= SpawnLine;
+		SignalManager.Instance.OnBulletDestroyed -= DownLaunchedBullet;
 		base._ExitTree();
 	}
 }

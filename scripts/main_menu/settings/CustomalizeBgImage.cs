@@ -91,7 +91,7 @@ public partial class CustomalizeBgImage : HBoxContainer
 				DirAccess.RemoveAbsolute(DataManager.Instance.GetStringConfig(pathDataId));
 				string localPath = $"user://background_images/{System.IO.Path.GetFileName(s)}";
 				DirAccess.CopyAbsolute(s, localPath);
-				GD.Print("图像存储到:" + localPath);
+				TayTool.Log("图像",$"图像存储到: {localPath}");
 				DataManager.Instance.SetStringConfig(pathDataId, localPath);
 			}
 			else
@@ -111,11 +111,23 @@ public partial class CustomalizeBgImage : HBoxContainer
 
 	private void OnAlphaSliderValueChanged(float v)
 	{
-		DataManager.Instance.SetFloatConfig(alphaDataId, v);
+		CustomImageMenuViewer.Instance.SetAlpha(v);
 	}
-	
+
+	private void OnAlphaSliderDragEnded(bool valueChanged)
+	{
+		if (!valueChanged) return;
+		DataManager.Instance.SetFloatConfig(alphaDataId, (float)AlphaSlider.Value);
+	}
+
 	private void OnBlurSliderValueChanged(float v)
 	{
-		DataManager.Instance.SetFloatConfig(blurDataId, v);
+		CustomImageMenuViewer.Instance.SetBlur(v);
+	}
+
+	private void OnBlurSliderDragEnded(bool valueChanged)
+	{
+		if (!valueChanged) return;
+		DataManager.Instance.SetFloatConfig(blurDataId, (float)BlurSlider.Value);
 	}
 }

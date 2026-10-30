@@ -13,25 +13,28 @@ public partial class FallItemRoot : Node2D
 	[Export] private  float diamondSpawnProb = 2;
 	[Export] private float healPckSumGap = 7f;
 	private float _healTimer;
-	
-	SignalManager signalManager;
-	GameManager gameManager;
+
+	public static FallItemRoot Instance;
 	
 	public override void _Ready()
 	{
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
-		gameManager = GetNode<GameManager>("/root/GameManager");
-		signalManager.RequestCollectionSpawn += RandomlySpawn;
+		SignalManager.Instance.RequestCollectionSpawn += RandomlySpawn;
+	}
+
+	public override void _EnterTree()
+	{
+		Instance = this;
 	}
 
 	public override void _ExitTree()
 	{
-		signalManager.RequestCollectionSpawn -= RandomlySpawn;
+		SignalManager.Instance.RequestCollectionSpawn -= RandomlySpawn;
+		Instance = null;
 	}
 
 	public override void _Process(double delta)
 	{
-		if (gameManager.gameState != GameManager.GameState.GAMING) return;
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING) return;
 		if (_healTimer > 0f)
 		{
 			_healTimer -= (float)delta;
@@ -46,11 +49,11 @@ public partial class FallItemRoot : Node2D
 	private void SpawnHealPck()
 	{
 		var pck = healPackageScene.Instantiate<Node2D>();
-		var pos = new Vector2(
-				(float)GD.RandRange(gameManager.gameAreaX.X,gameManager.gameAreaX.Y),
-				(float)GD.RandRange(gameManager.gameAreaY.X,gameManager.gameAreaY.Y));
-		pck.GlobalPosition = pos;
 		AddChild(pck);
+		var pos = new Vector2(
+				(float)GD.RandRange(GameManager.Instance.gameAreaX.X,GameManager.Instance.gameAreaX.Y),
+				(float)GD.RandRange(GameManager.Instance.gameAreaY.X,GameManager.Instance.gameAreaY.Y));
+		pck.GlobalPosition = pos;
 	}
 
 	private void RandomlySpawn(Vector2 pos,Enemy.EnemyTypeEnum enemyType)
@@ -74,7 +77,7 @@ public partial class FallItemRoot : Node2D
 		int rand = GD.RandRange(start, 100);
 		if (ironSpawnProb + goldSpawnProb + diamondSpawnProb > 100)
 		{
-			GD.PrintErr("掉落物设置错误:总概率超过100%");
+			TayTool.Log("掉落物","掉落物设置错误: 总概率超过 100%",TayTool.LogTypeEnum.Err);
 			return;
 		}
 		if (rand <= ironSpawnProb)

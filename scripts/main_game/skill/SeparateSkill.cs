@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class SeparateSkill : Control
@@ -10,11 +11,6 @@ public partial class SeparateSkill : Control
 	private ProgressBar coolDownProgressBar;
 	private Timer coolDownTimer;
 	private TextureRect iconRect;
-	
-	[ExportGroup("Skill Scenes & Settings")]
-	[ExportSubgroup("TNT")]
-	[Export] private PackedScene tntScene;
-	[Export] private AudioStream tntStartSound;
 	public override void _Ready()
 	{
 		Visible = GameManager.Instance.gameState == GameManager.GameState.GAMING;
@@ -67,9 +63,16 @@ public partial class SeparateSkill : Control
 			case "skill_tnt":
 				ThrowTnt();
 				break;
+			case "skill_collect_all_coins":
+				CollectCoins();
+				break;
 		}
 	}
-
+	
+	[ExportGroup("Skill Scenes & Settings")]
+	[ExportSubgroup("TNT")]
+	[Export] private PackedScene tntScene;
+	[Export] private AudioStream tntStartSound;
 	private void ThrowTnt()
 	{
 		//同步相机视角
@@ -108,6 +111,19 @@ public partial class SeparateSkill : Control
 			}
 
 			c++;
+		}
+	}
+	
+	private void CollectCoins()
+	{
+		var children = FallItemRoot.Instance.GetChildren();
+		if(children.Count == 0) return;
+		var tw = GetTree().CreateTween();
+		tw.SetParallel();
+		foreach (var node in children)
+		{
+			if (node is not Node2D coin) return;
+			tw.TweenProperty(coin,"global_position",Player.Instance.GlobalPosition + TayTool.GetRandVec2I(300),0.3f);
 		}
 	}
 }

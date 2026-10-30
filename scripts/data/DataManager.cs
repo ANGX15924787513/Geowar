@@ -21,6 +21,7 @@ public partial class DataManager : Node
 
 	public void SetUpgradeLevel(string id, int level)
 	{
+		if (HasSameValue("upgrades", id, level)) return;
 		config.SetValue("upgrades", id, level);
 		SaveSettings();
 	}
@@ -29,6 +30,7 @@ public partial class DataManager : Node
 
 	public void SetIntConfig(string id, int level)
 	{
+		if (HasSameValue("settings", id, level)) return;
 		config.SetValue("settings", id, level);
 		SaveSettings();
 	}
@@ -37,6 +39,7 @@ public partial class DataManager : Node
 
 	public void SetBoolConfig(string id, bool on)
 	{
+		if (HasSameValue("settings", id, on)) return;
 		config.SetValue("settings", id, on);
 		SaveSettings();
 	}
@@ -45,6 +48,7 @@ public partial class DataManager : Node
 
 	public void SetFloatConfig(string id, float f)
 	{
+		if (HasSameValue("settings", id, f)) return;
 		config.SetValue("settings", id, f);
 		SaveSettings();
 	}
@@ -53,8 +57,25 @@ public partial class DataManager : Node
 
 	public void SetStringConfig(string id, string s)
 	{
+		if (HasSameValue("settings", id, s)) return;
 		config.SetValue("settings", id, s);
 		SaveSettings();
+	}
+
+	/// <summary> 值未发生变化时不写盘, 避免初始化/重复赋值触发无意义的保存 </summary>
+	private bool HasSameValue(string section, string id, Variant value)
+	{
+		if (!config.HasSectionKey(section, id)) return false;
+		Variant old = config.GetValue(section, id);
+		if (old.VariantType != value.VariantType) return false;
+		return value.VariantType switch
+		{
+			Variant.Type.Int => old.AsInt64() == value.AsInt64(),
+			Variant.Type.Float => Mathf.IsEqualApprox((float)old.AsDouble(), (float)value.AsDouble()),
+			Variant.Type.Bool => old.AsBool() == value.AsBool(),
+			Variant.Type.String => old.AsString() == value.AsString(),
+			_ => false
+		};
 	}
 
 	public bool Spend(FallItem.FallItemType type, int amount)
@@ -96,14 +117,14 @@ public partial class DataManager : Node
 	{
 		config.Clear();
 		playerData.ClearCurrency();
-		GD.Print("游戏数据已清空");
+		TayTool.Log("数据","游戏数据已清空");
 		SaveSettings();
 	}
 
 	private void SaveSettings()
 	{
 		config.Save(path);
-		GD.Print("游戏设置已保存");
+		TayTool.Log("设置","游戏设置已保存");
 	}
 
 	public bool IsExistsSetting(string id, string sec = "settings")

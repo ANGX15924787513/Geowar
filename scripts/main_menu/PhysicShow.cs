@@ -2,11 +2,14 @@ using Godot;
 
 public partial class PhysicShow : HBoxContainer
 {
+	public static PhysicShow Instance;
 	[Export] public int count = 3;
 	[Export] public Godot.Collections.Array<Texture2D> itemTextures = new();
+	public CanvasItem parent;
 
 	public override void _Ready()
 	{
+		parent = GetParent<CanvasItem>();
 		if (itemTextures.Count == 0)
 		{
 			return;
@@ -26,20 +29,23 @@ public partial class PhysicShow : HBoxContainer
 			create_item(loaded.PickRandom());
 		}
 	}
+	
+	public override void _EnterTree() => Instance = this;
+	public override void _ExitTree() => Instance = null;
 
 	public void create_item(Texture2D texture)
 	{
 		var file_name = texture.ResourcePath.GetFile().GetBaseName();
 
 		var vbox = new VBoxContainer();
-		vbox.Alignment = BoxContainer.AlignmentMode.Center;
+		vbox.Alignment = AlignmentMode.Center;
 
 		var rect = new TextureRect();
 		rect.Texture = texture;
 		rect.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
 		rect.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
 		rect.CustomMinimumSize = new Vector2(64, 64);
-		rect.TextureFilter = CanvasItem.TextureFilterEnum.Nearest;
+		rect.TextureFilter = TextureFilterEnum.Nearest;
 		vbox.AddChild(rect);
 
 		var label = new Label();

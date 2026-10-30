@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cftv1cemkqmim"]
+
+[ext_resource type="Script" uid="uid://dmqbaxdejw562" path="res://scripts/main_game/GameManager.cs" id="1_l52tp"]
+[ext_resource type="PackedScene" uid="uid://bdrf0bxwdb48d" path="res://scenes/main/point/point_player.tscn" id="2_gehpc"]
+[ext_resource type="PackedScene" uid="uid://7giuhcxdlnk4" path="res://scenes/main/line/line_player.tscn" id="3_y757v"]
+[ext_resource type="PackedScene" uid="uid://dhcx8j0exhfyh" path="res://scenes/main/polygon/polygon_player.tscn" id="4_0kf65"]
+
+[node name="GameManager" type="Node" unique_id=1896862452]
+script = ExtResource("1_l52tp")
+pointPlayerScene = ExtResource("2_gehpc")
+linePlayerScene = ExtResource("3_y757v")
+polygonPlayerScene = ExtResource("4_0kf65")

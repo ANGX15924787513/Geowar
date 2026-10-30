@@ -5,7 +5,7 @@ public partial class Line : Node2D
     [Export] private float bulletSpeed = 1000f;
     [Export] private int bulletAttackHP = 4;
     [Export] private int rotatingAttackHP = 3;
-    [Export] public int 穿透等级 = 3;
+    [Export] public int throughLevel = 3;
     [Export] private CompressedTexture2D lightTex;
     // [Export] private PackedScene fireScene;
 
@@ -22,13 +22,9 @@ public partial class Line : Node2D
     private int fireDamage;
     SceneTreeTimer desTimer;
 
-    private int _left穿透;
+    private int _leftThrough;
 
     [Export] private GpuParticles2D fireParticle;
-
-    private SignalManager signalManager;
-    private GameManager gameManager;
-    private DataManager dataManager;
 
     public enum LineState { CORE, BULLET }
 
@@ -36,11 +32,8 @@ public partial class Line : Node2D
 
     public override void _Ready()
     {
-        gameManager = GetNode<GameManager>("/root/GameManager");
-        signalManager = GetNode<SignalManager>("/root/SignalManager");
-        dataManager = GetNode<DataManager>("/root/DataManager");
         originCollision = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
-        穿透等级 += dataManager.GetUpgradeLevel("through") * 3;
+        throughLevel += DataManager.Instance.GetUpgradeLevel("through") * 3;
     }
 
     public override void _Process(double delta)
@@ -65,14 +58,14 @@ public partial class Line : Node2D
 
     private void InitializeBullet()
     {
-        _left穿透 = 穿透等级;
+        _leftThrough = throughLevel;
         // 使用当前 flySpeed 的方向作为飞行方向（发射时由外部预先设置）
         Vector2 dir = flySpeed.Normalized();
         // flySpeed 重新赋值为最终速度（矢量，单位/秒）
         flySpeed = dir * bulletSpeed * 2f;
         Rotation = dir.Angle() - Mathf.Pi/2;
         safeDestroyTimer = 0.2f;
-        canFiring = dataManager.GetUpgradeLevel("line_fire") >= 1;
+        canFiring = DataManager.Instance.GetUpgradeLevel("line_fire") >= 1;
         desTimer = GetTree().CreateTimer(5);
         if (canFiring)
         {
@@ -83,14 +76,14 @@ public partial class Line : Node2D
     
     private void FireEnemy(Enemy enemy)
     {
-        fireDamage = 2 * dataManager.GetUpgradeLevel("line_fire");
+        fireDamage = 2 * DataManager.Instance.GetUpgradeLevel("line_fire");
         enemy.LetFired(fireDamage);
         
     }
 
     private void OnBodyEntered(Node2D body)
     {
-        if (gameManager.gameState != GameManager.GameState.GAMING) return;
+        if (GameManager.Instance.gameState != GameManager.GameState.GAMING) return;
 
         if (body.IsInGroup("wall") && lineState == LineState.BULLET)
         {
@@ -103,43 +96,21 @@ public partial class Line : Node2D
             {
                 FireEnemy((Enemy)body);
                 ((Enemy)body).Hurt(bulletAttackHP + AttackBonus,this);
-                _left穿透--;
-                if (_left穿透 <= 0)
+                _leftThrough--;
+                if (_leftThrough <= 0)
                 {
                     Destroy();
                 }
             }
-            for (int i = 0; i < 10; i++)
-            {
-                CollideLight((GlobalPosition + body.GlobalPosition)/2,Colors.WhiteSmoke);
-            }
+            TayTool.CollideLight(GlobalPosition,Colors.White, GetTree(),4);
         }
-    }
-    
-    private void CollideLight(Vector2 position,Color color)
-    {
-        float duration = 0.8f;
-        var light = new PointLight2D();
-        light.Texture = lightTex;
-        light.TextureScale = 0.1f;
-        light.Color = color;
-        light.Energy = 2;
-        light.Position = position + new Vector2(GD.Randf() - 0.5f, GD.Randf() - 0.5f) * 40;
-        GetTree().CurrentScene.AddChild(light);
-        Tween tw = GetTree().CreateTween();
-        Tween tw2 = GetTree().CreateTween();
-        Tween tw3 = GetTree().CreateTween();
-        tw.TweenProperty(light,"texture_scale",0.02f,duration);
-        tw2.TweenProperty(light,"position",light.Position + new Vector2(GD.Randf() - 0.5f, GD.Randf() - 0.5f) * 300,duration);
-        tw3.TweenProperty(light,"modulate",new Color(1, 1, 1, 0.5f), duration);
-        GetTree().CreateTimer(duration).Timeout += light.QueueFree;
     }
 
     private void Destroy()
     {
         if (isDestroyed) return;
         isDestroyed = true;
-        signalManager.EmitSignal("OnBulletDestroyed");
+        SignalManager.Instance.EmitSignal("OnBulletDestroyed");
         if (IsInstanceValid(desTimer))
         {
             desTimer.Timeout += QueueFree;

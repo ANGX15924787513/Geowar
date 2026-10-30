@@ -26,10 +26,10 @@ public partial class PointPlayer : Player
 		ApplyShopUpgrades();
 		SummonPoints();
 		
-		signalManager.OnPlayerDied += OnPointDie;
-		signalManager.OnPlayerHealthChanged += OnHealthChanged;
-		signalManager.OnBulletDestroyed += SpawnPoint;
-		signalManager.OnBulletDestroyed += DownLaunchedBullet;
+		SignalManager.Instance.OnPlayerDied += OnPointDie;
+		SignalManager.Instance.OnPlayerHealthChanged += OnHealthChanged;
+		SignalManager.Instance.OnBulletDestroyed += SpawnPoint;
+		SignalManager.Instance.OnBulletDestroyed += DownLaunchedBullet;
 	}
 
 	private void OnPointDie()
@@ -46,33 +46,33 @@ public partial class PointPlayer : Player
 
 	private void ApplyShopUpgrades()
 	{
-		int pc = dataManager.GetUpgradeLevel("point_count");
-		int fr = dataManager.GetUpgradeLevel("fire_rate");
-		int ms = dataManager.GetUpgradeLevel("move_speed");
-		int atk = dataManager.GetUpgradeLevel("atk_hp");
-		int hp = dataManager.GetUpgradeLevel("max_hp");
-		int ls = dataManager.GetUpgradeLevel("lifesteal");
+		int pc = DataManager.Instance.GetUpgradeLevel("point_count");
+		int fr = DataManager.Instance.GetUpgradeLevel("fire_rate");
+		int ms = DataManager.Instance.GetUpgradeLevel("move_speed");
+		int atk = DataManager.Instance.GetUpgradeLevel("atk_hp");
+		int hp = DataManager.Instance.GetUpgradeLevel("max_hp");
+		int ls = DataManager.Instance.GetUpgradeLevel("lifesteal");
 
 		PointSync.AttackBonus = atk;
 		pointCount           += pc;
 		fireRate             += fr;
-		gameManager.playerSpeed += ms * 20;
+		GameManager.Instance.playerSpeed += ms * 20;
 		HP                   += hp * 10;
 		_hp                   = HP;
 
 		if (ls > 0)
-			signalManager.OnEnemyDied += OnLifeSteal;
+			SignalManager.Instance.OnEnemyDied += OnLifeSteal;
 
 		// 升级后重新通知血条
-		signalManager.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, 0, _hp, HP);
+		SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnPlayerHealthChanged, 0, _hp, HP);
 	}
 
 	public override void _ExitTree()
 	{
-		signalManager.OnPlayerDied -= OnPointDie;
-		signalManager.OnPlayerHealthChanged -= OnHealthChanged;
-		signalManager.OnBulletDestroyed -= SpawnPoint;
-		signalManager.OnBulletDestroyed -= DownLaunchedBullet;
+		SignalManager.Instance.OnPlayerDied -= OnPointDie;
+		SignalManager.Instance.OnPlayerHealthChanged -= OnHealthChanged;
+		SignalManager.Instance.OnBulletDestroyed -= SpawnPoint;
+		SignalManager.Instance.OnBulletDestroyed -= DownLaunchedBullet;
 		base._ExitTree();
 	}
 
@@ -115,14 +115,14 @@ public partial class PointPlayer : Player
 		GiveVelocityAll();
 
 		if (CanMove() && !isInvincible)
-			ApplyMovement(gameManager.playerSpeed, gameManager.playerRotateSpeed);
+			ApplyMovement(GameManager.Instance.playerSpeed, GameManager.Instance.playerRotateSpeed);
 		else
 			Decelerate(delta);
 	}
 
 	private bool CanLaunchBullet()
 	{
-		if (gameManager.gameState != GameManager.GameState.GAMING) return false;
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING) return false;
 		if (_currentPointCount <= 1) return false;
 		if (!Input.IsActionPressed("player_launch_bullet")) return false;
 
@@ -149,7 +149,7 @@ public partial class PointPlayer : Player
 		var aimPos = Cursor.Instance?.AimPosition ?? GetGlobalMousePosition();
 		bullet.LinearVelocity = aimPos - bullet.GlobalPosition;
 		
-		globalAudioPlayer.PlayAudio(attackSound);
+		GlobalAudioPlayer.Instance.PlayAudio(attackSound);
 	}
 
 	private void LaunchBigBullet()
@@ -169,7 +169,7 @@ public partial class PointPlayer : Player
 			var aimPos = Cursor.Instance?.AimPosition ?? GetGlobalMousePosition();
 			bullet.LinearVelocity = aimPos - bullet.GlobalPosition;
 		}
-		globalAudioPlayer.PlayAudio(attackSound);
+		GlobalAudioPlayer.Instance.PlayAudio(attackSound);
 	}
 
 	private RigidBody2D GetClosestPoint(Array<RigidBody2D> points, Vector2 target)
@@ -237,8 +237,10 @@ public partial class PointPlayer : Player
 	private void GiveVelocityAll()
 	{
 		int count = 0;
-		foreach (var node in GetChildren())
+		int childCount = GetChildCount();
+		for (int i = 0; i < childCount; i++)
 		{
+			var node = GetChild(i);
 			if (node is not RigidBody2D child) continue;
 			Vector2 target = ToGlobal(GetPositionInCircle(count));
 			child.LinearVelocity = pullStrenth * (target - child.GlobalPosition);

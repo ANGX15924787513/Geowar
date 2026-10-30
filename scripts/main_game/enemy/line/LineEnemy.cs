@@ -7,7 +7,7 @@ public partial class LineEnemy : Enemy
     
     public override void _Process(double delta)
     {
-        if (gameManager.gameState != GameManager.GameState.GAMING)
+        if (GameManager.Instance.gameState != GameManager.GameState.GAMING)
         {
             LinearVelocity = LinearVelocity.Lerp(Vector2.Zero, 0.05f);
             return;
@@ -53,7 +53,7 @@ public partial class LineEnemy : Enemy
 
     private void OnRushTimerTimeout()
     {
-        if(!isRushing && gameManager.gameState == GameManager.GameState.GAMING && SingleGameData.Instance.currentDifficulty >= gameManager.LINE_RUSH) Rush();
+        if(!isRushing && GameManager.Instance.gameState == GameManager.GameState.GAMING && SingleGameData.Instance.currentDifficulty >= GameManager.Instance.LINE_RUSH) Rush();
     }
 
     public override void _ExitTree()

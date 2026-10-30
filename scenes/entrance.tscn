@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cddlp6x2v6uyt"]
 
-[ext_resource type="Script" path="res://scripts/Entrance.cs" id="1_gm1gp"]
+[ext_resource type="Script" uid="uid://bf030w4wvx81i" path="res://scripts/Entrance.cs" id="1_gm1gp"]
 [ext_resource type="FontFile" uid="uid://5msovmi65w4t" path="res://fonts/BoutiqueBitmap9x9_Bold_1.9.ttf" id="1_j8c1m"]
 [ext_resource type="Texture2D" uid="uid://c6f6n4u0h334d" path="res://texture/logo.svg" id="2_aidi3"]
 [ext_resource type="PackedScene" uid="uid://ruwqfk8wsxbk" path="res://scenes/main_menu.tscn" id="2_iyrkg"]
@@ -292,36 +292,60 @@ glow_intensity = 1.37
 glow_strength = 0.69
 glow_bloom = 1.0
 
-[node name="Entrance" type="Node2D" unique_id=378541103]
+[node name="Entrance" type="Control" unique_id=11691876]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_gm1gp")
 main_menu = ExtResource("2_iyrkg")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1998203707]
-offset_right = 1178.0
-offset_bottom = 851.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Node2D" type="Node2D" parent="." unique_id=96402557]
+[node name="Node2D" type="Control" parent="." unique_id=428398288]
 modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Logo" type="Sprite2D" parent="Node2D" unique_id=1169373638]
-position = Vector2(584.00006, 259.00003)
-scale = Vector2(0.90399945, 0.90399945)
+[node name="Logo" type="TextureRect" parent="Node2D" unique_id=1427818214]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -221.0
+offset_right = 279.00018
+offset_bottom = 500.0
+grow_horizontal = 2
+scale = Vector2(0.894, 0.894)
 texture = ExtResource("2_aidi3")
 
 [node name="Label" type="Label" parent="Node2D" unique_id=1171606135]
 modulate = Color(1, 1, 1, 0.84313726)
-anchors_preset = 8
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 334.0
-offset_top = 505.0
-offset_right = 826.0
-offset_bottom = 575.0
+anchor_bottom = 1.0
+offset_left = -246.0
+offset_top = -133.0
+offset_right = 246.0
+offset_bottom = -63.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 text = "TaylorwM 巨献"
 label_settings = SubResource("LabelSettings_iyrkg")
 
@@ -332,8 +356,19 @@ autoplay = &"entrance"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1164997411]
 environment = SubResource("Environment_wvhbo")
 
-[node name="Title" type="Sprite2D" parent="." unique_id=54420695]
-position = Vector2(588.00006, 290)
+[node name="Title" type="TextureRect" parent="." unique_id=527743124]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -283.0
+offset_top = -108.0
+offset_right = 2277.0
+offset_bottom = 612.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.21, 0.21)
 texture = ExtResource("5_iyrkg")
 

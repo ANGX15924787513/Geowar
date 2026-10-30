@@ -54,7 +54,7 @@ public class PlayerData
         {
             var err = DirAccess.MakeDirRecursiveAbsolute(DataDir);
             if (err != Error.Ok)
-                GD.PrintErr($"创建数据目录失败: {err}");
+                TayTool.Log("存档",$"创建数据目录失败: {err}",TayTool.LogTypeEnum.Err);
         }
 
         LoadPlayerData();
@@ -74,7 +74,7 @@ public class PlayerData
         using var file = FileAccess.Open(DataPath, FileAccess.ModeFlags.Write);
         if (file == null)
         {
-            GD.PrintErr($"保存失败: {FileAccess.GetOpenError()}, path={DataPath}");
+            TayTool.Log("存档",$"保存失败: {FileAccess.GetOpenError()}, 路径={DataPath}",TayTool.LogTypeEnum.Err);
             return;
         }
 
@@ -86,28 +86,28 @@ public class PlayerData
     {
         if (!FileAccess.FileExists(DataPath))
         {
-            GD.Print("存档不存在，使用默认值");
+            TayTool.Log("存档","存档不存在，使用默认值");
             return;
         }
 
         using var file = FileAccess.Open(DataPath, FileAccess.ModeFlags.Read);
         if (file == null)
         {
-            GD.PrintErr($"读取失败: {FileAccess.GetOpenError()}");
+            TayTool.Log("存档",$"读取失败: {FileAccess.GetOpenError()}",TayTool.LogTypeEnum.Err);
             return;
         }
 
         string text = file.GetAsText();
         if (string.IsNullOrWhiteSpace(text))
         {
-            GD.PrintErr("存档为空");
+            TayTool.Log("存档","存档为空",TayTool.LogTypeEnum.Err);
             return;
         }
 
         var json = new Json();
         if (json.Parse(text) != Error.Ok)
         {
-            GD.PrintErr($"解析失败: 行 {json.GetErrorLine()} - {json.GetErrorMessage()}");
+            TayTool.Log("存档",$"解析失败: 行 {json.GetErrorLine()} - {json.GetErrorMessage()}",TayTool.LogTypeEnum.Err);
             return;
         }
 
@@ -115,8 +115,8 @@ public class PlayerData
         GoldCurrency    = data.GetValueOrDefault("Gold",    0).AsUInt32();
         DiamondCurrency = data.GetValueOrDefault("Diamond", 0).AsUInt32();
         EmeraldCurrency = data.GetValueOrDefault("Emerald", 0).AsUInt32();
-
-        GD.Print($"读取存档: Gold={GoldCurrency}, Diamond={DiamondCurrency}, Emerald={EmeraldCurrency}");
+        
+        TayTool.Log("存档",$"读取存档: 金币={GoldCurrency}, 钻石={DiamondCurrency}, 绿宝石={EmeraldCurrency}");
     }
 
     public void ClearCurrency()

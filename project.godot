@@ -25,15 +25,14 @@ config/icon="uid://c6f6n4u0h334d"
 
 [autoload]
 
-EasyTransition="*uid://cq0t7o8xelk4k"
-GameManager="*uid://dmqbaxdejw562"
+DataManager="*uid://c4qk3afa54td1"
 SignalManager="*uid://dewtr5cmfkdks"
 GlobalAudioPlayer="*uid://55nkb5jg7jy0"
-DataManager="*uid://c4qk3afa54td1"
+GameManager="*uid://cftv1cemkqmim"
+EasyTransition="*uid://cq0t7o8xelk4k"
 
 [display]
 
-window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
@@ -143,4 +142,6 @@ locale/include_text_server_data=true
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true

@@ -2,7 +2,7 @@ using Godot;
 
 public partial class ClearDataButton : Button
 {
-	private int count = 0;
+	private int count;
 	private SceneTreeTimer yesTimer;
 
 	private void _on_pressed()
@@ -18,7 +18,7 @@ public partial class ClearDataButton : Button
 		if (count >= 2)
 		{
 			DataManager.Instance.ClearAll();
-			GetParent().Call("RefreshDisplay");
+			(GetParent() as MainMenuShop)?.RefreshDisplay();
 			count = 0;
 			Text = "清除成功";
 		}

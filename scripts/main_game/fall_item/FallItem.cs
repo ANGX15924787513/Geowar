@@ -12,13 +12,8 @@ public partial class FallItem : Node2D
 	
 	[Export]private AnimationPlayer Anim;
 
-	SignalManager signalManager;
-	GlobalAudioPlayer globalAudioPlayer;
-
 	public override void _Ready()
 	{
-		signalManager = GetNode<SignalManager>("/root/SignalManager");
-		globalAudioPlayer = GetNode<GlobalAudioPlayer>("/root/GlobalAudioPlayer");
 		if (Anim == null)
 		{
 			Anim = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -29,9 +24,9 @@ public partial class FallItem : Node2D
 	{
 		if (body.IsInGroup("player") || (body.IsInGroup("circle_point") && ((PointSync)body).pointType == PointSync.PointType.CIRCLE))
 		{
-			globalAudioPlayer.PlayAudio(globalAudioPlayer.collectXPSound);
-			// GD.Print($"掉落物 {itemType} 被捡起");
-			signalManager.EmitSignal(SignalManager.SignalName.OnCollectedItem,(int)itemType);
+			GlobalAudioPlayer.Instance.PlayAudio(GlobalAudioPlayer.Instance.collectXPSound);
+			// TayTool.Log("掉落物",$"掉落物 {itemType} 被捡起");
+			SignalManager.Instance.EmitSignal(SignalManager.SignalName.OnCollectedItem,(int)itemType);
 			Area2D area2D = GetNode<Area2D>("Sprite2D/Area2D");
 			area2D.CollisionLayer = 0;
 			area2D.CollisionMask = 0;

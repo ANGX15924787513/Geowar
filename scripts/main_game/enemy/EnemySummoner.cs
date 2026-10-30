@@ -15,17 +15,14 @@ public partial class EnemySummoner : Node2D
 	private float SummonWaitTimeOffset = 0.2f;
 	
 	
-	GameManager gameManager;
-	
 	public override void _Ready()
 	{
-		gameManager = GetNode<GameManager>("/root/GameManager");
 		SummonWaitTime = 2 - 1.8f * SingleGameData.Instance.currentDifficulty;
 		ResetAllTimer();
 	}
 	public override void _Process(double delta)
 	{
-		if (gameManager.gameState == GameManager.GameState.GAMING)
+		if (GameManager.Instance.gameState == GameManager.GameState.GAMING)
 		{
 			UpdateAllTimer((float)delta);
 			SummonWaitTime = 2 - 1.8f * SingleGameData.Instance.currentDifficulty;
@@ -53,9 +50,9 @@ public partial class EnemySummoner : Node2D
 	{
 		var enemy = packedScene.Instantiate() as Enemy;
 		enemy.GlobalPosition = new Vector2(
-			(float)GD.RandRange(gameManager.gameAreaX.X,gameManager.gameAreaX.Y),
-			(float)GD.RandRange(gameManager.gameAreaY.X,gameManager.gameAreaY.Y));
-		if (GetRand(superEnemyRate) && SingleGameData.Instance.currentDifficulty >=gameManager.SUPER_ENY)
+			(float)GD.RandRange(GameManager.Instance.gameAreaX.X,GameManager.Instance.gameAreaX.Y),
+			(float)GD.RandRange(GameManager.Instance.gameAreaY.X,GameManager.Instance.gameAreaY.Y));
+		if (GetRand(superEnemyRate) && SingleGameData.Instance.currentDifficulty >=GameManager.Instance.SUPER_ENY)
 		{
 			enemy.SetScale(1.2f);
 			enemy.MaxHealth *= GD.RandRange(2,5);
@@ -63,7 +60,7 @@ public partial class EnemySummoner : Node2D
 			enemy.Damage = (int)(enemy.Damage * GD.RandRange(2d, 5d));
 			enemy.enemyType = Enemy.EnemyTypeEnum.SUPER;
 		}
-		else if(GetRand(susuperEnemyRate) && SingleGameData.Instance.currentDifficulty >= gameManager.SUSUPER_ENY)
+		else if(GetRand(susuperEnemyRate) && SingleGameData.Instance.currentDifficulty >= GameManager.Instance.SUSUPER_ENY)
 		{
 			enemy.SetScale(1.5f);
 			enemy.MaxHealth *= GD.RandRange(5,10);
@@ -86,7 +83,7 @@ public partial class EnemySummoner : Node2D
 	{
 		if (rate <= 0 || rate > 100)
 		{
-			GD.PrintErr("概率应在 0 到 100 之间");
+			TayTool.Log("敌人",$"概率应在 0 到 100 之间, 当前值: {rate}",TayTool.LogTypeEnum.Err);
 			return false;
 		}
 		int i = GD.RandRange(1, 100);
