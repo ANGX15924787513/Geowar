@@ -34,6 +34,9 @@ public partial class Line : Node2D
     {
         originCollision = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
         throughLevel += DataManager.Instance.GetUpgradeLevel("through") * 3;
+        
+        fireDamage = 2 * DataManager.Instance.GetUpgradeLevel("line_fire");
+        canFireEnemy = fireDamage == 0;
     }
 
     public override void _Process(double delta)
@@ -73,13 +76,8 @@ public partial class Line : Node2D
             fireParticle.ProcessMode = ProcessModeEnum.Inherit;
         }
     }
-    
-    private void FireEnemy(Enemy enemy)
-    {
-        fireDamage = 2 * DataManager.Instance.GetUpgradeLevel("line_fire");
-        enemy.LetFired(fireDamage);
-        
-    }
+
+    private bool canFireEnemy;
 
     private void OnBodyEntered(Node2D body)
     {
@@ -94,7 +92,7 @@ public partial class Line : Node2D
         {
             if (lineState == LineState.BULLET)
             {
-                FireEnemy((Enemy)body);
+                if(canFireEnemy) ((Enemy)body).LetFired(fireDamage);
                 ((Enemy)body).Hurt(bulletAttackHP + AttackBonus,this);
                 _leftThrough--;
                 if (_leftThrough <= 0)

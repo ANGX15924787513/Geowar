@@ -3,12 +3,13 @@ using Godot;
 public partial class SettingPanel : Control
 {
     public static SettingPanel Instance;
-    private AnimationPlayer animationPlayer;
+    [Export]private AnimationPlayer animationPlayer;
     private bool isInSetting;
 
     public override void _Ready()
     {
-        animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        window = GetWindow();
+        fullRes = new Vector2I(1152,648);
         GetNode<CheckBox>("VBoxContainer/FlowContainer3/CheckBox").ButtonPressed = DataManager.Instance.GetBoolConfig("hide_mouse_playing");
         GetNode<CheckBox>("VBoxContainer/FlowContainer6/CheckBox").ButtonPressed = DataManager.Instance.GetBoolConfig("use_custom_cursor");
         Input.SetCustomMouseCursor(GetNode<CheckBox>("VBoxContainer/FlowContainer6/CheckBox").ButtonPressed ? GD.Load<Texture2D>("res://texture/UICursor/tile_0028.png") : null);
@@ -17,6 +18,10 @@ public partial class SettingPanel : Control
         GetNode<HSlider>("VBoxContainer/mainMenuBgMusicVol/HSlider").Value = GlobalAudioPlayer.Instance.menuBgVolume;
         GetNode<HSlider>("VBoxContainer/GamingBgMusicVol/HSlider").Value = GlobalAudioPlayer.Instance.gamingBgVolume;
         GetNode<CheckBox>("VBoxContainer/GamingRand/CheckBox").ButtonPressed = DataManager.Instance.GetBoolConfig("gaming_rand_play");
+        GetNode<CheckBox>("VBoxContainer/FlowContainer7/CheckBox").ButtonPressed = DataManager.Instance.GetBoolConfig("skip_starting");
+        var resOption = GetNode<OptionButton>("VBoxContainer/FlowContainer8/SpinBox");
+        resOption.Select(DataManager.Instance.GetIntConfig("resolution"));
+        SetResolutionIndex(resOption.Selected);
     }
     
     public override void _EnterTree() => Instance = this;
@@ -90,5 +95,36 @@ public partial class SettingPanel : Control
         DataManager.Instance.SetBoolConfig("glow_disabled", toggled_on);
         GameManager.Instance.glowDisabled = toggled_on;
         GameManager.Instance.RefreshGlow();
+    }
+
+    private void on_skip_starting_check_box_toggled(bool toggled_on)
+    {
+        DataManager.Instance.SetBoolConfig("skip_starting", toggled_on);
+    }
+
+    private Vector2I fullRes;
+    private Window window;
+    private void on_resolution_option_button_selected(int index)
+    {
+        SetResolutionIndex(index);
+        DataManager.Instance.SetIntConfig("resolution", index);
+    }
+
+    private void SetResolutionIndex(int index)
+    {
+        GetTree().Root.ContentScaleSize = index switch
+        {
+            0 => fullRes,
+            1 => fullRes / 2,
+            2 => fullRes / 4,
+            _ => GetTree().Root.ContentScaleSize
+        };
+        GetTree().Root.ContentScaleFactor = index switch
+        {
+            0 => 1,
+            1 => 0.5f,
+            2 => 0.25f,
+            _ => GetTree().Root.ContentScaleFactor
+        };
     }
 }

@@ -1,18 +1,20 @@
 using Godot;
 
-public partial class AdditionSkillManager : CanvasLayer
+public partial class SkillInit : CanvasLayer
 {
 	[Export] private PackedScene separateSkillScene;
 	private Node lib;
 
-	private static readonly Skill[] skills = [
+	private static readonly SingleSkill[] skills = [
 	new() {
 		id = "skill_tnt", name = "TNT", desc = "比核弹强一点", cooldown = 90f,
 		iconPath = "res://texture/MCTexture/minecart_tnt.png" },
 	new() {
 		id = "skill_collect_all_coins", name = "旋风吸入", desc = "捐需~", cooldown = 30f,
-		iconPath = "res://texture/MCTexture/hopper.png" },
-	
+		iconPath = "res://texture/MCTexture/hopper.png" ,boardColor = Colors.Burlywood},
+	new() {
+		id = "skill_invincible", name = "抗性提升", desc = "你就是上帝", cooldown = 60f,
+		iconPath = "res://texture/MCTexture/resistance.png" ,boardColor = Colors.DarkOrange},
 	];
 
 	public override void _Ready()
@@ -20,7 +22,7 @@ public partial class AdditionSkillManager : CanvasLayer
 		lib = GetNode<Node>("VContainer");
 		
 		//初始化所有技能
-		foreach (Skill skill in skills)
+		foreach (SingleSkill skill in skills)
 		{
 			if (DataManager.Instance.GetUpgradeLevel(skill.id) == 1)
 			{
@@ -29,9 +31,9 @@ public partial class AdditionSkillManager : CanvasLayer
 		}
 	}
 
-	private void AddSkillBox(Skill _skill)
+	private void AddSkillBox(SingleSkill _skill)
 	{
-		SeparateSkill box = separateSkillScene.Instantiate<SeparateSkill>();
+		SkillBehaviour box = separateSkillScene.Instantiate<SkillBehaviour>();
 		box.Setup(_skill);
 		lib.AddChild(box);
 	}

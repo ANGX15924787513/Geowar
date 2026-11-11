@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqxdujbyl8jln"]
 
 [ext_resource type="Texture2D" uid="uid://i5qlmgjjumeo" path="res://texture/MCTexture/minecart_tnt.png" id="1_62omx"]
-[ext_resource type="Script" uid="uid://bqsfgqb8x7ity" path="res://scripts/main_game/skill/TNTAim.cs" id="2_h7lic"]
+[ext_resource type="Script" uid="uid://bqsfgqb8x7ity" path="res://scripts/main_game/skill/skills/TNTAim.cs" id="2_h7lic"]
 
 [node name="TextureRect" type="TextureRect" unique_id=1612974653]
 texture_filter = 1

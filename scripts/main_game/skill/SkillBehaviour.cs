@@ -1,9 +1,10 @@
 using System;
 using Godot;
 
-public partial class SeparateSkill : Control
+public partial class SkillBehaviour : Control
 {
 	private string name,desc,id,iconPath;
+	private Color? bgColor;
 	private float coolDown;
 	
 	private Label nameLabel;
@@ -11,6 +12,7 @@ public partial class SeparateSkill : Control
 	private ProgressBar coolDownProgressBar;
 	private Timer coolDownTimer;
 	private TextureRect iconRect;
+	private Polygon2D bgPolygon;
 	public override void _Ready()
 	{
 		Visible = GameManager.Instance.gameState == GameManager.GameState.GAMING;
@@ -20,11 +22,13 @@ public partial class SeparateSkill : Control
 		coolDownProgressBar = GetNode<ProgressBar>("ProgressBar");
 		coolDownTimer = GetNode<Timer>("Timer");
 		iconRect = GetNode<TextureRect>("TextureRect");
+		bgPolygon = GetNode<Polygon2D>("RoundedPolygon2D");
 		
 		nameLabel.Text = name;
 		descLabel.Text = desc;
 		coolDownTimer.WaitTime = coolDown;
 		coolDownProgressBar.Value = coolDown;
+		bgPolygon.Color = new Color(bgColor ?? bgPolygon.Color,bgPolygon.Color.A);
 		iconRect.Texture = GD.Load<CompressedTexture2D>(iconPath);
 		coolDownTimer.Start();
 		coolDownTimer.Timeout += RunSkill;
@@ -36,13 +40,14 @@ public partial class SeparateSkill : Control
 		GameManager.Instance.OnGameStateChange -= GameStateChangeHandler;
 	}
 
-	public void Setup(Skill skill)
+	public void Setup(SingleSkill skill)
 	{
 		name = skill.name;
 		desc = skill.desc;
 		coolDown = skill.cooldown;
 		id = skill.id;
 		iconPath = skill.iconPath;
+		bgColor = skill.boardColor;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,6 +70,9 @@ public partial class SeparateSkill : Control
 				break;
 			case "skill_collect_all_coins":
 				CollectCoins();
+				break;
+			case "skill_invincible":
+				LetInvincible();
 				break;
 		}
 	}
@@ -125,5 +133,19 @@ public partial class SeparateSkill : Control
 			if (node is not Node2D coin) return;
 			tw.TweenProperty(coin,"global_position",Player.Instance.GlobalPosition + TayTool.GetRandVec2I(300),0.3f);
 		}
+	}
+
+	private void LetInvincible(int seconds = 10)
+	{
+		Player.Instance.isInvincible = true;
+		var c = Player.Instance.Modulate;
+		var twin = GetTree().CreateTween();
+		twin.TweenProperty(Player.Instance,"modulate",Modulate.Blend(new Color(Colors.Gold,0.8f)),0.4f);
+		GetTree().CreateTimer(seconds).Timeout += () =>
+		{
+			Player.Instance.isInvincible = false;
+			var tout = GetTree().CreateTween();
+			tout.TweenProperty(Player.Instance,"modulate",c,0.4f);
+		};
 	}
 }

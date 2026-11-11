@@ -114,7 +114,7 @@ public partial class PointPlayer : Player
 	{
 		GiveVelocityAll();
 
-		if (CanMove() && !isInvincible)
+		if (CanMove())
 			ApplyMovement(GameManager.Instance.playerSpeed, GameManager.Instance.playerRotateSpeed);
 		else
 			Decelerate(delta);

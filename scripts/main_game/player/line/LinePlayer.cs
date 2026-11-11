@@ -98,7 +98,7 @@ public partial class LinePlayer : Player
 			isPreLaunching = false;
 		}
 		AngularVelocity = -Rotation;
-		if (CanMove() && !isInvincible)
+		if (CanMove())
 		{
 			ApplyMovement(GameManager.Instance.playerSpeed);
 		}

@@ -6,6 +6,7 @@ public partial class Entrance : Control
 
 	public override void _Ready()
 	{
+		if (DataManager.Instance.GetBoolConfig("skip_starting")) GetTree().CallDeferred("change_scene_to_packed",main_menu);
 		GameManager.Instance.gameState = GameManager.GameState.STARTING;
 		GetNode<WorldEnvironment>("WorldEnvironment").Environment.GlowEnabled = !GameManager.Instance.glowDisabled;
 	}

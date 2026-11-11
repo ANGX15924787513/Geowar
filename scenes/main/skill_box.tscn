@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ci61ihj051dxg"]
 
-[ext_resource type="Script" uid="uid://r5xfdc3vbmeb" path="res://scripts/main_game/skill/SeparateSkill.cs" id="1_src2b"]
+[ext_resource type="Script" uid="uid://r5xfdc3vbmeb" path="res://scripts/main_game/skill/SkillBehaviour.cs" id="1_src2b"]
 [ext_resource type="Texture2D" uid="uid://i5qlmgjjumeo" path="res://texture/MCTexture/minecart_tnt.png" id="2_451el"]
 [ext_resource type="FontFile" uid="uid://sfrfvp70mwee" path="res://fonts/BoutiqueBitmap7x7_1.7.ttf" id="2_qenpw"]
 [ext_resource type="PackedScene" uid="uid://dqxdujbyl8jln" path="res://scenes/main/skill_scenes/tnt.tscn" id="2_v2vbq"]
@@ -33,7 +33,6 @@ offset_bottom = 72.0
 script = ExtResource("1_src2b")
 tntScene = ExtResource("2_v2vbq")
 tntStartSound = ExtResource("3_v2vbq")
-coinPath = "%fallItemRoot"
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1202539620]
 self_modulate = Color(1, 1, 1, 0.5019608)

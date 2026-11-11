@@ -103,11 +103,9 @@ public partial class Cursor : Sprite2D
 				if (!IsInstanceValid(body)) continue;
 
 				float dist = body.GlobalPosition.DistanceTo(mousePos);
-				if (dist < minDist)
-				{
-					minDist = dist;
-					closest = body;
-				}
+				if (!(dist < minDist)) continue;
+				minDist = dist;
+				closest = body;
 			}
 		}
 

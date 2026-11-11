@@ -67,16 +67,15 @@ _data = {
 &"exit_setting": SubResource("Animation_hjk27")
 }
 
-[node name="setting" type="Control" unique_id=25666315]
+[node name="setting" type="Control" unique_id=25666315 node_paths=PackedStringArray("animationPlayer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1153.0
-offset_right = -1153.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hjk27")
+animationPlayer = NodePath("AnimationPlayer")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=83748761]
 visible = false
@@ -231,6 +230,20 @@ theme_override_font_sizes/font_size = 15
 text = "背景模糊度"
 horizontal_alignment = 1
 
+[node name="FlowContainer7" type="HBoxContainer" parent="VBoxContainer" unique_id=36041812]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer7" unique_id=1289570877]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "跳过启动画面:"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/FlowContainer7" unique_id=737164892]
+layout_mode = 2
+theme = ExtResource("3_8iqn7")
+text = "启用"
+
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=372563613]
 layout_mode = 2
 theme_override_constants/separation = 28
@@ -339,6 +352,29 @@ rounded = true
 suffix = "fps"
 script = ExtResource("2_31ui4")
 
+[node name="FlowContainer8" type="HBoxContainer" parent="VBoxContainer" unique_id=644211809]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer/FlowContainer8" unique_id=351067570]
+layout_mode = 2
+theme = SubResource("Theme_rawaq")
+text = "分辨率:"
+
+[node name="SpinBox" type="OptionButton" parent="VBoxContainer/FlowContainer8" unique_id=705006413]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme = ExtResource("3_8iqn7")
+selected = 0
+item_count = 3
+popup/item_0/text = "全分辨率"
+popup/item_0/id = 0
+popup/item_1/text = "1/2分辨率"
+popup/item_1/id = 1
+popup/item_2/text = "1/4分辨率"
+popup/item_2/id = 2
+
 [node name="FlowContainer5" type="HBoxContainer" parent="VBoxContainer" unique_id=142892061]
 layout_mode = 2
 theme_override_constants/separation = 17
@@ -407,6 +443,7 @@ libraries/ = SubResource("AnimationLibrary_1s23a")
 [connection signal="pressed" from="VBoxContainer/CustomalizeBgImage/Button2" to="VBoxContainer/CustomalizeBgImage" method="OnResetButtonPressed"]
 [connection signal="drag_ended" from="VBoxContainer/CustomalizeBgImage/HSlider" to="VBoxContainer/CustomalizeBgImage" method="OnAlphaSliderDragEnded"]
 [connection signal="drag_ended" from="VBoxContainer/CustomalizeBgImage/HSlider2" to="VBoxContainer/CustomalizeBgImage" method="OnBlurSliderDragEnded"]
+[connection signal="toggled" from="VBoxContainer/FlowContainer7/CheckBox" to="." method="on_skip_starting_check_box_toggled"]
 [connection signal="toggled" from="VBoxContainer/GamingRand/CheckBox" to="." method="_on_gaming_rand_check_box_toggled"]
 [connection signal="drag_ended" from="VBoxContainer/FlowContainer4/HSlider" to="." method="_on_player_attack_volume_drag_ended"]
 [connection signal="drag_ended" from="VBoxContainer/mainMenuBgMusicVol/HSlider" to="." method="_on_mainmenu_bg_vol_slider_drag_ended"]
@@ -414,6 +451,7 @@ libraries/ = SubResource("AnimationLibrary_1s23a")
 [connection signal="drag_ended" from="VBoxContainer/GamingBgMusicVol/HSlider" to="." method="_on_gaming_bg_vol_slider_drag_ended"]
 [connection signal="value_changed" from="VBoxContainer/GamingBgMusicVol/HSlider" to="." method="_on_gaming_bg_vol_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/FlowContainer/SpinBox" to="VBoxContainer/FlowContainer/SpinBox" method="_on_value_changed"]
+[connection signal="item_selected" from="VBoxContainer/FlowContainer8/SpinBox" to="." method="on_resolution_option_button_selected"]
 [connection signal="toggled" from="VBoxContainer/FlowContainer5/CheckBox" to="." method="_on_glow_check_box_toggled"]
 [connection signal="toggled" from="VBoxContainer/FlowContainer3/CheckBox" to="." method="_on_hide_mouse_checkbox_toggled"]
 [connection signal="pressed" from="Button2" to="Button2" method="_on_pressed"]

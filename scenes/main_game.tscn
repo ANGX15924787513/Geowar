@@ -34,7 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://g1r6hft3iwp4" path="res://scenes/main/difficulty_display.tscn" id="30_rr87q"]
 [ext_resource type="PackedScene" uid="uid://ci61ihj051dxg" path="res://scenes/main/skill_box.tscn" id="31_dp0eu"]
 [ext_resource type="Texture2D" uid="uid://dj2fov018t4q6" path="res://texture/UICursor/tile_0057.png" id="31_jmxl0"]
-[ext_resource type="Script" uid="uid://p8gkw5mhl2ws" path="res://scripts/main_game/skill/AdditionSkillManager.cs" id="31_urnot"]
+[ext_resource type="Script" uid="uid://p8gkw5mhl2ws" path="res://scripts/main_game/skill/SkillInit.cs" id="31_urnot"]
 [ext_resource type="Script" uid="uid://0ug424ai2coc" path="res://scripts/main_game/GlobalCamera.cs" id="33_4e2rb"]
 
 [sub_resource type="Animation" id="Animation_s3esy"]
@@ -505,7 +505,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -162.0
+offset_top = -198.0
+offset_bottom = -36.000305
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -521,10 +522,10 @@ theme_override_constants/separation = 8
 alignment = 2
 
 [node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayers/MobileJoystick/Control/VBoxContainer" unique_id=1418135573]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-joystick_mode = 2
-joystick_size = 200.0
+joystick_size = 133.0
+tip_size = 63.0
 action_left = &"player_left"
 action_right = &"player_right"
 action_up = &"player_up"

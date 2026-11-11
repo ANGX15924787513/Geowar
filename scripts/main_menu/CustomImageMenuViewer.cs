@@ -16,7 +16,7 @@ public partial class CustomImageMenuViewer : ColorRect
     public void LoadImage()
     {
         string path = DataManager.Instance.GetStringConfig(CustomalizeBgImage.pathDataId);
-        if (string.IsNullOrEmpty(path)) { ClearImage(); return; }
+        if (string.IsNullOrEmpty(path)) { ClearImage();Color = Colors.Black; return; }
         Image loader = new Image();
         var loadRst = loader.Load(path);
         TayTool.Log("图像",$"加载图像: {loadRst}");
@@ -35,8 +35,11 @@ public partial class CustomImageMenuViewer : ColorRect
         customImageTextureRect.Material = mat;
         ClearImage();
         AddChild(customImageTextureRect);
-        
-        void ClearImage() { foreach (var node in GetChildren()) node.QueueFree(); }
+
+        void ClearImage()
+        {
+            foreach (var node in GetChildren()) node.QueueFree();
+        }
     }
 
     /// <summary> 拖动时实时更新背景透明度, 不写存档 </summary>
