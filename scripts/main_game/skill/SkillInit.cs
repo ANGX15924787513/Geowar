@@ -15,6 +15,9 @@ public partial class SkillInit : CanvasLayer
 	new() {
 		id = "skill_invincible", name = "抗性提升", desc = "你就是上帝", cooldown = 60f,
 		iconPath = "res://texture/MCTexture/resistance.png" ,boardColor = Colors.DarkOrange},
+	new() {
+		id = "skill_super_bullet", name = "超级弹夹", desc = "你的弹夹没我大", cooldown = 45f,
+		iconPath = "res://texture/MCTexture/arrow.png" ,boardColor = Colors.LightSlateGray},
 	];
 
 	public override void _Ready()

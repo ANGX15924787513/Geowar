@@ -1,11 +1,12 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class LinePlayer : Player
 {
 	[Export] private AudioStream chargeSound;
 	[Export] private int lineCount;
-	[Export] private int maxLineCount = 30;
+	[Export] public int maxLineCount = 30;
 	[Export] private PackedScene singleLineScene;
 	[Export] public AudioStream attackSound;
 	[Export] private float circleRadius = 120f;
@@ -14,6 +15,9 @@ public partial class LinePlayer : Player
 	private int _launchedBullet;
 	private Node2D bulletRoot;
 	private float _fireTimer;
+
+	private int _baseLineCount;
+	private int _superMagazineBonus;
 	
 	private const float lineWidth = 20f;
 	private const float gap = 8f;
@@ -21,6 +25,8 @@ public partial class LinePlayer : Player
 	private bool isPreLaunching;
 
 	private int throughUgLevel;
+
+	public int fireDamage;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -29,7 +35,9 @@ public partial class LinePlayer : Player
 		SummonLines();
 		ApplyShopUpgrades();
 		lineCount = Math.Min(lineCount, maxLineCount);
+		_baseLineCount = lineCount;
 		throughUgLevel = DataManager.Instance.GetUpgradeLevel("through");
+		fireDamage = 2 * DataManager.Instance.GetUpgradeLevel("line_fire");
 		
 		SignalManager.Instance.OnPlayerDied += OnLineDied;
 		SignalManager.Instance.OnPlayerHealthChanged += OnHealthChanged;
@@ -66,9 +74,10 @@ public partial class LinePlayer : Player
 			}
 		}
 
-		if (lineCount > maxLineCount)
+		int lineCap = maxLineCount + _superMagazineBonus;
+		if (lineCount > lineCap)
 		{
-			lineCount = maxLineCount;
+			lineCount = lineCap;
 		}
 		if (_currentLineCount > lineCount)
 		{
@@ -111,7 +120,8 @@ public partial class LinePlayer : Player
 		_currentLineCount = lineCount;
 		for (int i = 0; i < _currentLineCount - 2; i++)
 		{
-			var p = (Node2D)singleLineScene.Instantiate();
+			var p = singleLineScene.Instantiate<Line>();
+			p.parent = this;
 			p.Position = GetPositionInCircle(i);
 			AddChild(p);
 		}
@@ -201,10 +211,54 @@ public partial class LinePlayer : Player
 		);
 	}
 
+	// ==================== 超级弹夹 ====================
+
+	protected override void OnSuperMagazineStart()
+	{
+		int mult = Mathf.Max(1, superMagazineMultiplier);
+		_superMagazineBonus = _baseLineCount * (mult - 1);
+		lineCount = _baseLineCount + _superMagazineBonus;
+		FillLinesToCapacity();
+	}
+
+	protected override void OnSuperMagazineEnd()
+	{
+		_superMagazineBonus = 0;
+		lineCount = _baseLineCount;
+		TrimSurplusLines();
+	}
+
+	/// <summary> 超级弹夹结束后清掉多出来的子弹，保证数量和容量一致（侧边两条线保留） </summary>
+	private void TrimSurplusLines()
+	{
+		int targetLibCount = Mathf.Max(0, lineCount - 2);
+		var libLines = new List<Line>();
+		foreach (Node child in GetChildren())
+		{
+			if (child is Line line && !line.IsInGroup("lineSide"))
+				libLines.Add(line);
+		}
+		for (int i = libLines.Count - 1; i >= targetLibCount; i--)
+		{
+			RemoveChild(libLines[i]);
+			libLines[i].QueueFree();
+		}
+		_currentLineCount = Mathf.Min(_currentLineCount, lineCount);
+	}
+
+	/// <summary> 立刻把弹夹补满到当前容量 </summary>
+	private void FillLinesToCapacity()
+	{
+		while (_currentLineCount < lineCount)
+			SpawnLine();
+	}
+
 	private void SpawnLine()
 	{
+			if (_currentLineCount >= lineCount) return;
 			_currentLineCount++;
-			var p = (Node2D)singleLineScene.Instantiate();
+			var p = singleLineScene.Instantiate<Line>();
+			p.parent = this;
 			p.Position = GetPositionInCircle(_currentLineCount);
 			CallDeferred(Node.MethodName.AddChild, p);
 	}

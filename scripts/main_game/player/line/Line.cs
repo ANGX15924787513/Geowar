@@ -10,6 +10,7 @@ public partial class Line : Node2D
     // [Export] private PackedScene fireScene;
 
     public static int AttackBonus;
+    public LinePlayer parent;
 
     private bool rotating;
     private bool bulletInitialized;
@@ -19,7 +20,7 @@ public partial class Line : Node2D
     
     private bool canFiring;
     private CollisionShape2D originCollision;
-    private int fireDamage;
+    
     SceneTreeTimer desTimer;
 
     private int _leftThrough;
@@ -34,9 +35,6 @@ public partial class Line : Node2D
     {
         originCollision = GetNode<CollisionShape2D>("Area2D/CollisionShape2D");
         throughLevel += DataManager.Instance.GetUpgradeLevel("through") * 3;
-        
-        fireDamage = 2 * DataManager.Instance.GetUpgradeLevel("line_fire");
-        canFireEnemy = fireDamage == 0;
     }
 
     public override void _Process(double delta)
@@ -77,7 +75,7 @@ public partial class Line : Node2D
         }
     }
 
-    private bool canFireEnemy;
+    private bool canFireEnemy => parent.fireDamage > 0;
 
     private void OnBodyEntered(Node2D body)
     {
@@ -92,7 +90,7 @@ public partial class Line : Node2D
         {
             if (lineState == LineState.BULLET)
             {
-                if(canFireEnemy) ((Enemy)body).LetFired(fireDamage);
+                if(canFireEnemy) ((Enemy)body).LetFired(parent.fireDamage);
                 ((Enemy)body).Hurt(bulletAttackHP + AttackBonus,this);
                 _leftThrough--;
                 if (_leftThrough <= 0)

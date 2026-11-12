@@ -74,6 +74,9 @@ public partial class SkillBehaviour : Control
 			case "skill_invincible":
 				LetInvincible();
 				break;
+			case "skill_super_bullet":
+				SuperBullet();
+				break;
 		}
 	}
 	
@@ -131,7 +134,10 @@ public partial class SkillBehaviour : Control
 		foreach (var node in children)
 		{
 			if (node is not Node2D coin) return;
-			tw.TweenProperty(coin,"global_position",Player.Instance.GlobalPosition + TayTool.GetRandVec2I(300),0.3f);
+
+			tw.TweenProperty(coin, "global_position", TayTool.MakeInArea(
+				Player.Instance.GlobalPosition + TayTool.GetRandVec2I(300),GameManager.Instance.gameAreaX,GameManager.Instance.gameAreaY),
+				0.3f);
 		}
 	}
 
@@ -147,5 +153,15 @@ public partial class SkillBehaviour : Control
 			var tout = GetTree().CreateTween();
 			tout.TweenProperty(Player.Instance,"modulate",c,0.4f);
 		};
+	}
+	
+	private void SuperBullet()
+	{
+		if (Player.Instance == null)
+		{
+			GD.PrintErr("Player instance is null");
+			return;
+		}
+		Player.Instance.ActivateSuperMagazine();
 	}
 }

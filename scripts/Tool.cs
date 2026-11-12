@@ -79,4 +79,9 @@ public static class TayTool
         var a = range / 2;
         return new Vector2I(GD.RandRange(-a, a), GD.RandRange(-a, a));
     }
+
+    public static Vector2 MakeInArea(Vector2 pos, Vector2 xRange, Vector2 yRange)
+    {
+        return new Vector2(Mathf.Clamp(pos.X, xRange.X, xRange.Y), Mathf.Clamp(pos.Y, yRange.X, yRange.Y));
+    }
 }

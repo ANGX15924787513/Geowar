@@ -10,6 +10,13 @@ public partial class Player : RigidBody2D
 	public static Player Instance;
 	public bool isInvincible = false;
 
+	[ExportGroup("超级弹夹")]
+	[Export] public float superMagazineDuration = 10f;
+	[Export] public int superMagazineMultiplier = 3;
+	private float _superMagazineTimeLeft;
+	public bool IsSuperMagazineActive => _superMagazineTimeLeft > 0f;
+	public float SuperMagazineTimeLeft => _superMagazineTimeLeft;
+
 	private PlayerCamera playerCamera;
 	
 	public enum PlayerTypeEnum{POINT,LINE,POLYGON,NONE}
@@ -51,9 +58,41 @@ public partial class Player : RigidBody2D
 		Instance = null;
 	}
 
+	// ==================== 超级弹夹 ====================
+
+	/// <summary> 激活“超级弹夹”：临时按 superMagazineMultiplier 倍扩充弹夹，持续 superMagazineDuration 秒 </summary>
+	public void ActivateSuperMagazine()
+	{
+		if (GameManager.Instance.gameState != GameManager.GameState.GAMING) return;
+		if (IsSuperMagazineActive)
+		{
+			// 生效中重复触发只刷新持续时间，容量不叠加
+			_superMagazineTimeLeft = superMagazineDuration;
+			return;
+		}
+		_superMagazineTimeLeft = superMagazineDuration;
+		OnSuperMagazineStart();
+	}
+
+	private void UpdateSuperMagazine(float delta)
+	{
+		if (_superMagazineTimeLeft <= 0f) return;
+		_superMagazineTimeLeft -= delta;
+		if (_superMagazineTimeLeft > 0f) return;
+		_superMagazineTimeLeft = 0f;
+		OnSuperMagazineEnd();
+	}
+
+	/// <summary> 由具体玩家类型扩充弹夹容量 </summary>
+	protected virtual void OnSuperMagazineStart() { }
+
+	/// <summary> 由具体玩家类型恢复弹夹容量 </summary>
+	protected virtual void OnSuperMagazineEnd() { }
+
 	public override void _Process(double delta)
 	{
 		if (GameManager.Instance.gameState != GameManager.GameState.GAMING) return;
+		UpdateSuperMagazine((float)delta);
 		if (_fireRotationTimer > 0f)
 			_fireRotationTimer -= (float)delta;
 		if (hurtCooldown > 0f)

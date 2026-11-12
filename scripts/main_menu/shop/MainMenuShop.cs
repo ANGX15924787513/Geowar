@@ -54,6 +54,7 @@ public partial class MainMenuShop : Control
 			new() { Id = "lifesteal",   Name = "噬血骨刺", Desc = "击杀敌人回复 1生命值",           Price = 5, MaxLevel = 2 },
 			new() { Id = "camera_scale",   Name = "上帝视角", Desc = "扩大视野 10%",           Price = 2, MaxLevel = 6 },
 			new() { Id = "skill_invincible",   Name = "超渡众生", Desc = "每60秒获得10秒无敌时间",Price = 1,MaxLevel = 1,isSpecial = true},
+			new() { Id = "skill_super_bullet",   Name = "超级弹夹", Desc = "射不完的子弹",Price = 2,MaxLevel = 1,isSpecial = true},
 		};
 	}
 

@@ -15,9 +15,13 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="Geowar"
+config/name_localized={
+"zh": "几何战争"
+}
 config/description="Feel the beauty of geometry."
-config/version="0.0.3"
+config/version="0.0.4"
 run/main_scene="uid://cddlp6x2v6uyt"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 run/max_fps=60
 boot_splash/show_image=false
@@ -127,6 +131,7 @@ pre_launch_bullet={
 [internationalization]
 
 locale/include_text_server_data=true
+locale/locale_filter_mode=0
 
 [layer_names]
 

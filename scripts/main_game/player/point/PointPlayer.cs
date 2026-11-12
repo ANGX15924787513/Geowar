@@ -4,7 +4,7 @@ using Godot.Collections;
 
 public partial class PointPlayer : Player
 {
-	[Export] private int pointCount;
+	[Export] public int pointCount;
 	[Export] private int maxPointCount = 15;
 	[Export] private float circleRadius;
 	[Export] private PackedScene singlePointScene;
@@ -18,12 +18,17 @@ public partial class PointPlayer : Player
 	private int _launchedBullet;
 	private Node2D bulletRoot;
 
+	private int _basePointCount;
+	private int _superMagazineBonus;
+
 	public override void _Ready()
 	{
 		bulletRoot = GetTree().CurrentScene.GetNode<Node2D>("bulletRoot");
 		base._Ready();
 		currentPlayerType = PlayerTypeEnum.POINT;
 		ApplyShopUpgrades();
+		pointCount = Mathf.Min(pointCount, maxPointCount);
+		_basePointCount = pointCount;
 		SummonPoints();
 		
 		SignalManager.Instance.OnPlayerDied += OnPointDie;
@@ -100,9 +105,10 @@ public partial class PointPlayer : Player
 			}
 		}
 
-		if (pointCount > maxPointCount)
+		int capacityCap = maxPointCount + _superMagazineBonus;
+		if (pointCount > capacityCap)
 		{
-			pointCount = maxPointCount;
+			pointCount = capacityCap;
 		}
 		if (_currentPointCount > pointCount)
 		{
@@ -206,6 +212,44 @@ public partial class PointPlayer : Player
 		return GlobalPosition + dir.Rotated(-alpha) * circleRadius;
 	}
 
+	// ==================== 超级弹夹 ====================
+
+	protected override void OnSuperMagazineStart()
+	{
+		int mult = Mathf.Max(1, superMagazineMultiplier);
+		_superMagazineBonus = _basePointCount * (mult - 1);
+		pointCount = _basePointCount + _superMagazineBonus;
+		FillPointsToCapacity();
+	}
+
+	protected override void OnSuperMagazineEnd()
+	{
+		_superMagazineBonus = 0;
+		pointCount = _basePointCount;
+		TrimSurplusPoints();
+	}
+
+	/// <summary> 超级弹夹结束后清掉多出来的子弹，保证数量和容量一致 </summary>
+	private void TrimSurplusPoints()
+	{
+		var points = GetPoints();
+		int surplus = points.Count - pointCount;
+		for (int i = 0; i < surplus; i++)
+		{
+			var point = points[points.Count - 1 - i];
+			RemoveChild(point);
+			point.QueueFree();
+		}
+		_currentPointCount = Mathf.Min(_currentPointCount, pointCount);
+	}
+
+	/// <summary> 立刻把弹夹补满到当前容量 </summary>
+	private void FillPointsToCapacity()
+	{
+		while (_currentPointCount < pointCount)
+			SpawnPoint();
+	}
+
 	private void SummonPoints()
 	{
 		_currentPointCount = pointCount;
@@ -219,6 +263,7 @@ public partial class PointPlayer : Player
 
 	private void SpawnPoint()
 	{
+		if (_currentPointCount >= pointCount) return;
 		_currentPointCount++;
 		var p = (RigidBody2D)singlePointScene.Instantiate();
 		p.Position = GetPositionInCircle(_currentPointCount);

@@ -30,7 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://ch20jy12oetfx" path="res://texture/MCTexture/main_menu/item/armadillo_spawn_egg.png" id="22_e0cfb"]
 [ext_resource type="Texture2D" uid="uid://cjss5eumespd0" path="res://texture/MCTexture/main_menu/item/armor_stand.png" id="23_wmb35"]
 [ext_resource type="Texture2D" uid="uid://b6kigajctsgvx" path="res://texture/MCTexture/main_menu/item/arms_up_pottery_sherd.png" id="24_moj7m"]
-[ext_resource type="Texture2D" uid="uid://bf1l37b405r3j" path="res://texture/MCTexture/main_menu/item/arrow.png" id="25_sipg8"]
+[ext_resource type="Texture2D" uid="uid://bf1l37b405r3j" path="res://texture/MCTexture/arrow.png" id="25_sipg8"]
 [ext_resource type="Texture2D" uid="uid://bthtatisam2yb" path="res://texture/MCTexture/main_menu/item/axolotl_bucket.png" id="26_iwr1w"]
 [ext_resource type="Texture2D" uid="uid://bfeby4e58m4m0" path="res://texture/MCTexture/main_menu/item/axolotl_spawn_egg.png" id="27_f16ke"]
 [ext_resource type="Texture2D" uid="uid://d0wd72y73werg" path="res://texture/MCTexture/main_menu/item/baked_potato.png" id="28_h2ku3"]
